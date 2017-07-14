@@ -1,0 +1,12 @@
+name readhanja
+category Package
+revision 200
+shortdesc Typesetting Hanja-to-Hangul sound values
+relocated 1
+longdesc A LuaLaTeX package for semi-automatized typesetting of Hanja-
+longdesc to-Hangul sound values
+runfiles size=126
+ RELOC/tex/lualatex/readhanja/hanja2hangul.lua
+ RELOC/tex/lualatex/readhanja/hanja2varseq.lua
+ RELOC/tex/lualatex/readhanja/readhanja.lua
+ RELOC/tex/lualatex/readhanja/readhanja.sty

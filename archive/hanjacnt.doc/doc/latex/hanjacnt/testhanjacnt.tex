@@ -1,0 +1,33 @@
+\documentclass[ebook]{oblivoir}
+
+\setmainhanjafont{한양해서}
+
+\usepackage{hanjacnt}
+\usepackage{multido}
+
+\begin{document}
+
+%%% page numbering
+\pagenumbering{HANJA}
+
+I'm
+\newpage
+
+your
+\newpage
+
+man
+\newpage
+
+%%% counter
+\newcounter{test}\setcounter{test}{0}
+
+\parindent=0pt
+
+\multido{}{150}{%
+  \stepcounter{test}%
+  \fbox{\HANJA{test}}
+}
+
+
+\end{document}

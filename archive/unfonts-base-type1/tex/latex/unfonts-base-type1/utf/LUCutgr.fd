@@ -1,0 +1,21 @@
+\DeclareFontFamily{LUC}{utgr}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utgr}{b}{n}{<-> LUC * outgrb}{}
+\DeclareFontShape{LUC}{utgr}{b}{sl}{<-> LUC * outgrbo}{}
+\DeclareFontShape{LUC}{utgr}{b}{it}{<-> LUC * outgrbo}{}
+
+\DeclareFontShape{LUC}{utgr}{bx}{n}{<-> LUCssub * utgr/b/n}{}
+\DeclareFontShape{LUC}{utgr}{bx}{sl}{<-> LUCssub * utgr/b/sl}{}
+\DeclareFontShape{LUC}{utgr}{bx}{it}{<-> LUCssub * utgr/b/it}{}
+
+\DeclareFontShape{LUC}{utgr}{bc}{n}{<-> LUC * outgrbc}{}
+\DeclareFontShape{LUC}{utgr}{bc}{sl}{<-> LUC * outgrbco}{}
+\DeclareFontShape{LUC}{utgr}{bc}{it}{<-> LUC * outgrbco}{}
+
+\DeclareFontShape{LUC}{utgr}{m}{n}{<-> LUC * outgrm}{}
+\DeclareFontShape{LUC}{utgr}{m}{sl}{<-> LUC * outgrmo}{}
+\DeclareFontShape{LUC}{utgr}{m}{it}{<-> LUC * outgrmo}{}
+
+\DeclareFontShape{LUC}{utgr}{c}{n}{<-> LUC * outgrc}{}
+\DeclareFontShape{LUC}{utgr}{c}{sl}{<-> LUC * outgrco}{}
+\DeclareFontShape{LUC}{utgr}{c}{it}{<-> LUC * outgrco}{}

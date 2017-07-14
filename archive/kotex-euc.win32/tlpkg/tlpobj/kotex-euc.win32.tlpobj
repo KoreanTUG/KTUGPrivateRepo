@@ -1,0 +1,8 @@
+name kotex-euc.win32
+category Package
+revision 200
+shortdesc win32 files of kotex-euc
+binfiles arch=win32 size=26
+ bin/win32/euc-bookmark.exe
+ bin/win32/hbibtex.exe
+ bin/win32/hmakeindex.exe

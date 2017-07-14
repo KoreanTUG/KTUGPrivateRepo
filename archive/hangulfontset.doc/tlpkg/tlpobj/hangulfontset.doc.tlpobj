@@ -1,0 +1,8 @@
+name hangulfontset.doc
+category Package
+revision 200
+shortdesc doc files of hangulfontset
+relocated 1
+docfiles size=44
+ RELOC/doc/latex/hangulfontset/hangulfontset-doc.pdf
+ RELOC/doc/latex/hangulfontset/hangulfontset-doc.tex

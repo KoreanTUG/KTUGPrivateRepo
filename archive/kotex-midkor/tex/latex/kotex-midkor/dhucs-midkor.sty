@@ -1,0 +1,398 @@
+%%% This is file `dhucs-midkor.sty` ( part of ko.TeX/dhucs )
+%%
+%% Copyright (C) 2007 Dohyun Kim <nomosnomos at gmail.com>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2006/05/20 or later.
+%%
+%%
+\ProvidesPackage{dhucs-midkor}
+  [2007/07/18 typesetting pre-1933 orthography Korean]
+
+\newcommand*\mymidkorfont{ogul}
+\newcommand*\mytonemarkfont{utbt}
+\newcommand*\tonemarkwidth{.11em }
+\newcommand*\tonemarkleftskip{.06em }
+
+% LC : leading consonant
+% VL : vowel
+% TC : trailing consonant
+\newcount\jamo@LC@one
+\newcount\jamo@LC@two
+\newcount\jamo@LC@three
+\newcount\jamo@VL@one
+\newcount\jamo@VL@two
+\newcount\jamo@VL@three
+\newcount\jamo@TC@one
+\newcount\jamo@TC@two
+\newcount\jamo@TC@three
+\def\jamo@reset@counters{%
+  \global\jamo@LC@one  \z@
+  \global\jamo@LC@two  \z@
+  \global\jamo@LC@three\z@
+  \global\jamo@VL@one  \z@
+  \global\jamo@VL@two  \z@
+  \global\jamo@VL@three\z@
+  \global\jamo@TC@one  \z@
+  \global\jamo@TC@two  \z@
+  \global\jamo@TC@three\z@
+}\jamo@reset@counters
+
+\begingroup
+  \def\jamoreadtable{\read\@ne to \temp
+    \expandafter\jamoreadtable@\temp
+    \ifnum\count@>\z@ \let\next\jamoreadtable
+    \else \let\next\relax \fi\next}
+  \def\jamoreadtable@#1 #2 #3 #4 {\count@=#1
+    \ifnum #1>\z@ \ifnum #4=\z@
+      \expandafter\gdef\csname DeJamoII:#1:\endcsname{{#2}{#3}}
+    \else
+      \expandafter\gdef\csname DeJamoIII:#1:\endcsname{{#2}{#3}{#4}}
+    \fi\fi}
+  \openin\@ne=jmodcomp.tab\relax \jamoreadtable \closein\@ne
+  \def\jamoreadtable@#1 #2 #3 #4 {\count@=#1
+    \ifnum #1>\z@ \ifnum #1<"1160
+      \expandafter\gdef\csname JamoLC:#1:#2:#3:\endcsname{#4}
+    \else\ifnum #1<"11A8
+      \expandafter\gdef\csname JamoVL:#1:#2:#3:\endcsname{#4}
+    \else
+      \expandafter\gdef\csname JamoTC:#1:#2:#3:\endcsname{#4}
+    \fi\fi\fi}
+  \openin\@ne=jmotopua.tab\relax \jamoreadtable \closein\@ne
+  \def\jamoreadtable@#1 #2 #3 #4 {\count@=#1
+    \ifnum #1>4519 % jongsong
+      \expandafter\gdef\csname 
+        JasoJamo:4447:0:0:4448:0:0:#1:#2:#3:\endcsname{#4}
+    \else\ifnum #1>4448 % jungsong
+      \expandafter\gdef\csname 
+        JasoJamo:4447:0:0:#1:#2:#3:0:0:0:\endcsname{#4}
+    \else\ifnum #1>4351 % chosong
+      \expandafter\gdef\csname 
+        JasoJamo:#1:#2:#3:4448:0:0:0:0:0:\endcsname{#4}
+    \fi\fi\fi}
+  \openin\@ne=jsotojmo.tab\relax \jamoreadtable \closein\@ne
+\endgroup
+
+\def\jamo@jamo@to@pua{%
+  \ifcsname JamoLC%
+      :\the\jamo@LC@one:\the\jamo@LC@two:\the\jamo@LC@three:\endcsname
+    \global\expandafter\jamo@LC@one\csname JamoLC%
+      :\the\jamo@LC@one:\the\jamo@LC@two:\the\jamo@LC@three:\endcsname
+  \else
+    \jamotopua@error{LC}%
+  \fi
+  \ifcsname JamoVL%
+      :\the\jamo@VL@one:\the\jamo@VL@two:\the\jamo@VL@three:\endcsname
+    \global\expandafter\jamo@VL@one\csname JamoVL%
+      :\the\jamo@VL@one:\the\jamo@VL@two:\the\jamo@VL@three:\endcsname
+  \else
+    \jamotopua@error{VL}%
+  \fi
+  \ifnum\jamo@TC@one>\z@
+    \ifcsname JamoTC%
+        :\the\jamo@TC@one:\the\jamo@TC@two:\the\jamo@TC@three:\endcsname
+      \global\expandafter\jamo@TC@one\csname JamoTC%
+        :\the\jamo@TC@one:\the\jamo@TC@two:\the\jamo@TC@three:\endcsname
+    \else
+      \jamotopua@error{TC}%
+    \fi
+  \fi
+  \jamo@puajamo@to@midkor
+}
+
+\def\jamotopua@error#1{%
+  \PackageError{dhucs}{Please report this bug...\MessageBreak
+    \the\csname jamo@#1@one\endcsname\space
+    \the\csname jamo@#1@two\endcsname\space
+    \the\csname jamo@#1@three\endcsname\space
+    is not definded in jmotopua.tab}{}%
+}
+
+\def\jamo@table@NTV{\ifcase\count@
+  3\or 0\or 3\or 3\or 3\or 2\or 0\or 3\or 3\or 3\or
+  2\or 1\or 3\or 3\or 3\or 2\or 1\or 2\or 3\or 3\or
+  2\or 3\or 0\or 2\or 0\or 2\or 1\or 2\or 1\or 2\or
+  3\or 3\or 3\or 1\or 3\or 0\or 2\or 0\or 2\or 1\or
+  1\or 3\or 1\or 3\or 0\or 2\or 1\or 3\or 2\or 1\or
+  2\or 3\or 1\or 2\or 3\or 0\or 2\or 1\or 2\or 1\or
+  2\or 3\or 3\or 1\or 3\or 0\or 1\or 2\or 3\or 3\or
+  3\or 1\or 3\or 1\or 2\or 2\or 3\or 2\or 2\or 2\or
+  3\or 3\or 3\or 3\or 3\or 3\or 2\or 1\or 3\or 0\or
+  1\or 2\or 3\or 1\or 3\else\jamo@table@NTV@error\fi
+}
+
+\def\jamo@table@NLV{\ifcase\count@
+  2\or 0\or 3\or 3\or 3\or 0\or 0\or 3\or 3\or 3\or
+  0\or 0\or 3\or 3\or 3\or 0\or 0\or 0\or 3\or 3\or
+  0\or 2\or 1\or 1\or 1\or 1\or 1\or 1\or 1\or 1\or
+  2\or 2\or 2\or 1\or 2\or 1\or 1\or 1\or 1\or 1\or
+  1\or 2\or 1\or 2\or 1\or 1\or 1\or 1\or 1\or 1\or
+  1\or 2\or 1\or 1\or 2\or 1\or 1\or 1\or 1\or 1\or
+  1\or 2\or 2\or 1\or 2\or 1\or 1\or 1\or 2\or 2\or
+  2\or 1\or 1\or 0\or 0\or 0\or 3\or 0\or 0\or 0\or
+  3\or 3\or 3\or 3\or 3\or 3\or 0\or 0\or 2\or 1\or
+  1\or 1\or 2\or 1\or 2\else\jamo@table@NLV@error\fi
+}
+
+\def\jamo@table@NLVT{\ifcase\count@
+  5\or 3\or 4\or 4\or 4\or 3\or 3\or 4\or 4\or 4\or
+  3\or 3\or 4\or 4\or 4\or 3\or 3\or 3\or 4\or 4\or
+  3\or 5\or 4\or 4\or 4\or 4\or 4\or 4\or 4\or 4\or
+  5\or 5\or 5\or 4\or 5\or 4\or 4\or 4\or 4\or 4\or
+  4\or 5\or 4\or 5\or 4\or 4\or 4\or 4\or 4\or 4\or
+  4\or 5\or 4\or 4\or 5\or 4\or 4\or 4\or 4\or 4\or
+  4\or 5\or 5\or 4\or 5\or 4\or 4\or 4\or 5\or 5\or
+  5\or 4\or 4\or 3\or 3\or 3\or 4\or 3\or 3\or 3\or
+  4\or 4\or 4\or 4\or 4\or 4\or 3\or 3\or 5\or 4\or
+  4\or 4\or 5\or 4\or 5\else\jamo@table@NLVT@error\fi
+}
+
+\def\jamo@firstofthree#1#2#3{#1}
+\def\jamo@secondofthree#1#2#3{#2}
+\def\jamo@thirdofthree#1#2#3{#3}
+\def\jamohangul@decompose@#1{%
+  \ifnum #1<"1160 % LC
+    \ifnum\jamo@LC@one=\z@
+      \leavevmode %%%
+      \ifcsname DeJamoIII:#1:\endcsname
+        \edef\temp{\csname DeJamoIII:#1:\endcsname}%
+        \global\expandafter\jamo@LC@one\expandafter\jamo@firstofthree\temp
+        \global\expandafter\jamo@LC@two\expandafter\jamo@secondofthree\temp
+        \global\expandafter\jamo@LC@three\expandafter\jamo@thirdofthree\temp
+      \else
+        \ifcsname DeJamoII:#1:\endcsname
+          \edef\temp{\csname DeJamoII:#1:\endcsname}%
+          \global\expandafter\jamo@LC@one\expandafter\@firstoftwo\temp
+          \global\expandafter\jamo@LC@two\expandafter\@secondoftwo\temp
+        \else
+          \global\jamo@LC@one=#1
+        \fi
+      \fi
+    \else
+    \ifnum\jamo@LC@two=\z@
+      \ifcsname DeJamoII:#1:\endcsname
+        \edef\temp{\csname DeJamoII:#1:\endcsname}%
+        \global\expandafter\jamo@LC@two\expandafter\@firstoftwo\temp
+        \global\expandafter\jamo@LC@three\expandafter\@secondoftwo\temp
+      \else
+        \global\jamo@LC@two=#1
+      \fi
+    \else
+      \global\jamo@LC@three=#1
+    \fi\fi
+  \else
+  \ifnum #1<"11A8 % VL
+    \ifnum\jamo@VL@one=\z@
+      \ifcsname DeJamoIII:#1:\endcsname
+        \edef\temp{\csname DeJamoIII:#1:\endcsname}%
+        \global\expandafter\jamo@VL@one\expandafter\jamo@firstofthree\temp
+        \global\expandafter\jamo@VL@two\expandafter\jamo@secondofthree\temp
+        \global\expandafter\jamo@VL@three\expandafter\jamo@thirdofthree\temp
+      \else
+        \ifcsname DeJamoII:#1:\endcsname
+          \edef\temp{\csname DeJamoII:#1:\endcsname}%
+          \global\expandafter\jamo@VL@one\expandafter\@firstoftwo\temp
+          \global\expandafter\jamo@VL@two\expandafter\@secondoftwo\temp
+        \else
+          \global\jamo@VL@one=#1
+        \fi
+      \fi
+    \else
+    \ifnum\jamo@VL@two=\z@
+      \ifcsname DeJamoII:#1:\endcsname
+        \edef\temp{\csname DeJamoII:#1:\endcsname}%
+        \global\expandafter\jamo@VL@two\expandafter\@firstoftwo\temp
+        \global\expandafter\jamo@VL@three\expandafter\@secondoftwo\temp
+      \else
+        \global\jamo@VL@two=#1
+      \fi
+    \else
+       \global\jamo@VL@three=#1
+    \fi\fi
+  \else % TC
+  \ifnum\jamo@TC@one=\z@
+    \ifcsname DeJamoIII:#1:\endcsname
+      \edef\temp{\csname DeJamoIII:#1:\endcsname}%
+      \global\expandafter\jamo@TC@one\expandafter\jamo@firstofthree\temp
+      \global\expandafter\jamo@TC@two\expandafter\jamo@secondofthree\temp
+      \global\expandafter\jamo@TC@three\expandafter\jamo@thirdofthree\temp
+    \else
+      \ifcsname DeJamoII:#1:\endcsname
+        \edef\temp{\csname DeJamoII:#1:\endcsname}%
+        \global\expandafter\jamo@TC@one\expandafter\@firstoftwo\temp
+        \global\expandafter\jamo@TC@two\expandafter\@secondoftwo\temp
+      \else
+        \global\jamo@TC@one=#1
+      \fi
+    \fi
+  \else
+  \ifnum\jamo@TC@two=\z@
+    \ifcsname DeJamoII:#1:\endcsname
+      \edef\temp{\csname DeJamoII:#1:\endcsname}%
+      \global\expandafter\jamo@TC@two\expandafter\@firstoftwo\temp
+      \global\expandafter\jamo@TC@three\expandafter\@secondoftwo\temp
+    \else
+      \global\jamo@TC@two=#1
+    \fi
+  \else 
+    \global\jamo@TC@three=#1
+  \fi\fi\fi\fi
+}
+
+\def\jamo@puajamo@to@midkor{%
+  \begingroup
+  \count@\numexpr\jamo@VL@one-"F806 \relax
+  \jamo@LC@one\numexpr
+    (\jamo@LC@one-"F784) * 6
+    + \ifnum\jamo@TC@one>\z@ \jamo@table@NLVT \else \jamo@table@NLV \fi
+    + "4E00 \relax % for hanyang old jamo fonts; 초성 확정. 
+  \ifnum\jamo@TC@one>\z@
+    \jamo@TC@one\numexpr
+      (\jamo@TC@one-"F86B) * 4
+      + \jamo@table@NTV
+      + "5204 \relax % for hanyang old jamo fonts; 종성 확정.
+  \fi
+  \jamo@VL@one\numexpr
+    (\jamo@VL@one-"F806) * 2
+    + \ifnum\jamo@TC@one>\z@ \@ne \fi
+    + "5100 \relax % for hanyang old jamo fonts; 중성 확정.
+  %%%%% printout
+  \let\now@jamo@printing\@empty
+  \unih@ngulpoint\jamo@LC@one\geth@ngulpl@ne@ndch@r
+  \fontencoding{LUC}\fontfamily\mymidkorfont\selectfont
+  \dhucs@check@if@char@exists
+  \hbox{%
+    \begingroup\let\now@jamo@printing\undefined
+      \dhucs@emph\h@ngulch@r\endgroup % 방점.  
+    \h@ngulch@r 
+    \unih@ngulpoint\jamo@VL@one\geth@ngulpl@ne@ndch@r\selectfont
+    \dhucs@check@if@char@exists \h@ngulch@r 
+    \ifnum\jamo@TC@one>\z@
+      \unih@ngulpoint\jamo@TC@one\geth@ngulpl@ne@ndch@r\selectfont
+      \dhucs@check@if@char@exists \h@ngulch@r
+    \fi}%
+  %%%%% 자동조사.
+  \josa@buf@del
+  \ifnum\jamo@TC@one>\z@
+    \ifnum\jamo@TC@one=63627 \rieul % jongseong rieul
+    \else \jong                     % other jongseong
+    \fi
+  \else \jung                       % jungseong
+  \fi
+  \endgroup
+}
+
+\let\orig@unihangulchar@@@\unihangulchar@@@
+\renewcommand*\unihangulchar@@@{%
+  \ifnum\unih@ngulpoint<"1100
+    \dhucsj@moprintout
+    \expandafter\orig@unihangulchar@@@
+  \else
+    \ifnum\unih@ngulpoint<"1200
+      \ifnum\unih@ngulpoint<"1160 % this is LC
+        \ifnum\jamo@VL@one>\z@ % VL already exists
+          \dhucsj@moprintout
+        \fi
+        \expandafter\jamohangul@decompose@\expandafter{\number\unih@ngulpoint}%
+      \else
+        \expandafter\jamohangul@decompose@\expandafter{\number\unih@ngulpoint}%
+        \ifx\dhucs@next^^e1\else
+          \ifx\dhucs@next\unihangulchar\else
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\expandafter\expandafter\expandafter\expandafter
+            \expandafter\dhucsj@moprintout
+          \fi
+        \fi
+      \fi
+    \else % this is not jamo
+      \dhucsj@moprintout
+      \ifnum\unih@ngulpoint=12334
+        \expandafter\expandafter\expandafter\expandafter\expandafter
+        \expandafter\expandafter\unitonem@rkchar
+      \else
+        \ifnum\unih@ngulpoint=12335
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \unitonem@rkchar
+        \else
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \expandafter\expandafter\expandafter\expandafter\expandafter
+          \orig@unihangulchar@@@
+        \fi
+      \fi
+    \fi
+  \fi
+}
+
+
+\newcommand*\unitonem@rkchar{%
+  \begingroup
+  \setbox\z@\lastbox
+  \geth@ngulpl@ne@ndch@r
+  \global\setbox\@tempboxa\hbox{%
+    \kern\dimexpr\tonemarkleftskip+\tonemarkwidth\relax
+    \box\z@
+    \kern-\tonemarkwidth
+    \fontencoding{LUC}\fontfamily\mytonemarkfont\selectfont
+    \dhucs@check@if@char@exists \h@ngulch@r
+    \kern\tonemarkwidth}%
+  \endgroup
+  \chardef\thish@ngul\z@
+  \dobeforeh@ngulch@r
+  \box\@tempboxa
+  \do@fterh@ngulch@r
+}
+
+\newcommand*\jamo@jaso@to@jamo{%
+  \begingroup
+    \expandafter\unih@ngulpoint\csname JasoJamo%
+      :\the\jamo@LC@one:\the\jamo@LC@two:\the\jamo@LC@three
+      :\the\jamo@VL@one:\the\jamo@VL@two:\the\jamo@VL@three
+      :\the\jamo@TC@one:\the\jamo@TC@two:\the\jamo@TC@three:\endcsname
+    \geth@ngulfontn@me
+    \geth@ngulpl@ne@ndch@r
+    \jamo@LC@one\z@
+    \fontencoding{LUC}\fontfamily\h@ngulfontn@me\selectfont
+    \dhucs@check@if@char@exists
+    \dhucs@emph\h@ngulch@r % bangjom emphasis
+    \h@ngulch@r
+    \josa@buf@del\global\@josa\unih@ngulpoint
+  \endgroup
+}
+
+\newcommand*\dhucsj@moprintout{%
+  \ifnum\jamo@LC@one>"10FF \ifnum\jamo@LC@one <"1160
+    \ifnum\jamo@VL@one>"115F \ifnum\jamo@VL@one <"11A3
+      \chardef\thish@ngul\tw@ % treat as if hanja
+      \dobeforeh@ngulch@r
+      \ifcsname JasoJamo%
+        :\the\jamo@LC@one:\the\jamo@LC@two:\the\jamo@LC@three
+        :\the\jamo@VL@one:\the\jamo@VL@two:\the\jamo@VL@three
+        :\the\jamo@TC@one:\the\jamo@TC@two:\the\jamo@TC@three:\endcsname
+          \jamo@jaso@to@jamo
+      \else
+        \jamo@jamo@to@pua
+      \fi
+      \jamo@reset@counters
+      \expandafter\expandafter\expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter\expandafter
+      \expandafter\expandafter\expandafter\expandafter\expandafter
+      \do@fterh@ngulch@r
+    \fi\fi
+  \fi\fi
+}
+
+\endinput
+
+

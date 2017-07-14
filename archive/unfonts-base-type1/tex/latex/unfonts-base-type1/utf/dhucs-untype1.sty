@@ -1,0 +1,18 @@
+%%% 
+%%% dhucs-untype1.sty
+%%%   written by n\,dh.
+%%%
+%%% public domain.
+%%%
+\ProvidesPackage{dhucs-untype1}
+
+\@ifpackageloaded{dhucs}{}{\RequirePackageWithOptions{dhucs}}
+
+\usehangulfontspec{ut}
+\DeclareFontSubstitution{LUC}{utbt}{m}{n}
+
+\SetHangulFonts{utbt}{utgt}{uttz}
+\SetHanjaFonts{utbt}{utgt}{utgt}
+
+\endinput
+

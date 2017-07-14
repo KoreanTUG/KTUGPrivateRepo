@@ -1,0 +1,9 @@
+name readhanja.doc
+category Package
+revision 200
+shortdesc doc files of readhanja
+relocated 1
+docfiles size=42
+ RELOC/doc/lualatex/readhanja/README.md
+ RELOC/doc/lualatex/readhanja/readhanja-doc.pdf
+ RELOC/doc/lualatex/readhanja/readhanja-doc.tex

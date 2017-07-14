@@ -1,0 +1,158 @@
+%% for using \gana \ogana etc. in subsection with HLaTeX
+%% written by Karnes Kim
+
+\newcommand\themysection{\gana{section}}
+\newcommand\themysubsection{\gana{subsection}}
+\newcommand\themysubsubsection{\gana{subsubsection}}
+
+%%% modified definition from latex.ltx
+\def\@mystartsection#1#2#3#4#5#6{%
+  \if@noskipsec \leavevmode \fi
+  \par
+  \@tempskipa #4\relax
+  \@afterindenttrue
+  \ifdim \@tempskipa <\z@
+    \@tempskipa -\@tempskipa \@afterindentfalse
+  \fi
+  \if@nobreak
+    \everypar{}%
+  \else
+    \addpenalty\@secpenalty\addvspace\@tempskipa
+  \fi
+  \@ifstar
+    {\@ssect{#3}{#4}{#5}{#6}}%
+    {\@dblarg{\@sect{#1}{#2}{#3}{#4}{#5}{#6}}}}
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa>\z@
+    \begingroup
+      #6{%
+        \@hangfrom{\hskip #3\relax\@svsec}%
+          \interlinepenalty \@M #8\@@par}%
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname themy#1\endcsname}%
+      \fi
+      #7}%
+  \else
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname themy#1\endcsname}%
+        \fi
+        #7}}%
+  \fi
+  \@xsect{#5}}
+\def\@xsect#1{%
+  \@tempskipa #1\relax
+  \ifdim \@tempskipa>\z@
+    \par \nobreak
+    \vskip \@tempskipa
+    \@afterheading
+  \else
+    \@nobreakfalse
+    \global\@noskipsectrue
+    \everypar{%
+      \if@noskipsec
+        \global\@noskipsecfalse
+       {\setbox\z@\lastbox}%
+        \clubpenalty\@M
+        \begingroup \@svsechd \endgroup
+        \unskip
+        \@tempskipa #1\relax
+        \hskip -\@tempskipa
+      \else
+        \clubpenalty \@clubpenalty
+        \everypar{}%
+      \fi}%
+  \fi
+  \ignorespaces}
+
+%%% modified definition from hangul.sty
+
+\@ifundefined{section}{}{%
+  \def\section{%
+    \if@noskipsec \leavevmode \fi
+    \par
+    \@afterindentfalse
+    \if@nobreak
+      \everypar{}%
+    \else
+      \addpenalty\@secpenalty\addvspace{3.5ex \@plus 1ex \@minus .2ex\relax}
+    \fi
+    \secdef\ks@sect\ks@ssect}
+  \def\ks@sect[#1]#2{%
+    \ifnum \c@secnumdepth<1
+      \let\@svsec\@empty
+    \else
+      \refstepcounter{section}%
+      \protected@edef\@svsec{%
+        \noexpand\pre@sectioncnt\thesection\noexpand\post@sectioncnt
+        \quad\relax}%
+    \fi
+    \begingroup
+      \normalfont\Large\bfseries{%
+        \@hangfrom{\hskip \z@\relax\@svsec}%
+        \interlinepenalty \@M #2\@@par}%
+    \endgroup
+    \sectionmark{#1}%
+    \addcontentsline{toc}{section}{%
+      \ifnum\c@secnumdepth<1 \else
+        \protect\numberline{\pre@sectioncnt\themysection\post@sectioncnt}%
+      \fi
+      #1}
+    \@xsect{2.3ex \@plus.2ex}}
+  \def\ks@ssect#1{%
+    \begingroup
+      \normalfont\Large\bfseries{%
+        \@hangfrom{\hskip \z@}%
+        \interlinepenalty \@M #1\@@par}%
+    \endgroup
+    \@xsect{2.3ex \@plus.2ex}}
+}
+
+\@ifclassloaded{article}{%
+  \renewcommand*\l@section[2]{%
+    \ifnum \c@tocdepth >\z@
+      \addpenalty{\@secpenalty}%
+      \addvspace{1.0em \@plus\p@}%
+      \setbox\z@=\hbox{\bfseries\pre@sectioncnt\post@sectioncnt}
+      \setlength\@tempdima{1.5em}
+      \advance\@tempdima\wd\z@
+      \begingroup
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        \leavevmode \bfseries
+        \advance\leftskip\@tempdima
+        \hskip -\leftskip
+        #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \endgroup
+    \fi}
+}{\@ifundefined{l@section}{}{%
+    \renewcommand*\l@section{\@dottedtocline{1}{1em}{4em}}}%1.5em 2.3em
+}
+ 
+%%% modified definition from article.cls
+
+\renewcommand\subsection{\@mystartsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\large\bfseries}}
+
+\renewcommand\subsubsection{\@mystartsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+
+\endinput

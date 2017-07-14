@@ -1,0 +1,8 @@
+name kotex-euc.amd64-freebsd
+category Package
+revision 200
+shortdesc amd64-freebsd files of kotex-euc
+binfiles arch=amd64-freebsd size=6
+ bin/amd64-freebsd/euc-bookmark
+ bin/amd64-freebsd/hbibtex
+ bin/amd64-freebsd/hmakeindex

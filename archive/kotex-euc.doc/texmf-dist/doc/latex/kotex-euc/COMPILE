@@ -1,0 +1,28 @@
+% kotexguide.tex includes kotexguidebody-utf.tex or -euc.tex.
+
+The euc version of this document is prepared to test
+the euc-compatible features of ko.TeX.
+If you want to test it, make a file named 'definekg.eucmode'
+in your working directory, whose contents are of no meaning.
+When this file is detected, latex will include kotexguidebody-euc.tex
+instead of -utf.tex. (If there are no -utf or -k files in your
+directory, run generateeucfiles.sh first.)
+
+$ touch definekg.eucmode
+
+The final outputs are not identical,
+because kotex/utf (a.k.a. hangul-ucs) uses different (improved)
+way of linebreaking and fine spacing from kotex/euc (a.k.a. hlatex).
+
+$ pdflatex kotexguide
+$ pdflatex kotexguide (once more)
+$ komkindex kotexguide
+  ** index style option : (euc) -s hind, (utf) -s kotex
+$ eucbmark.sh kotexguide (euc only)
+  ** Windows : (call) eucbmark kotexguide
+  ** eucbmark.sh calls euc-bookmark.pl
+  ** this command should be processed just before final pdf generation.
+  ** upon utf mode, this process is not required.
+$ pdflatex kotexguide
+
+% eof

@@ -1,0 +1,7 @@
+%% hwwjsr.fd: UhcJamoSora for LaTeX
+
+\DeclareFontFamily{H}{wwjsr}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwjsr}{m}{n}{<->wjsr}{}
+
+%% End of hwwjsr.fd

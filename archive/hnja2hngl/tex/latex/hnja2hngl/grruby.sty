@@ -1,0 +1,182 @@
+% grruby.sty: 한글(한자) macro
+%
+% according to the concept suggested by gromob
+% implemented by nanim
+%
+% v0.2: package option rubycolor, command \grrubycolor
+%
+\ProvidesPackage{grruby}[2015/05/02 v0.2]
+
+\RequirePackage{expl3,xparse}
+\RequirePackage{l3keys2e}
+
+\ExplSyntaxOn 
+
+\keys_define:nn { grruby }
+{
+	rubystyle	.tl_set:N = \gr_ruby_style,
+	rubystyle	.default:n = { \tl_set:Nn \gr_ruby_style { default } },
+	rubycolor	.tl_set:N = \gr_ruby_color,
+%	rubysize	.tl_set:N = \gr_ruby_size
+}
+
+\ProcessKeysOptions {grruby}
+\scan_stop:
+
+\ExplSyntaxOff 
+
+\RequirePackage{kotex}
+\RequirePackage{ragged2e}
+\RequirePackage{environ}
+\RequirePackage{relsize}
+
+\AtEndOfPackage{\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}}
+
+\ExplSyntaxOn
+
+\bool_new:N \is_grword_on
+\bool_gset_true:N \is_grword_on
+
+\NewDocumentCommand \gr_ruby_style_default { u( u) g }
+{
+	\tl_if_empty:NT \gr_ruby_color { \tl_set:Nn \gr_ruby_color { gray } }
+	{
+		\addhangulfontfeature{CharRaise=.133em}
+		\smaller \color{\gr_ruby_color}  #1
+	}
+	#2
+	\IfValueT { #3 } { \footnote { #3 } }
+}
+
+\NewDocumentCommand \gr_ruby_style_rup { u( u) g }
+{
+	\tl_if_empty:NT \gr_ruby_color { \tl_set:Nn \gr_ruby_color { black } }
+	#2
+	{
+		\addhangulfontfeature{CharRaise=.25em}
+		\color{\gr_ruby_color} \footnotesize #1
+	}
+	\IfValueT { #3 } { \footnote { #3 } }
+}
+
+% 한자 위에 글자마다 한글 루비
+\cs_new:Npn \ruby_each_char:nn #1 #2
+{
+	\seq_set_split:Nnn \l_tmpa_seq {} { #1 }
+	\seq_set_split:Nnn \l_tmpb_seq {} { #2 }
+	\seq_map_inline:Nn \l_tmpa_seq
+	{
+		\seq_pop_left:NN \l_tmpb_seq \l_tmpb_tl
+		\exp_args:Nno \ruby { ##1 } { \l_tmpb_tl } \allowbreak
+	}
+}
+
+\NewDocumentCommand \gr_ruby_style_XXruby { u( u) g }
+{
+	\ruby_each_char:nn { #2 } { #1 }
+	\IfValueT { #3 } { \footnote{ #3 } }
+}
+
+\NewDocumentCommand \gr_ruby_style_ruby { u( u) g }
+{
+	\ruby { #2 } { #1 }
+	\IfValueT { #3 } { \footnote { #3 } }
+}
+
+% 한글+작은글자 한자
+\NewDocumentCommand \gr_ruby_style_progress { u( u) g }
+{
+	\tl_if_empty:NT \gr_ruby_color { \tl_set:Nn \gr_ruby_color { black } }
+	#1 { \color{\gr_ruby_color} \footnotesize #2 }
+	\IfValueT { #3 } { \footnote{#3} }
+}
+
+\NewDocumentCommand \gr_proc_word: { u( u) g }
+{
+	\IfValueTF { #3 }
+	{ \gr_proc_word_fn: #1 ( #2 ) { #3 } }
+	{ \gr_proc_word_fn: #1 ( #2 ) }
+}
+
+\cs_new:Nn \gr_identity_word:
+{ \scan_stop: }
+
+\cs_set_eq:NN \grfoo \gr_proc_word:	
+
+\NewDocumentCommand \gromov_request { m }
+{
+	\seq_clear:N \wordwise_para_seq
+	\seq_set_split:Nnn \wordwise_para_seq { ~ } { #1 }
+	\seq_map_inline:Nn \wordwise_para_seq
+	{
+		\tl_if_in:nnTF { ##1 } { ( }
+		{
+			\tl_if_in:nnTF { ##1 } { ) } 
+			{
+				\bool_if:NTF \is_grword_on
+				{ \exp_args:Nx \gr_proc_word: ##1 }
+				{ \exp_args:Nx \gr_identity_word: ##1 }
+			}
+			{ ##1 }
+		}
+		{ ##1 }
+		\space
+	}
+}
+
+\cs_new_protected:Nn \my_ruby_off:
+{
+	\bool_gset_false:N \is_grword_on
+}
+
+\cs_new_protected:Nn \my_ruby_on:
+{
+	\bool_gset_true:N \is_grword_on
+}
+
+\def\grfoopar#1\par{\gromov_request{#1}\par}
+
+\NewEnviron{grruby}{\exp_args:Nx \gromov_request {\BODY} }
+
+\NewDocumentCommand \OffStuff { m }
+{
+	\if_mode_vertical: \leavevmode \fi:
+	{ \my_ruby_off: #1 \unskip \my_ruby_on: }
+}
+
+\NewDocumentEnvironment {grrubypars} { }
+{
+ 	\everypar { \grfoopar }
+}
+{
+	\ignorespacesafterend
+}
+
+\NewDocumentCommand \grrubystyle { m }
+{
+	\str_case:nnF { #1 }
+	{
+		{ default  } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_default  }
+		{ gromob   } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_default  }
+		{ XXruby   } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_XXruby   }
+		{ progress } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_progress }
+		{ rup      } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_rup      }
+		{ ruby     } { \cs_gset_eq:NN \gr_proc_word_fn: \gr_ruby_style_ruby     }
+	}
+	{
+		\cs_gset_eq:NN \gr_proc_word: \gr_ruby_style_default
+	}
+}
+
+\NewDocumentCommand \grrubycolor { m }
+{
+	\tl_set:Nn \gr_ruby_color { #1 }
+}
+
+\exp_args:Nx \grrubystyle { \gr_ruby_style }
+\cs_if_exist:NF \gr_proc_word_fn:
+{ \grrubystyle { default } }
+
+\ExplSyntaxOff
+
+\endinput

@@ -1,0 +1,10 @@
+\ProvidesFile{t1nnmbrgt.fd}[2013/02/16 v0.2 Nanum Barun Gothic font definitions]
+\DeclareFontFamily{T1}{nnmbrgt}{}
+\DeclareFontShape{T1}{nnmbrgt}{m}{n}{<->t1nnmbrgtm}{}
+\DeclareFontShape{T1}{nnmbrgt}{m}{sl}{<->t1nnmbrgtmo}{}
+\DeclareFontShape{T1}{nnmbrgt}{m}{it}{<->ssub*nnmbrgt/m/sl}{}
+\DeclareFontShape{T1}{nnmbrgt}{m}{sc}{<->sub*cmss/m/sc}{}
+\DeclareFontShape{T1}{nnmbrgt}{bx}{n}{<->t1nnmbrgtb}{}
+\DeclareFontShape{T1}{nnmbrgt}{bx}{sl}{<->t1nnmbrgtbo}{}
+\DeclareFontShape{T1}{nnmbrgt}{bx}{it}{<->ssub*nnmbrgt/bx/sl}{}
+\endinput

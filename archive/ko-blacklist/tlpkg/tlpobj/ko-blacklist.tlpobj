@@ -1,0 +1,7 @@
+name ko-blacklist
+category Package
+revision 200
+shortdesc luatex blacklist for Korean fonts
+relocated 1
+runfiles size=1
+ RELOC/tex/luatex/ko-blacklist/luaotfload-blacklist.cnf

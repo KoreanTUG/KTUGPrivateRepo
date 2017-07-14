@@ -1,0 +1,7 @@
+name ksforloop
+category Package
+revision 200
+shortdesc for loop written by Karnes
+relocated 1
+runfiles size=1
+ RELOC/tex/latex/ksforloop/ksforloop.sty

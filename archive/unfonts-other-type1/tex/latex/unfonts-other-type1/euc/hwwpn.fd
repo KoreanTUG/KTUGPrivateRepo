@@ -1,0 +1,7 @@
+%% hwwpn.fd: UhcPen for LaTeX
+
+\DeclareFontFamily{H}{wwpn}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwpn}{m}{n}{<->wpn}{}
+
+%% End of hwwpn.fd

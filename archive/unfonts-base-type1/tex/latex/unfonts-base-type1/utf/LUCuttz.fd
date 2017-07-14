@@ -1,0 +1,5 @@
+\DeclareFontFamily{LUC}{uttz}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{uttz}{m}{n}{<-> sLUC * outtzm}{}
+\DeclareFontShape{LUC}{uttz}{m}{sl}{<-> sLUC * outtzmo}{}
+\DeclareFontShape{LUC}{uttz}{m}{it}{<-> sLUC * outtzmo}{}

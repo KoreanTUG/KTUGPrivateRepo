@@ -1,0 +1,38 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[ % options,
+    a4paper,    % papersize
+%    cjk,       % for cjk-ko
+%    usedotemph,% for cjk-ko's \dotemph
+    amsmath,    % load amsmath.sty to typeset math materials
+    itemph,     % to disable gremph default (xe/lua)
+%    footnote,  % korean style footnote
+%    chapter,   % to use \chapter
+]{oblivoir}     % xoblivoir and oblivoir are identical.
+
+\ifPDFTeX       % latex, pdflatex
+%    \usepackage{newtxtext}    % Latin fonts
+\else\ifLuaOrXeTeX   % xelatex or lualatex
+%  \setmainfont[Ligatures=TeX]{TeX Gyre Termes}   %% Latin fonts
+  \defaultfontfeatures{Ligatures=TeX}
+  \setkormainfont(* ExtraBold)(*){NanumMyeongjo}(* Bold)(*){HCR Batang LVT}
+  \setkorsansfont{NanumGothic}
+  \setkormonofont[Scale=.95]{NanumGothic}
+\fi\fi
+
+\usepackage{kotex-logo}
+
+\begin{document}
+
+\title{\koTeX-oblivoir 템플릿}
+\author{저자}
+\date{\today}
+
+\maketitle
+
+\section{절(節) 제목}
+
+% 본문을 여기서 시작합니다.
+
+본문을 \emph{여기서} 시작합니다.
+
+\end{document}

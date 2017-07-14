@@ -1,0 +1,7 @@
+%% hwwjmj.fd: UhcJamoMyoungjo for LaTeX
+
+\DeclareFontFamily{H}{wwjmj}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwjmj}{m}{n}{<->wjmj}{}
+
+%% End of hwwjmj.fd

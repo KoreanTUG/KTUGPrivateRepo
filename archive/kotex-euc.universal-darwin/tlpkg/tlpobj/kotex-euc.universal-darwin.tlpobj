@@ -1,0 +1,8 @@
+name kotex-euc.universal-darwin
+category Package
+revision 200
+shortdesc universal-darwin files of kotex-euc
+binfiles arch=universal-darwin size=21
+ bin/universal-darwin/euc-bookmark
+ bin/universal-darwin/hbibtex
+ bin/universal-darwin/hmakeindex

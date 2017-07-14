@@ -1,0 +1,5 @@
+\DeclareFontFamily{C70}{uttz}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{C70}{uttz}{m}{n}{<-> sCJK * outtzm}{}
+\DeclareFontShape{C70}{uttz}{m}{sl}{<-> sCJK * outtzmo}{}
+\DeclareFontShape{C70}{uttz}{m}{it}{<-> sCJK * outtzmo}{}

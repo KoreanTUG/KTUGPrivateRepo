@@ -1,0 +1,9 @@
+\DeclareFontFamily{LUC}{utgs}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utgs}{m}{n}{<-> LUC * outgsm}{}
+\DeclareFontShape{LUC}{utgs}{m}{sl}{<-> LUC * outgsmo}{}
+\DeclareFontShape{LUC}{utgs}{m}{it}{<-> LUC * outgsmo}{}
+
+\DeclareFontShape{LUC}{utgs}{c}{n}{<-> LUC * outgsc}{}
+\DeclareFontShape{LUC}{utgs}{c}{sl}{<-> LUC * outgsco}{}
+\DeclareFontShape{LUC}{utgs}{c}{it}{<-> LUC * outgsco}{}

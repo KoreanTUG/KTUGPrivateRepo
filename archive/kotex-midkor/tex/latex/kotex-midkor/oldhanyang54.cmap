@@ -1,0 +1,83 @@
+%!PS-Adobe-3.0 Resource-CMap
+%%DocumentNeededResources: ProcSet (CIDInit)
+%%IncludeResource: ProcSet (CIDInit)
+%%BeginResource: CMap (TeX-OHY54-0)
+%%Title: (TeX-OHY54-0 TeX OHY54 0)
+%%Version: 1.000
+%%EndComments
+/CIDInit /ProcSet findresource begin
+12 dict begin
+begincmap
+/CIDSystemInfo <<
+  /Registry (TeX) 
+  /Ordering (OHY54) 
+  /Supplement 0 
+>> def
+/CMapName /TeX-OHY54-0 def
+1 begincodespacerange
+<00> <37>
+endcodespacerange
+56 beginbfchar
+<00> <11BE>
+<01> <11BE>
+<02> <11BE>
+<03> <11BE>
+<04> <11BF>
+<05> <11BF>
+<06> <11BF>
+<07> <11BF>
+<08> <11C0>
+<09> <11C0>
+<0A> <11C0>
+<0B> <11C0>
+<0C> <11C1>
+<0D> <11C1>
+<0E> <11C1>
+<0F> <11C1>
+<10> <11F3>
+<11> <11F3>
+<12> <11F3>
+<13> <11F3>
+<14> <11C111BA>
+<15> <11C111BA>
+<16> <11C111BA>
+<17> <11C111BA>
+<18> <11C111C0>
+<19> <11C111C0>
+<1A> <11C111C0>
+<1B> <11C111C0>
+<1C> <11F4>
+<1D> <11F4>
+<1E> <11F4>
+<1F> <11F4>
+<20> <11C2>
+<21> <11C2>
+<22> <11C2>
+<23> <11C2>
+<24> <11F5>
+<25> <11F5>
+<26> <11F5>
+<27> <11F5>
+<28> <11F6>
+<29> <11F6>
+<2A> <11F6>
+<2B> <11F6>
+<2C> <11F7>
+<2D> <11F7>
+<2E> <11F7>
+<2F> <11F7>
+<30> <11F8>
+<31> <11F8>
+<32> <11F8>
+<33> <11F8>
+<34> <11F9>
+<35> <11F9>
+<36> <11F9>
+<37> <11F9>
+endbfchar
+endcmap
+CMapName currentdict /CMap defineresource pop
+end
+end
+%%EndResource
+%%EOF

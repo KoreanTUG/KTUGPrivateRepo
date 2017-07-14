@@ -1,0 +1,9 @@
+name unfonts-base-type1.doc
+category Package
+revision 204
+shortdesc doc files of unfonts-base-type1
+relocated 1
+docfiles size=27
+ RELOC/doc/fonts/unfonts-base-type1/COPYING
+ RELOC/doc/fonts/unfonts-base-type1/LICENSE
+ RELOC/doc/fonts/unfonts-base-type1/MANIFEST

@@ -1,0 +1,9 @@
+%% hswtt.fd: UhcTypewriter for LaTeX
+
+\DeclareFontFamily{H}{swtt}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{swtt}{m}{n}{<->wtt}{}
+\DeclareFontShape{H}{swtt}{m}{sl}{<->wtto}{}
+\DeclareHFontShape{H}{swtt}{m}{it}{<->hssub*swtt/m/sl}{}
+
+%% End of hswtt.fd

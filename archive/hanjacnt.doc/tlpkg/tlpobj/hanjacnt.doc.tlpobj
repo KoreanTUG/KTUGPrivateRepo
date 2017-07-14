@@ -1,0 +1,11 @@
+name hanjacnt.doc
+category Package
+revision 200
+shortdesc doc files of hanjacnt
+relocated 1
+docfiles size=321
+ RELOC/doc/latex/hanjacnt/hanjacntdoc.pdf
+ RELOC/doc/latex/hanjacnt/hanjacntdoc.tex
+ RELOC/doc/latex/hanjacnt/rehanja.pdf
+ RELOC/doc/latex/hanjacnt/testhanjacnt.pdf
+ RELOC/doc/latex/hanjacnt/testhanjacnt.tex

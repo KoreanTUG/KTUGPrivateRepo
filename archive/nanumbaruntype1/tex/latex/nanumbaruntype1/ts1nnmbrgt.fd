@@ -1,0 +1,9 @@
+\ProvidesFile{ts1nnmbrgt.fd}[2013/02/16 v0.2 Nanum Barun Gothic font definitions]
+\DeclareFontFamily{TS1}{nnmbrgt}{\hyphenchar\font\m@ne}
+\DeclareFontShape{TS1}{nnmbrgt}{m}{n}{<->ts1nnmbrgtm}{}
+\DeclareFontShape{TS1}{nnmbrgt}{m}{sl}{<->ts1nnmbrgtmo}{}
+\DeclareFontShape{TS1}{nnmbrgt}{m}{it}{<->ssub*nnmbrgt/m/sl}{}
+\DeclareFontShape{TS1}{nnmbrgt}{bx}{n}{<->ts1nnmbrgtb}{}
+\DeclareFontShape{TS1}{nnmbrgt}{bx}{sl}{<->ts1nnmbrgtbo}{}
+\DeclareFontShape{TS1}{nnmbrgt}{bx}{it}{<->ssub*nnmbrgt/bx/sl}{}
+\endinput

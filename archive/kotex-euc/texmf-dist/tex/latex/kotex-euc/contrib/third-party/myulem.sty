@@ -1,0 +1,65 @@
+%%
+%% myulem.sty
+%%  		ver. 20031110
+%%			ver. 20040414 : added [normalem] option
+%%      ver. 20050606 : modified for HLaTeX 1.0
+%% Copyright (C) 2003 Karnes Kim
+%% 
+%% --------------------------------------------------------------------------
+%% 
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.2
+%% of this license or (at your option) any later version.
+%% 
+%% --------------------------------------------------------------------------
+%% provides ulem-package compatible five commands for HLaTeX:
+%% \huline, \huuline, \huwave, \hsout, \hxout.
+%%
+%% When the linebreak in a word not occurred automatically, you can
+%% enforce hyphenation with `\-` character within the word,
+%% which should do just line-breaking and marks no normal
+%% hyphenchar '-' in Korean language context.
+%%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{myulem}[2005/06/06. ver. 0.002]
+\newif\if@callnormalem
+\DeclareOption{normalem}{\@callnormalemtrue}
+\@callnormalemfalse
+\ProcessOptions
+
+\if@callnormalem
+	\RequirePackage[normalem]{ulem}
+\else
+	\RequirePackage{ulem}
+\fi
+
+\def\myhlatexhyphen#1{%
+\def\@Hyphen{#1}%
+}
+\def\disable@Hyphen{%
+\myhlatexhyphen{}%
+\hyphenchar\font=255%
+}
+\def\restore@Hyphen{%
+\myhlatexhyphen{\ifhmode\ifnum\spacefactor=1001\hskip\z@skip\fi\fi}%
+\hyphenchar\font\defaulthyphenchar%
+}
+\newcommand\huline[1]{%
+\disable@Hyphen\uline{#1}\restore@Hyphen
+}
+\newcommand\huwave[1]{%
+\disable@Hyphen\uwave{#1}\restore@Hyphen
+}
+\newcommand\hsout[1]{%
+\disable@Hyphen\sout{#1}\restore@Hyphen
+}
+\newcommand\hxout[1]{%
+\disable@Hyphen\xout{#1}\restore@Hyphen
+}
+\newcommand\huuline[1]{%
+\disable@Hyphen\uuline{#1}\restore@Hyphen
+}
+
+\endinput
+
+%% End of 'myulem.sty'

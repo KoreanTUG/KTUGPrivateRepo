@@ -1,0 +1,7 @@
+%% hwwph.fd: UhcPenHeulim for LaTeX
+
+\DeclareFontFamily{H}{wwph}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwph}{m}{n}{<->wph}{}
+
+%% End of hwwph.fd

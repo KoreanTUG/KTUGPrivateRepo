@@ -1,0 +1,155 @@
+% arara: xelatex
+\documentclass[nanum,b5paper]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\usepackage{ksmisc,kslinematters}
+\usepackage{ifpxltex}
+\IfpxlTeX* {p,x}
+{
+	\usepackage[normalem]{ulem}
+}
+
+\begin{document}
+
+\title{ksmisc}
+\author{Nova De Hi}
+\maketitle
+
+\section{kslinematters.sty}
+
+space, carriage return, tab 문자의 catcode를 조작하여 ``보이는 대로'' 출력하도록 하는 명령과 환경을 제공한다.
+\begin{boxedverbatim}
+\obeythem, \disobeythem
+\vobeyspaces, \vobeytabs, \vobeylines
+\begin{ksobeys} ... \end{ksobeys}
+\end{boxedverbatim}
+
+다음은 예시이다.
+\begin{verbatim}
+\obeythem
+  가 나다
+  가
+
+  가나다 	라
+\disobeythem
+\end{verbatim}
+\begin{framed}
+\obeythem
+  가 나다
+  가
+
+  가나다 	라
+\disobeythem
+\end{framed}
+
+\verb|\obeythem...\disobeythem|을 \verb|ksobeys| 환경으로 쓸 수 있다.
+다만 이 명령/환경은 평문단에서 정상 동작한다.
+% 예컨대 sectioning commands와 같이 vertical space를 스스로 조절하는 명령과는 오동작할 수 있다.
+
+다음 패키지 옵션은 ksobeys의 동작을 제어한다.
+
+\begin{description}
+ \item [\texttt{noblankline}] 여러 개의 빈 줄을 하나의 빈 줄로 처리하게 한다.
+ \item [\texttt{tabtosp}] tab 문자를 tabstop 위치까지 이동하는 것이 아니라 4개의 스페이스 문자로 치환한다.
+ \item [\texttt{extcmd}] \verb|\section| 명령과 \verb|\subsection| 명령이 ksobeys 환경 안에서 동작하게 한다. 단 이 명령들은 오직 하나의 인자만을 가지는 것으로 간주한다.
+\end{description}
+
+\bigskip 
+
+\begin{boxedverbatim}
+\newlinecommand, \renewlinecommand
+\end{boxedverbatim}
+
+line의 끝까지를 인자로 받는 명령을 정의한다. 인자는 \verb|#1|.
+\begin{verbatim}
+\newlinecommand\testline{\uline{#1}}
+이 명령은 현재 위치에서 \testline 줄 끝까지를 인자로 받는다.
+여기서 줄이 바뀌었다.
+\end{verbatim}
+\newlinecommand\testline{\uline{#1}}
+이 명령은 현재 위치에서 \testline 줄 끝까지를 인자로 받는다.
+여기서 줄이 바뀌었다.
+
+\section{preparefont.sty}
+
+\begin{boxedverbatim}
+\preparefontfile{Font_File_Name}{url}[local_saved_file_name]
+\end{boxedverbatim}
+
+\verb|--shell-escape|을 주어야 한다. 먼저 \verb|Font_File_Name|으로 폰트를 체크하고 만약 없으면 \verb|<url>|로부터 다운로드받는다. zip이거나 직접 폰트 파일 자체를 가리키는 url이어야 한다.
+폰트의 존재 유무를 체크하기 위하여 \verb|luaotfload-tool|을 부르므로 이것이 실행가능해야 한다.
+
+Windows에서는 KTUG 사설 저장소의 ktugbin 패키지 설치를 요구한다.
+Mac이나 linux에서는 \verb|curl|과 \verb|unzip|이 필요하다.
+
+첨부된 testpreparefont.tex와 게시물 ``preparefont.sty''\footnote{\url{http://doeun.blogspot.kr/2014/07/preparefontsty-dropbox.html}.}을 참고하라.
+
+\section{ksmisc.sty}
+
+\begin{boxedverbatim}
+\ks_pop_left:NN <tlvar1> <tlvar2>
+\ks_pop_right:NN <tlvar1> <tlvar2>
+\ks_clist_set_from_tl:NN <clistvar> <tlvar>
+\ks_seq_set_from_tl:NN <seqvar> <tlvar>
+\end{boxedverbatim}
+
+\verb|\ks_pop_left:NN|과 \verb|\ks_pop_right:NN|은 \verb|<tlvar1>|의 왼쪽(오른쪽) 끝의 item을
+하나 꺼내어 \verb|<tlvar2>|에 넣고 \verb|<tlvar1>|에서 삭제한다.
+Expl3에는 \verb|\seq_pop_left:NN|이 있지만 tl(token list)에 대해서는 \verb|\tl_head:N|와 \verb|\tl_tail:N|이 있는 대신 pop 명령이 없어서 만든 것이다. 이를 이용하여 tl을 간단한 stack처럼 활용할 수 있다.
+그러나 이 명령은 \verb|\ks_seq_set_from_tl:NN|과 \verb|\ks_clist_set_from_tl:NN|을 작성하기 위한 것이기도 하다. clist와 seq의 막강한 데이터 조작 능력을 tl에 대하여 얻고자 하는 것이 이 명령의 목적이다.
+
+다음 예를 참고하라. (\verb|\ks_for_loop:nnn| 명령은 ksforloop.sty를 요구한다. 이것은 \verb|\ksforloop|와 달리 루프 코드를 그루핑하지 않는 대신 nesting이 불가능하다.)
+\begin{verbatim}
+\ExplSyntaxOn
+\NewDocumentCommand \test { m }
+{
+    \tl_set:Nn \l_tst { #1 }
+    \ks_for_loop:nnn {}{\tl_count:N \l_tst }
+    {
+        \ks_pop_right:NN \l_tst \l_tmp
+        \fbox{\l_tmp}
+    }
+}
+\ExplSyntaxOff
+\test{가나다라마바사아{자차}카타파하}
+\end{verbatim}
+\ExplSyntaxOn
+\NewDocumentCommand \test { m }
+{
+	\tl_set:Nn \l_tst { #1 }
+	\ks_for_loop:nnn {}{\tl_count:N \l_tst }
+	{
+		\ks_pop_right:NN \l_tst \l_tmp
+		\fbox{\l_tmp}
+	}
+}
+\ExplSyntaxOff
+\test{가나다라마바사아{자차}카타파하}
+
+\bigskip
+
+\verb|\ks_clist_set_from_tl:NN|은 이름 그대로 token list의 각 item을 comma separated list로 만든다. \verb|\ks_seq_set_from_tl:NN|도 마찬가지로 tl의 item을 sequence로 만든다. \verb|<clistvar>|와 \verb|<seqvar>|는 전역적(global)으로 정의된다.
+\begin{verbatim}
+\ExplSyntaxOn
+\NewDocumentCommand \testa { m }
+{
+    \tl_set:Nn \l_tst { #1 }
+    \ks_clist_set_from_tl:NN \g_tst_cl \l_tst
+    \clist_use:Nnnn \g_tst_cl {\과~} {\과~} {,~그리고~}
+}
+\ExplSyntaxOff
+\testa{123456789{10}}
+\end{verbatim}
+\ExplSyntaxOn
+\NewDocumentCommand \testa {m}
+{
+	\tl_set:Nn \l_tst {#1}
+	\ks_clist_set_from_tl:NN \g_tst_cl \l_tst
+	\clist_use:Nnnn \g_tst_cl {\과~} {\과~}{,~그리고~}
+}
+\ExplSyntaxOff
+\testa{123456789{10}}
+
+\end{document}

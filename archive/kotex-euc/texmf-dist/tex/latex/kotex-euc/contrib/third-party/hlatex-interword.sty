@@ -1,0 +1,113 @@
+%% 2005/06/06 : modified for HLaTeX 1.0
+%%
+%% This is file `hlatex-interword.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% hlatex-interword.dtx  (with options: `latex-wrapper')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from hlatex-interword.sty.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file hlatex-interword.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%% This is hlatex-interword.dtx, and it's -*-LaTeX2e-*- text
+%%
+%% Karnes Kim
+%%
+%% Oct 21, 2002
+%%
+%% This program can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License Distributed from CTAN archives
+%% in directory macros/latex/base/lppl.txt.
+%%
+\NeedsTeXFormat{LaTeX2e}
+%%
+%% hlatex inter-character/word skip
+%% written by Karnes Kim ver. 0.0.0 [2002/10/20]
+%%
+%% Usage:
+%%   for example, just include this package after HLaTeX as such :
+%%   \usepackage{hangul}
+%%   \usepackage[HWP]{hlatex-interword}
+%%
+%% DeclareOption:
+%%   HWP : HWP default wordskip and charskip
+%%   default : wordskip=.433+.111-.111
+%%   wider : charskip wider (1pt)
+%%   narrower : charskip narrower (-.5pt)
+%%
+%% Two LaTeX Commands provided:
+%%   \interhchar{_number_}
+%%        The _number_ means the multiplier of .1pt
+%%   \interhchar{10} means set inter-char glue to 1pt
+%%   \interhword{_dim1_}{_dim2_}{_dim3_}
+%%        this commands set the spaceskip to _dim1_ + _dim2_ - _dim3_
+%%   _dim1_, _dim2_, _dim3 are dimensions.
+%%
+\ProvidesPackage{hlatex-interword}[2005/06/06. ver0.2a]
+\DeclareOption{HWP}{%
+\HWPinterwordskip}
+\DeclareOption{default}{%
+\DEFAULTskips}
+\DeclareOption{wider}{%
+\widerhangul}
+\DeclareOption{narrower}{%
+\narrowerhangul}
+\DeclareOption*{%
+\DEFAULTskips}
+
+\newlength\dimen@skip
+\setlength\dimen@skip{.1pt}
+
+\newcommand\interhchar[1]{%
+\setinterhcharskip{#1}%
+}
+\newcommand\interhword[3]{%
+\setinterwordskip{#1}{#2}{#3}%
+}
+
+\def\setinterhcharskip#1{%
+\def\@Hyphen{\ifhmode\ifnum\spacefactor=1001\hskip#1\dimen@skip\fi\fi}%
+}
+\def\narrowerhangul{%
+\def\@Hyphen{\ifhmode\ifnum\spacefactor=1001\hskip-5\dimen@skip\fi\fi}%
+}
+\def\widerhangul{%
+\def\@Hyphen{\ifhmode\ifnum\spacefactor=1001\hskip10\dimen@skip\fi\fi}%
+}
+
+\def\HWPinterwordskip{%
+\spaceskip = .475em plus .25em minus .1331em%
+}
+
+\def\setinterwordskip#1#2#3{%
+\spaceskip = #1 plus #2 minus #3%
+}
+
+\def\DEFAULTskips{%
+\def\@Hyphen{\ifhmode\ifnum\spacefactor=1001\hskip\z@skip\fi\fi}%
+\spaceskip = .433em plus .111em minus .111em%
+}
+
+\ProcessOptions\relax
+
+\RequirePackage{verbatim}
+\renewcommand\verbatim@font{\normalfont
+                   \ttfamily\spaceskip\z@
+                   \hyphenchar\font\m@ne
+                   \let\do\do@noligs
+                   \verbatim@nolig@list}
+\endinput
+%%
+%% End of file `hlatex-interword.sty'.

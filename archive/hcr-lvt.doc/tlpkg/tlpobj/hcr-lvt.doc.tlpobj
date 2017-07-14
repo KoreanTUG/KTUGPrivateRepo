@@ -1,0 +1,8 @@
+name hcr-lvt.doc
+category Package
+revision 200
+shortdesc doc files of hcr-lvt
+relocated 1
+docfiles size=2
+ RELOC/doc/fonts/hcr-lvt/COPYING
+ RELOC/doc/fonts/hcr-lvt/README

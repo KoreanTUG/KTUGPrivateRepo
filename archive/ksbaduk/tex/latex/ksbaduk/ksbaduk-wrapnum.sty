@@ -1,0 +1,186 @@
+% file: ksbaduk-wrapnum.sty
+%
+% a modified version of wrapnum.sty for ksbaduk.sty
+%
+% written by Nova De Hi
+%    reimplement \wrapnum in hzmisc by Hoze.
+%
+% public domain
+%
+% ver 0.3 [2014/06/17]
+% ver 0.2 [2014/06/15]
+% ver 0.1 [2014/06/08]
+%
+\ProvidesPackage{ksbaduk-wrapnum}[2015/06/07 v0.3a draw circled number with given number]
+
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\usetikzlibrary{shadings,shapes}
+\RequirePackage{iftex}
+
+%%% for non-memoir classes compatibility
+\@ifundefined{abnormalparskip}{%
+	\def\abnormalparskip#1{\setlength\parskip{#1}}
+}{}
+
+\newcommand*\cirnum[9]{%
+	\ifvmode\leavevmode\fi		
+  	\raisebox{#5}{\abnormalparskip{0pt}%
+  		\tikz\node[%
+  			circle,draw=#4,thin,inner sep=#6,% 
+  			top color=#3,bottom color=#3,%
+			text width=#7,%
+			font=#8,text badly centered,#2%
+		]{#1};}}
+\newcommand*\ballnum[9]{%
+	\ifvmode\leavevmode\fi
+ 	\raisebox{#5}{\abnormalparskip{0pt}%
+ 	\tikz\node[%
+ 			circle,shade,draw=#4,thin,inner sep=#6,%
+ 			ball color=#3,%
+			text width=#7,%
+			font=#8,text badly centered,#2%
+		]{#1};}}%
+
+\ifPDFTeX
+\newcommand*\wrapnumfamily{\sffamily}
+\else
+\RequirePackage{fontspec}
+\newfontface\wrapnumfamily[BoldFont={MyriadPro-Bold.otf},%
+	ItalicFont={MyriadPro-It.otf},BoldItalicFont={MyriadPro-BoldIt.otf},
+	CharacterWidth=Half,LetterSpace=-5.0]{MyriadPro-Regular.otf}
+\fi
+
+\ExplSyntaxOn
+
+%%% \let\draw_wrapnum_...=\...num
+\cs_set_eq:NN \draw_wrapnum_circ \cirnum
+\cs_set_eq:NN \draw_wrapnum_ball \ballnum
+
+\tl_new:N  \hz_wrapnum_font_default
+\tl_set:Nn \hz_wrapnum_font_default { \wrapnumfamily\footnotesize }
+
+\dim_new:N  \hz_wrapnum_wrapsep_dim
+\dim_new:N  \hz_wrapnum_raise_default_dim
+\dim_set:Nn \hz_wrapnum_raise_default_dim { -0.5ex }
+\dim_new:N  \hz_wrapnum_raise_dim
+\dim_set_eq:NN \hz_wrapnum_raise_dim \hz_wrapnum_raise_default_dim
+\dim_new:N  \hz_wrapnum_width_dim
+\dim_new:N  \hz_wrapnum_round_dim
+
+\cs_new:Npn \treat_base_option:n #1
+{
+	\settowidth \hz_wrapnum_width_dim { #1 }
+}
+
+%%% set default \hz_wrapnum_width_dim
+\treat_base_option:n { 99 }
+
+\cs_new:Npn \treat_color_option:n #1
+{
+	\str_if_eq:nnTF { #1 } { white }
+	{
+		\tl_set:Nn \hz_wrapnum_fgcolor   { black }
+		\tl_set:Nn \hz_wrapnum_bgcolor   { white }
+		\tl_set:Nn \hz_wrapnum_linecolor { black }
+	}
+	{
+		\tl_set:Nn \hz_wrapnum_fgcolor   { white }
+		\tl_set:Nn \hz_wrapnum_bgcolor   { #1 }
+		\tl_set:Nn \hz_wrapnum_linecolor { #1 }
+	}
+}
+
+\keys_define:nn { hzwrapnum }
+{
+	type		.tl_set:N  = \hz_wrapnum_type,
+	type		.default:n = { circle },
+	background	.tl_set:N  = \hz_wrapnum_bgcolor,
+	foreground	.tl_set:N  = \hz_wrapnum_fgcolor,
+	linecolor	.tl_set:N  = \hz_wrapnum_linecolor,
+	color		.code:n    = { \treat_color_option:n {#1} },
+	color		.default:n = { white },
+	font		.tl_set:N  = \hz_wrapnum_font,
+	font		.default:n = { \hz_wrapnum_font_default },
+	fontplus	.code:n	   = {
+					\tl_put_right:Nn \hz_wrapnum_font { #1 }
+				},
+	wrapspace	.dim_set:N = \hz_wrapnum_wrapsep_dim,
+	Raise		.dim_set:N = \hz_wrapnum_raise_dim,
+	raise		.code:n    = {
+				\dim_set:Nn \hz_wrapnum_raise_dim { #1 + \hz_wrapnum_raise_default_dim }
+			},
+	base		.code:n	   = { \treat_base_option:n {#1} },
+	round		.dim_set:N = \hz_wrapnum_round_dim,
+	round		.default:n = { 3pt },
+	white		.meta:n	   = { color = white     },
+	black		.meta:n	   = { color = black     },
+	circle		.meta:n	   = { type  = circle    },
+	circ		.meta:n    = { type  = circle    },
+	ball		.meta:n	   = { type  = ball      },
+	reset		.code:n	   = { \initialize_hz_wrapnum: },
+}
+
+%% initialize
+\cs_new:Npn \initialize_hz_wrapnum:
+{
+	\keys_set:nn { hzwrapnum }
+	{
+		type 	= circle,
+		color 	= white,
+		font 	= { \hz_wrapnum_font_default },
+		base 	= { 99 },
+		wrapspace = { 0.25pt },
+		Raise 	= { \hz_wrapnum_raise_default_dim },
+		round 	= { 3pt }
+	}
+}
+
+\cs_new:Npn \draw_wrapnum:nn #1 #2
+{
+	\cs:w draw _wrapnum _#1 \cs_end:
+		{ #2              }
+		{ \hz_wrapnum_fgcolor   }
+		{ \hz_wrapnum_bgcolor   }
+		{ \hz_wrapnum_linecolor }
+		{ \hz_wrapnum_raise_dim }
+		{ \hz_wrapnum_wrapsep_dim }
+		{ \hz_wrapnum_width_dim }
+		{ \hz_wrapnum_font      }
+		{ \hz_wrapnum_round_dim }
+}
+
+\DeclareDocumentCommand \wrapnum { o m }
+{
+	\IfValueT  { #1 }
+	{
+		\keys_set:nn { hzwrapnum } { #1 }
+	}
+	\str_case_x:nnF { \hz_wrapnum_type }
+	{
+		{ circle }    { \draw_wrapnum:nn { circ } { #2 } }
+		{ circ   }    { \draw_wrapnum:nn { circ } { #2 } }
+		{ ball   }    { \draw_wrapnum:nn { ball } { #2 } }
+	}
+	{
+		\draw_wrapnum:nn { circ } { #2 }
+	}
+}
+
+\DeclareDocumentCommand \setwrapnum { m }
+{
+	\tl_if_empty:nTF { #1 }
+	{
+		\initialize_hz_wrapnum:
+	}
+	{
+		\keys_set:nn { hzwrapnum } { #1 }
+	}
+}
+
+%%% initialize once
+\initialize_hz_wrapnum:
+
+\ExplSyntaxOff
+
+\endinput

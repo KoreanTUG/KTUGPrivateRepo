@@ -1,0 +1,9 @@
+name kswrapfig.doc
+category Package
+revision 200
+shortdesc doc files of kswrapfig
+relocated 1
+docfiles size=76
+ RELOC/doc/latex/kswrapfig/fig1.png
+ RELOC/doc/latex/kswrapfig/kswrapfigdoc.pdf
+ RELOC/doc/latex/kswrapfig/kswrapfigdoc.tex

@@ -1,0 +1,9 @@
+\DeclareFontFamily{C70}{utbm}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{C70}{utbm}{m}{n}{<-> CJK * outbmm}{}
+\DeclareFontShape{C70}{utbm}{m}{sl}{<-> CJK * outbmmo}{}
+\DeclareFontShape{C70}{utbm}{m}{it}{<-> CJK * outbmmo}{}
+
+\DeclareFontShape{C70}{utbm}{c}{n}{<-> CJK * outbmc}{}
+\DeclareFontShape{C70}{utbm}{c}{sl}{<-> CJK * outbmco}{}
+\DeclareFontShape{C70}{utbm}{c}{it}{<-> CJK * outbmco}{}

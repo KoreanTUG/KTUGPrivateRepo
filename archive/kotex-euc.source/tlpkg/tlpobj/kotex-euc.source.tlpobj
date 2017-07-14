@@ -1,0 +1,7 @@
+name kotex-euc.source
+category Package
+revision 204
+shortdesc source files of kotex-euc
+srcfiles size=3
+ texmf-dist/source/latex/kotex-euc/hbibtex.c
+ texmf-dist/source/latex/kotex-euc/hmakeindex.c

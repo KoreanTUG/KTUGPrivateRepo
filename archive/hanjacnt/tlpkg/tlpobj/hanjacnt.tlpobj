@@ -1,0 +1,7 @@
+name hanjacnt
+category Package
+revision 200
+shortdesc translate number/counter to hanja/hangul, written by Karnes
+relocated 1
+runfiles size=9
+ RELOC/tex/latex/hanjacnt/hanjacnt.sty

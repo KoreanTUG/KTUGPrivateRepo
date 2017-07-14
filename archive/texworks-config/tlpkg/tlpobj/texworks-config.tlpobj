@@ -1,0 +1,12 @@
+name texworks-config
+category TLCore
+revision 200
+shortdesc TeXworks win32 configuration and other files packaged by KTUG.
+longdesc TeXworks win32 configuration and other files packages by KTUG
+longdesc including application settings, dictionaries for Korean spell
+longdesc checking, and document templates.
+depend ktugbin
+depend texworks-config.ARCH
+postaction script file=tlpkg/tlpostcode/texworks-config.pl
+runfiles size=1
+ tlpkg/tlpostcode/texworks-config.pl

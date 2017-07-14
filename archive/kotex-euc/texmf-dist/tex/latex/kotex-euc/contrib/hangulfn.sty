@@ -1,0 +1,34 @@
+%%% file `hangulfn.sty` ( part of ko.TeX )
+%%
+%% a wrapper style to load hfntk(euc) of dhucsfn(utf) on each case.
+%% [utf] (default) or [euc] option must be specified first.
+%% Usage : \usepackage[utf,varhangpar]{hangulfn}
+%%
+%% Additional Options : superscript/parenthesis, hang, multipara,
+%%      para, leftflush, indent, leftflushindent, hangpar, varhangpar
+%%
+\def\filedate{2007/07/15}
+\def\fileversion{1.0.1}
+
+\ProvidesPackage{hangulfn}[\filedate\space Korean footnote style]
+\typeout{Korean footnote style `hangulfn' <\filedate>.}
+
+\newif\if@euc@on@\@euc@on@false
+\DeclareOption{utf}{\@euc@on@false
+   \PassOptionsToPackage{\CurrentOption}{dhucsfn}%
+   \RequirePackage{dhucsfn}}
+\DeclareOption{euc}{\@euc@on@true
+   \PassOptionsToPackage{\CurrentOption}{hfntk}%
+   \RequirePackage{hfntk}}
+
+\ProcessOptions
+
+%% utf is default
+\if@euc@on@\else
+  \PassOptionsToPackage{\CurrentOption}{dhucsfn}
+  \RequirePackage{dhucsfn}
+\fi
+
+\endinput
+
+%% end of hangulfn.sty

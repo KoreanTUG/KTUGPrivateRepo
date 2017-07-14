@@ -1,0 +1,477 @@
+%% file: istgame.sty
+%%
+%% drawing game trees with TikZ
+%%
+%% (C) Copyright 2015 ischo <ischo at ktug.org>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  http://www.latex-project.org/lppl.txt.
+%%
+%% -------------------------------------------------
+\ProvidesPackage{istgame}[2017/01/17 v0.8]
+
+% v0.8 2017/1/17 \xtNode redefined
+% -- basic macro names change (prefix [x] added)
+%    - \ndot -> \xndot, \tndot -> \xtndot etc.
+%    - macro name changed (prefix [xt] added) 
+%    - \payoff => \xtpayoff
+%    - \move => \xtmove
+%    - \xtALxSdist => \xtALxShift
+%    - \xtALySdist => \xtALyShift
+%    - \levdist => \xtlevdist
+%    - \sibdist => \xtsibdist
+%    - \xRoot => \xtRoot
+%    - \xCntmRoot => \xtCntmRoot
+% -- supplement macro name changes (prefix [xt] added}
+%    - \xtdistance, \xtInfoset(*), \xtInfosetOwner, \xtActionLabel, \xtPayoff, \xtNode
+%    - \xtShowTeminalNodes, \xtHideTerminalNodes
+% -- node styles redefined, \setist<...>NodeStyle added
+% -- \setistdefaultnodecolor, \setdefaultnodebgcolor added
+% -- obsolete macros for backward compatibility removes
+% v0.7 2016/01/30 \ShowTerminalNodes and \HideTerminalNodes added (replace \xshowterminalnodes and \xhideterminalnodes)
+% v0.6 2015/09/26 abbreviations of <pos> options for supplement macros added
+% v0.5 2015/09/11 \xActionLabel added, \xDot modified
+% v0.4 2015/09/10 \istgrowdefault, \setistgrowdirection added (applied to \istroot and \istcntm)
+% v0.4 2015/09/10 \xInfoset, \xInfosetOwner default changed to 'above' from 'yshift=6pt'
+% v0.3 2015/09/09  \setistactionlabelposition, \setistactionlabelshift added
+% v0.3 2015/09/09  '\xlabelshift' replaced by '\setistactionlabelshift'
+% v0.3 2015/09/09  name change (\setistfontsize->\setistgamefontsize)
+% v0.3 2015/09/09 hollow node, solid node size changed
+% v0.3 2015/09/08 abbreviations al,ar,bl,br added (contributed by ndh)
+% v0.24 2015/09/06  \setistfontsize added (default:\normalsize), minor changes
+% v0.23 2015/08/30 \xlabelshift, \xyLabelshift added (removed 2015/09/09)
+% v0.22 2015/08/29 (obsolete) backward compatibility
+% v0.21.1 2015/08/28 {a,b,r,l} to (move) and (payoff), by ndh.
+% v0.21 2015/08/28 \xshowterminalnodes and \xhideterminalnodes added
+% v0.2 2015/08/25 
+% 2015/08/25 \istcntm and \istcntm* added   
+% 2015/08/25 \xtCntmRoot and \xtCntmRoot* added    (inspired by ndh)
+% 2015/08/25 \xtRoot and \istroot  changed  like {(1) at (0-1)} to (1)(0-1)
+% 2015/08/25 \istdone name-chaged to \endist 
+% v0.1 2015/08/23 (expl3 part came from ndh)
+
+
+\RequirePackage{expl3,xparse,tikz}
+\usetikzlibrary{calc,shapes,positioning,patterns}
+% 2017/01/13 positioning library added
+
+
+%+++++++++++++++++++++++++++++++++++
+
+%% 2017/01/09
+%% node style redfined ----------------------------------------------------------
+\newcommand\istdefaultnodecolor{black} %% default node color
+\newcommand\setistdefaultnodecolor[1]{\renewcommand\istdefaultnodecolor{#1}}
+\newcommand\istdefaultnodebgcolor{white} %% default node color
+\newcommand\setistdefaultnodebgcolor[1]{\renewcommand\istdefaultnodebgcolor{#1}}
+
+% null node: definition
+\newcommand\istnullnodecolor{\istdefaultnodecolor} % (#1) black
+\newcommand\istnullnodebgcolor{\istdefaultnodecolor} % (#2)  <= black
+\newcommand\istnullnodesize{.2pt} % (#3)
+\newcommand\istnullnodebgopacity{1} % (#4)
+\NewDocumentCommand\setistNullNodeStyle
+{O{\istdefaultnodecolor}mO{\istdefaultnodecolor}O{1}}
+{%
+  \renewcommand\istnullnodecolor{#1}
+  \renewcommand\istnullnodesize{#2}
+  \renewcommand\istnullnodebgcolor{#3} % same as {#1}
+  \renewcommand\istnullnodebgopacity{#4}
+}
+\tikzstyle{null node}=[circle,draw,minimum size=\istnullnodesize,\istnullnodecolor,fill=\istnullnodecolor,opacity=\istnullnodebgopacity,inner sep=0pt,outer sep=0pt] 
+
+% solid node: definition
+\newcommand\istsolidnodecolor{\istdefaultnodecolor} % (#1) black
+\newcommand\istsolidnodebgcolor{\istdefaultnodecolor} % (#2)  <= black
+\newcommand\istsolidnodesize{2.4pt} % (#3)
+\newcommand\istsolidnodebgopacity{1} % (#4)
+\NewDocumentCommand\setistSolidNodeStyle
+{O{\istdefaultnodecolor}mO{\istdefaultnodecolor}O{1}}
+{%
+  \renewcommand\istsolidnodecolor{#1}
+  \renewcommand\istsolidnodesize{#2}
+  \renewcommand\istsolidnodebgcolor{#3} % same as {#1}
+  \renewcommand\istsolidnodebgopacity{#4}
+}
+\tikzstyle{solid node}=[circle,draw,minimum size=\istsolidnodesize,\istsolidnodecolor,fill=\istsolidnodecolor,opacity=\istsolidnodebgopacity,inner sep=0pt,outer sep=0pt] 
+
+% decision node, terminal node
+
+\let\setistDecisionNodeStyle\setistSolidNodeStyle
+\let\setistTerminalNodeStyle\setistSolidNodeStyle
+
+% hollow node: definition
+\newcommand\isthollownodecolor{\istdefaultnodecolor} % (#1) black
+\newcommand\isthollownodebgcolor{\istdefaultnodebgcolor} % (#2) white
+\newcommand\isthollownodesize{2.8pt} % (#3)
+\newcommand\isthollownodebgopacity{1} % (#4)
+\NewDocumentCommand\setistHollowNodeStyle
+{O{\istdefaultnodecolor}mO{\istdefaultnodebgcolor}O{1}}
+{%
+  \renewcommand\isthollownodecolor{#1}
+  \renewcommand\isthollownodesize{#2}
+  \renewcommand\isthollownodebgcolor{#3}
+  \renewcommand\isthollownodebgopacity{#4}
+}
+\tikzstyle{hollow node}=[circle,draw,minimum size=\isthollownodesize,\isthollownodecolor,fill=\isthollownodebgcolor,opacity=\isthollownodebgopacity,inner sep=0pt,outer sep=0pt] 
+
+% initial node, chance node
+
+\let\setistInitialNodeStyle\setistHollowNodeStyle
+\let\setistChanceNodeStyle\setistHollowNodeStyle
+
+% rectangle node: definition
+\newcommand\istrectanglenodecolor{\istdefaultnodecolor} %(#1) black
+\newcommand\istrectanglenodesize{4pt} % (#2)
+\newcommand\istrectanglenodebgcolor{\istdefaultnodebgcolor} % (#3) white
+\newcommand\istrectanglenodebgopacity{1} % (#4)
+\NewDocumentCommand\setistRectangleNodeStyle
+{O{\istdefaultnodecolor}mO{\istdefaultnodebgcolor}O{1}}
+{%
+  \renewcommand\istrectanglenodecolor{#1}
+  \renewcommand\istrectanglenodesize{#2}
+  \renewcommand\istrectanglenodebgcolor{#3}
+  \renewcommand\istrectanglenodebgopacity{#4}
+}
+\tikzstyle{rectangle node}=[rectangle,draw,minimum size=\istrectanglenodesize,\istrectanglenodecolor,fill=\istrectanglenodebgcolor,opacity=\istrectanglenodebgopacity,inner sep=2pt,outer sep=0pt] 
+
+% box node
+
+\let\setistBoxNodeStyle\setistRectangleNodeStyle
+\let\setistSquareNodeStyle\setistRectangleNodeStyle
+
+% ellipse node: definition
+\newcommand\istellipsenodecolor{\istdefaultnodecolor} %(#1) black
+\newcommand\istellipsenodesize{5pt} % (#2)
+\newcommand\istellipsenodebgcolor{\istdefaultnodebgcolor} % (#3) white
+\newcommand\istellipsenodebgopacity{1} % (#4)
+\NewDocumentCommand\setistEllipseNodeStyle
+{O{\istdefaultnodecolor}mO{\istdefaultnodebgcolor}O{1}}
+{%
+  \renewcommand\istellipsenodecolor{#1}
+  \renewcommand\istellipsenodesize{#2}
+  \renewcommand\istellipsenodebgcolor{#3}
+  \renewcommand\istellipsenodebgopacity{#4}
+}
+\tikzstyle{ellipse node}=[ellipse,draw,minimum size=\istellipsenodesize,\istellipsenodecolor,fill=\istellipsenodebgcolor,opacity=\istellipsenodebgopacity,inner sep=1.5pt,outer sep=0pt] 
+
+% oval node
+\let\setistOvalNodeStyle\setistEllipseNodeStyle
+
+%% --------------------------------------------------------------------------------
+
+
+%%----game tree: tikz--------------------------------------------------
+%% node style
+\tikzstyle{initial node}=[hollow node]
+\tikzstyle{chance node}=[hollow node]
+\tikzstyle{decision node}=[solid node]  % decision nodes
+\tikzstyle{terminal node}=[solid node]  % terminal nodes
+\tikzstyle{box node}=[rectangle node]
+\tikzstyle{square node}=[rectangle node]
+\tikzstyle{oval node}=[ellipse node]
+
+%% egame macro
+% basics (in child)
+\newcommand\xndot{node[terminal node]{}} %% within child (node dot)
+\newcommand\xtndot{node[terminal node]{}} %% within child (terminal node dot)
+  \newcommand\xshowtndot{}
+  \newcommand\xshowterminalnodes{\def\xshowtndot{\xtndot}}
+  \newcommand\xhideterminalnodes{\def\xshowtndot{}}
+%%+++++++++++++++++   added 2016/01/30, replace \xshowterminalnodes and \xhideterminalnodes
+\NewDocumentCommand{\xtShowTerminalNodes}{O{terminal node}}
+{
+\def\xshowtndot{node[#1]{}}
+}
+\newcommand\xtHideTerminalNodes{\def\xshowtndot{}}
+%%+++++++++++++++++
+
+\newcommand\xtmove[3]{edge from parent [#1] node [#2] {$#3$}}
+\newcommand\xtpayoff[2]{node[inner sep=0pt, outer sep=0pt, label={#1:{$#2$}}]{}}
+
+% \xtdistance
+\newcommand\xtlevdist{15mm}  %% (default) initial values for level distance
+\newcommand\xtsibdist{15mm}  %% (default) initial values for sibling distance
+\NewDocumentCommand\xtdistance{O{1}mm}
+    { \def\xtlevdist{#2}\def\xtsibdist{#3}\tikzstyle{level #1}
+      = [level distance=\xtlevdist,sibling distance=\xtsibdist]
+    }
+
+% \xRroot
+\NewDocumentCommand\xtRoot{sO{south}r()D(){0,0}O{}D<>{}G{}D+.{\xtlevdist}D.+{\xtsibdist}} 
+{ \IfBooleanTF {#1}
+    { \tikzstyle{level 1}=[level distance=#8,sibling distance=#9]
+      \node (#3) at (#4) [oval node,#5] {#7} [grow=#2]
+    }
+    { \tikzstyle{level 1}=[level distance=#8,sibling distance=#9]
+      \node (#3) at (#4) [decision node,#5,{label={#6:{#7}}}] {} [grow=#2]
+    }
+}
+
+% \xtCntmRoot
+\NewDocumentCommand\xtCntmRoot{sO{south}r()D(){0,0}O{black!25}G{.5}D+.{\xtlevdist}D.+{\xtsibdist}}
+{ \IfBooleanTF {#1}
+  { \tikzstyle{level 1}=[level distance=#7,sibling distance=#8]
+    \node (#3) at (#4) [null node] {} [grow=#2] child child;
+    \draw [bend right,#5] ($(#3)!#6!(#3-1)$) to ($(#3)!#6!(#3-2)$);
+  }
+  { \tikzstyle{level 1}=[level distance=#7,sibling distance=#8]
+    \node (#3) at (#4) [null node] {} [grow=#2] child child;
+    \draw [#5,fill=#5] (#3) -- (#3-1) -- (#3-2) -- (#3);
+  }
+}
+
+% \xtInfoset
+\NewDocumentCommand\xtInfoset{sO{}r()r()G{}O{}}
+{ \IfBooleanTF {#1}
+  { \draw [-,thick,dotted,rounded corners=4pt,#2] 
+    ($(#3)+(-4pt,-4pt)$) rectangle ($(#4)+(4pt,4pt)$) 
+    node at ($(#3)!.5!(#4)$) [#6] {#5};
+  }
+  { \draw [thick, dotted,#2] 
+    (#3) to (#4) 
+    node at ($(#3)!.5!(#4)$) [above,#6] {#5}; % default change to above 2015/09/10
+  }
+}
+
+% \xtNode
+\NewDocumentCommand\xtNode{O{}r()O{}G{}}   % modified 2015/09/11  , 2017/01/16
+    {\node [-,#1] at (#2)  [solid node,#3] {#4};
+    }
+%%%------------------------------------------------------
+
+
+%%-------------------------------------------------------
+\newcommand\istgamefontsize{\normalsize}  % default font size=\normalsize  2015/09/06
+\newcommand\setistgamefontsize[1]{\renewcommand*{\istgamefontsize}{#1}} %% set default fontsize  2015/09/06
+\NewDocumentEnvironment{istgame}{O{}}   %% accepts tikzpicture options
+{ \begin{tikzpicture}[font=\istgamefontsize,#1]   %% \scriptsize changed to \istgamefontsize  2015/09/06
+}
+{ \end{tikzpicture}
+}
+
+
+%%% 2015/09/09 \setistactionlabelxyshift  \setistactionlabelposition added and modified ------------------
+%% \isthorizontallabelshift, \istverticallabelshift, \xtALxShift, \xtALyShift added and modified
+\newcommand*\xtALxShift{0pt}  % default xshift
+\newcommand*\xtALyShift{0pt}  % default yshift
+\newcommand\setistactionlabelshift[2]
+  { \renewcommand*\xtALxShift{#1}
+    \renewcommand*\xtALyShift{#2}
+  }
+\newcommand\isthorizontallabelshift{0.5pt}  % default horizontal pull
+\newcommand\istverticallabelshift{3.5pt}  % default vertical pull
+\NewDocumentCommand\setistactionlabelposition
+  {G{\isthorizontallabelshift}G{\istverticallabelshift}
+  }
+  { \renewcommand*\isthorizontallabelshift{#1}
+    \renewcommand*\istverticallabelshift{#2}
+  }
+% (obsolete) just for backward compatibilty
+\newcommand\xlabelshift[4]{\setistactionlabelshift{#2}{#3}}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%---------------------
+
+
+\ExplSyntaxOn 
+
+\tl_new:N \ischo_game_tl
+
+
+%%% 2015/09/09 modified (shifts and black)
+%%% al, ar, bl, br parts contributed by ndh 2015/09/08
+%%%%%%%%%%%%%%% ndh: 2015/08/28 %%%%%%%%%%%%========
+\cs_new:Npn \ist_move:nnn #1 #2 #3
+{
+	\str_case:nnF { #2 }
+	{
+		{ al } { edge~from~parent~[#1]~node~
+		          [above~left,xshift=\isthorizontallabelshift,yshift=-\istverticallabelshift,black]~{ $#3$ } 
+		        }
+		{ ar } { edge~from~parent~[#1]~node~
+		           [above~right,xshift=-\isthorizontallabelshift,yshift=-\istverticallabelshift,black]~{ $#3$ } 
+		        }
+		{ bl } { edge~from~parent~[#1]~node~
+		           [below~left,xshift=\isthorizontallabelshift,yshift=\istverticallabelshift,black]~{ $#3$ } 
+		        }
+		{ br } { edge~from~parent~[#1]~node~
+		           [below~right,xshift=-\isthorizontallabelshift,yshift=\istverticallabelshift,black]~{ $#3$ } 
+		        }
+		{ l } { edge~from~parent~[#1]~node~[left,xshift=-\xtALxShift,black]~{ $#3$ } }
+		{ r } { edge~from~parent~[#1]~node~[right,xshift=\xtALxShift,black]~{ $#3$ } }
+		{ a } { edge~from~parent~[#1]~node~[above,yshift=\xtALyShift,black]~{ $#3$ } }
+		{ b } { edge~from~parent~[#1]~node~[below,yshift=-\xtALyShift,black]~{ $#3$ } }
+	}
+	{
+		edge~from~parent~[#1]~node~[#2]~{ $#3$ }
+	}
+}
+
+\cs_new:Npn \ist_payoff:nn #1 #2
+{
+	\str_case_x:nnF { #1 }
+	{
+		{ al } { \xtpayoff { above~left } { #2 } }
+		{ ar } { \xtpayoff { above~right } { #2 } }
+		{ bl } { \xtpayoff { below~left } { #2 } }
+		{ br } { \xtpayoff { below~right } { #2 } }
+		{ l } { \xtpayoff { left } { #2 } }
+		{ r } { \xtpayoff { right } { #2 } }
+		{ a } { \xtpayoff { above} { #2 } }
+		{ b } { \xtpayoff { below } { #2 } }
+	}
+	{
+		\xtpayoff { #1 } { #2 }
+	}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%=======
+
+
+% \istroot
+\newcommand*\istgrowdefault{south}  % added 2015/09/10
+\newcommand\setistgrowdirection[1]{\renewcommand\istgrowdefault{#1}} % added 2015/09/10
+\NewDocumentCommand \istroot 
+{ s O{\istgrowdefault} r() D(){0,0} O{} D<>{} G{} D+.{\xtlevdist} D.+{\xtsibdist}  % touched 2015/09/10
+}
+{
+  \tl_clear:N \ischo_game_tl
+  \xdef\istgrowdirection{#2}  % use this in \istb to specify [payoff direction]
+
+  \IfBooleanTF {#1}
+    { 
+      \tl_put_right:Nx \ischo_game_tl
+      { \xtRoot* [ \istgrowdirection ] ( #3 ) ( #4 ) [ #5 ] { #7 } + #8 .. #9 +
+      }
+    }
+    { 
+      \tl_put_right:Nx \ischo_game_tl
+      { \xtRoot [ \istgrowdirection ] ( #3 ) ( #4 ) [ #5 ] < #6 > { #7 } + #8 .. #9 +
+      }
+    }
+}
+
+% \istb
+%%%%%%%%%%%%%% modified by ndh, 2015/08/28
+%%%%%%%%%%%%%% \xtpayoff => \ist_payoff:nn, \xtmove => \ist_move:nnn
+\NewDocumentCommand \istb {s D<>{} O{} G{} O{} g O{\istgrowdirection} }  
+{\IfBooleanTF {#1}
+    { \IfValueTF { #6 }
+      { \tl_put_right:Nn \ischo_game_tl
+        { child [ #2 ] { \xndot \ist_payoff:nn { #7 } { #6 } 
+                     \ist_move:nnn { #3 } { #5 } { #4 } } 
+        }
+      }
+      { \tl_put_right:Nn \ischo_game_tl
+        { child [ #2 ] { \xndot \ist_move:nnn { #3 } { #5 } { #4 } } 
+        }
+      }
+    }
+    { \IfValueTF { #6 }
+      { \tl_put_right:Nn \ischo_game_tl
+        { child [ #2 ] { \xshowtndot \ist_payoff:nn { #7 } {  #6  } 
+                     \ist_move:nnn { #3 } { #5 } { #4 } } 
+        }
+      }
+      { \tl_put_right:Nn \ischo_game_tl
+        { child [ #2 ] { \xshowtndot \ist_move:nnn { #3 } { #5 } { #4 } } 
+        }
+      }
+    }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \endist 
+\NewDocumentCommand \endist { }
+{ \tl_put_right:Nn \ischo_game_tl { ; }
+  \tl_use:N \ischo_game_tl
+}
+
+% \istcntm
+%%% \istgrowdefault applied 2015/09/10
+\NewDocumentCommand \istcntm 
+{ s O{\istgrowdefault} r() D(){0,0} O{black!25} G{.5} D+.{\xtlevdist}D.+{\xtsibdist}
+}
+{ \IfBooleanTF {#1}
+  { \xtCntmRoot* [ #2 ] ( #3 ) ( #4 ) [ #5 ] { #6 } + #7 .. #8 +
+  }
+  { \xtCntmRoot [ #2 ] ( #3 ) ( #4 ) [ #5 ] + #7 .. #8 +
+  }
+}
+
+%% +++++++++++++++++++++++++++++++++++++++++++++++++++
+%% abbreviations for supplement macros added 2015/09/26 (ischo)
+\NewDocumentCommand\xtInfosetOwner{r()r()mO{}}
+{
+	\str_case_x:nnF { #4 }
+	{
+		{ al } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above~left] {#3}; }
+		{ ar } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above~right] {#3}; }
+		{ bl } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below~left] {#3}; }
+		{ br } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below~right] {#3}; }
+		{ l } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [left] {#3}; }
+		{ r } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [right] {#3}; }
+		{ a } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above] {#3}; }
+		{ b } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below] {#3}; }
+	}
+	{
+		\draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [#4] {#3};
+	}
+}
+\NewDocumentCommand\xtActionLabel{r()r()mO{}}
+{
+	\str_case_x:nnF { #4 }
+	{
+		{ al } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above~left] {$#3$}; }
+		{ ar } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above~right] {$#3$}; }
+		{ bl } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below~left] {$#3$}; }
+		{ br } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below~right] {$#3$}; }
+		{ l } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [left] {$#3$}; }
+		{ r } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [right] {$#3$}; }
+		{ a } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [above] {$#3$}; }
+		{ b } { \draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [below] {$#3$}; }
+	}
+	{
+		\draw[draw=none] (#1) to (#2) node at ($(#1)!.5!(#2)$) [#4] {$#3$};
+	}
+}
+\NewDocumentCommand\xtOwner{r()mO{above}}
+{
+	\str_case_x:nnF { #3 }
+	{
+		{ al } { \node [ above~left ] at (#1) {#2}; }
+		{ ar } { \node [ above~right ] at (#1) {#2}; }
+		{ bl } { \node [ below~left ] at (#1) {#2}; }
+		{ br } { \node [ below~right ] at (#1) {#2}; }
+		{ l } { \node [ left ] at (#1) {#2}; }
+		{ r } { \node [ right ] at (#1) {#2}; }
+		{ a } { \node [ above ] at (#1) {#2}; }
+		{ b } { \node [ below ] at (#1) {#2}; }
+	}
+	{
+		\node [#3] at (#1) {#2};
+	}
+}
+\NewDocumentCommand\xtPayoff{r()mO{below}}
+{
+	\str_case_x:nnF { #3 }
+	{
+		{ al } { \node [ above~left ] at (#1) {$#2$}; }
+		{ ar } { \node [ above~right ] at (#1) {$#2$}; }
+		{ bl } { \node [ below~left ] at (#1) {$#2$}; }
+		{ br } { \node [ below~right ] at (#1) {$#2$}; }
+		{ l } { \node [ left ] at (#1) {$#2$}; }
+		{ r } { \node [ right ] at (#1) {$#2$}; }
+		{ a } { \node [ above ] at (#1) {$#2$}; }
+		{ b } { \node [ below ] at (#1) {$#2$}; }
+	}
+	{
+		\node [#3] at (#1) {$#2$};
+	}
+}
+%% +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\ExplSyntaxOff 
+
+\endinput

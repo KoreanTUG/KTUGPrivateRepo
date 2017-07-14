@@ -1,0 +1,807 @@
+% file: kocircnum.sty
+% written by Nova De Hi
+%
+% circled numbers,
+%    hcrnumbers : Dohyun Kim
+%    hzmiscs    : Hoze
+%    tikznumbers: Hova De Hi
+%
+% public domain
+%
+% \hcrcircnum, \hzcircnum, \tikzcircnum
+% \circnum
+%
+\ProvidesPackage{kocircnum}[2014/06/17 v1.2.1 circled number with hcr/hz/tikz]
+
+\newif\if@hcrcirc\newif\if@hzcirc\newif\if@tikzcirc\newif\if@tikzsmall
+\@hcrcirctrue\@hzcircfalse\@tikzcircfalse\@tikzsmallfalse
+\DeclareOption{hcr}{\@hcrcirctrue\@hzcircfalse\@tikzcircfalse\@tikzsmallfalse}
+\DeclareOption{hz}{\@hcrcircfalse\@hzcirctrue\@tikzcircfalse\@tikzsmallfalse}
+\DeclareOption{tikz}{\@hcrcircfalse\@hzcircfalse\@tikzcirctrue\@tikzsmalltrue}
+\DeclareOption{tikzsmall}{\@hcrcircfalse\@hzcircfalse\@tikzcirctrue\@tikzsmalltrue}
+\DeclareOption{tikzbig}{\@hcrcircfalse\@hzcircfalse\@tikzcirctrue\@tikzsmallfalse}
+\ProcessOptions
+
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\usetikzlibrary{shadings,shapes}
+
+%%% for non-memoir class compatibility
+\@ifundefined{abnormalparskip}{%
+	\def\abnormalparskip#1{\setlength\parskip{#1}}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% hcrnumbers: reimplemented by Nova De Hi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ExplSyntaxOn
+
+\pdftex_if_engine:TF
+{
+	\AtEndOfPackage {
+		\let \hcrcircnum \hzcircnum
+		\let \hcrcircnumsetup \hzcircnumsetup
+		\let \restorehcrcircnumsetup \restorehzcircnumsetup
+		\if@hcrcirc
+		\let \circnum \hzcircnum
+		\let \circnumsetup \hzcircnumsetup
+		\let \restorecircnumsetup \restorehzcircnumsetup
+		\fi
+	}
+}
+{  % begin of !pdftex
+\RequirePackage { fontspec }
+
+\cs_new:Npn \check_batang_dotum: 
+{
+	\tl_if_eq:NNTF \f@family \rmdefault
+	{
+		\tl_set:Nn \this_hcr_font { HCR Batang LVT }
+	}
+	{
+		\tl_set:Nn \this_hcr_font { HCR Dotum LVT }
+	}
+}
+
+\cs_new:Npn \fontspec_with_annotation:n #1
+{
+	\fontspec [ Annotation = #1 ] { \this_hcr_font }
+}
+
+\cs_new:Npn \get_anno_mark:nnn #1 #2 #3
+{
+	\tl_clear:N \treat_option_str
+	\str_case:nnF { #1 }
+	{
+		{ one   } { \tl_put_right:Nn \treat_option_str { #1 } }
+		{ two   } { \tl_put_right:Nn \treat_option_str { #1 } }
+		{ three } { \tl_put_right:Nn \treat_option_str { #1 } }
+	}
+	{
+		\tl_set:Nn \treat_option_str { unknown }
+	}
+	
+	\str_case:nnF { #2 }
+	{
+		{ circle } { \tl_put_right:Nn \treat_option_str { #2 } }
+		{ box    } { \tl_put_right:Nn \treat_option_str { #2 } }
+		{ rectangle } { \tl_put_right:Nn \treat_option_str { box } }
+	}
+	{
+		\tl_set:Nn \treat_option_str { unknown }
+	}
+	
+	\str_case:nnF { #3 }
+	{
+		{ white } { \tl_put_right:Nn \treat_option_str { #3 } }
+		{ black } { \tl_put_right:Nn \treat_option_str { #3 } }
+	}
+	{
+		\tl_set:Nn \treat_option_str { unknown }
+	}
+	
+	\str_case_x:nn \treat_option_str
+	{
+		{ onecirclewhite } { \tl_set:Nn \anno_ind   { 0  } }
+		{ onecircleblack } { \tl_set:Nn \anno_ind   { 4  } }
+		{ oneboxwhite    } { \tl_set:Nn \anno_ind   { 14 } }
+		{ oneboxblack    } { \tl_set:Nn \anno_ind   { 17 } }
+		{ twocirclewhite } { \tl_set:Nn \anno_left  { 10 } 
+							 \tl_set:Nn \anno_right { 11 } }
+		{ twocircleblack } { \tl_set:Nn \anno_left  { 12 } 
+							 \tl_set:Nn \anno_right { 13 } }
+		{ twoboxwhite    } { \tl_set:Nn \anno_left  { 15 } 
+							 \tl_set:Nn \anno_right { 16 } }
+		{ twoboxblack    } { \tl_set:Nn \anno_left  { 18 } 
+							 \tl_set:Nn \anno_right { 19 } }
+		{ threecirclewhite }
+		 { \tl_set:Nn \anno_left  { 20 } 
+		   \tl_set:Nn \anno_mid   { 21 } 
+		   \tl_set:Nn \anno_right { 22 } }
+		{ threecircleblack }
+		 { \tl_set:Nn \anno_left  { 23 } 
+		   \tl_set:Nn \anno_mid   { 24 } 
+		   \tl_set:Nn \anno_right { 25 } }
+		{ threeboxwhite } 
+		 { \tl_set:Nn \anno_left  { 26 } 
+		   \tl_set:Nn \anno_mid   { 21 } 
+		   \tl_set:Nn \anno_right { 22 } }
+		{ threeboxblack }
+		 { \tl_set:Nn \anno_left  { 27 } 
+		   \tl_set:Nn \anno_mid   { 28 } 
+		   \tl_set:Nn \anno_right { 29 } }
+	}
+}
+
+\cs_new:Npn \number_into_digits:n #1
+{
+	\bool_if:nT
+	  { \int_compare_p:n { #1 >= 0 } && \int_compare_p:n { #1 < 10 } }
+	  { \tl_set:Nn \hcrnum_digit_one { #1 } }
+	
+	\bool_if:nT
+	  { \int_compare_p:n { #1 >= 10 } && \int_compare_p:n { #1 < 100 } }
+	  {
+	    \tl_set:Nn \hcrnum_digit_two_left { \int_div_truncate:nn { #1 } { 10 } }
+	    \tl_set:Nn \hcrnum_digit_two_right
+	      { \int_eval:n { #1 - 10 * \int_div_truncate:nn { #1 } { 10 } } }
+	  }
+	
+	\bool_if:nT
+	  { \int_compare_p:n { #1 >= 100 } && \int_compare_p:n { #1 < 1000 } }
+	  {
+	    \tl_set:Nn \hcrnum_digit_three_left 
+	  	  { \int_div_truncate:nn { #1 } { 100 } }
+	    \tl_set:Nn \hcrnum_digit_three_mid
+	 	  { \int_eval:n 
+		     { \int_div_truncate:nn 
+		        { #1 - 100 * \int_div_truncate:nn { #1 } { 100 } } { 10 } } }
+	    \tl_set:Nn \hcrnum_digit_three_right
+	      { \int_eval:n { #1 - 10 * \int_div_truncate:nn { #1 } { 10 } } }
+	  }
+}
+
+\DeclareDocumentCommand \hcrannonum { m m m }
+{
+	\if_mode_vertical: \leavevmode \fi:
+	\number_into_digits:n { #3 }
+
+	\bool_if:nT
+	  { \int_compare_p:n { #3 >= 0 } && \int_compare_p:n { #3 < 10 } }
+	  {
+		\get_anno_mark:nnn { one } { #1 } { #2 }
+		\group_begin:
+		\l_tmpa_circnum_font \check_batang_dotum:
+		\str_if_eq_x:nnF { nocolor } \l_tmpa_circnum_color 
+			{ \color{ \l_tmpa_circnum_color } }
+		\fontspec_with_annotation:n \anno_ind \hcrnum_digit_one
+		\group_end:
+	  }
+	
+	\bool_if:nT
+	  { \int_compare_p:n { #3 >= 10 } && \int_compare_p:n { #3 < 100 } }
+	  {
+		\get_anno_mark:nnn { two } { #1 } { #2 }
+		\group_begin:
+		\l_tmpa_circnum_font \check_batang_dotum:
+		\str_if_eq_x:nnF { nocolor } \l_tmpa_circnum_color 
+			{ \color{ \l_tmpa_circnum_color } }
+		\fontspec_with_annotation:n \anno_left \hcrnum_digit_two_left
+		\hbox_overlap_left:n {
+			\fontspec_with_annotation:n \anno_right \hcrnum_digit_two_right
+		}
+		\group_end:
+	  }
+	
+	\bool_if:nT
+	  { \int_compare_p:n { #3 >= 100 } && \int_compare_p:n { #3 < 1000 } }
+	  {
+		\get_anno_mark:nnn { three } { #1 } { #2 }
+		\group_begin:
+		\l_tmpa_circnum_font \check_batang_dotum:
+		\str_if_eq_x:nnF { nocolor } \l_tmpa_circnum_color 
+			{ \color{ \l_tmpa_circnum_color } }
+		\fontspec_with_annotation:n \anno_left \hcrnum_digit_three_left
+		\hbox_overlap_left:n {
+			\fontspec_with_annotation:n \anno_mid \hcrnum_digit_three_mid
+		}
+		\hbox_overlap_left:n {
+			\fontspec_with_annotation:n \anno_right \hcrnum_digit_three_right
+		}
+		\group_end:
+	  }
+}
+
+\ExplSyntaxOff
+
+\def\hcrnumbercirclewhite{\hcrannonum{circle}{white}}
+\def\hcrnumbercircleblack{\hcrannonum{circle}{black}}
+\def\hcrnumberrectanglewhite{\hcrannonum{box}{white}}
+\def\hcrnumberrectangleblack{\hcrannonum{box}{black}}
+\let\hcrnumberboxwhite=\hcrnumberrectanglewhite
+\let\hcrnumberboxblack=\hcrnumberrectangleblack
+
+\ExplSyntaxOn
+
+\keys_define:nn { hcrsetup }
+{
+	shape     .tl_set:N  = \l_tmpa_circnum_shape,
+	shape     .default:n = circle,
+	hcrcolor  .tl_set:N  = \l_tmpa_circnum_hcrcolor,
+	hcrcolor  .default:n = white,
+	circle    .meta:n    = { shape    = circle    },
+	box       .meta:n    = { shape    = rectangle },
+	rectangle .meta:n    = { shape    = rectangle },
+	white     .meta:n    = { hcrcolor = white     },
+	black     .meta:n    = { hcrcolor = black     },
+	reset     .code:n    = { \restorehcrcircnumsetup },
+	font      .tl_set:N  = \l_tmpa_circnum_font,
+	color     .code:n	 = 
+				{ \str_case:nnTF { #1 }
+					 { { black } { \tl_set:Nn \l_tmpa_circnum_hcrcolor { black } }
+					   { white } { \tl_set:Nn \l_tmpa_circnum_hcrcolor { white } } }
+					 { \tl_set:Nn \l_tmpa_circnum_color { nocolor } }
+					 { \tl_set:Nn \l_tmpa_circnum_color { #1 } }
+				},
+}
+
+\DeclareDocumentCommand \hcrcircnum { s o m }
+{
+	\IfBooleanT { #1 }
+	{
+		\keys_set:nn { hcrsetup }
+		{
+			shape = circle,
+			color = white,
+			font  = {\normalfont},
+		}
+	}
+	\IfValueT { #2 }
+	{
+		\keys_set:nn { hcrsetup } { #2 }
+	}
+	\cs:w
+		hcrnumber
+		\l_tmpa_circnum_shape
+		\l_tmpa_circnum_hcrcolor
+	\cs_end: { #3 }
+}
+
+\DeclareDocumentCommand \hcrcircnumsetup { m }
+{  \keys_set:nn { hcrsetup } { #1 } }
+
+\DeclareDocumentCommand \restorehcrcircnumsetup { }
+{
+	\keys_set:nn { hcrsetup }
+	{
+		shape = circle,
+		color = white,
+		font  = {\normalfont},
+	}
+}
+
+%% initialize default values = circle/white
+\restorehcrcircnumsetup
+}              % end of !pdftex
+
+%%%%%%%%%
+%%%%%%%%% from hzmisc.sty by Hoze, modified by Nova De Hi
+%%%%%%%%%
+
+%% #1 = wrapnumraise = \l_hz_raise_dim
+%% #2 = wrapfgcolor  = \l_hz_fgcolor
+%% #3 = wrapsep      = \l_hz_sep_dim
+%% #4 = wrapbgcolor  = \l_hz_bgcolor
+%% #5 = wrapnumwidth = \l_hz_width_dim
+%% #6 = wrapnumfont  = \l_hz_font
+%% #7 = <number>
+
+\ExplSyntaxOff
+\newcommand*\hzovalnum[7]{%  
+  		\raisebox{#1}{\abnormalparskip{0pt}% 
+  			\tikz\node[%   				
+  				rectangle,draw=#2,thin,inner sep=#3+1pt,% 
+  				rounded corners=3pt,%  				
+  				top color=#4,bottom color=#4,% 
+				text width=#5,% 
+				font=#6,text badly centered,#2% 
+			]{#7};}}
+\newcommand*\hzrectanglenum[7]{%  
+  		\raisebox{#1}{\abnormalparskip{0pt}%
+  			\tikz\node[%
+  				rectangle,draw=#2,thin,inner sep=#3+1pt,%
+  				top color=#4,bottom color=#4,%
+				text width=#5,%
+				font=#6,text badly centered,#2%
+			]{#7};}}
+\newcommand*\hzcirclenum[7]{% 		
+  		\raisebox{#1}{\abnormalparskip{0pt}%
+  			\tikz\node[%
+  				circle,draw=#2,thin,inner sep=#3,%
+  				top color=#4,bottom color=#4,%
+				text width=#5,%
+				font=#6,text badly centered,#2%
+			]{#7};}}
+\newcommand*\hzballnum[7]{% 
+ 		\raisebox{#1}{\abnormalparskip{0pt}%
+ 		\tikz\node[%
+ 				circle,shade,draw=#4,thin,inner sep=#3,%
+ 				ball color=#4,%
+				text width=#5,%
+				font=#6,text badly centered,#2%
+			]{#7};}}%
+%%%% end of codes from hzmisc.sty %%%%%%%%%
+\ExplSyntaxOn
+
+\dim_new:N \l_hz_sep_dim
+\dim_new:N \l_hz_raise_dim
+\dim_new:N \l_hz_raise_default_dim
+\dim_set:Nn \l_hz_raise_default_dim { -0.5ex }
+\dim_new:N \l_hz_width_dim 
+
+\cs_new:Npn \hz_treat_color_option:n #1
+{
+	\str_case:nnF { #1 }
+	{
+		{ white } { \tl_set:Nn \l_hz_bgcolor { white } 
+					\tl_set:Nn \l_hz_fgcolor { black } }
+		{ black } { \tl_set:Nn \l_hz_bgcolor { black }
+					\tl_set:Nn \l_hz_fgcolor { white } }
+	}
+	{
+		\tl_set:Nn \l_hz_bgcolor {  #1   }
+		\tl_set:Nn \l_hz_fgcolor { white }
+	}
+}
+
+\cs_new:Npn \hz_treat_base_option:n #1
+{
+	\settowidth \l_hz_width_dim { \l_hz_font #1 }
+}
+
+\keys_define:nn { hzsetup }
+{
+	shape	.tl_gset:N  = \l_hz_shape,
+	color	.code:n    = { \hz_treat_color_option:n { #1 } },
+	bgcolor	.tl_set:N  = \l_hz_bgcolor,
+	fgcolor	.tl_set:N  = \l_hz_fgcolor,
+	font	.tl_set:N  = \l_hz_font,
+	fontplus .code:n   = { \tl_put_right:Nn \l_hz_font { #1 } },
+	sep		.dim_set:N = \l_hz_sep_dim,
+	Raise	.dim_set:N = \l_hz_raise_dim,
+	raise	.code:n    = { \dim_set:Nn \l_hz_raise_dim { #1 + \l_hz_raise_default_dim } },
+	base	.code:n    = { \hz_treat_base_option:n { #1 }	},
+	circle  .meta:n    = { shape = circle },
+	circ    .meta:n    = { shape = circle },
+	rectangle .meta:n  = { shape = rectangle },
+	rect    .meta:n    = { shape = rectangle },
+	box     .meta:n    = { shape = rectangle },
+	oval    .meta:n    = { shape = oval },
+	ball    .meta:n    = { shape = ball },
+	white   .meta:n    = { color = white },
+	black   .meta:n    = { color = black },
+	reset   .code:n    = { \restorehzcircnumsetup },
+}
+
+\cs_new:Npn \draw_hz_circ_num:nn #1 #2
+{
+	\cs:w hz #1 num\cs_end:
+		{ \l_hz_raise_dim }  % raise
+		{ \l_hz_fgcolor   }  % fgcolor
+		{ \l_hz_sep_dim   }  % sep
+		{ \l_hz_bgcolor   }  % bgcolor
+		{ \l_hz_width_dim }  % width
+		{ \l_hz_font      }  % font
+		{ #2 }
+}
+
+\DeclareDocumentCommand \hzcircnum { s o m }
+{
+	\IfBooleanT { #1 }
+	{
+		\restorehzcircnumsetup
+	}
+	\IfValueT { #2 }
+	{
+		\keys_set:nn { hzsetup } { #2 }
+	}
+	
+	\str_case_x:nnF { \l_hz_shape }
+	{
+		{ circle } { }
+		{ circ   } { \tl_set:Nn \l_hz_shape { circle } }
+		{ rectangle } { }
+		{ rect   } { \tl_set:Nn \l_hz_shape { rectangle } }
+		{ oval   } { }
+		{ ball   } { }
+	}
+	{
+		\tl_set:Nn \l_hz_shape { circle }
+	}
+	\draw_hz_circ_num:nn { \l_hz_shape } { #3 }
+}
+
+\DeclareDocumentCommand \hzcircnumsetup { m }
+{
+	\keys_set:nn { hzsetup } { #1 }
+}
+
+\DeclareDocumentCommand \restorehzcircnumsetup { }
+{
+	\hzcircnumsetup {
+		shape	= circle,
+		color	= white,
+		font	= { \sffamily\footnotesize },
+		sep 	= { 0.25pt },
+		Raise	= { \l_hz_raise_default_dim },
+		base	= {   99   }
+	}
+}
+
+%%% initialize once
+\restorehzcircnumsetup
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% nova de hi's tikzcircnum
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\dim_new:N \tcn_raise_dim
+\dim_new:N \tcn_raise_default_dim
+\dim_set:Nn \tcn_raise_default_dim    { -0.6ex }
+\dim_new:N \tcn_innersep_dim 
+\dim_new:N \tcn_width_dim
+\dim_new:N \tcn_width_fix_dim
+\dim_new:N \tcn_round_dim
+\dim_new:N \tcn_linewidth_dim
+
+%%% default values
+\tl_set:Nn  \tcn_shape     { circle }
+\tl_set:Nn  \tcn_bgcolor   { white  }
+\tl_set:Nn  \tcn_fgcolor   { black  }
+\tl_set:Nn  \tcn_bdcolor   { gray   }
+\tl_set:Nn  \tcn_font      { \sffamily\small }
+
+\cs_new:Npn \tcn_set_width:nn #1 #2
+{
+	\settowidth \tcn_width_dim { #1 #2 }
+	\dim_sub:Nn \tcn_width_dim { 1pt - \tcn_width_fix_dim }
+}
+
+\cs_new:Npn \tcn_color_option:n #1
+{
+	\str_case:nnF { #1 }
+	{
+		{ white } { \tl_set:Nn \tcn_fgcolor { black }
+		            \tl_set:Nn \tcn_bgcolor { white }
+		            \tl_set:Nn \tcn_bdcolor { black } }
+		{ black } { \tl_set:Nn \tcn_fgcolor { white }
+		            \tl_set:Nn \tcn_bgcolor { black }
+		            \tl_set:Nn \tcn_bdcolor { black } }
+	}
+	{
+		\tl_set:Nn \tcn_fgcolor { #1 }
+		\tl_set:Nn \tcn_bgcolor { white }
+		\tl_set:Nn \tcn_bdcolor { #1 }
+	}
+}
+
+\cs_new:Npn \tcn_inverse_color_option:n #1
+{
+	\str_case:nnF { #1 }
+	{
+		{ white } { \tl_set:Nn \tcn_fgcolor { black }
+		            \tl_set:Nn \tcn_bgcolor { white }
+		            \tl_set:Nn \tcn_bdcolor { black } }
+		{ black } { \tl_set:Nn \tcn_fgcolor { white }
+		            \tl_set:Nn \tcn_bgcolor { black }
+		            \tl_set:Nn \tcn_bdcolor { black } }
+	}
+	{
+		\tl_set:Nn \tcn_fgcolor { white }
+		\tl_set:Nn \tcn_bgcolor { #1 }
+		\tl_set:Nn \tcn_bdcolor { #1 }
+	}
+}
+
+
+\keys_define:nn { tccnm }
+{
+	shape     .tl_set:N    = \tcn_shape,
+	fgcolor   .tl_set:N    = \tcn_fgcolor,
+	bgcolor   .tl_set:N    = \tcn_bgcolor,
+	bdcolor   .tl_set:N    = \tcn_bdcolor,
+	linecolor .meta:n      = { bdcolor = #1 },
+	color	  .code:n	   = { \tcn_color_option:n { #1 } },
+	colorinv  .code:n      = { \tcn_inverse_color_option:n { #1 } },
+	font      .tl_set:N    = \tcn_font,
+	font	  .default:n   = { \sffamily\small },
+	fontplus  .code:n      = { \tl_put_right:Nn \tcn_font { #1 } },
+	Raise     .dim_set:N   = \tcn_raise_dim,
+	raise	  .code:n      = 
+		{ \dim_set:Nn \tcn_raise_dim { #1 + \tcn_raise_default_dim } },
+	sep       .code:n      = { \dim_set:Nn \tcn_innersep_dim { #1 + 0.25pt } },
+	sep       .default:n   = { 0.25pt },
+	sepplus   .code:n      = 
+	    { \dim_set:Nn \tcn_innersep_dim { #1 + 0.25pt + \tcn_innersep_dim } },
+	round	  .dim_set:N   = \tcn_round_dim,
+	round     .default:n   = { 2pt },
+	linewidth .dim_set:N   = \tcn_linewidth_dim,
+	linewidth .default:n   = { 0.4pt },
+	bdwidth	  .meta:n      = { linewidth = #1 },
+	circle    .meta:n      = { shape = circle },
+	circ      .meta:n      = { shape = circle },
+	rectangle .meta:n      = { shape = rectangle },
+	rect      .meta:n      = { shape = rectangle },
+	box       .meta:n      = { shape = rectangle },
+	ball      .meta:n	   = { shape = ball },
+	white	  .meta:n	   = { color = white },
+	black     .meta:n      = { color = black },
+	width     .dim_set:N   = \tcn_width_dim,
+	base      .code:n      = { \tcn_set_width:nn { \tcn_font } { #1 } },
+	reset	  .code:n	   = { \restoretikzcircnumsetup },
+	widthfix  .dim_set:N   =  \tcn_width_fix_dim,
+}
+
+\DeclareDocumentCommand \tikzcircnumsetup { m }
+{
+	\keys_set:nn { tccnm } { #1 }
+}
+
+\DeclareDocumentCommand \restoretikzcircnumsetup { }
+{
+	\keys_set:nn { tccnm }
+	{
+		shape   = circle,
+		bgcolor = white,
+		fgcolor = black,
+		bdcolor = gray,
+		font    = { \sffamily\small },
+		Raise   = { \tcn_raise_default_dim },
+		sep     = { 0.25pt },
+		round   = { 0pt },
+		base    = { 99 },
+		widthfix = { 0pt },
+		linewidth = { 0.4pt },
+	}
+}
+
+%%% now, initialize once
+\restoretikzcircnumsetup
+
+\cs_new:Npn \draw_tikz_circnum:n #1
+{
+	\if_mode_vertical: \leavevmode \fi:
+	\raisebox{\tcn_raise_dim}
+	{
+		\tikz\node
+		[
+			\tcn_shape, 
+			draw=\tcn_bdcolor,
+			line~width=\tcn_linewidth_dim,
+			inner~sep=\tcn_innersep_dim,
+			top~color=\tcn_bgcolor,
+			bottom~color=\tcn_bgcolor,
+			text~width=\tcn_width_dim,
+			text~badly~centered,
+			\tcn_fgcolor,
+			font={\tcn_font}
+		] { #1 }; 
+	}
+}
+
+\cs_new:Npn \draw_tikz_rectnum:n #1
+{
+	\if_mode_vertical: \leavevmode \fi:
+	\raisebox{\tcn_raise_dim}
+	{
+		\tikz\node
+		[
+			rectangle, 
+			draw=\tcn_bdcolor,
+			line~width=\tcn_linewidth_dim,
+			rounded~corners=\tcn_round_dim,
+			inner~sep=\tcn_innersep_dim+1pt,
+			top~color=\tcn_bgcolor,
+			bottom~color=\tcn_bgcolor,
+			text~width=\tcn_width_dim,
+			text~badly~centered,
+			\tcn_fgcolor,
+			font={\tcn_font}
+		] { #1 }; 
+	}
+}
+
+\cs_new:Npn \draw_tikz_ballnum:n #1
+{
+	\if_mode_vertical: \leavevmode \fi:
+	\raisebox{\tcn_raise_dim}
+	{
+		\tikz\node
+		[
+			circle, shade, 
+			draw=\tcn_bdcolor,
+			line~width=\tcn_linewidth_dim,
+			ball~color=\tcn_bgcolor,
+			inner~sep=\tcn_innersep_dim,
+			text~width=\tcn_width_dim,
+			text~badly~centered,
+			\tcn_fgcolor,
+			font={\tcn_font}
+		] { #1 }; 
+	}
+}
+
+\DeclareDocumentCommand \tikzcircnum { s o m }
+{
+	\IfBooleanT { #1 }
+	{
+		\restoretikzcircnumsetup
+	}
+	
+	\IfValueT { #2 }
+	{
+		\keys_set:nn { tccnm } { #2 }
+	}
+	
+	\str_case_x:nnF { \tcn_shape }
+	{
+		{ circle    } { \draw_tikz_circnum:n { #3 } }
+		{ rectangle } { \draw_tikz_rectnum:n { #3 } }
+		{ ball      } { \draw_tikz_ballnum:n { #3 } }
+	}
+	{
+		\draw_tikz_circ_num:n { #3 }
+	}
+}
+
+%%% for once command
+\tl_new:N \l_tikz_tmp_current_shape
+\tl_new:N \l_tikz_tmp_current_bgcolor
+\tl_new:N \l_tikz_tmp_current_fgcolor
+\tl_new:N \l_tikz_tmp_current_bdcolor
+\tl_new:N \l_tikz_tmp_current_font
+\dim_new:N \l_tikz_tmp_current_raise
+\dim_new:N \l_tikz_tmp_current_innersep
+\dim_new:N \l_tikz_tmp_current_width
+\dim_new:N \l_tikz_tmp_current_round
+\dim_new:N \l_tikz_tmp_current_linewidth
+
+\cs_new:Npn \preserve_current_tikzcircnum_settings:
+{
+	\tl_set_eq:NN \l_tikz_tmp_current_shape \tcn_shape
+	\tl_set_eq:NN \l_tikz_tmp_current_bgcolor \tcn_bgcolor
+	\tl_set_eq:NN \l_tikz_tmp_current_fgcolor \tcn_fgcolor
+	\tl_set_eq:NN \l_tikz_tmp_current_bdcolor \tcn_bdcolor
+	\tl_set_eq:NN \l_tikz_tmp_current_font \tcn_font
+	\dim_set_eq:NN \l_tikz_tmp_current_raise \tcn_raise_dim
+	\dim_set_eq:NN \l_tikz_tmp_current_innersep \tcn_innersep_dim
+	\dim_set_eq:NN \l_tikz_tmp_current_width \tcn_width_dim
+	\dim_set_eq:NN \l_tikz_tmp_current_round \tcn_round_dim
+	\dim_set_eq:NN \l_tikz_tmp_current_linewidth \tcn_linewidth_dim
+}
+
+\cs_new:Npn \restore_current_tikzcircnum_settings:
+{
+	\tl_set_eq:NN \tcn_shape \l_tikz_tmp_current_shape
+	\tl_set_eq:NN \tcn_bgcolor \l_tikz_tmp_current_bgcolor
+	\tl_set_eq:NN \tcn_fgcolor \l_tikz_tmp_current_fgcolor
+	\tl_set_eq:NN \tcn_bdcolor \l_tikz_tmp_current_bdcolor
+	\tl_set_eq:NN \tcn_font \l_tikz_tmp_current_font
+	\dim_set_eq:NN \tcn_raise_dim \l_tikz_tmp_current_raise
+	\dim_set_eq:NN \tcn_innersep_dim \l_tikz_tmp_current_innersep
+	\dim_set_eq:NN \tcn_width_dim \l_tikz_tmp_current_width
+	\dim_set_eq:NN \tcn_round_dim \l_tikz_tmp_current_round
+	\dim_set_eq:NN \tcn_linewidth_dim \l_tikz_tmp_current_linewidth
+}
+
+\DeclareDocumentCommand \tikzcircnumonce { o m }
+{
+	\IfNoValueTF { #1 }
+	{
+		\tikzcircnum { #2 }
+	}
+	{
+		\preserve_current_tikzcircnum_settings:
+		\tikzcircnumsetup { #1 }
+		\tikzcircnum { #2 }
+		\restore_current_tikzcircnum_settings:
+	}
+}
+
+\ExplSyntaxOff
+
+%%% \settikzcircnumsetup, \forcerestoretikzcircnumsetup
+\let\@@forcerestoretikzcircnumsetup=\restoretikzcircnumsetup
+
+\newcommand*\forcerestoretikzcircnumsetup
+{%
+	\@@forcerestoretikzcircnumsetup
+	\let\restoretikzcircnumsetup=\@@forcerestoretikzcircnumsetup
+	\if@tikzcirc
+	\let\circnumsetup=\tikzcircnumsetup
+	\let\restorecircnumsetup=\@@forcerestoretikzcircnumsetup
+	\fi
+}
+
+\newcommand*\settikzcircnumsetup[1]{%
+	\def\@@tikzcircnumdefault{#1}%
+	\forcerestoretikzcircnumsetup
+	\expandafter\tikzcircnumsetup\expandafter{\@@tikzcircnumdefault}%
+	\def\@@@restoretikzcircnumsetup{%
+			\expandafter\tikzcircnumsetup\expandafter{\@@tikzcircnumdefault}%
+	}%
+	\let\restoretikzcircnumsetup=\@@@restoretikzcircnumsetup
+	\if@tikzcirc
+	\let\restorecircnumsetup=\@@@restoretikzcircnumsetup
+	\def\circnumsetup##1{%
+		\@@@restoretikzcircnumsetup
+		\tikzcircnumsetup{##1}%
+	}%
+	\fi
+}
+
+%%% counter modifier, \Cnum
+\protected\def\Cnum#1{\circnum{\number\@nameuse{c@#1}}}
+
+%%% default commands
+\if@tikzcirc
+	\let\circnum=\tikzcircnum
+	\let\circnumsetup=\tikzcircnumsetup
+	\let\restorecircnumsetup=\restoretikzcircnumsetup
+	\let\circnumonce=\tikzcircnumonce
+	\newcommand*\declaretikzcircnumsmallsetup{%
+	  \settikzcircnumsetup{%
+    	font={\rmfamily\fontsize{7.5}{10}\selectfont},%
+	    sep=0pt,%
+	    Raise=-0.3ex,%
+	    shape=circle,%
+	    color=white,%
+	    base={99},%
+	    widthfix={1pt},%
+	    linewidth={0.4pt},%
+	  }%
+	  \restoretikzcircnumsetup
+  	}
+	\newcommand*\declaretikzcircnumbigsetup{%
+	  \settikzcircnumsetup{%
+		font={\sffamily\small},
+		sep=0.25pt,%
+		Raise=-0.6ex,%
+		shape=circle,%
+		bgcolor=white,%
+		fgcolor=black,%
+		bdcolor=gray,%
+		base={99},%
+		widthfix={0pt},%
+		linewidth={0.4pt},%
+	  }%
+	  \restoretikzcircnumsetup
+	}
+\fi
+\if@hzcirc
+	\let\circnum=\hzcircnum
+	\let\circnumsetup=\hzcircnumsetup
+	\let\restorecircnumsetup=\restorehzcircnumsetup
+\fi
+\if@hcrcirc
+	\let\circnum=\hcrcircnum
+	\let\circnumsetup=\hcrcircnumsetup
+	\let\restorecircnumsetup=\restorehcrcircnumsetup
+\fi
+\if@tikzsmall
+\AtBeginDocument{%
+	\declaretikzcircnumsmallsetup
+}
+\fi
+\endinput
+
+%% v1.2.1: bugfix with \declaretikzcircnum...setup.
+%% v1.2: reimplement \hcrnumbers
+%% v1.1: \tikz... has [linewidth=] option key. colorinv (white/black) = color (white/black)
+%% v1.0: code revision. add meta options.
+%% v0.8: [tikzsmall] option, \declaretikzcircnumsmallsetup
+%% v0.7: \settikzcircnumsetup introduced along with \forcerestoretikzcircnumsetup.
+%% v0.6: \tikz... has now round option and shape=ball
+%% v0.5: rewrite hz... codes, bug fixes.
+%% v0.4: \tcn_innersep_fix_dim introduced for finetuing \tikzcircnum, pdftex compatibility, drop Minion-Pro font.

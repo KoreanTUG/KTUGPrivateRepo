@@ -1,0 +1,228 @@
+%%% Graphics on the fly
+%%%
+%%% \includegraphicsonthefly[<options to \includegraphics>]{filename_without_ext}{url}
+%%% \animatedgifonthefly[<options to \animategraphics>]%
+%%%                     {fps}{filename_without_ext}{first}{last}{url}
+%%%
+%%% requirements:
+%%% wget (Windows, ktugbin package from ktug repository), ImageMagick convert
+%%% --shell-escape
+%%%
+\ProvidesPackage{graphicsonthefly}[2015/11/05 v0.9.4]
+
+\newif\if@grfontheflyrenewall\@grfontheflyrenewallfalse
+\DeclareOption{renewall}{\@grfontheflyrenewalltrue}
+\newif\if@wgetonly\@wgetonlyfalse
+\DeclareOption{wget}{\@wgetonlytrue}
+\DeclareOption{curl}{\@wgetonlyfalse}
+\newif\if@anim\@animfalse
+\DeclareOption{animate}{\@animtrue}
+\DeclareOption{all}{\@animtrue}
+
+\ProcessOptions \relax
+
+\RequirePackage{ifplatform}
+\ifwindows
+	\def\RemoveCommand{del /q }
+	\def\WgetCommand{wget --no-check-certificate -O }
+\else
+	\def\RemoveCommand{rm -f }
+	\if@wgetonly
+		\def\WgetCommand{wget --no-check-certificate -O}
+	\else
+		\def\WgetCommand{curl --basic -o }
+	\fi
+\fi
+
+\RequirePackage{graphicx}
+\if@anim
+\RequirePackage{animate}
+\fi
+\RequirePackage{xparse}
+\RequirePackage{l3regex}
+
+\ifwindows
+	\RequirePackage{grfext}
+ 	\DeclareGraphicsRule{.gif}{png}{.png}{}
+ 	\DeclareGraphicsRule{.bmp}{png}{.png}{}
+	\AppendGraphicsExtensions{.gif}
+	\AppendGraphicsExtensions{.bmp}
+\else
+	\DeclareGraphicsRule{.gif}{png}{.png}{}
+	\DeclareGraphicsRule{.bmp}{png}{.png}{}
+\fi
+
+\ExplSyntaxOn
+
+\bool_new:N \grf_renew_all
+\if@grfontheflyrenewall \bool_set_true:N \grf_renew_all
+\else \bool_set_false:N \grf_renew_all
+\fi
+
+\tl_new:N \grf_type
+
+\cs_new:Npn \get_image_file:nn #1 #2
+{
+	\str_case_x:nn { \grf_type }
+	{
+		{ png }  { \immediate\write18{ \WgetCommand~#1.png~#2 } }
+		{ jpg }  { \immediate\write18{ \WgetCommand~#1.jpg~#2 } }
+		{ pdf }  { \immediate\write18{ \WgetCommand~#1.pdf~#2 } }
+		{ gif }  { \immediate\write18{ \WgetCommand~#1.gif~#2 } }
+		{ bmp }  { \immediate\write18{ \WgetCommand~#1.bmp~#2 } }
+	}
+}
+
+\bool_new:N \_exist_star
+
+\DeclareDocumentCommand \prepareimgonthefly { s m v }
+{
+	\IfBooleanTF { #1 } { \bool_set_true:N \_exist_star } { \bool_set_false:N \_exist_star }
+	\seq_set_split:Nnn \_test { . } { #3 }
+	\seq_pop_right:NN \_test \_test_grf_type
+	
+	\regex_replace_once:nnN { ([bgjpBGJP][dimnpDIMNP][efgpEFGP])(.*) } { \1 } \_test_grf_type
+		
+	\str_case_x:nn { \_test_grf_type }
+	{
+		{ png } { \tl_set:Nn \grf_type { png } }
+		{ jpg } { \tl_set:Nn \grf_type { jpg } }
+		{ jpe } { \tl_set:Nn \grf_type { jpg } }
+		{ pdf } { \tl_set:Nn \grf_type { pdf } }
+		{ gif } { \tl_set:Nn \grf_type { gif } }
+		{ bmp } { \tl_set:Nn \grf_type { bmp } }
+		{ PNG } { \tl_set:Nn \grf_type { png } }
+		{ JPG } { \tl_set:Nn \grf_type { jpg } }
+		{ JPE } { \tl_set:Nn \grf_type { jpg } }
+		{ PDF } { \tl_set:Nn \grf_type { pdf } }
+		{ GIF } { \tl_set:Nn \grf_type { gif } }
+		{ BMP } { \tl_set:Nn \grf_type { bmp } }
+	}
+	
+	\tl_set:Nn \l_tmp_url { #3 }
+	
+	\ifwindows\else
+		\regex_replace_once:nnN { \( } { \\\( } \l_tmp_url
+		\regex_replace_once:nnN { \) } { \\\) } \l_tmp_url
+	\fi
+	
+	\file_if_exist:nTF { #2.\grf_type }
+	{
+		\bool_if:nT { \grf_renew_all || \_exist_star }
+		{
+			\immediate\write18 { \RemoveCommand~#3.\grf_type }
+			\get_image_file:nn { #2 } { \l_tmp_url }
+		}
+	}
+	{
+		\get_image_file:nn { #2 } { \l_tmp_url }
+	}
+
+	\str_case_x:nnT { \grf_type }
+	{
+		{ bmp } { \immediate\write18{ convert~"#2.\grf_type"~#2.png } }
+		{ gif } { \immediate\write18{ convert~-coalesce~"#2.\grf_type"~#2.png } }
+	}
+	{
+		\tl_set:Nn \grf_type { png }
+	}
+	
+	\tl_set:Nn \downloaded_img_noext { #2 }
+	\tl_set:Nn \downloaded_img_file { #2.\grf_type }
+}
+
+\NewDocumentCommand \useimgonthefly { o }
+{
+	\tl_if_empty:NF \downloaded_img_file
+	{
+		\IfValueTF { #1 }
+		{
+			\includegraphics[ #1 ] { \downloaded_img_file }
+		}
+		{
+			\includegraphics { \downloaded_img_file }
+		}
+	}
+}
+
+\DeclareDocumentCommand \includegraphicsonthefly { s o m v }
+{
+	\IfBooleanTF { #1 } { \bool_set_true:N \_exist_star } { \bool_set_false:N \_exist_star }
+	\seq_set_split:Nnn \_test { . } { #4 }
+	\seq_pop_right:NN \_test \_test_grf_type
+	
+	\regex_replace_once:nnN { ([bgjpBGJP][dimnpDIMNP][efgpEFGP])(.*) } { \1 } \_test_grf_type
+		
+	\str_case_x:nn { \_test_grf_type }
+	{
+		{ png } { \tl_set:Nn \grf_type { png } }
+		{ jpg } { \tl_set:Nn \grf_type { jpg } }
+		{ jpe } { \tl_set:Nn \grf_type { jpg } }
+		{ pdf } { \tl_set:Nn \grf_type { pdf } }
+		{ gif } { \tl_set:Nn \grf_type { gif } }
+		{ bmp } { \tl_set:Nn \grf_type { bmp } }
+		{ PNG } { \tl_set:Nn \grf_type { png } }
+		{ JPG } { \tl_set:Nn \grf_type { jpg } }
+		{ JPE } { \tl_set:Nn \grf_type { jpg } }
+		{ PDF } { \tl_set:Nn \grf_type { pdf } }
+		{ GIF } { \tl_set:Nn \grf_type { gif } }
+		{ BMP } { \tl_set:Nn \grf_type { bmp } }
+	}
+	
+	\tl_set:Nn \l_tmp_url { #4 }
+	
+	\ifwindows\else
+		\regex_replace_all:nnN { \( } { \\\( } \l_tmp_url
+		\regex_replace_all:nnN { \) } { \\\) } \l_tmp_url
+	\fi
+
+	\file_if_exist:nTF { #3.\grf_type }
+	{
+		\bool_if:nT { \grf_renew_all  || \_exist_star }
+		{
+			\immediate\write18 { \RemoveCommand~#3.\grf_type }
+			\get_image_file:nn { #3 } { \l_tmp_url }
+		}
+	}
+	{
+		\get_image_file:nn { #3 } { \l_tmp_url }
+	}
+
+	\str_case_x:nnT { \grf_type }
+	{
+		{ bmp } { \immediate\write18{ convert~"#3.\grf_type"~#3.png } }
+		{ gif } { \immediate\write18{ convert~-coalesce~"#3.\grf_type"~#3.png } }
+	}
+	{
+		\tl_set:Nn \grf_type { png }
+	}
+
+	\file_if_exist:nT { #3.\grf_type }
+	{
+		\IfValueTF { #2 }
+		{
+			\includegraphics [ #2 ] { #3.\grf_type }
+		}
+		{
+			\includegraphics { #3.\grf_type }
+		}
+	}
+}
+
+\ExplSyntaxOff
+
+\if@anim
+	\input graphicsonthefly_animate.tex
+\fi
+
+\endinput
+
+%%% v0.9.4: improve gif animation
+%%% v0.9.3: [animate] option.
+%%% v0.9.2: set wget default
+%%% v0.9.1: wget option --no-check-certificate to https (windows)
+%%% v0.9: \prepareimgonthefly, \animatedgif, \useimgonthefly, \usegifonthefly
+%%% v0.8: remove trails of image name
+%%% v0.7: delete grftopng.cmd (windows)
+%%% v0.6: try to autocount frames ( <= 36 )
+%%% v0.5: \animatedgifonthefly

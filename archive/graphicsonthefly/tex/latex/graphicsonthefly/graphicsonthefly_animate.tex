@@ -1,0 +1,82 @@
+%%% sub inclusion file of graphicsonthefly.sty
+%%%
+\ExplSyntaxOn
+
+\int_new:N \_file_test
+\int_new:N \ani_gif_end_count
+
+\DeclareDocumentCommand \animatedgif { o m m m m }
+{
+	\str_if_eq:nnTF { #5 } { * }
+	{
+		\int_set:Nn \_file_test { 0 }
+		\int_do_while:nn { \_file_test <= 35 }
+		{
+			\file_if_exist:nT { #3-\int_use:N \_file_test.png } 
+			{ \int_set_eq:NN \ani_gif_end_count \_file_test  }
+			\int_incr:N \_file_test
+		}
+	}
+	{
+		\int_set:Nn \ani_gif_end_count { #5 }
+	}
+	
+	\IfValueTF { #1 }
+	{
+		\animategraphics [ #1 ] { #2 } { #3- } { #4 } { \ani_gif_end_count }
+	}
+	{
+		\animategraphics { #2 } { #3- } { #4 } { \ani_gif_end_count }
+	}
+}
+
+\NewDocumentCommand \usegifonthefly { o m }
+{
+	\clist_set:Nn \_ugf_clist { #2 }
+	\clist_pop:NN \_ugf_clist \_ugf_fps
+	\clist_pop:NN \_ugf_clist \_ugf_start
+	\clist_pop:NN \_ugf_clist \_ugf_end
+
+	\str_if_eq_x:nnTF \_ugf_end { * } { 
+		\animatedgif [ #1 ] { \_ugf_fps } { \downloaded_img_noext } { \_ugf_start } { * }
+	}
+	{
+		\animatedgif [ #1 ] { \_ugf_fps } { \downloaded_img_noext } { \_ugf_start } { \_ugf_end }
+	}
+}
+
+\DeclareDocumentCommand \animatedgifonthefly { s o m m m m v }
+{
+	\IfBooleanTF { #1 } { \bool_set_true:N \_exist_star } { \bool_set_false:N \_exist_star }
+
+	\tl_set:Nn \grf_type { gif }
+	\tl_set:Nn \l_tmp_url { #7 }
+	
+	\ifwindows\else
+		\regex_replace_once:nnN { \( } { \\\( } \l_tmp_url
+		\regex_replace_once:nnN { \) } { \\\) } \l_tmp_url
+	\fi
+
+	\file_if_exist:nTF { #4.\grf_type }
+	{
+		\bool_if:nT { \grf_renew_all  || \_exist_star }
+		{
+			\immediate\write18 { \RemoveCommand~#4.gif }
+			\immediate\write18 { \RemoveCommand~#4-*.png }
+			\get_image_file:nn { #4 } { \l_tmp_url }
+			\immediate\write18{ convert~-coalesce~#4.gif~#4.png }
+		}
+	}
+	{
+		\get_image_file:nn { #4 } { \l_tmp_url }
+		\immediate\write18{ convert~-coalesce~#4.gif~#4.png }
+	}
+	
+	\animatedgif [ #2 ] { #3 } { #4 } { #5 } { #6 }
+}
+
+\ExplSyntaxOff
+
+\let\animategraphicsonthefly=\animatedgifonthefly
+
+\endinput

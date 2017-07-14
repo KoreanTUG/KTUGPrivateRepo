@@ -1,0 +1,22 @@
+%% hswgt.fd: UhcGothic for LaTeX
+
+\DeclareFontFamily{H}{swgt}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{swgt}{c}{n}{<->wgtc}{}
+\DeclareFontShape{H}{swgt}{c}{sl}{<->wgtco}{}
+\DeclareHFontShape{H}{swgt}{c}{it}{<->hssub*swgt/c/sl}{}
+\DeclareFontShape{H}{swgt}{m}{n}{<->wgt}{}
+\DeclareFontShape{H}{swgt}{m}{sl}{<->wgto}{}
+\DeclareHFontShape{H}{swgt}{m}{it}{<->hssub*swgt/m/sl}{}
+\DeclareFontShape{H}{swgt}{bc}{n}{<->wgtbc}{}
+\DeclareFontShape{H}{swgt}{bc}{sl}{<->wgtbco}{}
+\DeclareHFontShape{H}{swgt}{bc}{it}{<->hssub*swgt/bc/sl}{}
+\DeclareFontShape{H}{swgt}{b}{n}{<->wgtb}{}
+\DeclareFontShape{H}{swgt}{b}{sl}{<->wgtbo}{}
+\DeclareHFontShape{H}{swgt}{b}{it}{<->hssub*swgt/b/sl}{}
+\DeclareFontShape{H}{swgt}{bx}{n}{<->wgtb}{}
+\DeclareFontShape{H}{swgt}{bx}{sl}{<->wgtbo}{}
+\DeclareHFontShape{H}{swgt}{bx}{it}{<->hssub*swgt/b/sl}{}
+
+%% End of hswgt.fd
+

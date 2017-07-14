@@ -1,0 +1,917 @@
+%%% file: ksbadukpan
+%%% 
+%%% drawing baduk (go) diagrams with TikZ
+%%%
+%%% (c) 2015, Nova De Hi <karnes@gmail.com>
+%%%
+%%% LPPL
+%%%
+\ProvidesPackage{ksbadukpan}[2015/06/06 v0.6.2]
+
+\RequirePackage{expl3,xparse,l3keys2e}
+\RequirePackage{tikz}
+
+\ExplSyntaxOn 
+
+\keys_define:nn { ksbadukpan }
+{
+	ball		.bool_set:N 	= \ball_option_bool,
+	plain		.bool_set_inverse:N = \bool_option_bool,
+	badukpancolor	.tl_set:N 	= \badukpan_color,
+	badukpansize	.fp_set:N 	= \badukpan_size,
+	posmark		.bool_set:N 	= \position_opt_bool,
+	imageback	.bool_set:N 	= \imageback_bool,
+	imagefile	.tl_set:N 		= \image_file_name,
+	textcmds	.bool_set:N 	= \text_commands_bool,
+	numberfont	.tl_set:N 		= \badukpan_font,
+	tmarkfont	.tl_set:N 		= \badukpan_blanket_font,
+%%% gobancolor and gobansize are aliases
+	gobancolor	.tl_set:N 		= \badukpan_color,
+	gobansize	.fp_set:N 		= \badukpan_size,
+}
+
+%%% default values
+\tl_set:Nn \badukpan_color { yellow!20 }
+\fp_set:Nn \badukpan_size { 10 }
+
+\bool_set_false:N \position_opt_bool
+\bool_set_false:N \imageback_bool
+\bool_set_false:N \text_commands_bool
+
+\tl_set:Nn \image_file_name { badukpan.jpg }
+
+%%% default \badukpan_font
+\tl_set:Nn \proper_size { \small }
+\tl_set:Nn \badukpan_font { \sffamily\bfseries\proper_size }
+\tl_set:Nn \badukpan_blanket_font { \rmfamily\proper_size }
+
+\ProcessKeysOptions { ksbadukpan }
+
+%%%% load ext packages
+
+\bool_if:NT \imageback_bool
+{
+	\@ifpackageloaded { tcolorbox }
+	{ \tcbuselibrary { skins } }
+	{ \RequirePackage [ skins ] { tcolorbox } }
+}
+
+\bool_if:NT \text_commands_bool
+{
+	\RequirePackage{ksbaduk-wrapnum}
+}
+
+%%%%% variables
+
+\int_new:N \begin_cnt
+\int_new:N \h_cnt
+\int_new:N \whole_cnt
+
+%%%%% functions
+
+\cs_new:Nn \draw_badukpan:
+{
+	\bool_if:NTF \imageback_bool
+	{
+		\path [fill~overzoom~image=\image_file_name] (1,1) rectangle (20,20);
+	}
+	{
+		\filldraw [ \badukpan_color ] (1,1) rectangle (20,20);
+	}
+	\draw [thick] (1.5,1.5) rectangle (19.5,19.5);
+	\foreach \i in {2.5,3.5,...,18.5}
+		\draw (\i,1.5) -- (\i,19.5);
+	\foreach \j in {2.5,3.5,...,18.5}
+		\draw (1.5,\j) -- (19.5,\j);
+	\foreach \i in {4.5,10.5,16.5}
+		\foreach \j in {4.5,10.5,16.5}
+			\filldraw (\i,\j) circle (3pt);;
+
+	\bool_if:NT \position_opt_bool { \place_corname: }
+}
+
+\cs_new:Npn \place_corname:
+{
+	\node at (1.5,20.5) { \footnotesize A } ;
+	\node at (2.5,20.5) { \footnotesize B } ;
+	\node at (3.5,20.5) { \footnotesize C } ;
+	\node at (4.5,20.5) { \footnotesize D } ;
+	\node at (5.5,20.5) { \footnotesize E } ;
+	\node at (6.5,20.5) { \footnotesize F } ;
+	\node at (7.5,20.5) { \footnotesize G } ;
+	\node at (8.5,20.5) { \footnotesize H } ;	
+	\node at (9.5,20.5) { \footnotesize J } ;
+	\node at (10.5,20.5) { \footnotesize K } ;
+	\node at (11.5,20.5) { \footnotesize L } ;
+	\node at (12.5,20.5) { \footnotesize M } ;
+	\node at (13.5,20.5) { \footnotesize N } ;
+	\node at (14.5,20.5) { \footnotesize O } ;
+	\node at (15.5,20.5) { \footnotesize P } ;
+	\node at (16.5,20.5) { \footnotesize Q } ;
+	\node at (17.5,20.5) { \footnotesize R } ;
+	\node at (18.5,20.5) { \footnotesize S } ;
+	\node at (19.5,20.5) { \footnotesize T } ;
+
+	\node at (0.5,1.5) { \footnotesize 1 };
+	\node at (0.5,2.5) { \footnotesize 2 };
+	\node at (0.5,3.5) { \footnotesize 3 };
+	\node at (0.5,4.5) { \footnotesize 4 };
+	\node at (0.5,5.5) { \footnotesize 5 };
+	\node at (0.5,6.5) { \footnotesize 6 };
+	\node at (0.5,7.5) { \footnotesize 7 };
+	\node at (0.5,8.5) { \footnotesize 8 };
+	\node at (0.5,9.5) { \footnotesize 9 };
+	\node at (0.5,10.5) { \footnotesize 10 };
+	\node at (0.5,11.5) { \footnotesize 11 };
+	\node at (0.5,12.5) { \footnotesize 12 };
+	\node at (0.5,13.5) { \footnotesize 13 };
+	\node at (0.5,14.5) { \footnotesize 14 };
+	\node at (0.5,15.5) { \footnotesize 15 };
+	\node at (0.5,16.5) { \footnotesize 16 };
+	\node at (0.5,17.5) { \footnotesize 17 };
+	\node at (0.5,18.5) { \footnotesize 18 };
+	\node at (0.5,19.5) { \footnotesize 19 };
+}
+
+	
+\fp_new:N \badukpan_scale
+%\fp_set:Nn \badukpan_scale { 0.6 }
+
+\clist_new:N \ksbadukpan_his_clist
+\tl_new:N \ksbadukpan_his_white
+\tl_new:N \ksbadukpan_his_black
+
+\NewDocumentCommand \BadukpanSize { m }
+{
+	\fp_set:Nn \badukpan_scale { 0.6 * #1 / 10 }
+}
+
+%%% init size
+\BadukpanSize { \fp_use:N \badukpan_size }
+
+\NewDocumentCommand \StartBaduk { }
+{
+	\begin{tikzpicture}[scale=\fp_use:N \badukpan_scale]
+	\draw_badukpan:
+}
+
+\NewDocumentCommand \StartBadukClip { m }
+{
+	\begin{tikzpicture}[scale=\fp_use:N \badukpan_scale]
+	\str_case:nn { #1 }
+	{
+		{ L  } { \clip (1,1)  rectangle (11,20); }
+		{ R  } { \clip (10,1) rectangle (20,20); }
+		{ U  } { \clip (1,10) rectangle (20,20); }
+		{ D  } { \clip (1,1)  rectangle (20,11); }
+		{ UL } { \clip (1,10) rectangle (11,20); }
+		{ UR } { \clip (10,10) rectangle (20,20); }
+		{ DL } { \clip (1,1)  rectangle (11,11); }
+		{ DR } { \clip (10,1) rectangle (20,11); }
+		{ LU } { \clip (1,10) rectangle (11,20); }
+		{ RU } { \clip (10,10) rectangle (20,20); }
+		{ LD } { \clip (1,1)  rectangle (11,11); }
+		{ RD } { \clip (10,1) rectangle (20,11); }
+	}
+	\draw_badukpan:
+}
+
+\NewDocumentCommand \StopBaduk {}
+{
+	\end{tikzpicture}
+}
+
+\NewDocumentCommand \Wb { > { \SplitArgument { 1 } { , } } d() }
+{
+	\calc_posit:nnn #1 { white }
+}
+
+\NewDocumentCommand \Bb { > { \SplitArgument { 1 } { , } } d() }
+{
+	\calc_posit:nnn #1 { black }
+}
+
+\int_new:N \xpos_int
+
+\cs_new:Npn \cnvt_to_num_from_alph:n #1
+{
+	\str_case:nn { #1 }
+	{
+		{ A } { \int_set:Nn \xpos_int { 1 } }		{ B } { \int_set:Nn \xpos_int { 2 } }
+		{ C } { \int_set:Nn \xpos_int { 3 } }		{ D } { \int_set:Nn \xpos_int { 4 } }
+		{ E } { \int_set:Nn \xpos_int { 5 } }		{ F } { \int_set:Nn \xpos_int { 6 } }
+		{ G } { \int_set:Nn \xpos_int { 7 } }		{ H } { \int_set:Nn \xpos_int { 8 } }
+		{ I } { \int_set:Nn \xpos_int { 9 } }		{ J } { \int_set:Nn \xpos_int { 9 } }
+		{ K } { \int_set:Nn \xpos_int { 10 } }		{ L } { \int_set:Nn \xpos_int { 11 } }
+		{ M } { \int_set:Nn \xpos_int { 12 } }		{ N } { \int_set:Nn \xpos_int { 13 } }
+		{ O } { \int_set:Nn \xpos_int { 14 } }		{ P } { \int_set:Nn \xpos_int { 15 } }
+		{ Q } { \int_set:Nn \xpos_int { 16 } }		{ R } { \int_set:Nn \xpos_int { 17 } }
+		{ S } { \int_set:Nn \xpos_int { 18 } }		{ T } { \int_set:Nn \xpos_int { 19 } }
+		{ a } { \int_set:Nn \xpos_int { 1 } }		{ b } { \int_set:Nn \xpos_int { 2 } }
+		{ c } { \int_set:Nn \xpos_int { 3 } }		{ d } { \int_set:Nn \xpos_int { 4 } }
+		{ e } { \int_set:Nn \xpos_int { 5 } }		{ f } { \int_set:Nn \xpos_int { 6 } }
+		{ g } { \int_set:Nn \xpos_int { 7 } }		{ h } { \int_set:Nn \xpos_int { 8 } }
+		{ i } { \int_set:Nn \xpos_int { 9 } }		{ j } { \int_set:Nn \xpos_int { 9 } }
+		{ k } { \int_set:Nn \xpos_int { 10 } }		{ l } { \int_set:Nn \xpos_int { 11 } }
+		{ m } { \int_set:Nn \xpos_int { 12 } }		{ n } { \int_set:Nn \xpos_int { 13 } }
+		{ o } { \int_set:Nn \xpos_int { 14 } }		{ p } { \int_set:Nn \xpos_int { 15 } }
+		{ q } { \int_set:Nn \xpos_int { 16 } }		{ r } { \int_set:Nn \xpos_int { 17 } }
+		{ s } { \int_set:Nn \xpos_int { 18 } }		{ t } { \int_set:Nn \xpos_int { 19 } }
+	}
+}
+
+\cs_new:Npn \calc_posit:nnn #1 #2 #3
+{
+	\fp_set:Nn \l_tmpa_fp { #1 + 0.5 }
+	\fp_set:Nn \l_tmpb_fp { #2 + 0.5 }
+	\bool_if:NTF \ball_option_bool
+	{
+		\shade [ball~color=#3,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	{
+		\filldraw [fill=#3,draw=black,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+}
+
+\cs_new:Npn \insert_white:n #1
+{
+	\tl_gput_right:Nn \ksbadukpan_his_white { #1, }
+}
+
+\cs_new:Npn \insert_black:n #1
+{
+	\tl_gput_right:Nn \ksbadukpan_his_black { #1, }
+}
+
+\cs_new:Npn \calc_posit_text:nnnn #1 #2 #3 #4
+{
+	\fp_set:Nn \l_tmpa_fp { #1 + 0.5 }
+	\fp_set:Nn \l_tmpb_fp { #2 + 0.5 }
+	\int_set:Nn \l_tmpa_int { #4 }
+	\int_compare:nTF { \l_tmpa_int >= 100 }
+	{ \tl_set:Nn \proper_size { \footnotesize } }
+	{ \tl_set:Nn \proper_size { \small } }
+	\str_case:nn { #3 }
+	{
+		{ white } { \tl_set:Nn \proper_color { \color { black } } }
+		{ black } { \tl_set:Nn \proper_color { \color { white } } }
+	}
+	\bool_if:NTF \ball_option_bool
+	{
+		\shade [ball~color=#3,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	{
+		\filldraw [fill=#3,draw=black,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	\node [overlay] at (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) { \proper_color\badukpan_font #4 };
+}
+
+\cs_new:Npn \calc_posit_mark:nnnn #1 #2 #3 #4
+{
+	\fp_set:Nn \l_tmpa_fp { #1 + 0.5 }
+	\fp_set:Nn \l_tmpb_fp { #2 + 0.5 }
+	\tl_set:Nn \proper_size { \normalsize }
+	\str_case:nn { #3 }
+	{
+		{ white } { \tl_set:Nn \proper_color { \color { black } } }
+		{ black } { \tl_set:Nn \proper_color { \color { white } } }
+	}
+	\bool_if:NTF \ball_option_bool
+	{
+		\shade [ball~color=#3,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	{
+		\filldraw [fill=#3,draw=black,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	\node [overlay] at (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) { \proper_color\badukpan_font #4 };
+}
+
+\cs_new:Npn \draw_triangle_black:nn #1 #2
+{
+	\draw [ draw = white, overlay ]
+	( #1, #2+0.4 ) -- ( #1 - 0.36, #2 - 0.18 ) -- ( #1 + 0.36, #2 - 0.18 ) -- cycle;
+}
+
+\cs_new:Npn \draw_triangle_white:nn #1 #2
+{
+	\draw [ draw = black, overlay ]
+	( #1, #2+0.4 ) -- ( #1 - 0.36, #2 - 0.18 ) -- ( #1 + 0.36, #2 - 0.18 ) -- cycle;
+}
+
+
+\cs_new:Npn \calc_posit_triangle:nnnn #1 #2 #3 #4
+{
+	\fp_set:Nn \l_tmpa_fp { #1 + 0.5 }
+	\fp_set:Nn \l_tmpb_fp { #2 + 0.5 }
+	\tl_set:Nn \proper_size { \normalsize }
+	\str_case:nn { #3 }
+	{
+		{ white } { \tl_set:Nn \proper_color { \color { black } } }
+		{ black } { \tl_set:Nn \proper_color { \color { white } } }
+	}
+	\bool_if:NTF \ball_option_bool
+	{
+		\shade [ball~color=#3,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+	{
+		\filldraw [fill=#3,draw=black,overlay] (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp) circle (.45);
+	}
+
+	\str_case:nn { #3 }
+	{
+		{ white } { \draw_triangle_white:nn { \fp_use:N \l_tmpa_fp } { \fp_use:N \l_tmpb_fp } }
+		{ black } { \draw_triangle_black:nn { \fp_use:N \l_tmpa_fp } { \fp_use:N \l_tmpb_fp } }
+	}
+}
+
+\cs_new:Npn \calc_posit_blanket:nnn #1 #2 #3
+{
+	\fp_set:Nn \l_tmpa_fp { #1 + 0.5 }
+	\fp_set:Nn \l_tmpb_fp { #2 + 0.5 }
+	\node [overlay] at (\fp_use:N \l_tmpa_fp, \fp_use:N \l_tmpb_fp ) { \fboxsep=1pt\fcolorbox{ \badukpan_color }{ \badukpan_color }{#3} };
+}
+
+%%%%%%%%% interface commands %%%%%%%%%
+
+\NewDocumentCommand \White { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit:nnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { white }	
+	\insert_white:n { #1 }
+}
+
+\NewDocumentCommand \Black { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit:nnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { black }	
+	\insert_black:n { #1 }
+}
+
+\NewDocumentCommand \Blacks { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\Black{##1}
+	}
+}
+
+\NewDocumentCommand \Whites { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\White{##1}
+	}
+}
+
+\NewDocumentCommand \WhiteN { m m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_text:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { white } { #2 }
+	\insert_white:n { #1 }
+}
+
+\NewDocumentCommand \BlackN { m m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_text:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { black } { #2 }
+	\insert_black:n { #1 }
+}
+
+\NewDocumentCommand \BlackM { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_triangle:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { black } { △ }
+	\insert_black:n { #1 }
+}
+
+\NewDocumentCommand \WhiteM { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_triangle:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { white } { △ }
+	\insert_white:n { #1 }
+}
+
+\NewDocumentCommand \BlackD { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_mark:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { black } { × }
+	\insert_black:n { #1 }
+}
+
+\NewDocumentCommand \WhiteD { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_mark:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { white } { × }
+	\insert_white:n { #1 }
+}
+
+\NewDocumentCommand \BlackC { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_mark:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { black } { ○ }
+	\insert_black:n { #1 }
+}
+
+\NewDocumentCommand \WhiteC { m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_mark:nnnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { white } { ○ }
+	\insert_white:n { #1 }
+}
+
+\NewDocumentCommand \WhiteDs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\WhiteD{##1}
+	}
+}
+
+\NewDocumentCommand \BlackDs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\BlackD{##1}
+	}
+}
+
+\NewDocumentCommand \WhiteMs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\WhiteM{##1}
+	}
+}
+
+\NewDocumentCommand \BlackMs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\BlackM{##1}
+	}
+}
+
+\NewDocumentCommand \WhiteCs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\WhiteC{##1}
+	}
+}
+
+\NewDocumentCommand \BlackCs { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\BlackC{##1}
+	}
+}
+
+\NewDocumentCommand \Blanket { m m }
+{
+	\tl_set:Nx \l_tmpa_tl { \tl_head:n { #1 } }
+	\tl_set:Nn \l_tmpb_tl { \tl_tail:n { #1 } }
+	\exp_args:No \cnvt_to_num_from_alph:n { \l_tmpa_tl }
+	\calc_posit_blanket:nnn { \int_use:N \xpos_int } { \tl_use:N \l_tmpb_tl } { \badukpan_blanket_font #2 }
+}
+
+%%%% alternate commands
+
+\NewDocumentCommand \BlackFirst { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\int_zero:N \l_tmpa_int
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\int_incr:N \l_tmpa_int
+		\int_if_odd:nTF { \l_tmpa_int }
+		{
+			\Black{##1}
+		}
+		{
+			\White{##1}
+		}
+	}
+}
+
+\NewDocumentCommand \WhiteFirst { m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\int_zero:N \l_tmpa_int
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\int_incr:N \l_tmpa_int
+		\int_if_odd:nTF { \l_tmpa_int }
+		{
+			\White{##1}
+		}
+		{
+			\Black{##1}
+		}
+	}
+}
+
+\NewDocumentCommand \WhiteFirstNumber { m m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\int_set:Nn \begin_cnt { #2 }
+	\int_zero:N \l_tmpa_int
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\int_incr:N \l_tmpa_int
+		\int_compare:nTF { \l_tmpa_int = 1 }
+		{
+			\WhiteN{##1}{\int_use:N \begin_cnt}
+			\int_set:Nn \l_tmpa_int { -1 }
+		}
+		{
+			\BlackN{##1}{\int_use:N \begin_cnt}
+			\int_set:Nn \l_tmpa_int { 0 }
+		}
+		\int_incr:N \begin_cnt
+	}
+
+	\int_gset_eq:NN \whole_cnt \begin_cnt
+}
+
+\NewDocumentCommand \BlackFirstNumber { m m }
+{
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\int_set:Nn \begin_cnt { #2 }
+	\int_zero:N \l_tmpa_int
+	\clist_map_inline:Nn \l_tmpa_clist
+	{
+		\int_incr:N \l_tmpa_int
+		\int_compare:nTF { \l_tmpa_int = 1 }
+		{
+			\BlackN{##1}{\int_use:N \begin_cnt}
+			\int_set:Nn \l_tmpa_int { -1 }
+		}
+		{
+			\WhiteN{##1}{\int_use:N \begin_cnt}
+			\int_set:Nn \l_tmpa_int { 0 }
+		}
+		\int_incr:N \begin_cnt
+	}
+	
+	\int_gset_eq:NN \whole_cnt \begin_cnt
+}
+
+\NewDocumentCommand \BlackFirstN { s m o }
+{
+	\IfBooleanTF { #1 }
+	{
+		\BlackFirst { #2 }
+	}
+	{
+		\IfValueTF { #3 }
+		{
+			\str_if_eq:nnTF { #3 } { * }
+			{
+				\exp_args:Nnx \BlackFirstNumber { #2 } { \int_use:N \whole_cnt }
+			}
+			{
+				\BlackFirstNumber { #2 } { #3 }
+			}
+		}
+		{
+			\BlackFirstNumber { #2 } { 1 }
+		}
+	}
+}
+
+\NewDocumentCommand \WhiteFirstN { s m o }
+{
+	\IfBooleanTF { #1 }
+	{
+		\WhiteFirst { #2 }
+	}
+	{
+		\IfValueTF { #3 }
+		{
+			\str_if_eq:nnTF { #3 } { * }
+			{
+				\exp_args:Nnx \WhiteFirstNumber { #2 } { \int_use:N \whole_cnt }
+			}
+			{
+				\WhiteFirstNumber { #2 } { #3 }
+			}
+		}
+		{
+			\WhiteFirstNumber { #2 } { 1 }
+		}
+	}
+}
+
+\NewDocumentCommand \NumberFont { m }
+{
+	\tl_set:Nn \badukpan_font { #1 }
+}
+
+\NewDocumentCommand \BackgroundColor { m }
+{
+	\tl_set:Nn \badukpan_color { #1 }
+}
+
+\NewDocumentEnvironment { ksbadukpan } { o o }
+{
+	\tl_gset:Nn \current_env_option { #1 }
+	\tl_gset:Nn \current_par_option { #2 }
+
+	\IfValueT { #1 }
+	{
+		\keys_set:nn { ksbadukpan } { #1 }
+		\BadukpanSize { \fp_use:N \badukpan_size }
+	}
+	\IfNoValueTF { #2 }
+	{
+		\StartBaduk
+	}
+	{
+		\StartBadukClip { #2 }
+	}
+}
+{
+	\StopBaduk
+}
+
+\NewDocumentCommand \ClearHistory { }
+{
+	\tl_gclear:N \ksbadukpan_his_black
+	\tl_gclear:N \ksbadukpan_his_white
+}
+
+\NewDocumentCommand \KSBadukContinue { s }
+{
+	\IfBooleanTF { #1 }
+	{
+		\exp_args:Nx \Blacks { \tl_use:N \ksbadukpan_his_white }
+		\exp_args:Nx \Whites { \tl_use:N \ksbadukpan_his_black }
+	}
+	{
+		\exp_args:Nx \Whites { \tl_use:N \ksbadukpan_his_white }
+		\exp_args:Nx \Blacks { \tl_use:N \ksbadukpan_his_black }
+	}
+}
+
+%\NewDocumentCommand \DeleteHistory { m }
+%{
+%	\clist_greverse:N \ksbadukpan_his_clist
+%	\int_zero:N \l_tmpa_int
+%	
+%	\int_until_do:nn { \l_tmpa_int = #1 }
+%	{
+%		\int_incr:N \l_tmpa_int
+%		\clist_gpop:NN \ksbadukpan_his_clist \l_nothing_tl
+%	}
+%	\clist_greverse:N \ksbadukpan_his_clist
+%}
+
+\NewDocumentCommand \RemoveStone { o m }
+{
+	\clist_set:Nn \l_tmpb_clist { #2 }
+
+	\IfValueTF { #1 }
+	{
+		\str_case:nn { #1 }
+		{
+			{ B } { \clist_map_inline:Nn \l_tmpb_clist { \tl_gremove_all:Nn \ksbadukpan_his_black { ##1 , } } }
+			{ W } { \clist_map_inline:Nn \l_tmpb_clist { \tl_gremove_all:Nn \ksbadukpan_his_white { ##1 , } } }
+		}
+	}
+	{
+		\clist_map_inline:Nn \l_tmpb_clist
+		{
+			\tl_gremove_all:Nn \ksbadukpan_his_white { ##1 , }
+			\tl_gremove_all:Nn \ksbadukpan_his_black { ##1 , }
+		}
+	}
+}
+
+
+%%% text commands
+
+\NewDocumentCommand \WhiteNText { m }
+{
+	\wrapnum [ white ] { #1 }
+}
+
+\NewDocumentCommand \BlackNText { m }
+{
+	\wrapnum [ black ] { #1 }
+}
+
+\NewDocumentCommand \WhiteMText { o }
+{
+	\IfValueTF { #1 } { \tl_set:Nn \tmp_scale { #1 } } { \tl_set:Nn \tmp_scale { 0.37 } }
+	\wrapnum [ white, base=nn ]
+	{ \tikz [ scale=\tl_use:N \tmp_scale ] \draw_triangle_white:nn { 0 } { 0 } ; }
+}
+
+\NewDocumentCommand \BlackMText { o }
+{
+	\IfValueTF { #1 } { \tl_set:Nn \tmp_scale { #1 } } { \tl_set:Nn \tmp_scale { 0.37 } }
+	\wrapnum [ black, base=nn ]
+	{ \tikz [ scale=\tl_use:N \tmp_scale ] \draw_triangle_black:nn { 0 } { 0 } ; }
+}
+
+\NewDocumentCommand \WhiteCText { o }
+{
+	\wrapnum [ white, base=m ] { ○ }
+}
+
+\NewDocumentCommand \BlackCText { o }
+{
+	\wrapnum [ black, base=m ] { ○ }
+}
+
+%%%% suggested by Gromob
+
+\tl_set:Nn \last_saved_game_name { default }
+\clist_gclear:N \ksbadukpan_savegame_default_white
+\clist_gclear:N \ksbadukpan_savegame_default_black
+
+\NewDocumentCommand \SaveKSBaduk { m }
+{
+	\tl_gset_eq:cN { ksbadukpan_savegame_ #1 _white } \ksbadukpan_his_white
+	\tl_gset_eq:cN { ksbadukpan_savegame_ #1 _black } \ksbadukpan_his_black
+	\tl_set:Nn \last_saved_game_name { #1 }
+}
+
+\NewDocumentCommand \LoadKSBaduk { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\exp_args:Nx \Whites { \clist_use:cn { ksbadukpan_savegame_ \tl_use:N \last_saved_game_name _white } { , } }
+		\exp_args:Nx \Blacks { \clist_use:cn { ksbadukpan_savegame_ \tl_use:N \last_saved_game_name _black } { , } }
+	}
+	{
+		\exp_args:Nx \Whites { \clist_use:cn { ksbadukpan_savegame_ #1 _white } { , } }
+		\exp_args:Nx \Blacks { \clist_use:cn { ksbadukpan_savegame_ #1 _black } { , } }
+	}
+}
+
+\NewDocumentCommand \DeleteSavedKSBaduk { m }
+{
+	\clist_gclear:c { ksbadukpan_savegame_ #1 _white }
+	\clist_gclear:c { ksbadukpan_savegame_ #1 _black }
+}
+
+%%%% SGFLine
+
+\NewDocumentCommand \SGFLine { m }
+{
+	\seq_set_split:Nnn \l_tmpa_seq { ; } { #1 }
+	\seq_pop_left:NN \l_tmpa_seq \l_nothing_tl
+	\seq_map_inline:Nn \l_tmpa_seq
+	{
+		\int_gincr:N \h_cnt
+		\analyse_sgf:n { ##1 }
+	}
+}
+
+\cs_new:Npn \analyse_sgf:n #1
+{
+	\sgf_line:w #1 \q_stop
+}
+
+\cs_new:Npn \sgf_line:w #1 [ #2 ] \q_stop 
+{
+	\cnv_to_pos:nn #2
+	
+	\str_case:nn { #1 }
+	{
+		{ B } { \exp_args:Nxx \BlackN { \g_x_pos \g_y_pos } { \int_use:N \h_cnt } }
+		{ W } { \exp_args:Nxx \WhiteN { \g_x_pos \g_y_pos } { \int_use:N \h_cnt } }
+	}
+}	
+
+\NewDocumentCommand \ResetSGFCounter { o }
+{
+	\IfValueTF { #1 }
+	{
+		\int_gset:Nn \h_cnt { #1 }
+	}
+	{
+		\int_gzero:N \h_cnt
+	}
+}
+
+\cs_new:Npn \cnv_to_pos:nn #1 #2
+{
+	\str_case:nn { #1 }
+	{
+		{ a } { \tl_set:Nn \g_x_pos { A } } 	{ b } { \tl_set:Nn \g_x_pos { B } }
+		{ c } { \tl_set:Nn \g_x_pos { C } }		{ d } { \tl_set:Nn \g_x_pos { D } }
+		{ e } { \tl_set:Nn \g_x_pos { E } }		{ f } { \tl_set:Nn \g_x_pos { F } }
+		{ g } { \tl_set:Nn \g_x_pos { G } }		{ h } { \tl_set:Nn \g_x_pos { H } }
+		{ i } { \tl_set:Nn \g_x_pos { J } }		{ j } { \tl_set:Nn \g_x_pos { K } }
+		{ k } { \tl_set:Nn \g_x_pos { L } }		{ l } { \tl_set:Nn \g_x_pos { M } }
+		{ m } { \tl_set:Nn \g_x_pos { N } }		{ n } { \tl_set:Nn \g_x_pos { O } }
+		{ o } { \tl_set:Nn \g_x_pos { P } }		{ p } { \tl_set:Nn \g_x_pos { Q } }
+		{ q } { \tl_set:Nn \g_x_pos { R } }		{ r } { \tl_set:Nn \g_x_pos { S } }
+		{ s } { \tl_set:Nn \g_x_pos { T } }
+	}
+	
+	\str_case:nn { #2 }
+	{
+		{ a } { \tl_set:Nn \g_y_pos { 19 } }	{ b } { \tl_set:Nn \g_y_pos { 18 } }
+		{ c } { \tl_set:Nn \g_y_pos { 17 } }	{ d } { \tl_set:Nn \g_y_pos { 16 } }
+		{ e } { \tl_set:Nn \g_y_pos { 15 } }	{ f } { \tl_set:Nn \g_y_pos { 14 } }
+		{ g } { \tl_set:Nn \g_y_pos { 13 } }	{ h } { \tl_set:Nn \g_y_pos { 12 } }
+		{ i } { \tl_set:Nn \g_y_pos { 11 } }	{ j } { \tl_set:Nn \g_y_pos { 10 } }
+		{ k } { \tl_set:Nn \g_y_pos { 9 } }		{ l } { \tl_set:Nn \g_y_pos { 8 } }
+		{ m } { \tl_set:Nn \g_y_pos { 7 } }		{ n } { \tl_set:Nn \g_y_pos { 6 } }
+		{ o } { \tl_set:Nn \g_y_pos { 5 } }		{ p } { \tl_set:Nn \g_y_pos { 4 } }
+		{ q } { \tl_set:Nn \g_y_pos { 3 } }		{ r } { \tl_set:Nn \g_y_pos { 2 } }
+		{ s } { \tl_set:Nn \g_y_pos { 1 } }
+	}
+}
+
+%%%% aliases
+\tl_set_eq:NN \BadukpanColor \BackgroundColor
+\tl_set_eq:NN \GobanColor \BackgroundColor
+\tl_set_eq:NN \GobanSize \BadukpanSize
+\tl_set_eq:NN \StartGo \StartBaduk
+\tl_set_eq:NN \StartGoClip \StartBadukClip
+\tl_set_eq:NN \StopGo \StopBaduk
+\tl_set_eq:NN \KSGoContinue \KSBadukContinue
+\tl_set_eq:NN \SaveKSGo \SaveKSBaduk
+\tl_set_eq:NN \LoadKSGo \LoadKSBaduk
+\tl_set_eq:NN \DeleteSavedKSGo \DeleteSavedKSGo
+\tl_set_eq:NN \TextMark \Blanket
+
+\cs_new:Npn \start_badukpan_env:nn #1 #2
+{
+	\begin{ksbadukpan} [#1] [#2]
+}
+
+\NewDocumentCommand \KSpar { }
+{
+	\par
+}
+
+\NewDocumentCommand \ProceedNextScene { g }
+{
+	\end{ksbadukpan}
+	\IfValueTF { #1 } { #1 } {  }
+	\exp_args:Nxx \start_badukpan_env:nn { \tl_use:N \current_env_option } { \tl_use:N \current_par_option }
+	\KSBadukContinue
+}
+
+\NewDocumentCommand \ProceedNextSceneComment { +m }
+{
+	\end{ksbadukpan}
+
+	#1
+
+	\exp_args:Nxx \start_badukpan_env:nn { \tl_use:N \current_env_option } { \tl_use:N \current_par_option }
+	\KSBadukContinue
+}	
+
+\ExplSyntaxOff 
+
+\endinput
+
+%%% ver 0.1: package name suggested by 작나
+%%% all the command/environment names related to "Go" changed to "Baduk"
+%%%
+%%% ver 0.2: \KSBadukContinue, \ClearHistory, I disabled. (A to T)
+%%%
+%%% ver 0.3: imageback,
+%%% ver 0.3.2: bugfix loading tcolorbox
+%%% ver 0.4: \DeleteHistory
+%%% ver 0.5: drop \DeleteHistory, instead, \RemoveStone
+%%% ver 0.5.1: \RemoveStone[B|W]{...}
+%%% ver 0.5.2: \WhiteNText, \BlackNText, \WhiteMText, \BlackMText
+%%% ver 0.6: \SaveKSBaduk, \LoadKSBaduk, a few corrections
+%%% ver 0.6.1: \SGFLine
+%%% ver 0.6.2: minor fixes.

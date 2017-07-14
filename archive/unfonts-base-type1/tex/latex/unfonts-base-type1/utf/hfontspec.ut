@@ -1,0 +1,11 @@
+hu = .059375em
+interhchar = -.03266em
+fullstoplower = .15ex
+exclamationlower = .15ex
+questionlower = .15ex
+serifhangulfont = utbt
+sanshangulfont = utgt
+monohangulfont = uttz
+serifhanjafont = utbt
+sanshanjafont = utgt
+monohanjafont = uttz

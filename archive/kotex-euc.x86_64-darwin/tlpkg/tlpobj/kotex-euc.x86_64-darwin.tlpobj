@@ -1,0 +1,8 @@
+name kotex-euc.x86_64-darwin
+category Package
+revision 200
+shortdesc x86_64-darwin files of kotex-euc
+binfiles arch=x86_64-darwin size=8
+ bin/x86_64-darwin/euc-bookmark
+ bin/x86_64-darwin/hbibtex
+ bin/x86_64-darwin/hmakeindex

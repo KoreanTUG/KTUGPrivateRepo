@@ -1,0 +1,91 @@
+\input showkeys.sty
+
+\ifx\nullocplist\undefined
+\RequirePackage{verbatim}
+\def\@verb@year{\jobname.tmp}
+\newwrite\verbatim@out
+
+%% label swapping
+\def\@lbibitem[#1]#2{\item[\@biblabel{#1}\hfill]\if@filesw
+      {\let\protect\noexpand
+       \immediate
+       \write\@auxout{\string\bibcite{#2}%
+        {#1\string\make@josa{#1}}}}\fi%
+    \llap{\smash{\SK@labelcolor\fbox{%
+                 \normalfont\small\ttfamily#2}\quad}}\ignorespaces}
+
+\def\SK@@label#1>#2\SK@{%
+  \toks@{#2}\edef\reserved@a{\the\toks@}%
+  \edef\reserved@a{\expandafter\strip@prefix\meaning\reserved@a}%
+  \immediate\openout\verbatim@out\@verb@year%
+  \immediate\write\verbatim@out{\reserved@a}%
+  \immediate\closeout\verbatim@out%
+  \def\verbatim@processline{%
+    {\setbox\@tempboxa=\hbox{\the\verbatim@line}%
+      \hsize=\wd\@tempboxa
+      \the\verbatim@line\par}}%
+  \setbox\@tempboxa=\vbox{\parskip=0pt\topsep=0pt\partopsep=0pt
+    \footnotesize\verbatiminput{\@verb@year}}%
+  \gdef\SK@lab{\smash{\SK@labelcolor\fbox{%
+                      \normalfont\small\box\@tempboxa}}}%
+  \ifvmode
+    \if@inlabel
+      \global\setbox\@labels\hbox{%
+        \llap{\SK@lab\SK@lab@relax
+              \kern\@totalleftmargin\kern\marginparsep}%
+        \box\@labels}%
+    \else
+      \dimen@\prevdepth
+      \nointerlineskip
+      \ifinner
+        \skip@\lastskip\unskip
+        \advance\skip@\lastskip\unskip
+        \setbox\z@\lastbox
+        \ifvoid\z@
+          \llap{\SK@lab\SK@lab@relax\kern\marginparsep}%
+        \else
+          \hbox{\box\z@\kern\marginparsep\SK@labx}%
+        \fi
+        \vskip\skip@
+      \else
+        \llap{\SK@lab\SK@lab@relax\kern\marginparsep}%
+      \fi
+      \prevdepth\dimen@
+    \fi
+  \else
+    \csname SK@\@currenvir\endcsname
+    \ifSK@equation\else
+      \ifmmode
+        \SK@labx
+      \else
+        \ifinner
+          \rlap\SK@lab
+      \else
+          \vadjust{\llap{\SK@lab\kern\marginparsep}}%
+        \fi
+        \SK@lab@relax
+      \fi
+    \fi
+  \fi}
+
+\def\SK@@ref#1>#2\SK@{%
+  \toks@{#2}\edef\reserved@a{\the\toks@}%
+  \edef\reserved@a{\expandafter\strip@prefix\meaning\reserved@a}%
+  \immediate\openout\verbatim@out \@verb@year
+  \immediate\write\verbatim@out{\reserved@a}%
+  \immediate\closeout\verbatim@out
+  \def\verbatim@processline{%
+    {\setbox\@tempboxa=\hbox{\the\verbatim@line}%
+      \hsize=\wd\@tempboxa
+      \the\verbatim@line\par}}%
+  \setbox\@tempboxa=\vbox{\parskip=0pt\topsep=0pt\partopsep=0pt
+    \footnotesize\verbatiminput{\@verb@year}\hrule}%
+  \leavevmode\vbox to\z@{%
+    \vss
+    \SK@refcolor
+    \rlap{\vrule\raise .75em\hbox{\box\@tempboxa}}}}
+\fi
+
+\endinput
+
+%% End of file `showhkeys.sty'.

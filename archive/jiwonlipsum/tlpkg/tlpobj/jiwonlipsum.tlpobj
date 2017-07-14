@@ -1,0 +1,7 @@
+name jiwonlipsum
+category Package
+revision 200
+shortdesc Hangul lipsum from Jiwon Park
+relocated 1
+runfiles size=6
+ RELOC/tex/latex/jiwonlipsum/jiwonlipsum.sty

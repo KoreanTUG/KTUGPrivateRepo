@@ -1,0 +1,198 @@
+% !TEX encoding = UTF-8 Unicode
+
+% 
+% (c) 2008, Eung-Shin Lee
+% Modified by Kihwang Lee
+% public domain.
+% 
+\documentclass[10pt,compress,slidetop,%
+			   xcolor={svgnames},% sub-package options
+			   t]{beamer}
+% 이곳에서는 글씨체의 크기를 10 pt로 하였음, t는 본문 내용이 슬라이드의 위(top)부터 시작
+% 
+% Beamer 저작권
+% Copyright 2004      by Till Tantau  <tantau@users.sourceforge.net>.
+%       and 2005-2006 by Jorg Cassens <jorg.cassens@idi.ntnu.no>
+%
+
+
+\mode<presentation> 									% 출력 양식을 프레젠테이션으로
+{
+	\usetheme{Frankfurt}      							% 템플릿은 프랑크푸르트로
+
+% 템플릿 종류: Antibes, Bergen, Berkerley, Berlin, Boadilla, Copenhagen, Darmstadt, Dresden, Frankfurt, Goettingen, 
+%  Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Malmoe, Marburg, Montpellier, PaloAlto, Pittsburgh, Rochester,
+%  Singapore, Szeged, Warsaw
+% 
+	\usecolortheme[named=olive]{structure}		% 색상 결정
+ 	\usefonttheme[onlymath]{serif}					% 수학공식에서 사용하는 글씨체 
+  % \useoutertheme{infolines}
+  % or whatever
+
+  \setbeamercovered{transparent}						% overlay 사용 
+  % or whatever (possibly just delete it)
+}
+
+%==================  필요한 패키지 설정 ===============
+\usepackage{verbatim}
+\usepackage{pdfpages}
+\usepackage{multimedia}
+\usepackage{animate}
+% 
+\usepackage{bm}% bold math
+\usepackage{amsmath,amssymb,amscd}
+\usepackage{subeqnarray}
+\usepackage{mathptmx}
+% 
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{relsize}
+% 
+\usepackage{colortbl}
+\usepackage{wasysym}
+%
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc,patterns}
+\tikzstyle{every picture}+=[remember picture]
+\usetikzlibrary{%
+    decorations.pathreplacing,%
+    decorations.pathmorphing%
+}
+% ================== 한글 사용 =====================
+\usepackage{kotex}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage{dhucs-nanumfont}
+  \hypersetup{pdftex,unicode,bookmarks}
+  \input glyphtounicode
+  \pdfgentounicode=1
+\else\ifXeTeX
+  \setmainhangulfont[Ligatures=TeX]{HCR Batang LVT}
+  \setsanshangulfont[Ligatures=TeX]{HCR Dotum LVT}
+\else\ifLuaTeX
+  \hypersetup{unicode,bookmarks}
+  \setmainhangulfont[Ligatures=TeX]{HCR Batang LVT}
+  \setsanshangulfont[Ligatures=TeX]{HCR Dotum LVT}
+\fi\fi\fi
+%==============================================
+%
+%================ dual screen =======================
+%\setbeameroption{show notes on second screen=left} 
+%\setbeamertemplate{note page}[compress] 
+%==============================================
+% 
+%================ 제목에 사용할 글씨체 설정 ============== 
+\setbeamerfont{title}{shape=\itshape,family=\rmfamily}
+\setbeamerfont{frametitle}{family=\rmfamily}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+%===============================================
+%
+%==================  표지 만들기 =====================
+\title % (optional, use only with long paper titles)
+{Beamer 프레젠테이션 활용}
+\subtitle{\LaTeX 기초강좌 (2008년 가을, 공주대학교)}
+
+
+\author{홍길동}	% 저자(발표자) 
+
+% Till Tantau\author{{1} \and
+% J\"{o}rg Cassens\inst{2}
+
+\institute[] 															% (optional, but mostly needed) 소속기관 약자 표기
+{자신의 소속 기관}													% 표지에 나타나는 소속기관 full name
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[08-11-09] 														% (optional, should be abbreviation of conference name)
+{}																			% 날짜 지정: \today
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Beamer}
+% This is only inserted into the PDF information catalog. Can be left out.
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%===============================================
+%
+% ====================  차 례 ======================
+ \AtBeginSection[]
+ {
+ \begin{frame}<beamer>
+    \frametitle{차 례}
+    \tableofcontents[currentsection,hideallsubsections]
+    %\tableofcontents[currentsection,currentsubsections]
+  \end{frame}
+}
+%===============================================
+%
+%
+%==========================  본문 시작 ==============================
+\begin{document}
+% 
+%=================  표지를  화면으로 나타나기 =============
+\begin{frame}
+  \titlepage
+\end{frame}
+%===============================================
+%
+% ******************************
+\section{Introduction}
+%*******************************
+%
+%------------------------------- 슬라이드  --------------------------------------------------
+\begin{frame}
+	\frametitle{Introduction}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+%
+%-------------------------------- 슬라이드  -------------------------------------------------
+\begin{frame}
+	\frametitle{Introduction}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+% 
+%*******************************
+\section{본문 내용}
+%*******************************
+%
+%------------------------------- 슬라이드  --------------------------------------------------
+\begin{frame}
+	\frametitle{본문 내용}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+%
+%------------------------------- 슬라이드  --------------------------------------------------
+\begin{frame}
+	\frametitle{본문 내용}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+%
+%------------------------------- 슬라이드  --------------------------------------------------
+\begin{frame}
+	\frametitle{본문 내용}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+%
+%******************************
+\section{결론}
+%******************************
+%
+%------------------------------- 슬라이드  --------------------------------------------------
+\begin{frame}
+	\frametitle{결론}
+	
+\end{frame}
+%----------------------------------------------------------------------------------------------
+%
+%
+\end{document}
+%==========================  본문 끝 = ================================

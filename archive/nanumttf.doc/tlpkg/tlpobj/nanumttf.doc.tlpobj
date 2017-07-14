@@ -1,0 +1,8 @@
+name nanumttf.doc
+category Package
+revision 200
+shortdesc doc files of nanumttf
+relocated 1
+docfiles size=3
+ RELOC/doc/fonts/nanumttf/COPYING
+ RELOC/doc/fonts/nanumttf/README

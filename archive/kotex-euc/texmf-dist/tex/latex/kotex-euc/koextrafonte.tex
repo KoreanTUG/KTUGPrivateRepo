@@ -1,0 +1,75 @@
+%% file `koextrafonte.tex`
+%%  part of ko.TeX/euc
+%% ------------------------
+%% hlatex (kotex-euc) extra fonts
+%% unfonts-type1 extra package required.
+\MapHangulFamily{gs}{wgs,wgs,wgs}
+%\MapHangulFamily{gh}{mgh,wgs,wgs}
+\MapHangulFamily{sh}{wsh,wsh,wsh}
+\MapHangulFamily{pg}{wpg,wgt,wgt}
+\MapHangulFamily{pn}{wpn,wmj,wmj}
+\MapHangulFamily{ph}{wph,wmj,wmj}
+\MapHangulFamily{bm}{wbm,wgt,wgt}
+\MapHangulFamily{yt}{wyt,wgt,wyt}
+%\MapHangulFamily{vd}{wvd,wgt,wgt}
+%\MapHangulFamily{mg}{mhm,wgt,wgt}
+\MapHangulFamily{jmj}{wjmj,wmj,wmj}
+\MapHangulFamily{jgt}{wjgt,wgt,wgt}
+\MapHangulFamily{jnv}{wjnv,wgt,wgt}
+\MapHangulFamily{jsr}{wjsr,wgt,wgt}
+%\MapHangulFamily{pga}{wpga,wgt,wgt}
+%\MapHangulFamily{dn}{wdn,wgt,wgt}
+
+%% 글자체 명령
+\DeclareRobustCommand\gsfamily{\hfontfamily{gs}}
+\DeclareRobustCommand\pgfamily{\hfontfamily{pg}}
+%\DeclareRobustCommand\mgfamily{\hfontfamily{mg}}
+\DeclareRobustCommand\ytfamily{\hfontfamily{yt}}
+\DeclareRobustCommand\bmfamily{\hfontfamily{bm}}
+\DeclareRobustCommand\pnfamily{\hfontfamily{pn}}
+\let\smfamily\mjfamily
+\let\olfamily\mjfamily
+\DeclareTextFontCommand{\textgs}{\gsfamily}
+\DeclareTextFontCommand{\textpg}{\pgfamily}
+%\DeclareTextFontCommand{\textmg}{\mgfamily}
+\DeclareTextFontCommand{\textyt}{\ytfamily}
+\DeclareTextFontCommand{\textbm}{\bmfamily}
+\DeclareTextFontCommand{\textpn}{\pnfamily}
+\let\textsm\textmj
+\let\textol\textmj
+
+%% 잡동사니
+\DeclareTextFontCommand{\textsh}{\shfamily}
+\DeclareRobustCommand\shfamily{\hfontfamily{sh}}
+
+\if@hangulmode
+\def\f@urj@mo^^da모#1#2#3#4{% 자모(C0DAB8F0)
+  \ifx#1^^b8\hfontfamily{jmj}\else% 명조(B8EDC1B6)
+  \ifx#1^^b0\hfontfamily{jgt}\else% 고딕(B0EDB5F1)
+  \ifx#1^^b3\hfontfamily{jnv}\else% 노벨(B3EBBAA7)
+  \ifx#1^^bc\hfontfamily{jsr}%      소라(BCD2B6F3)
+  \fi\fi\fi\fi\ignorespaces}%
+\def\^^bf{%
+  \@ifnextchar^^cd{\@josa{와}{과}\@gobble}\yt@or@ol}% 와(BFCD)
+\def\yt@or@ol#1#2#3{%
+  \ifx#1^^be\hfontfamily{yt}\else%                                      옛글(BFBDB1BD)
+  \ifx#1^^dc\hfontfamily{ol}\fi\fi\ignorespaces}%       외곽(BFDCB0FB)
+%\def\mj@or@mg#1#2#3{%
+%  \ifx#1^^ed\hfontfamily{mj}\else%                                      명조(B8EDC1B6)
+%  \ifx#1^^f1\hfontfamily{mg}\fi\fi\ignorespaces}%       목각(B8F1B0A2)
+\def\gs@or@gh#1#2#3#4#5{%
+  \ifx#2^^bc\hfontfamily{gs}#4#5\else%    궁서(B1C3BCAD)
+  \hfontfamily{gh}\fi\ignorespaces}%      궁흘림(B1C3C8EAB8B2)
+%\def\새명조{\hfontfamily{sm}\ignorespaces}% 새명조(BBF5B8EDC1B6)
+%\def\필기{%
+%  \@ifnextchar a{\hfontfamily{pga}\@gobble}{\hfontfamily{pg}\ignorespaces}} 
+\def\필기{\hfontfamily{pg}\ignorespaces}  % 필기
+\def\펜#1#2#3#4{\ifx#1^^c8\hfontfamily{ph}% 펜흘림(C6E6C8EAB8B2)
+  \else\hfontfamily{pn}\fi\ignorespaces}%   펜글씨(C6E6B1DBBEBE)
+\def\봄글씨{\hfontfamily{bm}\ignorespaces}% 봄글씨(BABDB1DBBEBE)
+\def\신문{\hfontfamily{sh}\ignorespaces}%   신문  (BDC5B9AE)
+%\def\바다{\hfontfamily{vd}\ignorespaces}%   바다  (B9D9B4D9)
+%\def\디나루{\hfontfamily{dn}\ignorespaces}% 디나루 (B5EFB3AAB7E7) 
+\fi
+
+\endinput

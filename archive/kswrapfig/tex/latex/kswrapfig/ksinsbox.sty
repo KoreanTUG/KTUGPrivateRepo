@@ -1,0 +1,43 @@
+%%
+\ProvidesPackage{ksinsbox}[2014/08/07 v0.1]
+
+\input insbox
+
+\RequirePackage{xparse}
+
+\ExplSyntaxOn
+
+\bool_new:N \insbox_center
+
+\NewDocumentCommand \ksinsbox { o o m }
+{
+	\IfValueTF { #2 }
+	{
+		\tl_set:Nn \ksinsbox_lines { #2 }
+	}
+	{
+		\tl_set:Nn \ksinsbox_lines { 0 }
+	}
+	\IfValueTF { #1 }
+	{
+		\str_case:nnF { #1 }
+		{
+			{ l } {
+				\InsertBoxL { \ksinsbox_lines } { #3 }
+			}
+			{ r } {
+				\InsertBoxR { \ksinsbox_lines } { #3 }
+			}
+			{ c } {
+				\InsertBoxC { #3 }
+			}
+		}
+		{
+			\InsertBoxL { \ksinsbox_lines } { #3 }
+		}
+	}
+}
+
+\ExplSyntaxOff
+
+\endinput

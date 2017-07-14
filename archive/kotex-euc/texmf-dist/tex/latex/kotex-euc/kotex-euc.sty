@@ -1,0 +1,193 @@
+%%% file `kotex-euc.sty` ( a part of ko.TeX )
+%%
+%% (C) Copyright 2007 Koaunghi Un <koaunghi@kornet.net>
+%%                    Dohyun Kim  <nomos@ktug.or.kr>
+%%                    Kangsoo Kim <karnes@ktug.or.kr>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2006/05/20 or later.
+%%
+%% Read LICENSE included in the package.
+%%
+\NeedsTeXFormat{LaTeX2e}
+\def\filename{kotex-euc.sty}
+\def\filedate{2007/07/15}
+\def\fileversion{1.0.2}
+
+\ProvidesPackage{kotex-euc}%
+   [\filedate\space\fileversion\space Typesetting Korean Documents (hlatex)]
+%%\typeout{한글 문서 꾸러미 `\filename'. <\filedate>.}
+
+%% for compatibility
+\DeclareOption{finemath}{%
+  \PackageWarningNoLine{kotex}{finemath option will be ignored under euc}{}
+}
+\DeclareOption{strictcharcheck}{%
+  \PackageWarningNoLine{kotex}{strictcharcheck option will be ignored under euc}{}
+}
+\DeclareOption{nonfrench}{%
+  \PackageWarningNoLine{kotex}{nonfrench option will be ignored under euc}{}
+}
+
+%% hfont option : works as if hfont.sty
+%% hfont mode is default
+\newif\if@hangulmode\@hangulmodefalse
+\DeclareOption{hfont}{%
+  \@hangulmodefalse
+}
+\DeclareOption{hangul}{%
+  \@hangulmodetrue
+}
+
+%% 추가 선택 처리
+%% --------------
+%%
+%% 추가 선택 "hanja"는 단원의 이름들을 한자로 표시한다.
+
+\newif\if@hanja\@hanjafalse
+
+\DeclareOption{hanja}{\@hanjatrue}
+
+%% Lambda를 쓰면 hangul-k-cp949.tex을 읽고 꾸러미 처리를 마친다.
+%\ifx\nullocplist\undefined\else
+%  \input hangul-k-cp949.tex
+%\fi
+%\@nameuse{hangul-k-cp949.tex}
+
+%% LaTeX을 쓸 때에는 다음과 같은 추가 선택이 더 있다.
+%% 추가 선택 "nojosa"는 자동조사처리기능을 마비시킨다.
+%% 추가 선택 "hardbold"는 이미 만들어진 bfseries 한글 글자체를 사용하고,
+%% 추가 선택 "softbold"는 bfseries 글자체를 설치하지 않은 상태에서
+%%   mdseries 글자체를 사용하여 모듬명령을 통해 bfseries가
+%%   만들어지도록 한다.
+%%   이 둘중 아무 것도 지정하지 않으면 "softbold"가 된다.
+%%
+%% 추가 선택의 지정은 다음과 같이 한다.
+%%       \documentclass[hanja,...]{...}
+%%       \usepackage{hangul,...}
+%% 혹은 \documentclass의 다음에
+%%       \usepackage[hanja]{hangul}
+\newif\if@makebold
+\newif\if@josa
+\@hanjafalse \@makeboldfalse \@josatrue
+
+\DeclareOption{hardbold}{\@makeboldfalse}
+\DeclareOption{softbold}{\@makeboldtrue}
+\DeclareOption{nojosa}{\@josafalse}
+
+\ProcessOptions
+
+%%% hangulmode
+\if@hangulmode
+  \@namedef{hfont.sty}{}
+\else
+  \@namedef{hfont.sty}{\endinput}
+\fi
+
+%% 한글 글자체의 정의
+\input hfont.tex
+
+%%% From File: lterror.dtx
+\def\@latex@warning@no@line#1{\let\protect\relax%
+   \@latex@warning{#1\@gobble}}
+
+%%% From File: ltfsstrc.dtx
+\def\@font@warning#1{\let\protect\relax%
+         \GenericWarning{(Font)\@spaces\@spaces\@spaces\space\space}%
+                        {LaTeX Font Warning: #1}}%
+
+%%% From File: ltmiscen.dtx
+\expandafter\def\expandafter\centering\expandafter{\centering\ks@break}
+\expandafter\def\expandafter\raggedright\expandafter{\raggedright\ks@break}
+\expandafter\def\expandafter\raggedleft\expandafter{\raggedleft\ks@break}
+
+%%% From File: ltsect.dtx
+\def\thanks#1{\footnotemark\let\KSC@\noexpand
+    \protected@xdef\@thanks{\@thanks
+        \protect\footnotetext[\the\c@footnote]{#1}}%
+}
+
+%%% From File: ltpage.dtx
+\def\markboth#1#2{\gdef\@themark{{#1}{#2}}{%
+     \let\protect\@unexpandable@protect \let\KSC@\noexpand
+     \let\label\relax \let\index\relax \let\glossary\relax
+     \mark{\@themark}}\if@nobreak\ifvmode\nobreak\fi\fi}
+\def\@markright#1#2#3{\let\KSC@\noexpand \gdef\@themark{{#1}{#3}}}
+
+%% hfont.sty은 여기서 끝난다.
+\@nameuse{hfont.sty}
+
+%% EUC-KR 부호를 전개하는데에는 주의가 요구된다.
+\def\ks@noexpand{\ifx\protect\@typeset@protect\relax\else
+  \expandafter\noexpand\fi}
+
+%% konames
+\input konames-euc.tex
+
+%% kosections
+\input kosections-euc.tex
+
+%% interface with hyperref
+%\if@nojosa\else\RequirePackage{hyperref}\fi
+
+%%% End of file `euc-kr.tex'.
+
+%% 한글 문서에 필요한 설정 
+\renewcommand{\baselinestretch}{1.333}  %%% baseline=1.333 (kotex)
+%\emergencystretch1.5\@ptsize pt
+\ifx\@ptsize\undefined\def\@ptsize{0}\fi
+\emergencystretch=1\@ptsize pt
+\@ifclassloaded{slides}{\emergencystretch=3\@ptsize pt}{}
+
+%% 우리말의 글자는 영문자보다 더 크므로 문장 마침 부호가 나오면
+%% 빈공간을 더 주고 단어 간격도 늘린다.
+%\if@nonfrench
+\if@hangulmode
+  \xspaceskip=.5em plus .111em minus .1em
+\else
+  \xspaceskip=0pt plus .1em minus .1em
+\fi
+%\fi
+%%\spaceskip=.4em plus.2em minus.2em
+
+% \sfcode x=1000 (initial)
+% \sfcode X=999
+% \sfcode )']=0
+% \sfcode .?!:;,=1000 (french)
+% \sfcode .?!=3000 :=2000 ;=1500 ,=1250 (nonfrench)
+
+%% 자간 간격의 애초값
+%\hangulskip=0pt
+\if@hangulmode
+  \hangulskip=-0.55pt  % kotex interhchar default
+%  \hangulskip=-0.0852em  % kotex interhchar default
+\else
+%  \hangulskip=0pt
+  \hangulskip=-0.0852em
+\fi
+
+%% A bug in latex.ltx (see
+%% http://www.latex-project.org/cgi-bin/ltxbugs2html?pr=latex/3460)
+\def\thempfootnote{\textit{\@alph\c@mpfootnote}}
+
+%% hmakeindex를 사용하면 \hindexhead가 사용됩니다.  \hindexhead는
+%% 색인 머릿글자의 자소 순서에 따른 번호를 변수로 사용합니다.
+%% 초기값은 변수에 상관 없이 약간의 행간 간격을 주는
+%% \indexspace입니다.  "가나다라"로 색인의 머릿글자를 구분해 주기
+%% 위해서는 다음과 같이 \hindexhead를 재정의 합니다.
+%% \renewcommand\hindexhead[1]{\indexspace
+%%   {\bfseries
+%%     『\ifcase#1 심벌\or 가\or 까\or 나\or 다\or 따\or 라\or
+%%     마\or 바\or 빠\or 사\or 싸\or 아\or 자\or 짜\or
+%%     차\or 카\or 타\or 파\or 하\or 한자\fi 』}
+%%   \nopagebreak
+%% }
+
+\def\hindexhead#1{\indexspace}
+
+\endinput

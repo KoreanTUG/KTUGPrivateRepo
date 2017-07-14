@@ -1,0 +1,34 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage[hangul]{kotex}
+\usepackage{kotex-logo}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage{dhucs-nanumfont}
+\else\ifXeTeX
+  \setmainhangulfont[Ligatures=TeX]{HCR Batang LVT}
+  \setsanshangulfont[Ligatures=TeX]{HCR Dotum LVT}
+\else\ifLuaTeX
+  \setmainhangulfont[Ligatures=TeX]{HCR Batang LVT}
+  \setsanshangulfont[Ligatures=TeX]{HCR Dotum LVT}
+\fi\fi\fi
+
+\begin{document}
+
+\title{\koTeX-article 템플릿}
+\author{저자}
+\date{}
+\maketitle
+
+\section{절 제목}
+
+\subsection{소절 제목}
+
+이 문서는 \koTeX\ 문서입니다.
+
+\end{document}
+

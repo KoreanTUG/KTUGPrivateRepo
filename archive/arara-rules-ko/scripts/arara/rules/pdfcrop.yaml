@@ -1,0 +1,14 @@
+!config
+# requires arara 3.0+
+identifier: pdfcrop
+name: PDFCROP
+command: <arara> pdfcrop @{options} "@{from}".pdf "@{to}".pdf
+arguments:
+- identifier: from
+  flag: <arara> @{parameters.from}
+  default: <arara> @{getBasename(file)}
+- identifier: options
+  flag: <arara> @{parameters.options}
+- identifier: to
+  flag: <arara> @{parameters.to}
+  default: <arara> @{parameters.from}-crop

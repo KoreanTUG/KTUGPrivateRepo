@@ -1,0 +1,9 @@
+\DeclareFontFamily{C70}{utgs}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{C70}{utgs}{m}{n}{<-> CJK * outgsm}{}
+\DeclareFontShape{C70}{utgs}{m}{sl}{<-> CJK * outgsmo}{}
+\DeclareFontShape{C70}{utgs}{m}{it}{<-> CJK * outgsmo}{}
+
+\DeclareFontShape{C70}{utgs}{c}{n}{<-> CJK * outgsc}{}
+\DeclareFontShape{C70}{utgs}{c}{sl}{<-> CJK * outgsco}{}
+\DeclareFontShape{C70}{utgs}{c}{it}{<-> CJK * outgsco}{}

@@ -1,0 +1,12 @@
+!config
+# Xindy korean rule for arara
+# requires arara 3.0+
+identifier: kotexindy
+name: XindyKorean
+command: <arara> xindy -M texindy -M page-ranges -L korean -C utf8 @{style} "@{getBasename(file)}.idx"
+arguments:
+-  identifier: style
+   flag: <arara> -M @{parameters.style}
+ 
+
+

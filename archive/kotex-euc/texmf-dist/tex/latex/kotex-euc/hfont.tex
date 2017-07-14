@@ -1,0 +1,1147 @@
+%%% file `hfont.tex` ( a part of ko.TeX )
+%%
+%% (C) Copyright 2007 Koaunghi Un <koaunghi@kornet.net>
+%%                    Dohyun Kim  <nomos@ktug.or.kr>
+%%                    Kangsoo Kim <karnes@ktug.or.kr>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2006/05/20 or later.
+%%
+%% Read LICENSE included in the package.
+%%
+%% ------------------------------------------
+%%
+%% 이 파일은 우리말을 \TeX에서 사용하는데 필요한 KS X 1001 부호와
+%% 글자체 정의에 그 역할을 두고 있다.  우리말 글자체는 \LaTeX2e의
+%% NFSS2(New Font Selection Scheme2)을 한글화한 HFSS에 의해 선택되며,
+%% 일반의 한글문서와는 달리 문서에 우리말 글자체만 포함하기 위해서는
+%% 이 파일이 단독으로 사용될 수 있다.
+\ProvidesFile{hfont.tex}[2010/02/01]
+
+%% 0.95 scheme
+
+\begingroup
+\def\reserved@a{}\count@="0A1
+\loop\ifnum\count@<\@cclvi
+  \edef\reserved@a{\reserved@a \sfcode\the\count@=\@m}%
+  \advance\count@ by1
+\repeat
+\global\let\ks@break\reserved@a
+\endgroup
+
+%% 우리말 부호의 정의 (KSC5601)
+%% ----------------------------
+%% 우리말부호는 모두 TeX의 모듬명령으로 처리된다.
+\def\reserved@a#1#2{%
+  \@tempcnta#1\relax
+  \@tempcntb#2\relax
+  \reserved@b}
+\def\reserved@b{%
+  \ifnum\@tempcnta>\@tempcntb\else
+    \reserved@c\@tempcnta
+    \advance\@tempcnta\@ne
+    \expandafter\reserved@b
+  \fi}
+\def\reserved@c#1{%
+  \uccode#1=#1
+  \lccode#1=#1
+  \sfcode#1=1001
+  \catcode#1=\active}
+\reserved@a{"0A1}{"0FE}
+
+\begingroup
+\def\ksc@code{\ifnum\count@<"0FF
+  \edef\reserved@a{\reserved@a \catcode\the\count@=\the\@tempcnta}
+  \advance\count@ by1
+  \else\let\next\relax \fi\next}
+\@tempcnta13
+\def\reserved@a{}\count@="0A1\let\next\ksc@code \ksc@code
+\global\let\makekscactive\reserved@a
+\@tempcnta12
+\def\reserved@a{}\count@="0A1\let\next\ksc@code \ksc@code
+\global\let\makekscother\reserved@a
+\@tempcnta11
+\def\reserved@a{}\count@="0A1\let\next\ksc@code \ksc@code
+\global\let\makekscletter\reserved@a
+\endgroup
+
+%% 우리말의 분철:
+%% --------------
+%% 우리말은 \hyphenchar가 없고 어느 곳에서나 分綴이 可能하다. 그러므로
+%% 일단 글자체 자체에서 分綴을 억제하고 (\hyphenchar\font\m@ne)
+%% 우리말 사이에 \hskip\hangul@skip을 揷入함으로써 分綴을 可能하게
+%% 함과 동시에 \hangulskip으로 자간간격을 조절을 할 수 있도록 한다.
+%%
+\newdimen\hangulskip
+\newskip\hangul@skip
+\def\@Hyphen{\ifhmode\ifnum\spacefactor=1001\hskip\hangul@skip\fi\fi}%%%%
+\def\set@hangulskip{%
+  \@tempdima=\f@size\p@
+  \multiply\@tempdima100
+  \divide\@tempdima\p@
+  \multiply\@tempdima\p@
+  \hangul@skip=\hangulskip minus\hangulskip
+  \multiply\hangul@skip by\strip@pt\@tempdima%
+  \divide\hangul@skip by1000
+}
+
+%% 줄바꿈의 억제
+% 우리말 음절은 어느 곳에서든지 줄바꿈이 가능하다.  줄바꿈을 억제할
+% 때에 라텍의 \nolinebreak도 효과가 없다.  우리말 음절의 경계에서는
+% 다음과 같이 줄바꿈을 억제한다.
+\def\noHyphen{\spacefactor=999\nolinebreak}
+
+%% 우리말의 글자체 바꾸기:
+%% -----------------------
+%% 우리말의 글자체종류는 명조와 고딕 그리고 타자의 3가지를 기본으로
+%% 한다. 명조(\textmj)와 고딕(\textgt)은 각각 영문의 \textrm과
+%% \textsf에 해당하고 타자(\texttz)는 영문의 \texttt와 같다.
+\DeclareTextFontCommand{\textmj}{\mjfamily}
+\DeclareTextFontCommand{\textgt}{\gtfamily}
+\DeclareTextFontCommand{\texttz}{\tzfamily}
+
+%% 우리말글자체가족은 명조, 고딕, 타자의 세가지가 있고 다음과 같은
+%% 등식이 성립한다. \rmfamily=명조, \sffamily=고딕, \ttfamily=타자.
+\expandafter\def\expandafter\rmfamily\expandafter{\rmfamily
+         \not@math@alphabet\mjfamily\mathmj
+         \hfontfamily\mjdefault}
+\let\mjfamily\rmfamily
+\expandafter\def\expandafter\sffamily\expandafter{\sffamily
+         \not@math@alphabet\gtfamily\mathgt
+         \hfontfamily\gtdefault}
+\let\gtfamily\sffamily
+\expandafter\def\expandafter\ttfamily\expandafter{\ttfamily
+         \not@math@alphabet\tzfamily\mathtz
+         \hfontfamily\tzdefault\ks@break}
+\let\tzfamily\ttfamily
+
+%% 편의상 다음과 같은 가족바꿈모듬명령도 제공된다. (그래픽, 궁서,
+%% 필기, 외곽, 새명조, 목각, 옛글, 봄글씨 및 펜글씨)  이 모듬 명령들은
+%% 없어질 잡동사니에 속하므로 되도록 쓰지 않도록 한다.
+\DeclareRobustCommand\grfamily{\hfontfamily{gr}}
+%\DeclareRobustCommand\gsfamily{\hfontfamily{gs}}
+%\DeclareRobustCommand\pgfamily{\hfontfamily{pg}}
+%\DeclareRobustCommand\mgfamily{\hfontfamily{mg}}
+%\DeclareRobustCommand\ytfamily{\hfontfamily{yt}}
+%\DeclareRobustCommand\bmfamily{\hfontfamily{bm}}
+%\DeclareRobustCommand\pnfamily{\hfontfamily{pn}}
+%\let\smfamily\mjfamily
+%\let\olfamily\mjfamily
+\DeclareTextFontCommand{\textgr}{\grfamily}
+%\DeclareTextFontCommand{\textgs}{\gsfamily}
+%\DeclareTextFontCommand{\textpg}{\pgfamily}
+%\DeclareTextFontCommand{\textmg}{\mgfamily}
+%\DeclareTextFontCommand{\textyt}{\ytfamily}
+%\DeclareTextFontCommand{\textbm}{\bmfamily}
+%\DeclareTextFontCommand{\textpn}{\pnfamily}
+%\let\textsm\textmj
+%\let\textol\textmj
+
+%% LaTeX209식의 글자체 바꿈 모듬 명령은 기본 글자체에 해당하는 명령만
+%% 제공한다.
+\DeclareOldFontCommand{\mj}{\normalhfont\mjfamily}{\@nomath\mj}
+\DeclareOldFontCommand{\gt}{\normalhfont\gtfamily}{\@nomath\gt}
+\DeclareOldFontCommand{\tz}{\normalhfont\tzfamily}{\@nomath\tz}
+
+%% 우리말의 글자체 초기화는 부호화와 가족만을 초기값으로 바꾼다.
+\DeclareRobustCommand\normalhfont
+                 {\hfontencoding\hencodingdefault%
+                  \hfontfamily\hfamilydefault%
+                  \kscfamily\symboldefault\hanguldefault\hanjadefault}
+
+%% \normalfont는 영문과 함께 우리말도 초기화시킨다.
+\expandafter\def\expandafter\normalfont\expandafter
+  {\normalfont\protect\normalhfont}
+\let\reset@font\normalfont
+
+%% 영문 모듬 \usefont는 부호화가 우리말일 경우, 우리말을 다루도록 한다.
+\def\usefont#1#2#3#4{\if\hf@encoding#1%
+    \hfontencoding{#1}\hfontfamily{#2}\else
+    \fontencoding{#1}\fontfamily{#2}\fi\fontseries{#3}%
+    \fontshape{#4}\selectfont\ignorespaces}
+
+%% 우리말의 가족계획:
+%% ------------------
+%% ⑴ 우리말의 인코딩:
+%%    우리말은 영문과 다르게, 두 바이트로 한글자를 부호화하므로 영문의
+%%    부호화와 구별되도록 다른 부호화를 쓰며, 다음의 모듬으로
+%%    지정한다.  부호화의 변경은 새로운 .fd 파일을 요구하게 된다.
+\DeclareRobustCommand\hfontencoding[1]{%
+    \expandafter\ifx\csname T@#1\endcsname\relax
+      \@latex@error{Encoding scheme `#1' unknown}\@eha
+    \else
+      \edef\hf@encoding{#1}%
+      \ifx\cf@encoding\hf@encoding
+        \let\enc@update\relax
+      \else
+        \let\enc@update\@@enc@update
+      \fi
+    \fi
+}
+
+%% ⑵ 우리말글자체의 가족:
+%%    우리말가족은 둘로 나뉜다. 앞부분은 심벌/한글/한자의 구성형태를
+%%    의미한다.
+\DeclareRobustCommand\kscfamily[3]{\edef\sb@{#1}\edef\hg@{#2}\edef\hj@{#3}}
+
+%% 뒷부분은 우리말글자체의 모양새를 의미한다. 명조, 고딕, 타자 및 추가
+%% 글자체등의 모양새는 \MapHangulFamily에 의해 각각 한글/심벌/한자의
+%% 외부글자체와 연관되어 있다.
+\DeclareRobustCommand\hfontfamily[1]{%
+  \expandafter\ifx\csname #1@map\endcsname\relax
+    \@font@warning{Hangul Fontmap for `#1' undefined\MessageBreak
+                   using default map `\expandafter\csname\default@hfamily
+                   @map\endcsname' instead\@wrong@font@char}%
+    \expandafter\xdef\csname #1@map\endcsname{%
+      \expandafter\csname\default@hfamily @map\endcsname}%
+    \gdef\default@fontmap{%
+      \@font@warning{Some hangul fontmaps were not defined,\MessageBreak
+                     default fontmap substituted.\@gobbletwo}}\fi
+  \edef\reserved@a{\csname #1@map\endcsname}%
+  \expandafter\hfont@map\reserved@a\@nil\ignorespaces}
+\def\hfont@map#1,#2,#3\@nil{%
+  \edef\hg@family{#1}%
+  \edef\sb@family{#2}%
+  \edef\hj@family{#3}}
+\AtEndDocument{\default@fontmap}
+\let\default@fontmap\relax
+
+%% ⑶ 우리말 글자체 시리즈:
+%%    우리말글자체시리즈는 영문의 그것과 같다. 다만 \fontseries가 S로
+%%    시작할 때 우리말글꼴은 \mdseries를 세번 연속인쇄하여
+%%    \bfseries의 效果를 나타나게 한다.
+\DeclareRobustCommand\fontseries[1]{%
+  \if S\expandafter\@car#1\@nil\@makeboldtrue
+    \edef\hf@series{\mddefault}\edef\f@series{\expandafter\@cdr#1\@nil}%
+  \else\@makeboldfalse\edef\hf@series{#1}\edef\f@series{#1}\fi}
+
+%% \TeX{}에서 \bfseries의 애초값은 bx이다.  uhc 글자체는 b와 bx가 서로
+%% 구분되므로 모듬 명령 \hfontseries에 의해 두꺼운 글자체가 선택되도록
+%% 한다.
+\DeclareRobustCommand\hfontseries[1]{\edef\hf@series{#1}}
+
+\expandafter\def\expandafter\bfseries\expandafter{\bfseries\hfontseries\hbfdefault}
+
+%% ⑷,⑸ 우리말 글자체모양 및 크기:
+%%       우리말의 글자체모양과 크기는 영문의 그것과 동일하게 처리된다.
+
+%% 외부 글자체 파일찾기:
+%% ---------------------
+%% 우리말글자체는 한 세트가 여러 파일로 나뉘어져 있다. 그러므로
+%% 우리말글자체의 외부파일은 다음과 같은 일률적인 규칙에 의거하여
+%% 명명한다.
+%%  1. 상징기호는 끝숫자가 4, 5, 6, 7로 끝나도록 순서대로 256개씩 나눈다.
+%%  2. 한글은 끝숫자가 0부터 9가 되도록 순서대로 256개씩 나눈다.
+%%  3. 한자는 끝숫자가 10에서 29가 되도록 순서대로 256개씩 나눈다.
+\def\DeclareFontShape@#1#2#3#4#5#6{%
+   \expandafter\ifx\csname #1+#2\endcsname\relax
+     \@latex@error{Font family `#1+#2' unknown}\@eha
+   \else
+     \if#1\hf@encoding
+       \if\sb@\expandafter\@car#2\@nil\@tempcnta0\def\reserved@b{A,B,C,D}%
+       \else\if\hj@\expandafter\@car#2\@nil\@tempcnta2
+         \def\reserved@b{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}%
+       \else\@tempcnta1\def\reserved@b{A,B,C,D,E,F,G,H,I,J}\fi\fi
+       \@for\@idx:=\reserved@b\do{%
+         \expandafter\expandafter\expandafter\@tempcntb\expandafter`\@idx
+         \advance\@tempcntb-65
+         \ifcase\@tempcnta\def\reserved@c{0}\advance\@tempcntb4%
+         \or\def\reserved@c{}%
+         \or\def\reserved@c{}\advance\@tempcntb10\fi
+         \edef\reserved@c{\reserved@c\number\@tempcntb}%
+         \expandafter\xdef\csname#1/#2/#3/#4/\@idx\endcsname{%
+           \expandafter\noexpand\csname #5\reserved@c\endcsname}%
+         \global\expandafter\let\csname #5\reserved@c\expandafter\endcsname
+           \ifx\reserved@a\@empty\@empty\else\reserved@a\fi}%
+     \else
+       \expandafter\xdef\csname#1/#2/#3/#4\endcsname{%
+         \expandafter\noexpand\csname #5\endcsname}%
+       \def\reserved@a{#6}%
+       \global\expandafter\let\csname#5\expandafter\endcsname
+          \ifx\reserved@a\@empty\@empty\else\reserved@a\fi
+   \fi\fi
+  }
+\DeclareSizeFunction{hsub}{\subh@sfcnt\@font@warning}
+\DeclareSizeFunction{hssub}{\subh@sfcnt\@font@info}
+\def\subh@sfcnt#1{%
+    \edef\mandatory@arg{\f@encoding/\mandatory@arg}%
+    \begingroup
+     \expandafter\split@hname\mandatory@arg/\@nil
+     \xdef\reserved@a{\curr@fontshape}%
+     \try@load@fontshape
+    \endgroup
+    \let\f@user@size\f@size
+    \expandafter
+    \ifx\csname\mandatory@arg\endcsname\relax
+      \expandafter\ifx\csname\curr@fontshape!\endcsname\relax
+        \errmessage{No\space declaration\space for\space
+                  shape\space \mandatory@arg}%
+      \global\expandafter\let\csname\curr@fontshape!\endcsname\@empty\fi
+      \edef\reserved@b{\expandafter\@car\f@family\@nil}%
+      \error@hfontshape
+      \edef\reserved@c{\expandafter\csname\f@family @map\endcsname}%
+      \expandafter\hfont@map\reserved@c\@nil
+      \ifx\sb@\reserved@b\edef\f@family{\sb@\sb@family}\else%
+      \ifx\hj@\reserved@b\edef\f@family{\hj@\hj@family}\else%
+        \edef\f@family{\hg@\hg@family}\fi\fi
+    \else
+      \expandafter\ifx\csname\curr@fontshape!\endcsname\relax
+        #1{Font\space shape\space `\curr@fontshape'\space in\space
+         size\space <\f@size>\space not\space available\MessageBreak
+         Font\space shape\space `\reserved@a'\space tried\space
+         instead}%
+      \global\expandafter\let\csname\curr@fontshape!\endcsname\@empty\fi
+      \expandafter\split@hname\mandatory@arg/\@nil
+    \fi
+    \edef\f@size{\f@user@size}%
+    \get@external@hfont
+    \do@subst@correction
+}
+\def\DeclareHFontShape{\begingroup
+   \nfss@catcodes
+   \expandafter\endgroup
+   \DeclareHFontShape@}
+\def\DeclareHFontShape@#1#2#3#4#5#6{%
+   \expandafter\ifx\csname #1+#2\endcsname\relax
+     \@latex@error{Font family `#1+#2' unknown}\@eha
+   \else
+     \def\reserved@a{#6}%
+     \if\sb@\expandafter\@car#2\@nil\def\reserved@b{A,B,C,D}%
+     \else\if\hj@\expandafter\@car#2\@nil
+       \def\reserved@b{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}%
+     \else\def\reserved@b{A,B,C,D,E,F,G,H,I,J}\fi\fi
+     \@for\@idx:=\reserved@b\do{%
+       \expandafter\xdef\csname#1/#2/#3/#4/\@idx\endcsname{%
+         \expandafter\noexpand\csname #5/\@idx\endcsname}%
+       \global\expandafter\let\csname #5/\@idx\expandafter\endcsname
+         \ifx\reserved@a\@empty\@empty\else\reserved@a\fi}%
+   \fi
+  }
+
+%% 우리말 글자체 선택 방법 (HFSS):
+%% -------------------------------
+%% 우리말은 encoding과 family를 영문과 달리 취급하고 series와 shape,
+%% 그리고 size는 영문과 동일하게 취급한다.
+%% 우리말의 한가지 글자체는 256개의 글자들로 구성된 여러 글자체로
+%% 분리되어 있음으로 지수를 하나 더 추가하여 (심벌: A-D, 한글: A-J,
+%% 한자: A-T) 이를 표시한다.(\f@idx)
+%% 글자체가 없어서 대치될 때는, 그 글자체의 지수가 없이 그 글자체
+%% 세트가 대치되었음을 사용자에게 알리고, 한 글자체 세트마다 한번만
+%% 이러한 사실이 알려지도록 한다.  그 대치에는 심벌/한글/한자의
+%% \hfamilydefault로 선정된 글자체를 쓴다.  한글의 경우에는
+%% 완성|조합/자모를 각각 구분하여 처리한다.
+\def\extract@hfont{%
+   \get@external@hfont
+   \global\expandafter\font\font@name\external@font\relax
+    \font@name \relax
+    \csname \f@encoding+\f@family\endcsname
+    \csname\curr@fontshape\endcsname
+    \relax
+       }
+\def\get@external@hfont{%
+   \let\external@font\@empty
+   \edef\font@info{\expandafter\expandafter\expandafter\string
+        \csname \curr@fontshape/\f@idx \endcsname}%
+   \try@size@range
+   \ifx\external@font\@empty
+      \try@size@substitution
+      \ifx\external@font\@empty
+         \@latex@error{Font \expandafter \string\font@name\space
+                     not found}\@eha
+         \edef\reserved@b{\expandafter\@car\f@family\@nil}
+         \error@hfontshape
+         \edef\reserved@c{\expandafter\csname\f@family @map\endcsname}%
+         \expandafter\hfont@map\reserved@c\@nil
+         \ifx\sb@\reserved@b\edef\f@family{\sb@\sb@family}\else%
+         \ifx\hj@\reserved@b\edef\f@family{\hj@\hj@family}\else%
+           \edef\f@family{\hg@\hg@family}\fi\fi
+         \get@external@hfont
+   \fi\fi
+}
+\DeclareRobustCommand\selecthfont
+        {%
+    \ifx\f@linespread\baselinestretch \else
+      \set@fontsize\baselinestretch\f@size\f@baselineskip \fi
+    \xdef\font@name{%
+      \csname\curr@fontshape/\f@idx/\f@size\endcsname}%
+    \pickup@hfont
+    \font@name
+    \size@update
+    \enc@update
+    \set@hangulskip
+    }
+\def\pickup@hfont{%
+    \expandafter \ifx \font@name \relax
+       \define@newhfont
+    \fi}
+\def\define@newhfont{%
+  \begingroup
+    \let\typeout\@font@info
+    \escapechar\m@ne
+    \expandafter\expandafter\expandafter
+       \split@hname\expandafter\string\font@name\@nil
+      \try@load@fontshape % try always
+    \expandafter\ifx
+       \csname\curr@fontshape/\f@idx\endcsname \relax
+      \wrong@hfontshape\else
+      \extract@hfont\fi
+  \endgroup}
+{\catcode`\/=12
+\gdef\split@hname#1/#2/#3/#4/#5/#6\@nil{\def\f@encoding{#1}%
+                                        \def\f@family{#2}%
+                                        \def\f@series{#3}%
+                                        \def\f@shape{#4}%
+                                        \def\f@size{#6}}}
+\def\DeclareErrorHFont#1#2#3#4#5{%
+      \xdef\error@hfontshape{%
+          \noexpand\expandafter\noexpand\split@name\noexpand\string
+          \expandafter\noexpand\csname#1/#2/#3/#4/#5\endcsname
+          \noexpand\@nil}%
+      \gdef\default@hfamily{#2}%
+      \gdef\default@hseries{#3}%
+      \gdef\default@shape{#4}%
+      \begingroup
+        \edef\reserved@a{\expandafter\csname\default@hfamily @map\endcsname}%
+        \expandafter\hfont@map\reserved@a\@nil
+        \xdef\sb@family{\sb@family}%
+        \xdef\hg@family{\hg@family}%
+        \xdef\hj@family{\hj@family}%
+      \endgroup
+      \global\let\hf@series\default@hseries
+      \global\let\f@shape\default@shape
+      \gdef\f@size{#5}%
+      \gdef\f@baselineskip{#5pt}%
+}
+\@onlypreamble\DeclareErrorHFont
+\def\wrong@hfontshape{%
+    \csname D@\f@encoding\endcsname      % install defaults if in math
+    \edef\reserved@a{\csname\curr@fontshape/\f@idx\endcsname}%
+    \edef\reserved@b{\expandafter\string\csname\curr@fontshape\endcsname}%
+  \ifx\last@fontshape\reserved@a
+     \errmessage{Corrupted NFSS tables}%
+     \edef\reserved@c{\expandafter\@car\f@family\@nil}%
+     \error@hfontshape
+     \edef\reserved@d{\expandafter\csname\f@family @map\endcsname}%
+     \expandafter\hfont@map\reserved@d\@nil
+     \ifx\sb@\reserved@c\edef\f@family{\sb@\sb@family}\else%
+     \ifx\hj@\reserved@c\edef\f@family{\hj@\hj@family}\else%
+       \edef\f@family{\hg@\hg@family}\fi\fi
+  \else
+    \let\f@shape\default@shape
+    \expandafter\ifx\csname\curr@fontshape/\f@idx\endcsname\relax
+        \let\f@series\default@hseries
+        \expandafter
+        \ifx\csname\curr@fontshape/\f@idx\endcsname\relax
+          \edef\reserved@d{\expandafter\csname\default@hfamily @map\endcsname}%
+          \expandafter\hfont@map\reserved@d\@nil
+          \if\sb@\expandafter\@car\f@family\@nil
+              \edef\f@family{\sb@\sb@family}\else
+          \if\hj@\expandafter\@car\f@family\@nil
+              \edef\f@family{\hj@\hj@family}\else
+              \edef\f@family{\hg@\hg@family}\fi\fi
+        \fi \fi
+  \fi
+    \expandafter\ifx\csname\reserved@b!\endcsname\relax
+       \@font@warning{Font shape `\expandafter\string\reserved@b'
+                       \expandafter\@gobble\string\@undefined\MessageBreak
+                     using `\curr@fontshape' instead\@wrong@font@char}%
+      \global\expandafter\let\csname\reserved@b!\endcsname\@empty\fi
+    \global\let\last@fontshape\reserved@a
+    \gdef\@defaultsubs{%
+      \@font@warning{Some font shapes were not available, defaults
+                      substituted.\@gobbletwo}}%
+    \global\expandafter\expandafter\expandafter\let
+       \expandafter\reserved@a
+           \csname\curr@fontshape/\f@idx\endcsname
+    \xdef\font@name{%
+      \csname\curr@fontshape/\f@idx/\f@size\endcsname}%
+    \pickup@hfont}
+\def\DeclareHFontEncoding{%
+   \begingroup
+   \nfss@catcodes
+   \expandafter\endgroup
+   \DeclareHFontEncoding@}
+\@onlypreamble\DeclareHFontEncoding
+\def\DeclareHFontEncoding@#1#2#3{%
+  \expandafter
+  \ifx\csname T@#1\endcsname\relax
+     \def\cdp@elt{\noexpand\cdp@elt}%
+     \begingroup
+     \edef\reserved@a{\csname\default@hfamily @map\endcsname}
+     \expandafter\hfont@map\reserved@a\@nil
+     \xdef\cdp@list{\cdp@list%
+                    \cdp@elt{#1}{\symboldefault\sb@family}%
+                    {\default@hseries}{\default@shape}%
+                    \cdp@elt{#1}{\hanguldefault\hg@family}%
+                    {\default@hseries}{\default@shape}%
+                    \cdp@elt{#1}{\hanjadefault\hj@family}%
+                    {\default@hseries}{\default@shape}}%
+     \endgroup
+     \expandafter\let\csname#1-cmd\endcsname\@changed@cmd
+  \else
+     \@font@info{Redeclaring font encoding #1}%
+  \fi
+  \global\@namedef{T@#1}{#2}%
+  \global\@namedef{M@#1}{\default@M#3}%
+  }
+\@onlypreamble\DeclareHFontEncoding@
+\def\DeclareHFontSubstitution#1#2#3#4{%
+  \expandafter
+  \ifx\csname T@#1\endcsname\relax
+    \@latex@error{Encoding scheme  `#1' unknown}\@eha
+  \else
+    \begingroup
+       \edef\reserved@a{\csname#2@map\endcsname}
+       \expandafter\hfont@map\reserved@a\@nil
+       \def\reserved@a{#1}%
+       \toks@{}%
+       \let\reserved@d\@empty
+       \def\cdp@elt##1##2##3##4{%
+          \def\reserved@b{##1}%
+          \ifx\reserved@a\reserved@b
+            \ifx\reserved@d\@empty
+              \edef\reserved@c{\noexpand\cdp@elt{#1}{\sb@\sb@family}{#3}{#4}%
+                               \noexpand\cdp@elt{#1}{\hg@\hg@family}{#3}{#4}%
+                               \noexpand\cdp@elt{#1}{\hj@\hj@family}{#3}{#4}}%
+              \let\reserved@d\relax
+              \expandafter\addto@hook
+              \expandafter\toks@\expandafter{\reserved@c}\fi%
+          \else
+             \addto@hook\toks@{\cdp@elt{##1}{##2}{##3}{##4}}%
+          \fi}%
+        \cdp@list
+        \xdef\cdp@list{\the\toks@}%
+    \endgroup
+    \global\@namedef{D@#1}{%
+        \def\default@hfamily{#2}%
+        \def\default@hseries{#3}%
+        \def\default@shape{#4}%
+        }%
+  \fi
+ }
+\@onlypreamble\DeclareHFontSubstitution
+
+%% HFSS의 설정 확인:
+%% -----------------
+%% 우리말의 한 가족은 심벌/한글/한자의 세가지 외부 글자체와 연관되어
+%% 있다. 우리말 문서가 시작하기 전에, 기본값으로 설정된
+%% 심벌/한글/한자의 대치 글자체와 착오시 사용될 글자체가 제대로
+%% 설정되어 있는지 확인함으로서 글자체 선택시 발생할 수 재앙을 미리
+%% 방지한다.
+\def\process@table{%
+    \def\cdp@elt##1##2##3##4{%
+        \@font@info{Checking defaults for
+                  ##1/##2/##3/##4}%
+      \if\hf@encoding##1
+        \expandafter
+        \ifx\csname##1/##2/##3/##4/A\endcsname\relax
+          \begingroup
+           \def\f@encoding{##1}\def\f@family{##2}%
+           \try@load@fontshape
+          \endgroup
+        \fi
+        \expandafter
+        \ifx\csname##1/##2/##3/##4/A\endcsname\relax
+             \@latex@error{This HFSS system isn't set up properly}%
+                       {For hangul encoding scheme ##1 the defaults
+                        ##2/##3/##4 do not form a valid font shape}%
+        \else
+             \@font@info{... okay}%
+        \fi
+      \else
+        \expandafter
+        \ifx\csname##1/##2/##3/##4\endcsname\relax
+          \begingroup
+           \def\f@encoding{##1}\def\f@family{##2}%
+           \try@load@fontshape
+          \endgroup
+        \fi
+        \expandafter
+        \ifx\csname##1/##2/##3/##4\endcsname\relax
+             \@latex@error{This NFSS system isn't set up properly}%
+                       {For encoding scheme ##1 the defaults
+                        ##2/##3/##4 do not form a valid font shape}%
+        \else
+             \@font@info{... okay}%
+        \fi
+      \fi}%
+    \cdp@list
+    \begingroup
+       \escapechar\m@ne
+       \error@fontshape
+       \expandafter\ifx\csname \curr@fontshape\endcsname\relax
+          \begingroup
+            \try@load@fontshape
+           \endgroup
+       \fi
+       \expandafter\ifx\csname \curr@fontshape\endcsname\relax
+         \@latex@error{This NFSS system isn't set up properly}%
+            {The system maintainer forgot to specify a suitable
+             substitution
+             font shape using the \noexpand\DeclareErrorFont
+             command}%
+       \fi
+       \expandafter\ifx\csname\hfamilydefault @map\endcsname\relax
+         \@latex@error{This HFSS system isn't set up properly}%
+            {The system maintainer forgot to specify a suitable
+             fontmap for default hangul family `\hfamilydefault'
+             using the \noexpand\MapHangulFamily command}%
+       \fi
+       \error@hfontshape
+       \edef\reserved@a{\expandafter\csname\f@family @map\endcsname}%
+       \expandafter\hfont@map\reserved@a\@nil
+       \edef\f@family{\sb@\sb@family}%
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+          \begingroup
+            \try@load@fontshape
+           \endgroup
+       \fi
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+         \@latex@error{This HFSS system isn't set up properly}%
+            {The system maintainer forgot to specify a suitable
+             substitution symbol
+             font shape using the \noexpand\DeclareErrorHFont
+             command or \noexpand\MapHangulFamily command}%
+       \fi
+       \edef\f@family{\hg@\hg@family}%
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+          \begingroup
+            \try@load@fontshape
+           \endgroup
+       \fi
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+         \@latex@error{This HFSS system isn't set up properly}%
+            {The system maintainer forgot to specify a suitable
+             substitution hangul
+             font shape using the \noexpand\DeclareErrorHFont
+             command or \noexpand\MapHangulFamily command}%
+       \fi
+       \edef\f@family{\hj@\hj@family}%
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+          \begingroup
+            \try@load@fontshape
+           \endgroup
+       \fi
+       \expandafter\ifx\csname \curr@fontshape/A\endcsname\relax
+         \@latex@error{This HFSS system isn't set up properly}%
+            {The system maintainer forgot to specify a suitable
+             substitution hanja
+             font shape using the \noexpand\DeclareErrorHFont
+             command or \noexpand\MapHangulFamily command}%
+       \fi
+    \endgroup
+    \let\select@group\document@select@group
+    \hfontencoding{\hencodingdefault}%
+    \hfontfamily{\hfamilydefault}%
+    \fontencoding{\encodingdefault}%
+    \fontfamily{\familydefault}%
+    \fontseries{\seriesdefault}%
+    \fontshape{\shapedefault}%
+ \everyjob{}%
+}
+
+%% 우리말 글자체의 기본값:
+%% -----------------------
+%% 아무것도 지정하지 않으면 완성형 명조체가 된다.
+\newcommand\hencodingdefault{H}
+
+\newcommand\symboldefault{s}
+\newcommand\hanguldefault{w}
+\newcommand\hanjadefault{h}
+\newcommand\mjdefault{mj}
+\newcommand\gtdefault{gt}
+\newcommand\tzdefault{tz}
+\newcommand\hfamilydefault{\mjdefault}
+\if@makebold\newcommand\hbfdefault{m}
+\else\newcommand\hbfdefault{b}\fi
+
+%% 우리말가족 이름에 따른 외부 글자체의 설정
+%% -----------------------------------------
+%%      \MapHangulFamily{우리말가족}{한글글자체,심벌글자체,한자글자체}
+%%                      (글자체이름 = 한글/심벌/한자글꼴)
+\DeclareRobustCommand\MapHangulFamily[2]{%
+  \expandafter\edef\csname #1@map\endcsname{#2}}
+
+%% 기본글자체
+\MapHangulFamily{mj}{wmj,wmj,wmj}
+\MapHangulFamily{gt}{wgt,wgt,wgt}
+\MapHangulFamily{tz}{wtt,wtt,wtt}
+\MapHangulFamily{gr}{wgr,wgr,wgt}
+
+%% 추가글자체
+\InputIfFileExists{koextrafonte.tex}{}{}
+
+%% \DeclareErrorHFont{H}{\mjdefault}{m}{n}{10}
+%% \DeclareHFontSubstitution{H}{\mjdefault}{m}{n}
+
+%% hfont.cfg에서 이들을 미리 지정/수정할 수 있다.
+\InputIfFileExists{hfont.cfg}{}{}
+
+\kscfamily{\symboldefault}{\hanguldefault}{\hanjadefault}
+
+\DeclareErrorHFont{H}{\mjdefault}{m}{n}{10}
+\DeclareHFontEncoding{\hencodingdefault}{}{}
+\DeclareHFontSubstitution{H}{\mjdefault}{m}{n}
+\hfontencoding\hencodingdefault
+
+%% 우리말 찾기:
+%% ------------
+%% 우리말은 모두 \catcode=13으로 처리되며 우리말 부호 영역의
+%% 두 바이트가 한 글자를 형성한다. 이 두 개의 바이트를 분석하여
+%% 외부 글꼴의 지수와 심벌/한글/한자 중 하나를 확정한다.
+%%
+\begingroup
+\catcode`^^98\active
+\catcode`^^99\active
+\catcode`^^a0\active
+\def^^98#1#2#3{\xdef#1##1{\noexpand\h@C{\hf@}{\noexpand\ifnum`##1<#2
+    D\noexpand\else\noexpand\ifnum`##1>#3 C\noexpand\else
+    A\noexpand\fi\noexpand\fi}{\noexpand#1}{##1}}} 
+\def^^99#1#2{\xdef#1##1{\noexpand\h@C{\hf@}{#2}{\noexpand#1}{##1}}}
+\def^^a0#1#2#3/#4{\xdef#1##1{\noexpand\h@C{\hf@}{\noexpand\ifnum`##1<#2
+    #3\noexpand\else#4\noexpand\fi}{\noexpand#1}{##1}}}
+
+%% 심벌
+\def\hf@{sb}
+%^^99^^a1B
+% 금칙 문자: ’”〕〉》」』】의 앞과
+%           ‘“〔〈《《『【 위 뒤    (2005/04/09 koaunghi@kornet.net)
+\gdef\^^96#1{\ifx#1^^af\spacefactor=999
+  \else\ifx#1^^b1\spacefactor=999
+  \else\ifx#1^^b3\spacefactor=999
+  \else\ifx#1^^b5\spacefactor=999
+  \else\ifx#1^^b7\spacefactor=999
+  \else\ifx#1^^b9\spacefactor=999
+  \else\ifx#1^^bb\spacefactor=999
+  \else\ifx#1^^bd\spacefactor=999
+  \fi\fi\fi\fi\fi\fi\fi\fi}
+\gdef\^^97#1{\ifx#1^^ae\spacefactor=999
+  \else\ifx#1^^b0\spacefactor=999
+  \else\ifx#1^^b2\spacefactor=999
+  \else\ifx#1^^b4\spacefactor=999
+  \else\ifx#1^^b6\spacefactor=999
+  \else\ifx#1^^b8\spacefactor=999
+  \else\ifx#1^^ba\spacefactor=999
+  \else\ifx#1^^bc\spacefactor=999
+  \fi\fi\fi\fi\fi\fi\fi\fi}
+\xdef^^a1#1{\noexpand\^^96{#1}\noexpand\h@C{\hf@}{B}{\noexpand^^a1}{#1}\noexpand\^^97{#1}}
+^^99^^a2B
+\xdef^^a3#1{\noexpand\h@C{\hf@}{\noexpand\ifnum\expandafter`\noexpand#1="0DC
+    A\noexpand\else D\noexpand\fi}{\noexpand^^a3}{\noexpand#1}}%
+^^99^^a4A^^99^^a5D^^99^^a6C^^99^^a7B^^98^^a8{"0B0}{"0F5}
+^^98^^a9{"0B1}{"0F5}^^99^^aaC^^99^^abC^^99^^acD
+
+%%% 한글
+\def\hf@{hg}
+^^99^^b0A^^99^^b1A^^a0^^b2{"0E5}A/B^^99^^b3B^^99^^b4B^^a0^^b5{"0CB}B/C
+^^99^^b6C^^99^^b7C^^a0^^b8{"0B1}C/D^^99^^b9D^^a0^^ba{"0F5}D/E^^99^^bbE
+^^99^^bcE^^a0^^bd{"0DB}E/F^^99^^beF^^99^^bfF^^a0^^c0{"0C1}F/G^^99^^c1G
+^^99^^c2G^^a0^^c3{"0A7}G/H^^99^^c4H^^a0^^c5{"0EB}H/I^^99^^c6I^^99^^c7I
+^^a0^^c8{"0D1}I/J
+
+%%% 漢字
+\def\hf@{hj}
+^^99^^caA^^99^^cbA^^a0^^cc{"0E5}A/B^^99^^cdB^^99^^ceB^^a0^^cf{"0CB}B/C
+^^99^^d0C^^99^^d1C^^a0^^d2{"0B1}C/D^^99^^d3D^^a0^^d4{"0F5}D/E^^99^^d5E
+^^99^^d6E^^a0^^d7{"0DB}E/F^^99^^d8F^^99^^d9F^^a0^^da{"0C1}F/G^^99^^dbG
+^^99^^dcG^^a0^^dd{"0A7}G/H^^99^^deH^^a0^^df{"0EB}H/I^^99^^e0I^^99^^e1I
+^^a0^^e2{"0D1}I/J^^99^^e3J^^99^^e4J^^a0^^e5{"0B7}J/K^^99^^e6K
+^^a0^^e7{"0FB}K/L^^99^^e8L^^99^^e9L^^a0^^ea{"0E1}L/M^^99^^ebM^^99^^ecM
+^^a0^^ed{"0C7}M/N^^99^^eeN^^99^^efN^^a0^^f0{"0AD}N/O^^99^^f1O
+^^a0^^f2{"0F1}O/P^^99^^f3P^^99^^f4P^^a0^^f5{"0D7}P/Q^^99^^f6Q^^99^^f7Q
+^^a0^^f8{"0BD}Q/R^^99^^f9R^^99^^faR^^a0^^fb{"0A3}R/S^^99^^fcS
+^^a0^^fd{"0E7}S/T
+\endgroup
+
+%% 이해할 수 없는 오류: Undefined control sequence with ^^c9
+\let^^c9\relax
+
+%% 우리말을 최종 처리할 때는, 흩어져 있는 우리말 글자체 정보를
+%% 수집하여 해당하는 외부 글자체를 찾은 후 인쇄한다. softbold가
+%% 요구되면 두 번 더 중첩 인쇄하도록 한다.
+\let\KSC@\string
+\let\f@idx\relax
+\def\h@C#1#2#3#4{%
+  \ifx\protect\@typeset@protect\begingroup
+    \edef\f@encoding{\hf@encoding}%
+    \edef\f@family{\csname #1@\endcsname\csname #1@family\endcsname}%
+    \edef\f@series{\hf@series}\gdef\f@idx{#2}%
+    \selecthfont\@Hyphen\hemph@size{\KSC@#3\KSC@#4\if@makebold
+      \hbox to0.03ex{\hss\KSC@#3\KSC@#4}%
+      \hbox to0.03ex{\hss\KSC@#3\KSC@#4}\fi}\endgroup
+  \else\KSC@#3\KSC@#4\fi}
+
+\def\no@ccent#1{#1}
+\let\hemph@size\no@ccent
+
+%%%
+%%% Kim Dohyun's AUTOJOSA solution.
+%%%
+%%% hyper@link 재정의
+\AtBeginDocument{%
+    \@ifpackageloaded{atveryend}{\AtVeryEndDocument{\let\protect\relax}}{}%
+    \providecommand\@firstoffive [5]{#1}%
+    \providecommand\@secondoffive[5]{#2}%
+    \providecommand\@thirdoffive [5]{#3}%
+    \providecommand\@fourthoffive[5]{#4}%
+    \@ifundefined{hyper@link}%
+        {\PackageWarningNoLine{kotex}%
+            {hyperref을 로드하여야 자동조사가 작동합니다}}%
+        {\let\hyper@link@ORIG\hyper@link
+         \def\hyper@link#1#2#3{\hyper@link@ORIG{#1}{#2}{#3}%
+         \begingroup\let\null\@empty\xdef\make@josa{#3}\endgroup
+         }}%
+}
+
+%% `josa.tab`을 불러온다.
+%% from hangul.sty
+\begingroup
+\IfFileExists{josa.tab}{%
+  \newread\JS@tab
+  \endlinechar\m@ne
+  \def\JS@{\read\JS@tab to\@t \expandafter\split@t\@t\relax
+    \ifnum\count@=2 \let\next\relax \else
+      \ifcase\count@\let\next=2 \or\let\next=1 \fi%%%modified
+      \global\expandafter\let\csname\reserved@a\endcsname\next
+      \let\next\JS@ \fi \next}
+  \def\split@t##1,##2,##3\relax{\count@##1\def\reserved@a{##2|##3}}%
+  \openin\JS@tab=josa.tab \JS@ \closein\JS@tab}%
+{\PackageWarningNoLine{\string\HLaTeX}{``josa.tab''이 없습니다!!!^^J
+ \@spaces\@spaces\@spaces\@spaces\@spaces\@spaces
+ 인용에 사용되는 자동조사는 잘못 처리될 수 있읍니다.}}
+\endgroup
+%
+%%% 한글, 기호문자, 영문 자동조사 처리. \nameref 땜에 토큰 4개까지 불러옴
+\providecommand*{\josa@LastThreeChar}[1]{%
+  \@ifemptyarg{#1}{0000}{\expandafter\@lastthreechar#1`\^^M}}
+\def\@lastthreechar#1#2`\^^M{%
+  \@ifemptyarg{#2}{000#1}{\@@lastthreechar#1#2`\^^M}}
+\def\@@lastthreechar#1#2#3`\^^M{%
+  \@ifemptyarg{#3}{00#1#2}{\@@@lastthreechar#1#2#3`\^^M}}
+\def\@@@lastthreechar#1#2#3#4`\^^M{%
+  \@ifemptyarg{#4}{0#1#2#3}{\@@@@lastthreechar#1#2#3#4`\^^M}}
+\def\@@@@lastthreechar#1#2#3#4#5`\^^M{%
+  \@ifemptyarg{#5}{#1#2#3#4}{\@@@@lastthreechar#2#3#4#5`\^^M}}
+\providecommand{\@ifemptyarg}[1]{% {absence}{presence}
+  \ifx\@empty#1\@empty
+   \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+\def\@josa#1#2{%
+  \def\@jung{#1}\def\@jong{#2}\def\ri@ul{\@ifemptyarg{#1}{}{#2}}%
+  \edef\lastthree@make@josa{\josa@LastThreeChar{\make@josa}}%
+  \edef\@zeroth{\expandafter\@firstoffive\lastthree@make@josa\@empty}%
+  \edef\@first{\expandafter\@secondoffive\lastthree@make@josa\@empty}%
+  \edef\@second{\expandafter\@thirdoffive\lastthree@make@josa\@empty}%
+  \edef\@third{\expandafter\@fourthoffive\lastthree@make@josa\@empty}%
+  \expandafter\ifx\@third\relax %%% \nameref는 \relax를 달고 있다
+    \let\@third\@second
+    \let\@second\@first
+    \let\@first\@zeroth
+  \fi
+  \expandafter\ifx\@third\endgroup
+%% 한글/기호문자 처리루틴.
+    \count@\expandafter`\@first
+    \@tempcnta\count@ \divide\@tempcnta\sixt@@n
+    \@tempcntb\@tempcnta \multiply\@tempcntb\sixt@@n
+    \advance\count@-\@tempcntb
+    \edef\reserved@a{\hexnumber@{\@tempcnta}\hexnumber@{\count@}}%
+    \count@\expandafter`\@second
+    \@tempcnta\count@ \divide\@tempcnta\sixt@@n
+    \@tempcntb\@tempcnta \multiply\@tempcntb\sixt@@n
+    \advance\count@-\@tempcntb
+    \edef\reserved@b{\hexnumber@{\@tempcnta}\hexnumber@{\count@}}%
+    \expandafter\if\csname\reserved@a|\reserved@b\endcsname 1\ri@ul
+      \else\expandafter\if\csname\reserved@a|\reserved@b\endcsname 2\@jung
+      \else\@jong\fi\fi
+%% 아래는 영문숫자 처리루틴.
+  \else
+    \let\@last\@third
+    \if n\@second\if g\@third\let\@last=0\fi\fi%skating
+    \if a\@second\if p\@third\let\@last=0\fi\fi%cap
+    \if u\@second\if p\@third\let\@last=0\fi\fi%cup
+    \if a\@second\if t\@third\let\@last=0\fi\fi%cat
+    \if e\@second\if t\@third\let\@last=0\fi\fi%Hamlet
+    \if i\@second\if t\@third\let\@last=0\fi\fi%summit
+    \if o\@second\if t\@third\let\@last=0\fi\fi%not
+    \if u\@second\if t\@third\let\@last=0\fi\fi%nut
+    \if o\@second\if k\@third\let\@last=0\fi\fi%book
+    \if i\@second\if c\@third\let\@last=0\fi\fi%picnic
+    \if l\@second\if e\@third\let\@last=1\fi\fi%apple
+    \if i\@first\if m\@second\if e\@third\let\@last=0\fi\fi\fi%time
+    \if i\@first\if n\@second\if e\@third\let\@last=0\fi\fi\fi%mine
+    \if a\@first\if c\@second\if k\@third\let\@last=0\fi\fi\fi%back
+    \if i\@first\if c\@second\if k\@third\let\@last=0\fi\fi\fi%pick
+    \if o\@first\if a\@second\if t\@third\let\@last=2\fi\fi\fi%boat
+    \if T\@first\if e\@second\if X\@third\let\@last=0\fi\fi\fi%TeX
+    \if 0\@last\@jong\else
+      \if 1\@last\ri@ul\else
+      \if 2\@last\@jung\else
+      \if 3\@last\@jong\else
+      \if 4\@last\@jung\else
+      \if 5\@last\@jung\else
+      \if 6\@last\@jong\else
+      \if 7\@last\ri@ul\else
+      \if 8\@last\ri@ul\else
+      \if 9\@last\@jung\else
+      \if l\@last\ri@ul\else
+      \if m\@last\@jong\else
+      \if n\@last\@jong\else
+      \if L\@last\ri@ul\else
+      \if M\@last\@jong\else
+      \if N\@last\@jong\else
+      \@jung
+          \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+  \fi
+}
+\def\make@josa{00}
+
+%%%% From File: ltxref.dtx
+\def\@setref#1#2#3{%
+  \let\protect\relax
+  \ifx#1\relax
+   \protect\G@refundefinedtrue
+   \nfss@text{\reset@font\bfseries ??}%
+   \@latex@warning{Reference `#3' on page \thepage \space
+             undefined}%
+  \else
+   \expandafter#2#1\null
+  \fi}
+\def\label#1{\@bsphack
+  \protected@write\@auxout{}%
+         {\string\newlabel{#1}%
+          {{\@currentlabel}%
+           {\thepage}}}%
+  \@esphack}
+\def\ref#1{\let\protect\string
+        \expandafter\@setref\csname r@#1\endcsname\@firstoftwo{#1}}
+\def\pageref#1{\let\protect\string
+          \expandafter\@setref\csname r@#1\endcsname\@secondoftwo{#1}}
+\def\newlabel{\let\protect\string\@newl@bel r}%
+
+%%%
+%%% 자동조사명령 및 글자체바꿈 우리말 명령:
+%%%   \은/\는 \이/\가 \을/\를 \와/\과 \으로/\로 (\으로서/\로서 \으로써/\로써)
+%%%   \옛글\외곽\명조\목각\고딕\그래픽\궁서\새명조\필기\펜글씨\펜흘림\봄글씨
+%%%
+%% nojosa-gana
+%% This is a part of hangul-nojosa.sty
+%%
+%\makeatletter
+\def\jaso#1{\@jaso{\@nameuse{c@#1}}}
+\def\@jaso#1{\ifcase#1\or ㄱ\or ㄴ\or ㄷ\or ㄹ\else\@ijaso{#1}\fi}
+\def\@ijaso#1{\ifcase#1\or\or\or\or\or ㅁ\or ㅂ\or ㅅ\or ㅇ\or ㅈ\or
+  ㅊ\or ㅋ\or ㅌ\or ㅍ\or ㅎ\else\@ctrerr\fi}
+\def\gana#1{\@gana{\@nameuse{c@#1}}}
+\def\@gana#1{\ifcase#1\or 가\or 나\or 다\or 라\else\@igana{#1}\fi
+  }
+\def\@igana#1{\ifcase#1\or\or\or\or\or 마\or 바\or 사\or 아\or 자\or
+  차\or 카\or 타\or 파\or 하\else\@ctrerr\fi}
+\def\ojaso#1{\@ojaso{\@nameuse{c@#1}}}
+\def\@ojaso#1{\ifcase#1\or ㉠\or ㉡\or ㉢\or
+  ㉣\else\@iojaso{#1}\fi}
+\def\@iojaso#1{\ifcase#1\or\or\or\or\or ㉤\or ㉥\or ㉦\or ㉧\or ㉨\or
+  ㉩\or ㉪\or ㉫\or ㉬\or ㉭\else\@ctrerr\fi}
+\def\ogana#1{\@ogana{\@nameuse{c@#1}}}
+\def\@ogana#1{\ifcase#1\or ㉮\or ㉯\or ㉰\or ㉱\else\@iogana{#1}\fi
+  }
+\def\@iogana#1{\ifcase#1\or\or\or\or\or ㉲\or ㉳\or ㉴\or ㉵\or ㉶\or
+  ㉷\or ㉸\or ㉹\or ㉺\or ㉻\else\@ctrerr\fi}
+\def\pjaso#1{\@pjaso{\@nameuse{c@#1}}}
+\def\@pjaso#1{\ifcase#1\or ㈀\or ㈁\or ㈂\or
+  ㈃\else\@ipjaso{#1}\fi}
+\def\@ipjaso#1{\ifcase#1\or\or\or\or\or ㈄\or ㈅\or ㈆\or ㈇\or ㈈\or
+  ㈉\or ㈊\or ㈋\or ㈌\or ㈍\else\@ctrerr\fi}
+\def\pgana#1{\@pgana{\@nameuse{c@#1}}}
+\def\@pgana#1{\ifcase#1\or ㈎\or ㈏\or ㈐\or ㈑\else\@ipgana{#1}\fi
+  }
+\def\@ipgana#1{\ifcase#1\or\or\or\or\or ㈒\or ㈓\or ㈔\or ㈕\or ㈖\or
+  ㈗\or ㈘\or ㈙\or ㈚\or ㈛\else\@ctrerr\fi}
+\def\onum#1{\@onum{\@nameuse{c@#1}}}
+\def\@onum#1{\ifcase#1\or ①\or ②\or ③\or ④\else\@ionum{#1}\fi
+  \ifnum#1<\sixt@@n\fi}
+\def\@ionum#1{\ifcase#1\or\or\or\or\or ⑤\or ⑥\or ⑦\or ⑧\or ⑨\or
+  ⑩\or ⑪\or ⑫\or ⑬\or ⑭\or ⑮\else\@ctrerr\fi}
+\def\pnum#1{\@pnum{\@nameuse{c@#1}}}
+\def\@pnum#1{\ifcase#1\or ⑴\or ⑵\or ⑶\or ⑷\else\@ipnum{#1}\fi
+  \ifnum#1<\sixt@@n\fi}
+\def\@ipnum#1{\ifcase#1\or\or\or\or\or ⑸\or ⑹\or ⑺\or ⑻\or ⑼\or
+  ⑽\or ⑾\or ⑿\or ⒀\or ⒁\or ⒂\else\@ctrerr\fi}
+\def\oeng#1{\@oeng{\@nameuse{c@#1}}}
+\def\@oeng#1{\ifcase#1\or ⓐ\or ⓑ\or ⓒ\or ⓓ\else\@ioeng{#1}\fi
+  }
+\def\@ioeng#1{\ifcase#1\or\or\or\or\or ⓔ\or ⓕ\or ⓖ\or ⓗ\or ⓘ\or
+  ⓙ\or ⓚ\or ⓛ\or ⓜ\or ⓝ\or ⓞ\or ⓟ\or ⓠ\or ⓡ\or ⓢ\or ⓣ\or
+  ⓤ\or ⓥ\or ⓦ\or ⓧ\or ⓨ\or ⓩ\else\@ctrerr\fi}
+\def\peng#1{\@peng{\@nameuse{c@#1}}}
+\def\@peng#1{\ifcase#1\or ⒜\or ⒝\or ⒞\or ⒟\else\@ipeng{#1}\fi
+  }
+\def\@ipeng#1{\ifcase#1\or\or\or\or\or ⒠\or ⒡\or ⒢\or ⒣\or ⒤\or
+  ⒥\or ⒦\or ⒧\or ⒨\or ⒩\or ⒪\or ⒫\or ⒬\or ⒭\or ⒮\or ⒯\or
+  ⒰\or ⒱\or ⒲\or ⒳\or ⒴\or ⒵\else\@ctrerr\fi}
+\def\hnum#1{\@hnum{\@nameuse{c@#1}}}
+%%\def\@hnum#1{\ifcase#1\or 하나\or 둘\or 셋\or 넷\or\@ihnum{#1}\fi} %% removed. hangul-k.
+\def\@hnum#1{\ifcase#1\or 하나\or 둘\or 셋\or 넷\or 다섯\or 여섯\or 일곱\or 여덟\or
+  아홉\or 열\or 열하나\or 열둘\or 열셋\or 열넷\or 열다섯\or 열여섯\or
+  열일곱\or 열여덟\or 열아홉\or 스물\or 스물하나\or 스물둘\or
+  스물셋\or 스물넷\else\@ctrerr\fi}
+\def\Hnum#1{\@Hnum{\@nameuse{c@#1}}}
+\def\@Hnum#1{\ifcase#1\or 첫\or 둘\or 셋\or 넷\or\@iHnum{#1}\fi 째}
+%%% 세째, 네째를 셋째, 넷째로 바꿈. -- hangul-k.
+\def\@iHnum#1{\ifcase#1\or\or\or\or\or 다섯\or 여섯\or 일곱\or 여덟\or
+  아홉\or 열\or 열한\or 열두\or 열셋\or 열넷\or 열다섯\or 열여섯\or
+  열일곱\or 열여덟\or 열아홉\or 스무\or 스물한\or 스물두\or 스물셋\or
+  스물넷\else\@ctrerr\fi 째} 
+%%% hangul-k adds the following two commands.
+\def\hroman#1{\@hroman{\@nameuse{c@#1}}}
+\def\@hroman#1{\ifcase#1\or ⅰ\or ⅱ\or ⅲ\or
+        ⅳ\or ⅴ\or ⅵ\or ⅶ\or ⅷ\or ⅸ\or ⅹ\else\@ctrerr\fi}
+\def\hRoman#1{\@hRoman{\@nameuse{c@#1}}}
+\def\@hRoman#1{\ifcase#1\or Ⅰ\or Ⅱ\or Ⅲ\or
+        Ⅳ\or Ⅴ\or Ⅵ\or Ⅶ\or Ⅷ\or Ⅸ\or Ⅹ\else\@ctrerr\fi}
+
+%%% 자동음운변화 명령. 
+%%%
+%%% "\이라" 구현을 위한 추가. (DohyunKim) from latex.ltx.
+\long\def\@ifnextchar@honorspace#1#2#3{%
+  \let\reserved@d=#1%
+  \def\reserved@a{#2}%
+  \def\reserved@b{#3}%
+  \futurelet\@let@token\@ifnch@honorspace}
+\def\@ifnch@honorspace{%
+%  \ifx\@let@token\@sptoken
+%    \let\reserved@c\@xifnch
+%  \else
+    \ifx\@let@token\reserved@d
+      \let\reserved@c\reserved@a
+    \else
+      \let\reserved@c\reserved@b
+    \fi
+%  \fi
+  \reserved@c}
+%% 우리말 조사 명령.
+\def\^^c0{%
+      \@ifnextchar^^da{\f@urj@mo}%
+      {\@ifnextchar^^cc{\f@urIjos@}{\f@urjos@}}%
+}
+\def\f@urIjos@^^cc{%
+      \@ifnextchar@honorspace^^b6{\f@urIRAjos@}{\가}%  이(C0CC)
+}
+\def\f@urIRAjos@^^b6{%
+  \@ifnextchar@honorspace^^f3{\라\@gobble}%		이라(C0CC B6F3)
+    {\PackageError{kotex}{이런 명령은 없습니다}{}}%
+}
+\def\f@urjos@#1{%
+%%  \ifx#1^^cc\@josa{가}{이}\else%     이(C0CC)
+  \ifx#1^^ba\@josa{는}{은}\else%      은(C0BA)
+  \ifx#1^^bb\@josa{를}{을}\else%      을(C0BB)
+  \ifx#1^^b8\@josa{}{으}%             으(C0B8) 로(서/써)
+  \fi\fi\fi%
+}
+%
+%\def\f@urj@mo^^da모#1#2#3#4{% 자모(C0DAB8F0)
+%  \ifx#1^^b8\hfontfamily{jmj}\else% 명조(B8EDC1B6)
+%  \ifx#1^^b0\hfontfamily{jgt}\else% 고딕(B0EDB5F1)
+%  \ifx#1^^b3\hfontfamily{jnv}\else% 노벨(B3EBBAA7)
+%  \ifx#1^^bc\hfontfamily{jsr}%      소라(BCD2B6F3)
+%  \fi\fi\fi\fi\ignorespaces}%
+\def\는{\은}%   는(B4C2)
+\def\로{\@josa{}{으}로}%                        로(B7CE) (서/써)
+\def\라{\@josa{라}{이라}}%                      라(B6F3)
+\def\와{\@josa{와}{과}}%                        와(BFCD)
+%\def\^^bf{%
+%  \@ifnextchar^^cd{\@josa{와}{과}\@gobble}\yt@or@ol}% 와(BFCD)
+%\def\yt@or@ol#1#2#3{%
+%  \ifx#1^^be\hfontfamily{yt}\else%                                      옛글(BFBDB1BD)
+%  \ifx#1^^dc\hfontfamily{ol}\fi\fi\ignorespaces}%       외곽(BFDCB0FB)
+\def\^^b8{\@ifnextchar^^a6{\을\@gobble}\mj@or@mg}%      를(B8A6)
+\def\mj@or@mg#1#2#3{%
+  \ifx#1^^ed\hfontfamily{mj}\else%                                      명조(B8EDC1B6)
+  \fi\ignorespaces}
+%\def\mj@or@mg#1#2#3{%
+%  \ifx#1^^ed\hfontfamily{mj}\else%                                      명조(B8EDC1B6)
+%  \ifx#1^^f1\hfontfamily{mg}\fi\fi\ignorespaces}%       목각(B8F1B0A2)
+%\def\mokgak{\hfontfamily{mg}}%
+\def\^^b0{\@ifnextchar^^ed\only@gt\ga@or@gwa}
+\def\only@gt#1#2#3{%
+  \ifx#1^^ed\gtfamily\fi\ignorespaces}%                         고딕(B0EDB5F1)
+\def\ga@or@gwa#1{%
+  \ifx#1^^a1{\@josa{가}{이}}\else%        가(B0A1)
+  \ifx#1^^fa{\@josa{와}{과}}\fi\fi}%      과(B0FA)
+\def\^^b1{\@ifnextchar^^c3\gs@or@gh\only@gr}
+%\def\gs@or@gh#1#2#3#4#5{%
+%  \ifx#2^^bc\hfontfamily{gs}#4#5\else%    궁서(B1C3BCAD)
+%  \hfontfamily{gh}\fi\ignorespaces}%      궁흘림(B1C3C8EAB8B2)
+\def\only@gr#1#2#3#4#5{%
+  \ifx#1^^d7\hfontfamily{gr}\fi\ignorespaces}% 그래픽(B1D7B7A1C7C8)
+%
+%\def\새명조{\hfontfamily{sm}\ignorespaces}% 새명조(BBF5B8EDC1B6)
+%%\def\필기{\hfontfamily{pg}\ignorespaces}%   필기  (C7CAB1E2)
+%\def\필기{%
+%  \@ifnextchar a{\hfontfamily{pga}\@gobble}{\hfontfamily{pg}\ignorespaces}} 
+%\def\펜#1#2#3#4{\ifx#1^^c8\hfontfamily{ph}% 펜흘림(C6E6C8EAB8B2)
+%  \else\hfontfamily{pn}\fi\ignorespaces}%   펜글씨(C6E6B1DBBEBE)
+%\def\봄글씨{\hfontfamily{bm}\ignorespaces}% 봄글씨(BABDB1DBBEBE)
+\def\타자{\hfontfamily{tz}\ignorespaces}%   타자  (C5B8C0DA)
+%\def\신문{\hfontfamily{sh}\ignorespaces}%   신문  (BDC5B9AE)
+%\def\바다{\hfontfamily{vd}\ignorespaces}%   바다  (B9D9B4D9)
+%\def\디나루{\hfontfamily{dn}\ignorespaces}% 디나루 (B5EFB3AAB7E7) 
+%%%%% hangul 1.0 \ㅣ, \ㅡ compatibility.
+\def\^^a4{%
+	\@ifnextchar^^d1{\f@urI@}{\f@urEU@}%
+}
+\def\f@urI@^^d1{\으}
+\def\f@urEU@^^d3#1#2{\@josa{#1#2}{이#1#2}}
+
+%%% dautojosa 스타일 명령
+%% \fjs 명령
+\DeclareRobustCommand*{\DEFINEJOSA}[1]{\texorpdfstring{#1\xdef\make@josa{#1}}{#1}}
+\def\Jaso#1{\DEFINEJOSA{\jaso{#1}}}
+\def\PJaso#1{\DEFINEJOSA{\pjaso{#1}}}
+\def\OJaso#1{\DEFINEJOSA{\ojaso{#1}}}
+\def\Gana#1{\DEFINEJOSA{\gana{#1}}}
+\def\PGana#1{\DEFINEJOSA{\pgana{#1}}}
+\def\OGana#1{\DEFINEJOSA{\ogana{#1}}}
+\def\ONum#1{\DEFINEJOSA{\onum{#1}}}
+\def\PNum#1{\DEFINEJOSA{\pnum{#1}}}
+\def\HNUM#1{\DEFINEJOSA{\hnum{#1}}}
+\def\PEng#1{\DEFINEJOSA{\peng{#1}}}
+\def\OEng#1{\DEFINEJOSA{\oeng{#1}}}
+%% arabic, roman... etc.
+\def\HArabic#1{\DEFINEJOSA{\arabic{#1}}}
+\def\HAlph#1{\DEFINEJOSA{\Alph{#1}}}
+\def\Halph#1{\DEFINEJOSA{\alph{#1}}}
+\def\HROMAN#1{\DEFINEJOSA{\hRoman{#1}}}
+\def\Hroman#1{\DEFINEJOSA{\hroman{#1}}}
+%%
+\def\jong{3}
+\def\jung{2}
+\def\rieul{1}
+\DeclareRobustCommand*{\fjs}[1]{\texorpdfstring{\xdef\make@josa{#1}}{#1}}
+%% xjf, DEFINEJOSA
+\def\xjs#1{\DEFINEJOSA{#1}}
+\newcommand\PageName{\DEFINEJOSA{페이지}}
+\providecommand\AltPageName{\DEFINEJOSA{쪽}}
+
+%%% 드러냄표 (2005/04/10 koaunghi@kornet.net)
+\def\circemph@size#1{\leavevmode%
+  \setbox0\hbox{\fontencoding{OT1}\fontseries{m}\selectfont!}%
+  \dimen@\ht0\advance\dimen@-.3ex%
+  \rlap{\raise.7\dimen@\hbox{\fontencoding{OT1}\fontseries{m}\selectfont\rule{.3\dimen@}{0pt}\char'27}}#1}
+\def\dotemph@size#1{\leavevmode%
+  \setbox0\hbox{\fontencoding{OT1}\fontseries{m}\selectfont!}%
+  \dimen@\ht0\advance\dimen@-.3ex%
+  \rlap{\raise.7\dimen@\hbox{\fontencoding{OT1}\fontseries{m}\selectfont\rule{.7\dimen@}{0pt}\char'137}}#1}
+
+\def\circem{\let\hemph@size\circemph@size}
+\def\dotem#1{\let\hemph@size\dotemph@size}
+\def\circemph#1{{\let\hemph@size\circemph@size #1}}
+\def\dotemph#1{{\let\hemph@size\dotemph@size #1}}
+
+
+\endinput
+
+%%% End of file `hfont.tex'.

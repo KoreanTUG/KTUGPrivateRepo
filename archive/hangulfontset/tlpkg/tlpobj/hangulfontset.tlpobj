@@ -1,0 +1,7 @@
+name hangulfontset
+category Package
+revision 200
+shortdesc hangul font presets, [nanum] and [hcr], written by Karnes
+relocated 1
+runfiles size=4
+ RELOC/tex/latex/hangulfontset/hangulfontset.sty

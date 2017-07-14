@@ -1,0 +1,9 @@
+name kocircnum
+category Package
+revision 200
+shortdesc circle numbers with hcr/hz/tikz, written by Karnes
+relocated 1
+runfiles size=9
+ RELOC/tex/latex/kocircnum/hcrnumbers.sty
+ RELOC/tex/latex/kocircnum/kocircnum.sty
+ RELOC/tex/latex/kocircnum/wrapnum.sty

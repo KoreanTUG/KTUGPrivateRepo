@@ -1,0 +1,21 @@
+%% hswmj.fd: UhcMyoungjo for LaTeX
+
+\DeclareFontFamily{H}{swmj}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{swmj}{c}{n}{<->wmjc}{}
+\DeclareFontShape{H}{swmj}{c}{sl}{<->wmjco}{}
+\DeclareHFontShape{H}{swmj}{c}{it}{<->hssub*swmj/c/sl}{}
+\DeclareFontShape{H}{swmj}{m}{n}{<->wmj}{}
+\DeclareFontShape{H}{swmj}{m}{sl}{<->wmjo}{}
+\DeclareHFontShape{H}{swmj}{m}{it}{<->hssub*swmj/m/sl}{}
+\DeclareFontShape{H}{swmj}{bc}{n}{<->wmjbc}{}
+\DeclareFontShape{H}{swmj}{bc}{sl}{<->wmjbco}{}
+\DeclareHFontShape{H}{swmj}{bc}{it}{<->hssub*swmj/bc/sl}{}
+\DeclareFontShape{H}{swmj}{b}{n}{<->wmjb}{}
+\DeclareFontShape{H}{swmj}{b}{sl}{<->wmjbo}{}
+\DeclareHFontShape{H}{swmj}{b}{it}{<->hssub*swmj/b/sl}{}
+\DeclareFontShape{H}{swmj}{bx}{n}{<->wmjb}{}
+\DeclareFontShape{H}{swmj}{bx}{sl}{<->wmjbo}{}
+\DeclareHFontShape{H}{swmj}{bx}{it}{<->hssub*swmj/b/sl}{}
+
+%% End of hswmj.fd

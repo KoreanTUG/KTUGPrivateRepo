@@ -1,0 +1,7 @@
+name ob-chapstyles
+category Package
+revision 200
+shortdesc patch to chapterstyles of memoir, written by Karnes
+relocated 1
+runfiles size=4
+ RELOC/tex/latex/ob-chapstyles/ob-chapstyles.sty

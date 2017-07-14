@@ -1,0 +1,551 @@
+\documentclass[a4paper]{oblivoir}
+
+%\linespread{1}
+
+\SetHangulspace{1}{1}
+
+\newcommand\thisfileversion{0.6.2}
+\renewcommand\today{8 June, 2015}
+\renewcommand\contentsname{Table of Contents}
+\renewcommand\listfigurename{List of Figures}
+\renewcommand\figurename{Fig.}
+\renewcommand\fref[1]{\figurename~\ref{#1}}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\usepackage[most]{tcolorbox}
+
+\ifLuaOrXeTeX
+\setmainfont{Minion Pro}
+\setsansfont{Myriad Pro}
+\fi
+
+\usepackage[badukpansize=8,badukpancolor=cyan!10,textcmds]{ksbaduk}
+\NumberFont{\sffamily\fontsize{8}{8}\selectfont}
+%\BadukpanSize{10}
+
+\def\bs{\textbackslash}
+\def\TikZ{Ti\textit{k}Z}
+
+\begin{document}
+
+\title{%
+\texttt{ksbaduk} \\
+{\large Drawing Baduk (go) Diagrams with \TikZ} \\
+{\large version \thisfileversion}
+}
+\author{Nova De Hi}
+\maketitle
+
+\tableofcontents*
+
+%\listoffigures*
+
+\section{%
+Introduction
+}
+
+This small package edits in \LaTeX\ the recordings of \textit{baduk}. \textit{baduk} is a traditional board game of long history in the East Asia, in which two players alternately put black and white stones trying to take possession of the territory on the board.
+
+The `ks' in \texttt{ksbaduk} takes its name from the name of the author.
+\textit{baduk} is the Korean name for this game.\footnote{\textit{w\'{e}iq\'{i}} in Chinese and \textit{igo} or just \textit{go} in Japanese.}
+\textit{badukpan} (\textit{goban} in Japanese) is the name for the board with 19 by 19 lines on which the game is played. The title of this package originated from these words.
+
+This package utilizes \TikZ\ to draw the \textit{baduk} diagrams, thus let everyone make a nice printable output from simple and elementary inputs.
+
+\section{%
+How to use
+}
+
+\subsection{%
+Options
+}
+
+\begin{boxedverbatim}
+\usepackage[%
+    ball, % plain
+    badukpancolor=<color>,
+    badukpansize=<number>,
+    posmark,
+    imageback,
+    imagefile=<file>,
+    textcmds,
+    numberfont=<font>,
+    tmarkfont=<font>
+]{ksbaduk}
+\end{boxedverbatim}
+
+\begin{description}
+\item [\texttt{ball}, \texttt{plain}] 
+Enables or disables the mass effect on the stones. The default is \texttt{plain}.
+\item [\texttt{badukpancolor}] 
+Specifies the color for the board.
+Use the color names from 
+\textsf{xcolor}. 
+The Default is 
+\texttt{yellow!20}.
+\item [\texttt{badukpansize}] 
+Specifies the size for
+the board.
+Positive numbers are only allowed.
+The default is
+\texttt{10}. 
+Changing this size may cause callouts, including stone numbers, to look ugly. It's allowed to change callout-related parameters. However, do not make the board too big or small.
+
+\item [\texttt{posmark}] 
+Shows line numbers on the left side
+and above the board. This option is not effective when part of the board is only displayed.
+\item [\texttt{imageback}] 
+Shows or hides the background image for the board.
+
+\item [\texttt{imagefile}] 
+Specifies the background image for the board. If not specified, \texttt{badukpan.jpg} is used by default.
+\item [\texttt{textcmds}] Enables the \verb|\...Text| commands that allows you to display stones in your descriptions. 
+
+\item [\texttt{numberfont}] Specifies the font command to print the stone numbers. Use like this: \texttt{numberfont=\{\bs bfseries\bs small\}}.
+\item [\texttt{tmarkfont}] Specifies the font command to print the letter printed by using \verb|\TextMark|.
+\end{description}
+
+\subsection{%
+Commands
+}
+The following commands are provided:
+
+\begin{description}
+\item [\texttt{\bs BadukpanSize}] 
+Equivalent to the \verb|badukpansize| option. 
+\item [\texttt{\bs BackgroundColor}] 
+Equivalent to \verb|badukpancolor|.
+\verb|\BadukpanColor| is an alias of it.
+\item [\texttt{\bs NumberFont}] 
+Equivalent to \verb|numberfont| option.
+
+\end{description}
+
+These commands can be used in either the preamble or the document.
+
+\subsection{%
+Environment
+}
+
+\begin{boxedverbatim}
+\begin{ksbadukpan}[ball,badukpancolor=<color>,badukpansize=<size>,%
+    posmark,imageback,imagefile=<file>][<pos>]
+...
+\end{ksbadukpan}
+\end{boxedverbatim}
+
+The \texttt{ksbadukpan} environment is to be used to draw the baduk diagram.
+It can have two optional arguments. The first one is the same as those of the package. Only exception is \texttt{textcmds} which is unavailable here.
+
+The second one is used 
+to display a specific
+part of the board. The whole board is drawn as a default
+if an appropriate one is not specified among the following options:
+\texttt{U, D, L, R, UL, UR, DL, DR}. 
+Each represents the Upper, Lower, Left, Right halves, and Upper Left, Upper Right, Lower Left, Lower Right corners, respectively.
+
+The following commands can be used in place of the environment above.
+\begin{verbatim}
+\StartBaduk
+\StartBadukClip{U}
+
+\StopBaduk
+\end{verbatim}
+The \verb|\StartBaduk| or \verb|\StartBadukClip| must pair with \verb|\StopBaduk|.
+These commands work equivalently to the \texttt{ksbadukpan} environment. It is not allowed to write text in this environment.
+
+\subsection{%
+Coordinates
+}
+
+\begin{figure}[h]
+\centering
+\begin{ksbadukpan}[posmark,imageback,imagefile=badukpan.jpg]
+\end{ksbadukpan}
+\caption{The coordinates%좌표
+}\label{fig:badukpan}
+\end{figure}
+
+The grid lines are indicated in  alphabetical (A to T) and numerical (1 to 19) letters.
+(I and J are used for the same line.) 
+The vertical lines are indicated in alphabetical letters, and the horizontal lines are in numeric.
+See \fref{fig:badukpan}.
+You can use either uppercase or lowercase letters. However, it is not allowed to use both. The D4 point, for example, is not regarded as the same as d4, though they indicate the same position. Use either exclusively and consistently.
+
+\subsection{Displaying stones without step numbers}
+
+To display a black or white stone on a specific point, do like this:
+\begin{boxedverbatim}
+\Black{D4} \White{F3}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\Black{D4} \White{F3}
+\end{ksbadukpan}
+
+\begin{boxedverbatim}
+\Blacks{D4,F3,C7} \Whites{d4,f3,c7}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\Blacks{D4,F3,C7} 
+\end{ksbadukpan}
+\quad
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\Whites{D4,F3,C7} 
+\end{ksbadukpan}
+
+\verb|\Blacks| and \verb|\Whites| displays black or white stones without step numbers. 
+Stone points must be separated by commas.
+
+\begin{boxedverbatim}
+\BlackFirst{D4,F3,C7} \WhiteFirst{d4,f3,c7}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\BlackFirst{D4,F3,C7}
+\end{ksbadukpan}
+\quad
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\WhiteFirst{d4,f3,c7}
+\end{ksbadukpan}
+
+\verb|\BlackFirst| displays black and white stones alternatelyl, beginning with black one.
+\verb|\WhiteFirst| begins with a white stone.
+%흑선으로 차례로 착점한 결과를 표시한다. 백선을 의미하는 \verb|\WhiteFirst|가 있다.
+
+\subsection{%
+Displaying stones with step numbers}
+
+\begin{boxedverbatim}
+\BlackN{D4}{1}
+\WhiteN{F3}{2}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\BlackN{D4}{1}
+\WhiteN{F3}{2}
+\end{ksbadukpan}
+
+These commands require two arguments. The first one is for a stone point in which the stone is places and the second is for a step number.
+% of the first stone in the sequence.
+
+\begin{boxedverbatim}
+\BlackFirstN{D4,F3,C7}[5]
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\BlackFirstN{D4,F3,C7}[5]
+\end{ksbadukpan}
+
+This command displays stones beginning with a black stone and specified numbers.
+\verb|\WhiteFirstN| begins with a white stone.
+If nothing is specified for the optional argument, it begins with 1.
+And with the asterisk option (*) given, step numbers are displayed subsequently to the last stored step.
+
+\begin{boxedverbatim}
+\BlackFirstN{r16,p16,n17}
+\WhiteFirstN{r17,q17,q16}[*]
+\BlackFirstN{p17,o17,o16,o18,r18,s17}[*]
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20,posmark][UR]
+\BlackFirstN{r16,p16,n17}
+\WhiteFirstN{r17,q17,q16}[*]
+\BlackFirstN{p17,o17,o16,o18,r18,s17}[*]
+\end{ksbadukpan}
+
+\medskip
+
+With the asterisk option (\verb|*|), the sequence of moves will not be shown.
+It is the same as the command \verb|\BlackFirst|.
+%This option hides the sequence in the pre-input stones so that it helps when proceeding to the next scene, etc.
+%이 명령에 별표 옵션(\verb|*|)을 붙이면 수순번호를 표시하지 않게 된다. 즉 \verb|\BlackFirst|와 같은 결과가 된다. 
+%이 옵션은 특히 이전 설명도로부터 다음 장면을 설명하거나 할 때 이미 입력된 착점의 수순번호를 간단히 가릴 수 있게 하여 입력의 수고를 던다.
+
+\begin{boxedverbatim}
+\BlackFirstN*{D4,F3,C7}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\BlackFirstN*{D4,F3,C7}
+\end{ksbadukpan}
+
+\subsection{Marking stones
+%표지(mark)
+}
+
+%The following commands all have the corresponding commands \verb|\White...|.
+%이후 설명하는 명령은 대응하는 \verb|\White...|가 있다.
+The following commands display stone statuses.
+
+\begin{boxedverbatim}
+\BlackM{C7} \WhiteM{D7} \WhiteC{F7} \BlackC{G7}
+\BlackD{C8} \WhiteD{D8} 
+\BlackDs{D4,F3} \WhiteMs{B2,D3} \BlackCs{B5,C5}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20][DL]
+\BlackM{C7} \WhiteM{D7} \WhiteC{F7} \BlackC{G7}
+\BlackD{C8} \WhiteD{D8} 
+\BlackDs{D4,F3} \WhiteMs{B2,D3} \BlackCs{B5,C5}
+\end{ksbadukpan}
+
+These commands can use triangles, circles and cross marks to designate specific stones.
+M means `Mark', C means `Circles' and D means `Dead stone'.
+These marks can be used for several stones simultaneously using commands ending with \verb|...s|. 
+%삼각형, 곱표를 표시할 수 있다. M은 Mark이고 D는 Dead이다. 곱표는 둘 이상 적을 수 있고 이 때는 Ds가 붙은 명령으로 한다.
+
+When explaining the moves, you can put letters at specific positions. 
+Use the following commands to give a letter to a specific point.
+The shape or size of the letter can be changed by \texttt{tmarkfont=<font>} optional argument of the environment.
+
+\begin{boxedverbatim}
+\Blanket{D4}{A} \TextMark{D7}{B}
+\end{boxedverbatim}
+
+\begin{boxedverbatim}
+\begin{ksbadukpan}[tmarkfont={\bfseries\sffamily}][DL]
+\Blanket{D4}{A} \TextMark{D7}{B}
+\end{ksbadukpan}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20,][DL]
+\Blanket{D4}{A} \TextMark{D7}{B}
+\end{ksbadukpan}
+\quad
+\begin{ksbadukpan}[badukpansize=7,badukpancolor=yellow!20,tmarkfont={\bfseries\sffamily}][DL]
+\Blanket{D4}{A} \TextMark{D7}{B}
+\end{ksbadukpan}
+
+\verb|\TextMark| is an alias of \verb|\Blanket|.
+%수순 해설에서 가끔 필요한 특정 위치의 부호 문자를 식자한다.
+
+\subsection{%
+Stones queue}
+
+\begin{boxedverbatim}
+\KSBadukContinue
+\end{boxedverbatim}
+
+This command shows all the stones that have appeared so far in the game without step numbers. 
+Use the starred command to display the stones in reversed colors.
+%이 명령은 현재 문서에서 지금까지 조판한 모든 기록을 가지고 있다가 모두 (수순번호 없이) 출력한다.
+%한 국을 여러 장면으로 나누어 표기할 때 유용한 명령이다.
+%이 명령에 별표(\verb|*|)를 붙이면 이전의 history를 백선으로 식자한다.
+
+\begin{boxedverbatim}
+\ClearHistory
+\end{boxedverbatim}
+
+This command empties the stones queue.
+Use this command to start a diagram.
+%보관하고 있던 모든 조판 기록을 지우고 초기화한다.
+
+\subsection{%
+Dead stones}
+
+\begin{boxedverbatim}
+\RemoveStone{<pos>}
+\end{boxedverbatim}
+This command removes dead stones from the stones queue.
+Multiple stone points can be specified, separated by commas.
+Use this command to make dead stones disappear from the board, as shown by the following example.
+
+\ClearHistory
+
+\begin{boxedverbatim}
+\begin{ksbadukpan}[badukpansize=6][D]
+\BlackFirstN{K5,L5,L6,K6,J6,L7,K7}
+\RemoveStone{K6}
+\end{ksbadukpan}
+\begin{ksbadukpan}[badukpansize=6][D]
+\KSBadukContinue
+\end{ksbadukpan}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=6][D]
+\BlackFirstN{K5,L5,L6,K6,J6,L7,K7}
+\RemoveStone{K6}
+\end{ksbadukpan}
+\hfill
+\begin{ksbadukpan}[badukpansize=6][D]
+\KSBadukContinue
+\end{ksbadukpan}
+
+
+Specifying \texttt{B} or \texttt{W} for the optional argument removes only black or white stones.
+If no option is given, all the dead stones at the specified points are deleted.
+\begin{verbatim}
+\RemoveStone[W]{K6}
+\end{verbatim}
+
+\ClearHistory
+
+\noindent
+\begin{boxedverbatim}
+\begin{ksbadukpan}[badukpansize=6][U]
+\BlackFirst{r16,p16,n17}
+\WhiteFirstN{r17,q17,q16,p17,o17,o16,o18,r18,s17}
+\RemoveStone{o17,o16,o18,r18,s17}
+\end{ksbadukpan}
+\hfill
+\begin{ksbadukpan}[badukpansize=6][U]
+\KSBadukContinue
+\end{ksbadukpan}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=6][U]
+\BlackFirst{r16,p16,n17}
+\WhiteFirstN{r17,q17,q16,p17,o17,o16,o18,r18,s17}
+\RemoveStone{o17,o16,o18,r18,s17}
+\end{ksbadukpan}
+\hfill
+\begin{ksbadukpan}[badukpansize=6][U]
+\KSBadukContinue
+\end{ksbadukpan}
+
+The five number from 5 to 9 are not displayed on the right board in this example.
+
+\subsection{%
+Saving and restoring a game}
+
+The following commands enables you to save a queue of played stones and restore it later.
+
+\begin{boxedverbatim}
+\SaveKSBaduk{<unique name>}
+\LoadKSBaduk{<saved name>}
+\end{boxedverbatim}
+
+Any other than alphabetical letters are not allowed to be used in a game name.
+
+\begin{boxedverbatim}
+\DeleteSavedKSBaduk{<name>}
+\end{boxedverbatim}
+
+Sometimes a saved game needs to be erased.
+%특별한 경우, 저장된 게임을 지워야 할 때가 있다. 
+
+In the following example,  the restored game shows the scene which is before some stones were removed.
+
+\begin{boxedverbatim}
+\begin{ksbadukpan}[badukpansize=6.5]
+\BlackFirstN{c4,q3,r16,e16}
+\BlackFirstN{p17,e3,q5,q9,r11,p4}[5]
+\SaveKSBaduk{scenei}  %% Saved here
+\end{ksbadukpan}
+
+\begin{ksbadukpan}[badukpansize=6.5]
+\KSBadukContinue
+\BlackFirstN{j3,d6,e4,d4,d5,d3}[11]
+\end{ksbadukpan}
+
+\begin{ksbadukpan}[badukpansize=6.5]
+\LoadKSBaduk{scenei}  %% Restored here
+\end{ksbadukpan}
+\end{boxedverbatim}
+
+\bigskip
+
+\ClearHistory
+
+\noindent
+\begin{ksbadukpan}[badukpansize=6.5]
+%% 1-4
+\BlackFirstN{c4,q3,r16,e16}
+%% 5-10
+\BlackFirstN{p17,e3,q5,q9,r11,p4}[5]
+\SaveKSBaduk{scenei}
+\end{ksbadukpan}
+\hfill
+\begin{ksbadukpan}[badukpansize=6.5]
+\KSBadukContinue
+%% 11-16
+\BlackFirstN{j3,d6,e4,d4,d5,d3}[11]
+\end{ksbadukpan}
+
+\noindent
+\begin{ksbadukpan}[badukpansize=6.5]
+\LoadKSBaduk{scenei}
+\end{ksbadukpan}
+
+\subsection{Using \texttt{sgf} data}
+
+The sgf (Smart Game Format)\footnote{\url{http://en.wikipedia.org/wiki/Smart_Game_Format}} is a standard format for \textit{baduk} diagrams.
+It is possible to use the data in the sgf files. But be careful of the followings when using sgf data:
+\begin{enumerate} 
+\item It cannot handle the metadata of sgf files
+\item It cannot handle the comments (\texttt{C}). So \texttt{C} sentence cannot be located in the following commands.
+\item Dead stones are not automatically removed from the board. So \verb+\RemoveStone+ should be used manually if needed.
+\item It is sensitive to \verb|;| delimiter and only \texttt{;B} and \texttt{;W} are recognized. Do not use \verb|;| otherwise.
+\end{enumerate}
+
+Use \verb|\SGFLine| command to typeset the contents of sgf file data.
+
+\begin{boxedverbatim}
+\SGFLine{;B[pd];W[dc];B[pq];W[dp];B[de];W[dh]}
+\SGFLine{;B[gd];W[ee];B[ef];W[fe];B[cc];W[fc]}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=6]
+\SGFLine{;B[pd];W[dc];B[pq];W[dp];B[de];W[dh]}
+\SGFLine{;B[gd];W[ee];B[ef];W[fe];B[cc];W[fc]}
+\end{ksbadukpan}
+
+If this command is used, the prefixed sequence of moves are used throughout the document. To reset the sequence numbers, use:
+\begin{boxedverbatim}
+\ResetSGFCounter
+\end{boxedverbatim}
+An optional argument is present so that the counter of the sequence can be reset. Just give the sequence number for the last move. In case no optional argument is specified, it is reset to `0' and the first move will be printed as `1'.
+
+\begin{boxedverbatim}
+\ResetSGFCounter[12]
+\SGFLine{;B[db];W[df];B[ce];W[eb];B[dd];W[ec]}
+\end{boxedverbatim}
+
+\begin{ksbadukpan}[badukpansize=6][UL]
+\KSBadukContinue
+\ResetSGFCounter[12]
+\SGFLine{;B[db];W[df];B[ce];W[eb];B[dd];W[ec]}
+\end{ksbadukpan}
+
+
+\subsection{%
+Commands for textlike editing
+%텍스트 명령들
+}
+
+To use the commands below, the textcmds package option must be specified.
+\begin{verbatim}
+\usepackage[textcmds]{ksbaduk}
+\end{verbatim}
+
+\begin{boxedverbatim}
+\WhiteNText{<num>}, \BlackNText{<num>},
+\WhiteMText, \BlackMText,
+\WhiteCText, \BlackCText
+\end{boxedverbatim}
+
+These commands cannot be used inside the \texttt{ksbadukpan} environment.
+Use them in normal text mode.
+The examples above produce as follows:
+
+\medskip
+\WhiteNText{10}, \BlackNText{25}, \WhiteMText, \BlackMText,
+\WhiteCText, \BlackCText
+\medskip
+
+These commands are designed to display dead stones in a commentary text.
+
+\section{Acknowledgements}
+
+Many people contributed generously to this package. 
+Jam/Ha and Gromob inspired and motivated me to write it and suggested new features.
+JagNa advised the Korean names for the commands, environments and the package itself.
+Gromob, ischo and Hoze translated this documentation into English.
+The author appreciates the willingness of the contributors.
+
+\end{document}
+

@@ -1,0 +1,9 @@
+name ktugbin
+category TLCore
+revision 200
+shortdesc Additional win32 binaries and batch files packaged by KTUG.
+longdesc Addtional win32 binaries and batch files packages by KTUG
+longdesc including sed.exe, todos.exe, unzip.exe, wget.exe,
+longdesc fontcache.bat, kccheckfont.bat, kccmdline.bat, kconthefly.bat,
+longdesc kcrundpx.bat, kcrunpspdf.bat, and tlupdateall.bat.
+depend ktugbin.ARCH

@@ -1,0 +1,55 @@
+%\makeatletter
+\newcommand\HFSS{HFSS}
+\newcommand\BibTeX{\textsf{Bib}\TeX}
+
+\newcommand\bs{\textbackslash}
+\renewcommand\and{·}
+\let\cntrdot\and
+
+\raggedbottom
+
+%% footnote
+\skip\footins=15pt
+\parindent=2em
+\setlength\footnotesep{9.2pt}
+\def\footnoterule{\vfill\vspace{2pt}\kern-3\p@
+  \hrule \@width 2in \kern 2.6\p@\vspace{2pt}} % the \hrule is .4pt high
+
+\renewcommand\@makechapterhead[1]{%
+    \vspace*{0pt}%
+    {\parindent \z@ \raggedright \normalfont
+      \ifnum \c@secnumdepth >\m@ne
+%        \centering  %%% <-----------------
+        \LARGE\bfseries
+        \pre@chaptercnt\thechapter\post@chaptercnt
+      \fi
+      \quad #1%
+      \vskip 40\p@
+}}
+\renewcommand\@makeschapterhead[1]{%
+    \vspace*{0pt}%
+    {\parindent \z@
+     \normalfont
+     \interlinepenalty\@M
+     \centering\LARGE \bfseries #1
+     \vskip 40\p@
+}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{3em}{3em}}
+
+\renewenvironment{theindex}
+               {\if@twocolumn
+                  \@restonecolfalse
+                \else
+                  \@restonecoltrue
+                \fi
+                \twocolumn[\@makeschapterhead{\indexname}]%
+                \@mkboth{\MakeUppercase\indexname}%
+                        {\MakeUppercase\indexname}%
+                \thispagestyle{plain}\parindent\z@
+				\spacing{1.2}\small
+                \parskip\z@ \@plus .3\p@\relax
+                \columnseprule \z@
+                \columnsep 35\p@
+                \let\item\@idxitem}
+               {\endspacing\if@restonecol\onecolumn\else\clearpage\fi}
+%\makeatother

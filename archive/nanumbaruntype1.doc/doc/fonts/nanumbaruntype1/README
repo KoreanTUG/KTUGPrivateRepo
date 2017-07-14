@@ -1,0 +1,13 @@
+Nanum Barun Type1 package
+=========================
+
+Type1 fonts converted from OTF files avaliable at 
+http://hangeul.naver.com/font by Dohyun Kim <nomos at ktug org>.
+
+Usage
+-----
+
+    cjk-ko v1.3+:  \usepackage[gt=nnmbrgt]{cjkutf8-ko}
+
+    kotexutf:  \SetSansFonts{nnmbrgt}{nnmbrgt}
+

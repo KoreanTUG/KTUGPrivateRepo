@@ -1,0 +1,40 @@
+
+Copyright (c) 2004-2006 
+  Dohyun Kim <nomosnomos@gmail.com> and Karnes Kim <karnes@gmail.com>
+
+The composition and copyrights of Hangul-ucs package
+
+The Hangul-ucs package is composed of four parts.
+ 1. dhucs -- a LaTeX style package to typeset Korean Language
+ 2. fonts-unttf -- the font package of UnFonts to use with dhucs
+ 3. fonts-uhc-unicode -- the font package of UHC fonts to use with dhucs
+ 4. fonts-trivcj -- the font package of Chinese/Japanese CID fonts to use with dhucs
+
+Any of these three font-(sub)packages does not contain truetype/type1 font files in itself.
+Only TeX-metrics(.tfm), map files(.map) and supplementary files are present.
+The real truetype/opentype/type1 fonts can be found at their distribution sites,
+that is:
+ 1. UnFonts truetype : http://kldp.net/projects/unfonts/
+ 2. UHC type 1 fonts : http://project.ktug.or.kr/hlatex/
+
+The GNU GPL License
+
+The whole program files of Hangul-ucs, except a few contributive LaTeX style
+files, may be distributed and/or modified under GNU GPL(General Public License)
+version 2 or (at your option) any later version.
+See the COPYING file involved.
+
+The LPPL License
+
+A few contributive LaTeX style files may be distributed and/or modified
+under the conditions of the LaTeX Project Public License, either version 1.2
+of this license or (at your option) any later version.
+
+The LPPL-licensed style files are:
+ 1. contrib/dhucs-ucshyper.sty
+ 2. contrib/dhucs-setspace.sty.
+
+The latest version of LPPL can be found in 
+  http://www.latex-project.org/lppl.txt
+and version 1.1 or later is part of all distributions of LaTeX
+version 1999/06/01 or later.

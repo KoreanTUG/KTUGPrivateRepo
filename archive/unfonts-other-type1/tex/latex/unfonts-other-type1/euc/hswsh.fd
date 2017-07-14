@@ -1,0 +1,12 @@
+%% hswsh.fd: UhcShinmunMyoungjo for LaTeX
+
+\DeclareFontFamily{H}{swsh}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{swsh}{c}{n}{<->wshc}{}
+\DeclareFontShape{H}{swsh}{c}{sl}{<->wshco}{}
+\DeclareHFontShape{H}{swsh}{c}{it}{<->hssub*swsh/c/sl}{}
+\DeclareFontShape{H}{swsh}{m}{n}{<->wsh}{}
+\DeclareFontShape{H}{swsh}{m}{sl}{<->wsho}{}
+\DeclareHFontShape{H}{swsh}{m}{it}{<->hssub*swsh/m/sl}{}
+
+%% End of hswsh.fd

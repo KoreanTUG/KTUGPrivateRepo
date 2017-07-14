@@ -1,0 +1,3 @@
+\DeclareFontFamily{LUC}{utph}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utph}{m}{n}{<-> LUC * outphm}{}

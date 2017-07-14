@@ -1,0 +1,1441 @@
+%%% hanjacnt.sty
+%%% --- reimplementation
+%%% 
+%%% Written by Nova De Hi
+%%% public domain.
+%%%
+%%% \HANJA{ <cnt> }, \HANGUL{ <cnt> }, \HANJADIG{ <cnt> }
+%%% \NumHanja{ <number> }, \NumHangul{ <number> }, \NumHanjaDig{ <number> }
+%%% 
+%%% \NumHanja & \NumHangul: 0 <= number < 1,000,000,000,000
+%%% \NumHanjaDig: 0 <= number < 100,000
+%%% \HANJA & \HANGUL: 0 <= counter < 100,000
+%%%
+%%% \NumHanjaFont, \HanjaZeroFont, \HanjaZero, \TwentyHanjaChar
+%%% \FinHanjaMode
+%%% \MarkHanja
+%%%
+\RequirePackage{expl3}
+\ProvidesExplPackage{hanjacnt}
+{2014/06/28}{2.7}{hanja/hangul counter}
+
+\bool_new:N		\hanja_mode		\bool_set_false:N \hanja_mode
+\bool_new:N 	\twenty_hanja	\bool_set_false:N \twenty_hanja
+\bool_new:N		\thirty_hanja	\bool_set_false:N \thirty_hanja
+\bool_new:N 	\no_man_space   \bool_set_true:N  \no_man_space
+\bool_new:N		\hanja_fin		\bool_set_false:N \hanja_fin
+\bool_new:N		\hanja_fin_full	\bool_set_false:N \hanja_fin_full
+\bool_new:N		\hanja_fin_var  \bool_set_false:N \hanja_fin_var
+
+\DeclareOption	{manspace}		{\bool_set_false:N \no_man_space}
+\DeclareOption	{20}      		{\bool_set_true:N  \twenty_hanja
+								 \bool_set_false:N \thirty_hanja }
+\DeclareOption	{30}			{\bool_set_true:N  \twenty_hanja
+								 \bool_set_true:N  \thirty_hanja }
+\DeclareOption  {finhanja}		{\bool_set_true:N  \hanja_fin   }
+\DeclareOption	{fullfinhanja}	{\bool_set_true:N  \hanja_fin
+								 \bool_set_true:N  \hanja_fin_full }
+\DeclareOption	{varfinhanja}   {\bool_set_true:N  \hanja_fin
+								 \bool_set_true:N  \hanja_fin_var }
+
+\ProcessOptions
+\scan_stop:
+
+\RequirePackage{kotex}
+
+\tl_new:N  \zero_hanja_font
+\tl_new:N  \num_hanja_font
+
+\tl_set:Nn \_mark_hanja_sib { 十 }
+\tl_set:Nn \_mark_hanja_bae { 百 }
+\tl_set:Nn \_mark_hanja_chu { 千 }
+\tl_set:Nn \_mark_hanja_man { 萬 }
+\tl_set:Nn \_mark_hanja_eok { 億 }
+\tl_set:Nn \_mark_hanja_cho { 兆 }
+\tl_set:Nn \_mark_sib  { \bool_if:nTF \hanja_mode { \_mark_hanja_sib } { 십 } }
+\tl_set:Nn \_mark_baek { \bool_if:nTF \hanja_mode { \_mark_hanja_bae } { 백 } }
+\tl_set:Nn \_mark_chun { \bool_if:nTF \hanja_mode { \_mark_hanja_chu } { 천 } }
+\tl_set:Nn \_mark_man  { \bool_if:nTF \hanja_mode { \_mark_hanja_man } { 만 } }
+\tl_set:Nn \_mark_eok  { \bool_if:nTF \hanja_mode { \_mark_hanja_eok } { 억 } }
+\tl_set:Nn \_mark_cho  { \bool_if:nTF \hanja_mode { \_mark_hanja_cho } { 조 } }
+
+\tl_set:Nn \_mark_fin_sib   { 拾 }
+\tl_set:Nn \_mark_fin_baek  {
+	 \bool_if:nTF { \hanja_fin_full && \hanja_fin_var } { 陌 }
+	 {
+	 	\bool_if:nTF \hanja_fin_full 
+		{ 佰 }
+		{ \bool_if:nTF \hanja_fin_var { 陌 } { 百 } }
+	 }
+}
+\tl_set:Nn \_mark_fin_chun  { 
+	\bool_if:nTF { \hanja_fin_full && \hanja_fin_var } { 阡 }
+	{
+		\bool_if:nTF \hanja_fin_full 
+		{ 仟 }
+		{ \bool_if:nTF \hanja_fin_var { 阡 } { 仟 } }
+	}
+}
+
+\tl_set:Nn \_mark_fin_man   { 萬 }
+\tl_set:Nn \_mark_fin_eok   { 億 }
+\tl_set:Nn \_mark_fin_cho   { 兆 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% \NumHanjaDig
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NewDocumentCommand \HanjaZeroFont { m }
+{
+	\pdftex_if_engine:TF
+	{
+		\tl_clear:N \zero_hanja_font
+	}
+	{
+		\tl_set:Nn \zero_hanja_font {
+			\adhochanjafont { #1 }
+		}
+	}
+}
+
+\NewDocumentCommand \NumHanjaFont { m }
+{
+	\pdftex_if_engine:TF
+	{
+		\tl_clear:N \num_hanja_font
+	}
+	{
+		\tl_set:Nn \num_hanja_font { 
+			\adhochanjafont { #1 }
+		}
+		\HanjaZeroFont { #1 }
+	}
+}
+
+\NewDocumentCommand \HanjaZero { m }
+{
+	\pdftex_if_engine:TF
+	{
+		\tl_set:Nn \zero_hanja_char { ○ } %% ^^^^25E6
+	}
+	{
+		\tl_set:Nn \zero_hanja_char { #1 }
+	}
+}
+
+\NewDocumentCommand \TwentyHanjaChar { o }
+{
+	\pdftex_if_engine:TF
+	{
+		\tl_set:Nn \twenty_hanja_char { 二 }
+		\tl_set:Nn \thirty_hanja_char { 三 }
+	}
+	{
+	\IfValueTF { #1 }
+	{
+		\str_case_x:nnF { #1 }
+		{
+			{ 2  } { \tl_set:Nn \twenty_hanja_char { 二 } 
+					 \tl_set:Nn \thirty_hanja_char { 三 } }
+			{ 21 } { \tl_set:Nn \twenty_hanja_char { 廿 } 
+					 \tl_set:Nn \thirty_hanja_char { 三 } }
+			{ 20 } { \tl_set:Nn \twenty_hanja_char { 卄 } 
+					 \tl_set:Nn \thirty_hanja_char { 三 } } 
+			{ 31 } { \tl_set:Nn \twenty_hanja_char { 廿 } 
+					 \tl_set:Nn \thirty_hanja_char { 卅 } }
+			{ 30 } { \tl_set:Nn \twenty_hanja_char { 卄 } 
+					 \tl_set:Nn \thirty_hanja_char { 卅 } }
+
+		}
+		{
+			\tl_clear:N \twenty_hanja_char
+			\tl_clear:N \thirty_hanja_char
+		}
+	}
+	{
+		\bool_if:nTF \twenty_hanja
+		{ \tl_set:Nn \twenty_hanja_char { 廿 } 
+		  \tl_set:Nn \thirty_hanja_char { 三 } }
+		{ \tl_set:Nn \twenty_hanja_char { 二 } 
+		  \tl_set:Nn \thirty_hanja_char { 三 } }
+		\bool_if:nTF \thirty_hanja
+		{ \tl_set:Nn \twenty_hanja_char { 廿 } 
+		  \tl_set:Nn \thirty_hanja_char { 卅 } }
+		{ \tl_set:Nn \twenty_hanja_char { 二 }
+		  \tl_set:Nn \thirty_hanja_char { 三 } }
+	}
+	}
+}
+
+\TwentyHanjaChar
+
+\HanjaZero { ^^^^3007 }  % 〇
+
+\tl_set:Nn \hanja_o_zero
+{
+	\group_begin: \zero_hanja_font \zero_hanja_char \group_end:
+}
+
+\cs_new:Npn \number_to_rawhanja:n #1
+{
+	\int_to_symbols:nnn { #1 } { 10 }
+	{
+		{ 0 } { \hanja_o_zero }
+		{ 1 } { 一 }
+		{ 2 } { 二 }
+		{ 3 } { 三 }
+		{ 4 } { 四 }
+		{ 5 } { 五 }
+		{ 6 } { 六 }
+		{ 7 } { 七 }
+		{ 8 } { 八 }
+		{ 9 } { 九 }
+	}
+}
+
+%%% \str_hanja_num is main routine of \NumHanjaDig
+
+\DeclareDocumentCommand \str_hanja_num { m }
+{
+	\bool_if:nT { \int_compare_p:n { #1 >= 0 } && \int_compare_p:n { #1 < 10 } }
+	{
+		\number_to_rawhanja:n { #1 }
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 10 } && \int_compare_p:n { #1 < 20 } }
+	{
+		\int_compare:nTF { #1 = 10 }
+		{
+			\_mark_hanja_sib
+			\number_to_rawhanja:n { 0 }
+		}
+		{
+			\_mark_hanja_sib
+			\number_to_rawhanja:n 
+			{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+		}
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 20 } && \int_compare_p:n { #1 < 30 } }
+	{
+		\int_compare:nTF { #1 = 20 }
+		{
+			\twenty_hanja_char
+			\number_to_rawhanja:n { 0 }
+		}
+		{
+			\twenty_hanja_char
+			\number_to_rawhanja:n
+			{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+		}
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 30 } && \int_compare_p:n { #1 < 40 } }
+	{
+		\int_compare:nTF { #1 = 30 }
+		{
+			\thirty_hanja_char
+			\number_to_rawhanja:n { 0 }
+		}
+		{
+			\thirty_hanja_char
+			\number_to_rawhanja:n
+			{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+		}
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 40 } && \int_compare_p:n { #1 < 100 } }
+	{
+		\number_to_rawhanja:n 
+		{ \int_div_truncate:nn { #1 } { 10 } }
+		\number_to_rawhanja:n
+		{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 100 } && \int_compare_p:n { #1 < 1000 } }
+	{
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn { #1 } { 100 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn { #1 - 100 * \int_div_truncate:nn { #1 } { 100 } } { 10 } }
+		\number_to_rawhanja:n
+		{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 1000 } && \int_compare_p:n { #1 < 10000 } }
+	{
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn { #1 } { 1000 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn
+			{ #1 - 1000 * \int_div_truncate:nn { #1 } { 1000 } } { 100 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn
+			{ #1 - 100 * \int_div_truncate:nn { #1 } { 100 } } { 10 } }
+ 		\number_to_rawhanja:n
+		{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 10000 } && \int_compare_p:n { #1 < 100000 } }
+	{
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn { #1 } { 10000 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn
+			{ #1 - 10000 * \int_div_truncate:nn { #1 } { 10000 } } { 1000 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn
+			{ #1 - 1000 * \int_div_truncate:nn { #1 } { 1000 } } { 100 } }
+		\number_to_rawhanja:n
+		{ \int_div_truncate:nn
+			{ #1 - 100 * \int_div_truncate:nn { #1 } { 100 } } { 10 } }
+		\number_to_rawhanja:n
+		{ #1 - 10 * \int_div_truncate:nn { #1 } { 10 } }
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 100000 } }
+	{
+		\errmessage{ Number~ Too~ Big }
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% \NumHanja, \NumHanjaBig
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cs_new:Npn \number_to_hangulsymbol:n #1
+{
+	\int_to_symbols:nnn { #1 } { 10 }
+	{
+		{ 0 } { 영 }
+		{ 1 } { 일 }
+		{ 2 } { 이 }
+		{ 3 } { 삼 }
+		{ 4 } { 사 }
+		{ 5 } { 오 }
+		{ 6 } { 육 }
+		{ 7 } { 칠 }
+		{ 8 } { 팔 }
+		{ 9 } { 구 }
+	}
+}
+
+\tl_set:Nn \_mark_hanja_zero  { 零 }
+\tl_set:Nn \_mark_hanja_one   { 一 }
+\tl_set:Nn \_mark_hanja_two   { 二 }
+\tl_set:Nn \_mark_hanja_three { 三 }
+\tl_set:Nn \_mark_hanja_four  { 四 }
+\tl_set:Nn \_mark_hanja_five  { 五 }
+\tl_set:Nn \_mark_hanja_six   { 六 }
+\tl_set:Nn \_mark_hanja_seven { 七 }
+\tl_set:Nn \_mark_hanja_eight { 八 }
+\tl_set:Nn \_mark_hanja_nine  { 九 }
+
+\cs_new:Npn \number_to_hanjasymbol:n #1
+{
+	\int_to_symbols:nnn { #1 } { 10 }
+	{
+		{ 0 } { \_mark_hanja_zero  }
+		{ 1 } { \_mark_hanja_one   }
+		{ 2 } { \_mark_hanja_two   }
+		{ 3 } { \_mark_hanja_three }
+		{ 4 } { \_mark_hanja_four  }
+		{ 5 } { \_mark_hanja_five  }
+		{ 6 } { \_mark_hanja_six   }
+		{ 7 } { \_mark_hanja_seven }
+		{ 8 } { \_mark_hanja_eight }
+		{ 9 } { \_mark_hanja_nine  }
+	}
+}
+
+\cs_new:Npn \number_to_finhanja:n #1
+{
+  \bool_if:nTF \hanja_fin_full
+  {
+	\int_to_symbols:nnn { #1 } { 10 }
+	{
+		{ 0 } { 零 }
+		{ 1 } { 壹 }
+		{ 2 } { 貳 }
+		{ 3 } { 參 }
+		{ 4 } { 肆 }
+		{ 5 } { 伍 }
+		{ 6 } { 陸 }
+		{ 7 } { 柒 }
+		{ 8 } { 捌 }
+		{ 9 } { 玖 }
+	}
+  }
+  {
+	\int_to_symbols:nnn { #1 } { 10 }
+	{
+		{ 0 } { 零 }
+		{ 1 } { 壹 }
+		{ 2 } { 貳 }
+		{ 3 } { 參 }
+		{ 4 } { 四 }
+		{ 5 } { 伍 }
+		{ 6 } { 六 }
+		{ 7 } { 七 }
+		{ 8 } { 八 }
+		{ 9 } { 九 }
+	}
+  }
+}
+
+\cs_new:Npn \number_to_hangul:n #1
+{
+	\bool_if:nTF \hanja_mode
+	{
+		\number_to_hanjasymbol:n #1
+	}
+	{
+		\number_to_hangulsymbol:n #1
+	}
+}
+
+\cs_new:Npn \hanjanum_read_one:n #1
+{
+	\number_to_hangul:n { #1 }
+}
+
+\cs_new:Npn \fin_hanjanum_read_one:n #1
+{
+	\number_to_finhanja:n { #1 }
+}
+
+\cs_new:Npn \hanjanum_read_two:nn #1 #2 
+{
+	\int_compare:nF { #1 = 0 }
+	{
+		\int_compare:nF { #1 = 1 } { \number_to_hangul:n { #1 } }
+		\_mark_sib
+	}
+	\int_compare:nF { #2 = 0 } {
+		\number_to_hangul:n { #2 }
+	}
+}
+
+\cs_new:Npn \fin_hanjanum_read_two:nn #1 #2
+{
+	\int_compare:nF { #1 = 0 }
+	{
+%		\number_to_finhanja:n { #1 }
+		\int_compare:nF { #1 = 1 } { \number_to_finhanja:n { #1 } }
+		\_mark_fin_sib
+	}
+	\int_compare:nF { #2 = 0 }
+	{
+		\number_to_finhanja:n { #2 }
+	}
+}
+
+\cs_new:Npn \hanjanum_read_three:nnn #1 #2 #3
+{
+	\int_compare:nF { #1 = 0 } {
+		\int_compare:nF { #1 = 1 } { \number_to_hangul:n { #1 } }
+		\_mark_baek
+	}
+	\hanjanum_read_two:nn #2 #3
+}
+
+\cs_new:Npn \fin_hanjanum_read_three:nnn #1 #2 #3
+{
+	\int_compare:nF { #1 = 0 } {
+		\number_to_finhanja:n { #1 }
+		\_mark_fin_baek
+	}
+	\fin_hanjanum_read_two:nn #2 #3
+}
+
+\cs_new:Npn \hanjanum_read_four:nnnn #1 #2 #3 #4
+{
+	\int_compare:nF { #1 = 0 } {
+		\int_compare:nF { #1 = 1 } { \number_to_hangul:n { #1 } }
+		\_mark_chun
+	}
+	\hanjanum_read_three:nnn #2 #3 #4
+}
+
+\cs_new:Npn \fin_hanjanum_read_four:nnnn #1 #2 #3 #4
+{
+	\int_compare:nF { #1 = 0 } {
+		\number_to_finhanja:n { #1 }
+		\_mark_fin_chun
+	}
+	\fin_hanjanum_read_three:nnn #2 #3 #4
+}
+
+\cs_new:Npn \hanjanum_read_five:nnnnn #1 #2 #3 #4 #5
+{
+	\int_compare:nF { #1 = 0 } {
+		\int_compare:nF { #1 = 1 } { \number_to_hangul:n { #1 } }
+		\_mark_man \bool_if:nF { \hanja_mode || \no_man_space } { ~ }
+	}
+	\hanjanum_read_four:nnnn #2 #3 #4 #5
+}
+
+\cs_new:Npn \fin_hanjanum_read_five:nnnnn #1 #2 #3 #4 #5
+{
+	\int_compare:nF { #1 = 0 } {
+		\number_to_finhanja:n #1
+		\_mark_fin_man
+	}
+	\fin_hanjanum_read_four:nnnn #2 #3 #4 #5
+}
+
+\cs_new:Npn \hanjanum_read_six:nnnnnn #1 #2 #3 #4 #5 #6
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\number_to_hangul:n { #2 }
+	}
+	{
+		\hanjanum_read_two:nn #1 #2
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 } }
+	{ \_mark_man \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+	\hanjanum_read_four:nnnn #3 #4 #5 #6
+}
+
+\cs_new:Npn \fin_hanjanum_read_six:nnnnnn #1 #2 #3 #4 #5 #6
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\number_to_finhanja:n { #2 }
+	}
+	{
+		\fin_hanjanum_read_two:nn #1 #2
+	}
+	\bool_if:nF
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 } }
+	{ \_mark_fin_man }
+	\fin_hanjanum_read_four:nnnn #3 #4 #5 #6
+}
+
+\cs_new:Npn \hanjanum_read_seven:nnnnnnn #1 #2 #3 #4 #5 #6 #7
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\hanjanum_read_two:nn #2 #3
+	}
+	{
+		\hanjanum_read_three:nnn #1 #2 #3
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } }
+	{ \_mark_man \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+
+	\hanjanum_read_four:nnnn #4 #5 #6 #7
+}
+
+\cs_new:Npn \fin_hanjanum_read_seven:nnnnnnn #1 #2 #3 #4 #5 #6 #7
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\fin_hanjanum_read_two:nn #2 #3
+	}
+	{
+		\fin_hanjanum_read_three:nnn #1 #2 #3
+	}
+	\bool_if:nF
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } }
+	{ \_mark_fin_man }
+	\fin_hanjanum_read_four:nnnn #4 #5 #6 #7
+}
+
+\cs_new:Npn \hanjanum_read_eight:nnnnnnnn #1 #2 #3 #4 #5 #6 #7 #8
+{
+	\int_compare:nTF { #1 = 0 } 
+	{
+		\hanjanum_read_three:nnn #2 #3 #4
+	}
+	{
+		\hanjanum_read_four:nnnn #1 #2 #3 #4
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } && \int_compare_p:n { #4 = 0 } }
+	{ \_mark_man \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+	\hanjanum_read_four:nnnn #5 #6 #7 #8
+}
+
+\cs_new:Npn \fin_hanjanum_read_eight:nnnnnnnn #1 #2 #3 #4 #5 #6 #7 #8
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\fin_hanjanum_read_three:nnn #2 #3 #4
+	}
+	{
+		\fin_hanjanum_read_four:nnnn #1 #2 #3 #4 
+	}
+	\bool_if:nF
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } && \int_compare_p:n { #4 = 0 } }
+	{ \_mark_fin_man }
+	\fin_hanjanum_read_four:nnnn #5 #6 #7 #8
+}
+
+\cs_new:Npn \hanjanum_read_nine:nnnnnnnnn #1 #2 #3 #4 #5 #6 #7 #8 #9
+{
+	\int_compare:nF { #1 = 0 } {
+		\number_to_hangul:n { #1 }
+		\_mark_eok \bool_if:nF { \hanja_mode || \no_man_space } { ~ }
+	}
+	\hanjanum_read_eight:nnnnnnnn #2 #3 #4 #5 #6 #7 #8 #9
+}
+
+\cs_new:Npn \fin_hanjanum_read_nine:nnnnnnnnn #1 #2 #3 #4 #5 #6 #7 #8 #9
+{
+	\int_compare:nF { #1 = 0 } {
+		\number_to_finhanja:n #1
+		\_mark_fin_eok
+	}
+	\fin_hanjanum_read_eight:nnnnnnnn #2 #3 #4 #5 #6 #7 #8 #9
+}
+
+\cs_new:Npn \hanjanum_read_ten:nnn #1 #2 #3
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\number_to_hangul:n #2
+	}
+	{
+		\hanjanum_read_two:nn #1 #2
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 } }
+	{ \_mark_eok \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+	\hanjanum_read_eight:nnnnnnnn #3
+}
+
+\cs_new:Npn \fin_hanjanum_read_ten:nnn #1 #2 #3
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\number_to_finhanja:n #2
+	}
+	{
+		\fin_hanjanum_read_two:nn #1 #2
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 } }
+	{ \_mark_fin_eok }
+	\fin_hanjanum_read_eight:nnnnnnnn #3
+}	
+
+\cs_new:Npn \hanjanum_read_eleven:nnnn #1 #2 #3 #4
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\hanjanum_read_two:nn #2 #3
+	}
+	{
+		\hanjanum_read_three:nnn #1 #2 #3
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } }
+	{ \_mark_eok \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+	\hanjanum_read_eight:nnnnnnnn #4
+}
+
+\cs_new:Npn \fin_hanjanum_read_eleven:nnnn #1 #2 #3 #4
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\fin_hanjanum_read_two:nn #2 #3
+	}
+	{
+		\fin_hanjanum_read_three:nnn #1 #2 #3
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } }
+	{ \_mark_fin_eok }
+	\fin_hanjanum_read_eight:nnnnnnnn #4
+}	
+
+\cs_new:Npn \hanjanum_read_twelve:nnnnn #1 #2 #3 #4 #5
+{
+	\int_compare:nTF { #1 = 0 } 
+	{
+		\hanjanum_read_three:nnn #2 #3 #4
+	}
+	{
+		\hanjanum_read_four:nnnn #1 #2 #3 #4
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } && \int_compare_p:n { #4 = 0 } }
+	{ \_mark_eok \bool_if:nF { \hanja_mode || \no_man_space } { ~ } }
+	\hanjanum_read_eight:nnnnnnnn #5
+}
+
+\cs_new:Npn \fin_hanjanum_read_twelve:nnnnn #1 #2 #3 #4 #5
+{
+	\int_compare:nTF { #1 = 0 }
+	{
+		\fin_hanjanum_read_three:nnn #2 #3 #4
+	}
+	{
+		\fin_hanjanum_read_four:nnnn #1 #2 #3 #4
+	}
+	\bool_if:nF 
+	{ \int_compare_p:n { #1 = 0 } && \int_compare_p:n { #2 = 0 }
+	  && \int_compare_p:n { #3 = 0 } && \int_compare_p:n { #4 = 0 } }
+	{ \_mark_fin_eok }
+	\fin_hanjanum_read_eight:nnnnnnnn #5
+}	
+
+\cs_new:Npn \hanjanum_read_thirteen:nnnnnn #1 #2 #3 #4 #5 #6
+{
+	\int_compare:nF { #1 = 0 }
+	{
+		\number_to_hangul:n { #1 }
+		\_mark_cho \bool_if:nF { \hanja_mode || \no_man_space } { ~ }
+	}
+	\hanjanum_read_twelve:nnnnn #2 #3 #4 #5 #6
+}
+
+\cs_new:Npn \fin_hanjanum_read_thirteen:nnnnnn #1 #2 #3 #4 #5 #6
+{
+	\int_compare:nF { #1 = 0 }
+	{
+		\number_to_finhanja:n #1
+		\_mark_fin_cho
+	}
+	\fin_hanjanum_read_twelve:nnnnn #2 #3 #4 #5 #6
+}
+
+\cs_new:Npn \check_hanja_fin:
+{
+	\bool_if:nTF { \hanja_fin && \hanja_mode }
+	{  
+		\tl_set_eq:NN \x_hanjanum_read_one:n \fin_hanjanum_read_one:n
+		\tl_set_eq:NN \x_hanjanum_read_two:nn \fin_hanjanum_read_two:nn
+		\tl_set_eq:NN \x_hanjanum_read_three:nnn \fin_hanjanum_read_three:nnn
+		\tl_set_eq:NN \x_hanjanum_read_four:nnnn \fin_hanjanum_read_four:nnnn
+		\tl_set_eq:NN \x_hanjanum_read_five:nnnnn \fin_hanjanum_read_five:nnnnn
+		\tl_set_eq:NN \x_hanjanum_read_six:nnnnnn \fin_hanjanum_read_six:nnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_seven:nnnnnnn \fin_hanjanum_read_seven:nnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_eight:nnnnnnnn \fin_hanjanum_read_eight:nnnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_nine:nnnnnnnnn \fin_hanjanum_read_nine:nnnnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_ten:nnn \fin_hanjanum_read_ten:nnn
+		\tl_set_eq:NN \x_hanjanum_read_eleven:nnnn \fin_hanjanum_read_eleven:nnnn
+		\tl_set_eq:NN \x_hanjanum_read_twelve:nnnnn \fin_hanjanum_read_twelve:nnnnn
+		\tl_set_eq:NN \x_hanjanum_read_thirteen:nnnnnn \fin_hanjanum_read_thirteen:nnnnnn
+	}
+	{  
+		\tl_set_eq:NN \x_hanjanum_read_one:n \hanjanum_read_one:n
+		\tl_set_eq:NN \x_hanjanum_read_two:nn \hanjanum_read_two:nn
+		\tl_set_eq:NN \x_hanjanum_read_three:nnn \hanjanum_read_three:nnn
+		\tl_set_eq:NN \x_hanjanum_read_four:nnnn \hanjanum_read_four:nnnn
+		\tl_set_eq:NN \x_hanjanum_read_five:nnnnn \hanjanum_read_five:nnnnn
+		\tl_set_eq:NN \x_hanjanum_read_six:nnnnnn \hanjanum_read_six:nnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_seven:nnnnnnn \hanjanum_read_seven:nnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_eight:nnnnnnnn \hanjanum_read_eight:nnnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_nine:nnnnnnnnn \hanjanum_read_nine:nnnnnnnnn
+		\tl_set_eq:NN \x_hanjanum_read_ten:nnn \hanjanum_read_ten:nnn
+		\tl_set_eq:NN \x_hanjanum_read_eleven:nnnn \hanjanum_read_eleven:nnnn
+		\tl_set_eq:NN \x_hanjanum_read_twelve:nnnnn \hanjanum_read_twelve:nnnnn
+		\tl_set_eq:NN \x_hanjanum_read_thirteen:nnnnnn \hanjanum_read_thirteen:nnnnnn
+	}
+}
+
+\NewDocumentCommand \hanjacnt_hanja_number { m }
+{
+	\check_hanja_fin:
+	\bool_if:nT { \int_compare_p:n { #1 >= 0 } && \int_compare_p:n { #1 < 10 } }
+	{
+		\exp_after:wN \x_hanjanum_read_one:n #1
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 10 } && \int_compare_p:n { #1 < 100 } }
+	{
+		\exp_after:wN \x_hanjanum_read_two:nn #1
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 100 } && \int_compare_p:n { #1 < 1000 } }
+	{
+		\exp_after:wN \x_hanjanum_read_three:nnn #1
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 1000 } && \int_compare_p:n { #1 < 10000 } }
+	{
+		\exp_after:wN \x_hanjanum_read_four:nnnn #1
+	}
+	\bool_if:nT { \int_compare_p:n { #1 >= 10000 } && \int_compare_p:n { #1 < 100000 } }
+	{
+		\exp_after:wN \x_hanjanum_read_five:nnnnn #1
+	}
+	\bool_if:nF { \int_compare_p:n { #1 < 100000 } }
+	{
+		\tl_set:Nn \_tmp_num_big { #1 }
+		\exp_args:Nx \hanjacnt_hanja_number_big \_tmp_num_big
+	}
+}
+
+\NewDocumentCommand \hanjacnt_hanja_number_big { m }
+{
+	\seq_set_split:Nnn \tmp_test_seq {} { #1 }
+	\seq_remove_all:Nn \tmp_test_seq { , }
+	\check_hanja_fin:
+	\int_case:nn { \seq_count:N \tmp_test_seq }
+	{
+		{ 1 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\x_hanjanum_read_one:n \_tmp_dan }
+		{ 2 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\x_hanjanum_read_two:nn \_tmp_shi \_tmp_dan }
+		{ 3 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\x_hanjanum_read_three:nnn \_tmp_bae \_tmp_shi \_tmp_dan }
+		{ 4 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\x_hanjanum_read_four:nnnn \_tmp_chu
+						\_tmp_bae \_tmp_shi \_tmp_dan }
+		{ 5 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man
+				\x_hanjanum_read_five:nnnnn \_tmp_man \_tmp_chu
+						\_tmp_bae \_tmp_shi \_tmp_dan }
+		{ 6 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn 
+				\x_hanjanum_read_six:nnnnnn 
+					\_tmp_smn \_tmp_man \_tmp_chu \_tmp_bae
+					\_tmp_shi \_tmp_dan }
+		{ 7 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\x_hanjanum_read_seven:nnnnnnn
+					\_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+		{ 8 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn
+				\x_hanjanum_read_eight:nnnnnnnn
+					\_tmp_cmn \_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+
+		{ 9 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_eok
+				\x_hanjanum_read_nine:nnnnnnnnn
+					\_tmp_eok \_tmp_cmn \_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+	   { 10 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_eok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_sok
+				\x_hanjanum_read_ten:nnn
+					\_tmp_sok \_tmp_eok \_tmp_cmn \_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+	   { 11 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_eok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_sok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bok
+				\x_hanjanum_read_eleven:nnnn
+					\_tmp_bok \_tmp_sok \_tmp_eok \_tmp_cmn \_tmp_bmn 
+					\_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+	   { 12 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_eok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_sok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cok
+				\x_hanjanum_read_twelve:nnnnn
+					\_tmp_cok \_tmp_bok \_tmp_sok \_tmp_eok
+					\_tmp_cmn \_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+	   { 13 } { \seq_pop_right:NN \tmp_test_seq \_tmp_dan
+				\seq_pop_right:NN \tmp_test_seq \_tmp_shi
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bae
+				\seq_pop_right:NN \tmp_test_seq \_tmp_chu
+				\seq_pop_right:NN \tmp_test_seq \_tmp_man 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_smn
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cmn 
+				\seq_pop_right:NN \tmp_test_seq \_tmp_eok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_sok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_bok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cok
+				\seq_pop_right:NN \tmp_test_seq \_tmp_cho
+				\x_hanjanum_read_thirteen:nnnnnn
+					\_tmp_cho \_tmp_cok \_tmp_bok \_tmp_sok \_tmp_eok
+					\_tmp_cmn \_tmp_bmn \_tmp_smn \_tmp_man
+					\_tmp_chu \_tmp_bae \_tmp_shi \_tmp_dan }
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% User's Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\int_new:N \_hanja_in_tmp_arg
+\cs_set_eq:NN \@HANJA \hanjacnt_hanja_number
+
+\NewDocumentCommand \HANJA { m }
+{
+	\bool_set_true:N \hanja_mode
+	\tl_set_eq:Nc \_hanja_in_tmp_tmp { c@#1 }
+	\int_set_eq:NN \_hanja_in_tmp_arg \_hanja_in_tmp_tmp
+	\group_begin:
+	\num_hanja_font
+	\int_compare:nTF { \_hanja_in_tmp_arg < 10 } 
+		{ \number_to_hangul:n \_hanja_in_tmp_tmp }
+		{ \@HANJA { \int_use:N \_hanja_in_tmp_arg } }
+	\group_end:
+}
+
+\NewDocumentCommand \HANGUL { m }
+{
+	\bool_set_false:N \hanja_mode
+	\tl_set_eq:Nc \_hanja_in_tmp_tmp { c@#1 }
+	\int_set_eq:NN \_hanja_in_tmp_arg \_hanja_in_tmp_tmp
+	\group_begin:
+	\int_compare:nTF { \_hanja_in_tmp_arg < 10 } 
+		{ \number_to_hangul:n \_hanja_in_tmp_tmp }
+		{ \@HANJA { \int_use:N \_hanja_in_tmp_arg } }
+	\group_end:
+}
+
+\NewDocumentCommand \NumHanja { m }
+{
+	\bool_set_true:N \hanja_mode
+	\group_begin:
+	\num_hanja_font
+	\@HANJA { #1 }
+	\group_end:
+}
+
+\NewDocumentCommand \NumHanjaBig { m }
+{
+	\bool_set_true:N \hanja_mode
+	\tl_set:Nn \_tmp_num_big { #1 }
+	\group_begin:
+	\num_hanja_font
+	\exp_args:Nx \hanjacnt_hanja_number_big \_tmp_num_big
+	\group_end:
+}
+
+\NewDocumentCommand \NumHangulBig { m }
+{
+	\bool_set_false:N \hanja_mode
+	\tl_set:Nn \_tmp_num_big { #1 }
+	\group_begin:
+	\num_hanja_font
+	\exp_args:Nx \hanjacnt_hanja_number_big \_tmp_num_big
+	\group_end:
+}
+
+
+\NewDocumentCommand \NumHangul { m }
+{
+	\bool_set_false:N \hanja_mode
+	\group_begin:
+	\@HANJA { #1 }
+	\group_end:
+}
+
+\NewDocumentCommand \NumHanjaDig { m }
+{
+	\group_begin:
+	\num_hanja_font
+	\str_hanja_num { #1 }
+	\group_end:
+}
+
+\cs_set_eq:NN \@HANJADIG \str_hanja_num
+
+\NewDocumentCommand \HANJADIG { m }
+{
+	\tl_set_eq:Nc \_hanja_in_tmp_tmp { c@#1 }
+	\group_begin:
+	\num_hanja_font
+	\@HANJADIG { \int_use:c { _hanja_in_tmp_tmp } }
+	\group_end:
+}
+
+\NewDocumentCommand \ManSpaceOn { }
+{
+	\bool_set_false:N \no_man_space
+}
+
+\NewDocumentCommand \ManSpaceOff { }
+{
+	\bool_set_true:N \no_man_space
+}
+
+\NewDocumentCommand \FinHanjaMode { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\bool_set_true:N \hanja_fin
+		\bool_set_false:N \hanja_fin_var
+		\bool_set_false:N \hanja_fin_full
+	}
+	{
+		\str_case:nnF { #1 }
+		{
+			{ on   } { \bool_set_true:N \hanja_fin      }
+			{ off  } { \bool_set_false:N \hanja_fin
+			           \bool_set_false:N \hanja_fin_var
+			           \bool_set_false:N \hanja_fin_full }
+			{ fin  } { \bool_set_true:N \hanja_fin      }
+			{ full } { \bool_set_true:N \hanja_fin
+					   \bool_set_true:N \hanja_fin_full }
+			{ var  } { \bool_set_true:N \hanja_fin
+					   \bool_set_false:N \hanja_fin_full
+					   \bool_set_true:N \hanja_fin_var  }
+			{ fullvar } { \bool_set_true:N \hanja_fin
+					   \bool_set_true:N \hanja_fin_full
+					   \bool_set_true:N \hanja_fin_var }
+		}
+		{
+			\bool_set_false:N \hanja_fin
+			\bool_set_false:N \hanja_fin_var
+			\bool_set_false:N \hanja_fin_full
+		}
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% \MarkHanja
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\cs_new:Npn \set_mark_hanja_default:
+{
+	\tl_set:Nn \_mark_hanja_zero  { 零 }
+	\tl_set:Nn \_mark_hanja_one   { 一 }
+	\tl_set:Nn \_mark_hanja_two   { 二 }
+	\tl_set:Nn \_mark_hanja_three { 三 }
+	\tl_set:Nn \_mark_hanja_four  { 四 }
+	\tl_set:Nn \_mark_hanja_five  { 五 }
+	\tl_set:Nn \_mark_hanja_six   { 六 }
+	\tl_set:Nn \_mark_hanja_seven { 七 }
+	\tl_set:Nn \_mark_hanja_eight { 八 }
+	\tl_set:Nn \_mark_hanja_nine  { 九 }
+	\tl_set:Nn \_mark_hanja_sib   { 十 }
+	\tl_set:Nn \_mark_hanja_bae   { 百 }
+	\tl_set:Nn \_mark_hanja_chu   { 千 }
+	\tl_set:Nn \_mark_hanja_man   { 萬 }
+	\tl_set:Nn \_mark_hanja_eok   { 億 }
+	\tl_set:Nn \_mark_hanja_cho   { 兆 }
+}
+
+\NewDocumentCommand \MarkHanja { m g }
+{
+	\str_case:nn { #1 }
+	{
+		{ shi }     { \tl_set:Nn \_mark_hanja_sib  { #2 } }
+		{ ten }     { \tl_set:Nn \_mark_hanja_sib  { #2 } }
+		{ bae }     { \tl_set:Nn \_mark_hanja_bae  { #2 } }
+		{ hundred } { \tl_set:Nn \_mark_hanja_bae  { #2 } }
+		{ chu }     { \tl_set:Nn \_mark_hanja_chu  { #2 } }
+		{ thousand } { \tl_set:Nn \_mark_hanja_chu { #2 } }
+		{ man }     { \tl_set:Nn \_mark_hanja_man  { #2 } }
+		{ zero }    { \tl_set:Nn \_mark_hanja_zero { #2 } }
+		{ one }     { \tl_set:Nn \_mark_hanja_one  { #2 } }
+		{ two }     { \tl_set:Nn \_mark_hanja_two  { #2 } }
+		{ three }   { \tl_set:Nn \_mark_hanja_three { #2 } }
+		{ four }    { \tl_set:Nn \_mark_hanja_four { #2 } }
+		{ five }    { \tl_set:Nn \_mark_hanja_five { #2 } }
+		{ six }     { \tl_set:Nn \_mark_hanja_six  { #2 } }
+		{ seven }   { \tl_set:Nn \_mark_hanja_seven { #2 } }
+		{ eight }   { \tl_set:Nn \_mark_hanja_eight { #2 } }
+		{ nine }    { \tl_set:Nn \_mark_hanja_nine { #2 } }
+		{ eok }     { \tl_set:Nn \_mark_hanja_eok  { #2 } }
+		{ cho }     { \tl_set:Nn \_mark_hanja_cho  { #2 } }
+		{ default } { \set_mark_hanja_default: }
+	}				
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%% \KRVverse
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\int_new:N \_tmp_krv_num
+\cs_new:Npn \num_to_krvstyle:n #1
+{
+		\int_case:nnF { #1 }
+		{
+			{ 20 } { \twenty_hanja_char }
+			{ 30 } { \thirty_hanja_char }
+		}
+		{
+			\bool_if:nTF { \int_compare_p:n { #1 > 20 } && \int_compare_p:n { #1 < 40 } }
+			{ \NumHanjaDig { #1 } }
+			{ \NumHanja { #1 } }
+		}
+}
+\cs_new:Npn \treat_krv_chapverse:nn #1 #2
+{
+	\int_compare:nF { #1 = 0 }
+	{ \num_to_krvstyle:n { #1 } ○ }
+	\num_to_krvstyle:n { #2 }
+}
+
+\NewDocumentCommand \KRVverse { g > { \SplitList { . } } m g }
+{
+	\bool_if:nF \thirty_hanja { \TwentyHanjaChar[31] }
+  	\IfValueT { #1 }
+  	{
+	  \str_case:nn { #1 }
+	  {
+		{ Gen }  { 創 }
+		{ Exo }  { 出 }
+		{ Lev }  { 레 }
+		{ Num }  { 民 }
+		{ Deu }  { 申 }
+		{ Jos }  { 수 }
+		{ Jdg }  { 삿 }
+		{ Rut }  { 룻 }
+		{ 1Sa }  { 삼上 }
+		{ 2Sa }  { 삼下 }
+		{ 1Ki }  { 王上 }
+		{ 2Ki }  { 王下 }
+		{ 1Ch }  { 代上 }
+		{ 2Ch }  { 代下 }
+		{ Ezr }  { 스 }
+		{ Neh }  { 느 } 
+		{ Est }  { 에 } 
+		{ Job }  { 욥 }
+		{ Psa }  { 詩 }
+		{ Pro }  { 箴 }
+		{ Ecc }  { 傳 }
+		{ Son }  { 雅 }
+		{ Isa }  { 사 }
+		{ Jer }  { 렘 }
+		{ Lam }  { 哀 }
+		{ Eze }  { 겔 }
+		{ Dan }  { 단 }
+		{ Hos }  { 호 }
+		{ Joe }  { 욜 }
+		{ Amo }  { 암 }
+		{ Oba }  { 옵 }
+		{ Jon }  { 욘 }
+		{ Mic }  { 미 }
+		{ Nah }  { 나 }
+		{ Hab }  { 합 }
+		{ Zep }  { 습 }
+		{ Hag }  { 학 }
+		{ Zec }  { 슥 }
+		{ Mal }  { 말 }
+		{ Mat }  { 마 }
+		{ Mar }  { 막 }
+		{ Luk }  { 눅 }
+		{ Joh }  { 요 }
+		{ Act }  { 行 }
+		{ Rom }  { 롬 }
+		{ 1Co }  { 고前 }
+		{ 2Co }  { 고後 }
+		{ Gal }  { 갈 }
+		{ Eph }  { 엡 }
+		{ Phi }  { 빌 }
+		{ Col }  { 골 }
+		{ 1Th }  { 살前 }
+		{ 2Th }  { 살後 }
+		{ 1Ti }  { 딤前 }
+		{ 2Ti }  { 딤後 }
+		{ Tit }  { 딛 }
+		{ Phm }  { 몬 }
+		{ Heb }  { 히 }
+		{ Jam }  { 약 }
+		{ 1Pe }  { 벧前 }
+		{ 2Pe }  { 벧後 }
+		{ 1Jo }  { 요一 }
+		{ 2Jo }  { 요二 }
+		{ 3Jo }  { 요三 }
+		{ Jud }  { 유 }
+		{ Rev }  { 啓 }
+	  }
+  	}
+	\treat_krv_chapverse:nn #2
+	\IfValueT { #3 }
+	{
+		—\KRVcom{#3}
+	}
+}
+
+\NewDocumentCommand \KRVcom { m }
+{
+	\num_to_krvstyle:n { #1 }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%% \HanjaMonth
+%%%%%%%%%%%%%%%%%%%%%%
+
+\cs_new:Npn \num_to_hanja_monthname:n #1
+{
+	\int_case:nnT { #1 }
+	{
+		{ 1 } { 正 }
+		{ 2 } { 二 }
+		{ 3 } { 三 }
+		{ 4 } { 四 }
+		{ 5 } { 五 }
+		{ 6 } { 六 }
+		{ 7 } { 七 }
+		{ 8 } { 八 }
+		{ 9 } { 九 }
+		{ 10 } { 十 }
+		{ 11 } { 十一 }
+		{ 12 } { 十二 }
+	}
+	{
+		月
+	}
+}
+
+\cs_new:Npn \num_to_hangul_monthname:n #1
+{
+	\int_case:nn { #1 }
+	{
+		{ 1  } { 일월 }
+%		{ 1a } { 정월 }
+		{ 2  } { 이월 }
+		{ 3  } { 삼월 }
+		{ 4  } { 사월 }
+		{ 5  } { 오월 }
+		{ 6  } { 유월 }
+		{ 7  } { 칠월 }
+		{ 8  } { 팔월 }
+		{ 9  } { 구월 }
+		{ 10 } { 시월 }
+		{ 11 } { 십일월 }
+%		{ 11a } { 동짓달 }
+		{ 12 } { 십이월 }
+%		{ 12a } { 섣달 }
+	}
+}
+
+\cs_new:Npn \num_to_hanja_yearname:n #1
+{
+	\NumHanjaDig { #1 } 年
+}
+
+\cs_new:Npn \num_to_hangul_yearname:n #1
+{
+	\NumHangul { #1 } 년
+}
+
+\cs_new:Npn \num_to_hanja_dayname:n #1
+{
+	\NumHanja { #1 } 日
+}
+
+\cs_new:Npn \num_to_hangul_dayname:n #1
+{
+	\NumHangul { #1 } 일
+}
+
+\cs_new:Npn \num_to_hangul_lunardayname:n #1
+{
+	\int_case:nn { #1 }
+	{
+		{ 1 } { 초하루 }
+		{ 2 } { 초이틀 }
+		{ 3 } { 초사흘 }
+		{ 4 } { 초나흘 }
+		{ 5 } { 초닷새 }
+		{ 6 } { 초엿새 }
+		{ 7 } { 초이레 }
+		{ 8 } { 초여드레 }
+		{ 9 } { 초아흐레 }
+		{ 10 } { 초열흘 }
+		{ 11 } { 열하루 }
+		{ 12 } { 열이틀 }
+		{ 13 } { 열사흘 }
+		{ 14 } { 열나흘 }
+%		{ 14a } { 소망 }
+%		{ 15a } { 망일 }
+		{ 15 } { 보름 }
+%		{ 15n } { 열닷새 }
+%		{ 16n } { 열엿새 }
+%		{ 16a } { 기망 }
+		{ 16 } { 열엿새 }
+		{ 17 } { 열이레 }
+		{ 18 } { 열여드레 }
+		{ 19 } { 열아흐레 }
+		{ 20 } { 스무날 }
+		{ 21 } { 스무하루 }
+		{ 22 } { 스무이틀 }
+		{ 23 } { 스무사흘 }
+		{ 24 } { 스무나흘 }
+		{ 25 } { 스무닷새 }
+		{ 26 } { 스무엿새 }
+		{ 27 } { 스무이레 }
+		{ 28 } { 스무여드레 }
+		{ 29 } { 스무아흐레 }
+%		{ 30 } { 그믐 }
+		{ 30 } { 서른날 }
+		{ 31 } { 서른하루 }
+		{ 100 } { 그믐 }
+	}
+}
+
+\NewDocumentCommand \HanjaMonth { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hanja_monthname:n { \the\month }
+	}
+	{
+		\num_to_hanja_monthname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HangulMonth { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hangul_monthname:n { \the\month }
+	}
+	{
+		\num_to_hangul_monthname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HanjaYear { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hanja_yearname:n { \the\year }
+	}
+	{
+		\num_to_hanja_yearname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HangulYear { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hangul_yearname:n { \the\year }
+	}
+	{
+		\num_to_hangul_yearname:n { #1 }
+	}
+}
+
+\int_new:N \_hangul_dangi 
+\int_new:N \_hangul_bulgi
+
+\NewDocumentCommand \HangulDangiYear { m }
+{
+	\int_set:Nn \_hangul_dangi { \int_eval:n { #1 + 2333 } }
+	단기\ \exp_args:No \NumHangul{ \int_eval:n {\_hangul_dangi} } 년
+}
+
+\NewDocumentCommand \HanjaDangiYear { m }
+{
+	\int_set:Nn \_hangul_dangi { \int_eval:n { #1 + 2333 } }
+	檀紀 \exp_args:No \NumHanjaDig{ \int_eval:n {\_hangul_dangi} } 年
+}
+
+\NewDocumentCommand \HangulBulgiYear { m }
+{
+	\int_set:Nn \_hangul_bulgi { \int_eval:n { #1 + 544 } }
+	불기\ \exp_args:No \NumHangul { \int_eval:n { \_hangul_bulgi } } 년
+}
+
+\NewDocumentCommand \HanjaBulgiYear { m }
+{
+	\int_set:Nn \_hangul_bulgi { \int_eval:n { #1 + 544 } }
+	佛紀 \exp_args:No \NumHanjaDig { \int_eval:n { \_hangul_bulgi } } 年
+}
+
+\NewDocumentCommand \HanjaDay { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hanja_dayname:n { \the\day }
+	}
+	{
+		\num_to_hanja_dayname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HangulDay { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hangul_dayname:n { \the\day }
+	}
+	{
+		\num_to_hangul_dayname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HanjaToday { }
+{
+	\HanjaYear \ \HanjaMonth \ \HanjaDay
+}
+
+\NewDocumentCommand \HangulToday { }
+{
+	\HangulYear \ \HangulMonth \ \HangulDay
+}
+
+\NewDocumentCommand \HangulLunarDay { g }
+{
+	\IfNoValueTF { #1 }
+	{
+		\num_to_hangul_lunardayname:n { \the\day }
+	}
+	{
+		\num_to_hangul_lunardayname:n { #1 }
+	}
+}
+
+\NewDocumentCommand \HangulLunarToday { }
+{
+	\HangulDangiYear{\the\year}\ \HangulMonth \ \HangulLunarDay
+}
+
+\endinput
+
+%%% v2.7: introduce \MarkHanja, user-defined Hanja Character
+%%% v2.5: \KRVverse, \KRVcom
+%%% v2.4: comma-seperated numbers with BIG.
+%%% v2.3: 한자 갖은자
+%%% v2.2: 2014/06/26, expand arguments to BIG.
+%%% v2.1: 2014/06/18, [man] disappearing bug fixed.

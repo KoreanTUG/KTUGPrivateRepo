@@ -1,0 +1,193 @@
+%!TEX TS-program = arara
+% arara: xelatex: { shell: yes }
+\documentclass[polyglossia,a4paper,12pt,kosection]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+%\usepackage{polyglossia}
+\setdefaultlanguage{korean}
+\newfontfamily\hangulfont{NanumMyeongjo}[Ligatures=TeX]
+\newfontfamily\hangulfontsf{NanumGothic}[Ligatures=TeX]
+\newfontfamily\hangulfonttt{UnTaza}
+
+\usepackage[refcmd]{ksjosaref}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{minted}
+\newtcblisting{code}{%
+	colback=red!5!white,
+	colframe=red!75!black,
+	listing engine=minted,
+	minted language=latex,
+	minted style=colorful,
+	minted options={fontsize=\small,linenos,numbersep=3mm},
+	colback=blue!5!white,colframe=blue!75!black,listing only,
+	left=5mm,enhanced,
+	overlay={\begin{tcbclipinterior}\fill[red!20!blue!20!white] (frame.south west)
+            rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}}
+}
+
+\newtcblisting{coderesult}{%
+	colback=red!5!white,
+	colframe=red!75!black,
+	listing engine=minted,
+	minted language=latex,
+	minted style=colorful,
+	minted options={fontsize=\small,linenos,numbersep=3mm},
+	colback=blue!5!white,colframe=blue!75!black,%listing only,
+	left=5mm,enhanced,
+	overlay={\begin{tcbclipinterior}\fill[red!20!blue!20!white] (frame.south west)
+            rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}}
+}
+
+
+\usepackage{kotex-logo}
+
+\def\pkg#1{\textsf{#1}}
+
+\begin{document}
+
+\pagestyle{hangul}
+
+\title{\texttt{ksjosaref} 패키지}
+\author{v0.2, nanim}
+\maketitle
+
+\begin{abstract}
+\koTeX 을 사용하지 아니하는 상황에서 간이 자동조사가 동작하는 \verb|\ref|-류 명령을 정의한다.
+\end{abstract}
+
+\section{패키지}
+
+\begin{code}
+\usepackage[<options>]{ksjosaref}
+\end{code}
+
+현재 버전에서 사용가능한 옵션은 \verb|refcmd| 하나뿐이다. 이 옵션은 \verb|\ref|, \verb|\pageref|, \verb|\eqref| 명령을 이 패키지의 것으로 변경한다. 단, 이 기능은 실험적인 것이므로 일반적으로 사용하지 않는 것이 좋다.
+
+\section{명령}
+
+\begin{code}
+\josaref[<type>][<delim>]{<ref>}<조사>
+\end{code}
+
+\subsection{type}
+이 패키지가 지원하는 \verb|\ref|-류 명령은 다음 세 가지이다.
+\begin{enumerate}\tightlist
+\item \verb|\ref|
+\item \verb|\pageref|
+\item \verb|\eqref|
+\end{enumerate}
+이 중 \verb|\eqref|은 \pkg{amsmath} 패키지를 로드해야 한다. 이 각각을 첫 번째 옵션 인자로 지정한다.
+\begin{enumerate}\tightlist
+\item \verb|\josaref|
+\item \verb|\josaref[page]|
+\item \verb|\josaref[eq]|
+\end{enumerate}
+
+\subsection{delim}
+
+\verb|\ref{fig:test1}|은 \josaref{fig:test1}와 같은 결과를 식자한다.
+이 참조된 결과 숫자의 좌우에 적당한 delimiter를 주는 것이다.
+\begin{description}\tightlist
+\item [paren] 괄호를 친다. \josaref[][paren]{fig:test1}.
+\item [bracket] 각진괄호를 친다. \josaref[][bracket]{fig:test1}.
+\item [left=, right= ] 임의의 부호를 지정한다. \verb|\josaref[][left=\{,right=\}]{fig:test1}| \josaref[][left=\{,right=\}]{fig:test1}.
+\end{description}
+
+이것은 두 번째 옵션 인자이므로 반드시 첫 번째 옵션 인자 자리가 (비우더라도) 존재해야 한다.
+
+\subsection{조사}
+
+한글 조사를 쓴다. 은, 는, 이, 가, 을, 를, 와, 과, 로, 으로를 쓸 수 있다.
+
+한편, 서술격조사 `이(다)'는 특별하게 취급하는데, 현재 버전에서 자동조사로 간주하는 것은 `(이)라', `(이)나', `(이)다'의 세 가지이다. 다른 것, 예를 들면 `(이)고'는 격식있는 문서에서는 `이'를 밝혀주는 관행이 아직 유지된다.
+
+\medskip
+
+\begin{coderesult}
+\josaref{fig:test1}이나 \josaref{fig:test2}이나 \josaref{fig:test3}를 보아라.
+이것은 \josaref{fig:test2}이다.
+\end{coderesult}
+
+주격조사 `이'와 서술격조사 어간 `이'는 그 뒤에 따르는 글자가 있느냐 없느냐로 판별한다.
+혼동을 피하려면 주격조사를 일관되게 `가'로 써도 된다.
+
+\medskip
+
+\begin{coderesult}
+\josaref{fig:test2}이, \josaref{fig:test2}이라는, \josaref{fig:test3}가
+\end{coderesult}
+
+\section{refcmd 옵션}
+
+\verb|refcmd| 옵션을 주면 다음과 같이 된다.
+\begin{itemize} \tightlist
+\item \verb|\ref| 명령은 \verb|\josaref|와 동일하게 동작한다.
+\item \verb|\pageref|와 \verb|\eqref|는 \verb+\josaref[page|eq]+ 옵션을 준 것과 동일하다.
+\end{itemize}
+
+다만, 이 (대용) 명령들은 delim 지정, 즉 두 번째 옵션 인자를 주는 기능은 동작하지 않는다.
+
+\medskip
+
+\begin{coderesult}
+\ref{fig:test1}이, \pageref{fig:test2}가, \eqref{eq:3}
+\end{coderesult}
+
+다음 명령은 각각 원래의 \verb|\ref|-류 명령이 아닌 \verb|\josaref|의 대용 명령으로 사용할 것인지
+그것을 취소할 것인지를 나타낸다.
+
+\medskip 
+
+\begin{code}
+\josarefcmds, \nojosarefcmds
+\end{code}
+
+\section{변경 사항}
+
+\hangfrom{\textbullet\ \ }2015/08/08. ver0.2. 조사명령 뒤에 아무 것도 없이 문단이 끝날 때 발생하던 에러를 없앴다.
+
+%\section{알려진 문제점}
+
+%\hangfrom{\textbullet\ \ }이 명령들은 조사가 당연히 있는 것으로 간주하기 때문에, 아예 아무런 조사도 없이 문단의 마지막에서 끝나는 경우에 문제를 일으킨다. 마침표를 찍어주자.
+
+\clearpage
+
+\section{테스트를 위한 figure}
+
+%%% dummy figures
+
+ \begin{figure}
+ \centering
+ \includegraphics[scale=0.3]{example-image-a}
+  \caption{test}\label{fig:test1}
+ \end{figure}
+
+  \begin{figure}
+ \centering
+ \includegraphics[scale=0.3]{example-image-b}
+  \caption{test}\label{fig:test2}
+ \end{figure}
+
+  \begin{figure}
+ \centering
+ \includegraphics[scale=0.3]{example-image-c}
+  \caption{test}\label{fig:test3}
+ \end{figure}
+
+  \setcounter{figure}{28}
+
+  \begin{figure}
+ \centering
+ \includegraphics[scale=0.3]{example-image-golden}
+  \caption{test}\label{fig:test4}
+ \end{figure}
+
+\setcounter{equation}{2}
+\begin{equation}
+a^2 = b^2 + c^2 \label{eq:3}
+\end{equation}
+
+\end{document}

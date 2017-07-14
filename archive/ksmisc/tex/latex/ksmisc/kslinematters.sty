@@ -1,0 +1,136 @@
+% file: kslinematters.sty
+% public domain.
+% written by Nova De Hi, 2014/04/04, 04/13
+%
+% 04/13: fix bug reported by Progress, add option [blankline]
+% 04/14: bug fixed, code revised after ischo's suggestion, add option [tabtosp]
+%
+% This package provides the following commands:
+%	\obeythem, \disobeythem,
+%	\vobeyspaces, \vobeytabs, \vobeylines
+%	\newlinecommand, \renewlinecommand
+% and an environment: ksobeys
+% 
+%
+\ProvidesPackage{kslinematters}[2014/04/14]
+
+\newif\ifksblankline\ksblanklinetrue
+\newif\ifkstabtosp\kstabtospfalse
+\DeclareOption{blankline}{\ksblanklinetrue}
+\DeclareOption{noblankline}{\ksblanklinefalse}
+\DeclareOption{tabtosp}{\kstabtosptrue}
+\newif\ifEXTCMD\EXTCMDfalse
+\DeclareOption{extcmd}{\EXTCMDtrue}
+\ProcessOptions
+
+\newif\if@ksobey 
+
+\RequirePackage{tabto}
+
+\newlength\ksDefaultTab\setlength\ksDefaultTab{4em}
+
+% predefined tab positons
+\TabPositions{\ksDefaultTab,2\ksDefaultTab,3\ksDefaultTab,4\ksDefaultTab,5\ksDefaultTab,6\ksDefaultTab,7\ksDefaultTab,8\ksDefaultTab,9\ksDefaultTab,10\ksDefaultTab}
+
+% \vobeyspaces, \vobeytabs, \vobeylines
+{\catcode`\ =\active\gdef\vobeyspaces{\catcode`\ =\active\let =\@xobeysp}}
+{\catcode`\^^I=\active\gdef\vobeytabs{\catcode`\^^I=\active\let^^I=\x@vobeytabs}}
+\ifkstabtosp
+	\def\x@vobeytabs{\@xobeysp\@xobeysp\@xobeysp\@xobeysp\@xobeysp\@xobeysp\@xobeysp\@xobeysp}
+\else
+	\def\x@vobeytabs{\tab}
+\fi
+{\catcode`\^^M=\active\gdef\vobeylines{\catcode`\^^M=\active\let^^M=\x@vobeylines}}
+\ifksblankline
+	\def\x@vobeylines{\par\leavevmode\relax}
+\else
+	\def\x@vobeylines{\par\relax}
+\fi
+
+% \disobeythem
+\gdef\disobeythem{\catcode`\^^M=5\catcode`\ =10\catcode`\^^I=10\@ksobeyfalse}
+% \obeythem
+\gdef\obeythem{\vobeylines\vobeytabs\vobeyspaces\@ksobeytrue}
+
+\ifksblankline
+\newenvironment{ksobeys}{\parindent=0pt\obeythem\@gobble}{\disobeythem}
+\else
+\newenvironment{ksobeys}{\parindent=0pt\obeythem}{\disobeythem}
+\fi
+
+%%% EXTCMD 
+\ifEXTCMD
+\newlength{\ks@extcmd@len}
+\ifksblankline 
+  \setlength\ks@extcmd@len{-2\onelineskip}
+\else
+  \setlength\ks@extcmd@len{-0.5\onelineskip}
+\fi
+\let\kslm@section=\section 
+\let\kslm@subsection=\subsection
+% \let\kslm@figure=\figure 
+% \let\endkslm@figure=\endfigure 
+% \let\kslm@table=\table 
+% \let\endkslm@table=\endtable
+\protected\def\section#1{%
+  \if@ksobey \disobeythem 
+  \par\vspace{\ks@extcmd@len}
+  \kslm@section{#1} \obeythem 
+  \else \kslm@section{#1}\fi}
+\protected\def\subsection#1{%
+  \if@ksobey \disobeythem
+  \par\vspace{\ks@extcmd@len}
+  \kslm@subsection{#1} \obeythem 
+  \else \kslm@subsection{#1}\fi}
+\let\kslm@enumerate=\enumerate
+\let\endkslm@enumerate=\endenumerate
+\let\kslm@itemize=\itemize 
+\let\endkslm@itemize=\enditemize 
+
+% \newif\if@env@ksobey
+% \renewenvironment{enumerate}{%
+%   \if@ksobey \@env@ksobeytrue \disobeythem
+%   \par\vspace{.7\ks@extcmd@len}\fi
+%   \begin{kslm@enumerate}
+% }{%
+%   \end{kslm@enumerate}
+%   \if@env@ksobey \obeythem\fi
+% }
+% 
+% \renewenvironment{itemize}{%
+%   \if@ksobey \@env@ksobeytrue \disobeythem 
+%   \par\vspace{.7\ks@extcmd@len}\fi
+%   \begin{kslm@itemize}
+% }{%
+%   \end{kslm@itemize}
+%   \if@env@ksobey \obeythem\fi
+% }
+% 
+% \firmlists
+
+\fi
+
+%%% newlinecommand
+\newcommand*{\newlinecommand}[1]{%
+  \newcommand*{#1}{%
+    \begingroup%
+    \lccode`\~=\endlinechar%
+    \lowercase{\def\restofline@aux####1~}{\endgroup\csname\string#1\endcsname{####1}\space}%
+    \catcode\endlinechar=\active%
+    \restofline@aux%
+  }%
+  \expandafter\def\csname\string#1\endcsname##1%
+}
+
+\newcommand*{\renewlinecommand}[1]{%
+  \renewcommand*{#1}{%
+    \begingroup%
+    \lccode`\~=\endlinechar%
+    \lowercase{\def\restofline@aux####1~}{\endgroup\csname\string#1\endcsname{####1}\space}%
+    \catcode\endlinechar=\active%
+    \restofline@aux%
+  }%
+  \expandafter\def\csname\string#1\endcsname##1%
+}
+
+\endinput

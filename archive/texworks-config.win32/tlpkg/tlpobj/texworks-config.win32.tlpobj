@@ -1,0 +1,14 @@
+name texworks-config.win32
+category TLCore
+revision 200
+shortdesc win32 files of texworks-config
+binfiles arch=win32 size=2238
+ texmf-config/texworks/TUG/TeXworks.ini
+ texmf-config/texworks/configuration/tools.ini
+ texmf-config/texworks/dictionaries/en_US.aff
+ texmf-config/texworks/dictionaries/en_US.dic
+ texmf-config/texworks/dictionaries/ko.aff
+ texmf-config/texworks/dictionaries/ko.dic
+ texmf-config/texworks/templates/ko.TeX documents/article-kotex-template.tex
+ texmf-config/texworks/templates/ko.TeX documents/beamer-kotex-template.tex
+ texmf-config/texworks/templates/ko.TeX documents/oblivoir-template.tex

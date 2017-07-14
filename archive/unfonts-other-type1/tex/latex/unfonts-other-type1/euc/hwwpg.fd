@@ -1,0 +1,21 @@
+%% hwwpg.fd: UhcPilgi for LaTeX
+
+\DeclareFontFamily{H}{wwpg}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwpg}{c}{n}{<->wpgc}{}
+\DeclareFontShape{H}{wwpg}{c}{sl}{<->wpgco}{}
+\DeclareHFontShape{H}{wwpg}{c}{it}{<->hssub*wwpg/c/sl}{}
+\DeclareFontShape{H}{wwpg}{m}{n}{<->wpg}{}
+\DeclareFontShape{H}{wwpg}{m}{sl}{<->wpgo}{}
+\DeclareHFontShape{H}{wwpg}{m}{it}{<->hssub*wwpg/m/sl}{}
+\DeclareFontShape{H}{wwpg}{bc}{n}{<->wpgbc}{}
+\DeclareFontShape{H}{wwpg}{bc}{sl}{<->wpgbco}{}
+\DeclareHFontShape{H}{wwpg}{bc}{it}{<->hssub*wwpg/bc/sl}{}
+\DeclareFontShape{H}{wwpg}{b}{n}{<->wpgb}{}
+\DeclareFontShape{H}{wwpg}{b}{sl}{<->wpgbo}{}
+\DeclareHFontShape{H}{wwpg}{b}{it}{<->hssub*wwpg/b/sl}{}
+\DeclareFontShape{H}{wwpg}{bx}{n}{<->wpgb}{}
+\DeclareFontShape{H}{wwpg}{bx}{sl}{<->wpgbo}{}
+\DeclareHFontShape{H}{wwpg}{bx}{it}{<->hssub*wwpg/b/sl}{}
+
+%% End of hwwpg.fd

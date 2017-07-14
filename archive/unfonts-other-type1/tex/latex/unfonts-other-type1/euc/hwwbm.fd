@@ -1,0 +1,12 @@
+%% hwwbm.fd: UhcBom for LaTeX
+
+\DeclareFontFamily{H}{wwbm}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwbm}{c}{n}{<->wbmc}{}
+\DeclareFontShape{H}{wwbm}{c}{sl}{<->wbmco}{}
+\DeclareHFontShape{H}{wwbm}{c}{it}{<->hssub*wwbm/c/sl}{}
+\DeclareFontShape{H}{wwbm}{m}{n}{<->wbm}{}
+\DeclareFontShape{H}{wwbm}{m}{sl}{<->wbmo}{}
+\DeclareHFontShape{H}{wwbm}{m}{it}{<->hssub*wwbm/m/sl}{}
+
+%% End of hwwbm.fd

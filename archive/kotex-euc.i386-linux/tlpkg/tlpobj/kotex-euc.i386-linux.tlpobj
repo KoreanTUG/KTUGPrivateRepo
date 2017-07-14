@@ -1,0 +1,8 @@
+name kotex-euc.i386-linux
+category Package
+revision 200
+shortdesc i386-linux files of kotex-euc
+binfiles arch=i386-linux size=6
+ bin/i386-linux/euc-bookmark
+ bin/i386-linux/hbibtex
+ bin/i386-linux/hmakeindex

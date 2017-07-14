@@ -1,0 +1,14 @@
+% load this style after hangul of hfont
+%
+%\makeatletter
+ \DeclareRobustCommand\normalhfont
+                 {\hfontencoding\hencodingdefault%
+                  \hfontfamily\hfamilydefault%
+                  \fontshape\updefault%
+                  \kscfamily\symboldefault\hanguldefault\hanjadefault}
+ \DeclareRobustCommand\itshape
+        {\not@math@alphabet\itshape\mathit
+         \fontshape\itdefault\selectfont\normalhfont\hfontfamily{gr}}
+ \DeclareRobustCommand\slshape\itshape
+%\makeatother
+\endinput

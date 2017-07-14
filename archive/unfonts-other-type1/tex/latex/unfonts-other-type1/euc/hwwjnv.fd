@@ -1,0 +1,7 @@
+%% hwwjnv.fd: UhcJamoNovel for LaTeX
+
+\DeclareFontFamily{H}{wwjnv}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwjnv}{m}{n}{<->wjnv}{}
+
+%% End of hwwjnv.fd

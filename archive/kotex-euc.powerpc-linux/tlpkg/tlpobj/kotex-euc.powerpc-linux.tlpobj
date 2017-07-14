@@ -1,0 +1,8 @@
+name kotex-euc.powerpc-linux
+category Package
+revision 200
+shortdesc powerpc-linux files of kotex-euc
+binfiles arch=powerpc-linux size=12
+ bin/powerpc-linux/euc-bookmark
+ bin/powerpc-linux/hbibtex
+ bin/powerpc-linux/hmakeindex

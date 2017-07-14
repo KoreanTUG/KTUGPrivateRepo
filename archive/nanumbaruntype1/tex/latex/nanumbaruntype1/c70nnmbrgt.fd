@@ -1,0 +1,9 @@
+\ProvidesFile{c70nnmbrgt.fd}[2013/02/16 v0.2 Nanum Barun Gothic font definitions]
+\DeclareFontFamily{C70}{nnmbrgt}{\hyphenchar \font\m@ne}
+\DeclareFontShape {C70}{nnmbrgt}{m}{n}{<-> CJK * nnmbrgtm}{}
+\DeclareFontShape {C70}{nnmbrgt}{m}{sl}{<-> CJK * nnmbrgtmo}{}
+\DeclareFontShape {C70}{nnmbrgt}{m}{it}{<-> CJKssub * nnmbrgt/m/sl}{}
+\DeclareFontShape {C70}{nnmbrgt}{bx}{n}{<-> CJK * nnmbrgtb}{}
+\DeclareFontShape {C70}{nnmbrgt}{bx}{sl}{<-> CJK * nnmbrgtbo}{}
+\DeclareFontShape {C70}{nnmbrgt}{bx}{it}{<-> CJKssub * nnmbrgt/bx/sl}{}
+\endinput

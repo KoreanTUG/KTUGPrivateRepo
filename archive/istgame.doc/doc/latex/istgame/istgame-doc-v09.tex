@@ -1,0 +1,1243 @@
+%!TEX root = istgame-doc.tex
+\setcounter{section}{-1}
+
+\section{Changes}
+
+A considerable number of macro names have been changed in the version 0.8(Jan. 17, 2017) of this package.
+The following old macro names in any previously written documents using codes in \pkg{istgame} ver. 0.7 or before, should be replaced by the new names, accordingly.
+
+\begin{center}
+\begin{tabu}to .7\linewidth{X[l]X[l]}  \toprule
+\makecell[c]{\textbf{version 0.7 or before}}  & \makecell[c]{\textbf{ver 0.8 or later}} \\\midrule
+\cmd{\xdistance} & \cmd{\xtdistance} \\\tabucline-
+\cmd{\xDot} &\cmd{\xtNode} \\\tabucline-
+\cmd{\xInfoset} &\cmd{\xtInfoset} \\\tabucline-
+\cmd{\xInfoset*} &\cmd{\xtInfoset*} \\\tabucline-
+\cmd{\xInfosetOwner} &\cmd{\xtInfosetOwner} \\\tabucline-
+\cmd{\xActionLabel} &\cmd{\xtActionLabel} \\\tabucline-
+\cmd{\xPayoff} &\cmd{\xtPayoff} \\\tabucline-
+\cmd{\ShowTerminalNodes} &\cmd{\xtShowTerminalNodes} \\\tabucline-
+\cmd{\HideTerminalNodes} &\cmd{\xtHideTerminalNodes} \\\tabucline-
+\cmd{\levdist} &\cmd{\xtlevdist} \\\tabucline-
+\cmd{\sibdist} &\cmd{\xtsibdist} \\\bottomrule
+\end{tabu} 
+\end{center}
+
+Here, the prefix `xt' stands for `extensive tree,'
+so \cmd{\xtdiatnace} can be read as `extensive tree distance.'
+
+\section{Getting Started}
+
+The package \pkg{istgame} provides macros to draw game trees. The core macros provided with this package are \cmd{\istroot}, \cmd{\istb}, and \cmd{\endist}. 
+\cmd{\istroot} pins down the root of a tree or a subtree, \cmd{\istb} represents a branch, and \cmd{\endist} indicates the end of drawing a simple tree. Without \cmd{\endist}, the tree is not actually drawn.
+
+Here, the prefix `ist' stands for `insung's simple tree.'
+Note that the package \pkg{istgame} depends on the packages \pkg{tikz}, \pkg{xparse}, and \pkg{expl3}.
+
+\subsection{getting-started examples}
+
+Let us get started with a simple self-explanatory example:
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+%% \usepackage{istgame}
+\begin{istgame}
+\istroot(0)(0,0) % names the root as (0) at (0,0)
+  \istb % endpoint will be (0-1), automatically
+  \istb % endpoint will be (0-2)
+  \istb % endpoint will be (0-3)
+\endist % end of simple (parent-child) structure
+\end{istgame}
+\end{tcblisting}
+
+
+The resulting tree has the height of 15mm and 
+the distance between two neighbor endpoints is also 15mm, in their defaults.
+In \Tikz, the height is called the \xword{level distance} and 
+the distance between the endpoints the \xword{sibling distance}.
+
+Basically, to draw a whole game tree, we just repeat the simple \verb|\istroot-\istb-\endist| sequence.
+If the second parenthesis argument of \cmd{\istroot} is omitted, it is regarded as (0,0) in default, 
+otherwise it is necessary to specify the coordinate from which a subtree starts.
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot(0) % names the root as (0) at (0,0)
+  \istb % endpoint will be (0-1), automatically
+  \istb % endpoint will be (0-2)
+  \istb % endpoint will be (0-3)
+\endist % end of simple (parent-child) structure
+\istroot(c)(0-3) % names the subroot as (c) at (0-3)
+  \istb % endpoint will be (c-1)
+  \istb % endpoint will be (c-2)
+\endist
+\end{istgame}
+\end{tcblisting}
+
+
+\subsection{controlling the length and the direction of branches}
+
+The length and the direction of a branch can be controlled by the command \cmd{\xtdistance}. 
+
+% xdistance
+\begin{tcblisting}{listing only}
+\def\xtlevdist{15mm}  \def\xtsibdist{15mm}  %% (default) initial values for distances
+\NewDocumentCommand\xtdistance{O{1}mG{15mm}}
+    {
+    \renewcommand\xtlevdist{#2}
+    \renewcommand\xtsibdist{#3}
+    \tikzstyle{level #1}= [level distance=\xtlevdist,sibling distance=\xtsibdist]
+    }
+\end{tcblisting}
+
+
+\begin{itemize}
+%% distances
+\item \verb|\def\xtlevdist{15mm}| and \verb|\def\xtsibdist{15mm}| set the default values for the level distance and the sibling distance.
+\item \verb|\xtdistance| sets or resets at any time needed the level distance and the sibling distance with an option for level depth (default=1).
+\item syntax: \verb|\xtdistance[<level depth num>]{<level dist num>}{<sibling dist num>}|
+
+\mbigskip1
+With the current package \pkg{istgame}, the level depth of 1 suffices.
+(For more details about the level depth, see \Tikz\ manual or Chen(2013).)
+\end{itemize}
+
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\xtdistance{15mm}{15mm} % default
+\istroot(0) % names the root (0) at (0,0)
+  \istb % endpoint will be (0-1), automatically
+  \istb % endpoint will be (0-2)
+  \istb % endpoint will be (0-3)
+\endist % end of simple (parent-child) structure
+\xtdistance{15mm}{30mm} % controls distances
+\istroot(a)(0-1) % names the subroot as (a) at (0-3)
+  \istb % endpoint will be (a-1)
+  \istb % endpoint will be (a-2)
+\endist
+\istroot(a)
+\end{istgame}
+\end{tcblisting}
+
+%\mbigskip1
+In fact, the core macros are much more powerful. \cmd{\istroot} controls the direction that a tree grows to, 
+node styles, the node owner and its position, the height and sibling distance of a current simple tree, etc.
+\cmd{\istb} specifies the growing direction of a branch, branch line styles, branch color, the label of action, and the payoffs and their position. The next section describes the core macros and others in more details.
+
+\section{Macros and Syntax}
+
+\subsection{environment \pkg{istgame} and node styles}
+
+\subsubsection*{environment \pkg{istgame}}
+
+This package provides \pkg{istgame} environment, which is simply \pkg{tikzpicture} environment
+so accepts all the options of \pkg{tikzpicture} environment.
+The default font size is set as \verb|font=\normalsize|. 
+%The default font size can be changed by \cmd{\setistgamefontsize}. 
+To change the default font size of \pkg{istgame} environment, for example, to \xword{scriptsize} you can do
+\verb|\setistgamefontsize{\scriptsize}|.
+You can also locally change the font size by using the \xword{font} option key, like
+\verb|\begin{istgame}[font=\scriptsize]...|. %\end{istgame}
+
+\mbigskip1
+\begin{tcblisting}{listing only}
+\def\istgamefontsize{\normalsize}
+\NewDocumentCommand\setistgamefontsize {m} 
+    {\renewcommand*{\istgamefontsize}{#1}
+    }
+
+\NewDocumentEnvironment{istgame}{O{}}   % accepts tikzpicture options
+    {\begin{tikzpicture}[%
+        edge from parent path=%
+            {(\tikzparentnode\istparentanchor) -- (\tikzchildnode\istchildanchor)},
+        font=\istgamefontsize,#1
+        ]
+    }
+    {\end{tikzpicture}
+    }
+\end{tcblisting}
+
+
+
+\subsubsection*{node styles:}
+
+\cmd{tikzstyle}'s of the six basic node types are predefined.
+
+\begin{itemize}
+\item zero node : draws nothing
+\item null node : \begin{istgame}\istroot(0)[null node]\endist\end{istgame} (very small node, not expected to be used)
+\item solid node : \begin{istgame}\istroot(0)[solid node]\endist\end{istgame} (default node style)
+\item hollow node : \begin{istgame}\istroot(0)[hollow node]\endist\end{istgame}
+\item rectangle node : \begin{istgame}\istroot(0)[rectangle node]\endist\end{istgame}
+\item ellipse node : \begin{istgame}\istroot(0)[ellipse node]\endist\end{istgame}
+\end{itemize}
+
+
+For some special cases, you may want to change the node styles of the basic nodes, including the minimum size as mandatory argument. This can be done by \cmd{\setist<...>NodeStyle}, except the zero node.
+
+\begin{verbatim}
+syntax:
+    \setistNullNodeStyle[<color>]{<min-size dim>}
+    \setistSolidNodeStyle[<color>]{<min-size dim>}
+    \setistHollowNodeStyle[<color>]{<min-size dim>}[<bg color>][<opacity num>]
+    \setistRectangleNodeStyle[<color>]{<min-size dim>}[<bg color>][<opacity num>]
+    \setistEllipseNodeStyle[<color>]{<min-size dim>}[<bg color>][<opacity num>]
+\end{verbatim}
+
+
+\begin{tcblisting}{listing outside text, righthand width=.1\linewidth}
+% Examples:
+\begin{istgame}\setistSolidNodeStyle[blue]{10pt}
+    \istroot(0)[solid node]\endist\end{istgame}\\[1ex]
+\begin{istgame}\setistHollowNodeStyle[blue]{10pt}[yellow]
+    \istroot(0)[hollow node]\endist\end{istgame}\\[1ex]
+\begin{istgame}\setistRectangleNodeStyle{10pt}[red][.5]
+    \istroot(0)[rectangle node]\endist\end{istgame}\\[1ex]
+\begin{istgame}\setistEllipseNodeStyle[blue]{10pt}[green]
+    \istroot(0)[ellipse node]\endist\end{istgame}\\[1ex]
+\begin{istgame}\setistNullNodeStyle[blue!20]{10pt}
+    \istroot(0)[null node]\endist\end{istgame}
+\end{tcblisting}
+
+
+These basic node styles have their aliases, for convenience, for who are familiar with the game-theoretic terminology.
+
+\begin{tcblisting}{listing only,breakable}
+\tikzstyle{decision node}=[solid node]  % decision nodes
+\tikzstyle{terminal node}=[solid node]  % terminal nodes
+\tikzstyle{initial node}=[hollow node]
+\tikzstyle{chance node}=[hollow node]
+\end{tcblisting}
+
+The set of all nodes of a game tree can be partitioned into
+the set of \xword{decision nodes} and that of \xword{terminal nodes}.
+
+You can use \xword{initial node} or \xword{chance node}
+to distinguish the root (or the initial node) of a game tree from decision nodes.
+You can also use \xword{chance node} to express a chance node of a game tree.
+
+You can also change the node styles, like
+\verb|\setistDecisionNodeStyle[blue]{3pt}|.
+
+Additional convenient node aliases are also provided. 
+
+\begin{tcblisting}{listing only,breakable}
+\tikzstyle{box node}=[rectangle node]
+\tikzstyle{square node}=[rectangle node]
+\tikzstyle{oval node}=[ellipse node]
+\end{tcblisting}
+
+You can change the node styles, like \verb|\setistBoxNodeStyle[blue]{3pt}[green][.5]|.
+
+\subsection{core macros: \protect\cmd{\istroot} and \protect\cmd{\istb}}
+
+\subsubsection*{\textbackslash istroot}
+
+The macro \cmd{\istroot} defines the root of a game or a subgame, specifies the owner of the node, and does some more.
+
+\begin{tcblisting}{listing only,breakable}
+% \istroot
+syntax: \istroot[<grow  key>](<coor>)(<coor>)[<node style>]%
+            <owner label angle>{<owner>}+<lev-distance>..<sib-distance>+
+defaults: [south]()(0,0)[decision node]<above>{}+15mm..15mm+
+arguments: 1 mandatory, 7 optional arguments
+  [grow] % the direction of growing <default: south>
+  (coor) % node name: mandatory
+  (coor) % node is at (coor) <default: (0,0)>
+  [node style] % node style <default: decision node> 
+  <angle> % position of owner name <default: above> 
+  {owner} % owner name
+  +level dist..sibling dist+ % <defaults: 15mm,15mm>
+\end{tcblisting}
+
+\mbigskip1
+Examples:
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot[right](0)<180>{First Player}
+  \istb  \istb  \endist
+\xtNode(0-1)[oval node] \xtNode(0-2)[square node]
+\end{istgame}
+\end{tcblisting}
+
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\xtdistance{20mm}{20mm}
+\istroot[right](0)[oval node]<left>{Game Start}
+  \istb  \istb  \endist
+\istroot(a)(0-1)<right>{Your turn}+15mm..10mm+
+  \istb  \istb  \endist
+\istroot[right](b)(0-2)[box node]<135>{player 1}
+  \istb  \istb  \endist
+\end{istgame}
+\end{tcblisting}
+
+
+remark: \verb|\def\istgrowdirection{<grow key>}|\par
+\quad\verb|<grow key>| assigns its value to \verb|\istgrowdirection|.
+
+\mbigskip1
+The direction of tree growing can be specified by \xword{degrees} or the key values such as 
+\xword{left}, \xword{right}, \xword{south}, \xword{down}, \xword{up}, and so forth.
+One complication about this is that \cmd{\istgrowdirection} is internally used 
+in the definition of \cmd{\istb} to control the label position for payoffs.
+However, for the label position \xword{below} and \xword{above} are good, 
+but not \xword{down} and \xword{up}.
+So using \xword{down} or \xword{up} to specify the tree growing direction is discouraged.
+
+The last two options of \cmd{\istroot} specify the \xword{level distance} and the \xword{sibling distance}.
+This change of distances is valid only for a corresponding simple tree, while distance change by \cmd{\xtdistance} is valid within the current \pkg{istgame} environment unless it is changed again by \cmd{\xtdistance}.
+Do not forget, when you use decimal distances, to delimit with braces the decimal dimensions, like
+\verb|+{10.5mm}..{10.2mm}++|.
+
+
+\subsubsection*{\textbackslash istroot*}
+
+The starred version \cmd{\istroot*} allows us to draw a bubble (in default, using \xword{oval node}) with a node owner (or a game player) in it.
+
+\begin{tcblisting}{listing only,breakable}
+% \istroot*
+syntax: \istroot*[<grow  key>](<coor>)(<coor>)[<node style>]{<player>}+levd..sibd+
+default: [south]()(0,0)[oval node]{}+15mm..15mm+
+\end{tcblisting}
+
+\mbigskip1
+
+Examples: (codes are the same as above but with stars)
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{tikzpicture}
+\istroot*[right](0)<180>{First Player} 
+  \istb  \istb  \endist
+\xtNode(0-1)[oval node] \xtNode(0-2)[square node]
+\end{tikzpicture}
+\end{tcblisting}
+
+Notice that \env{istgame} environment can be replaced by \env{tikzpicture} environment.
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\xtdistance{20mm}{20mm}
+\istroot*[right](0)[oval node]<left>{Game Start}
+  \istb  \istb  \endist
+\istroot(a)(0-1)<right>{Your turn}+15mm..10mm+
+  \istb  \istb  \endist
+\istroot*[right](b)(0-2)[box node]<135>{player 2}
+  \istb  \istb  \endist
+\end{istgame}
+\end{tcblisting}
+
+Notice that the angle \verb|<180>|, \verb|<left>|, or \verb|<135>| specifying the position of the owner's name is redundant with \cmd{\istroot*}.
+
+\mbigskip1
+What if you want to paint some color into the background of each oval node? You can do this simply by adding tikz node style options.
+
+\mbigskip1
+Example:
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\xtdistance{20mm}{20mm}
+\istroot*[right](0)[oval node,fill=blue!20]{player 1}
+  \istb  \istb  \endist
+\istroot*(a)(0-1)[oval node,fill=green!50]{player 3}%
+  +15mm..10mm+
+  \istb  \istb  \endist
+\istroot*[right](b)(0-2)[oval node,fill=red!20]{player 2}
+  \istb  \istb  \endist
+\end{istgame}
+\end{tcblisting}
+
+
+\begin{tcblisting}{listing only}
+% syntax: \setistnodeanchors, \setistparentanchor
+    \setistnodeanchors{<parent anchor>}{<child anchor>}
+% defaults:
+    {}{north}    
+\end{tcblisting}
+
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+% Example: \setistnodeanchors
+\begin{istgame}
+\setistnodeanchors{east}{west}
+\xtdistance{20mm}{20mm}
+\istroot*[right](0)[oval node,fill=blue!20]{player 1}
+  \istb  \istb  \endist
+\setistparentanchor{south}
+\istroot*(a)(0-1)[oval node,fill=green!50]{player 3}%
+  +15mm..10mm+
+  \istb  \istb  \endist
+\setistnodeanchors{east}{west}
+\istroot*[right](b)(0-2)[oval node,fill=red!20]{player 2}
+  \istb  \istb  \endist
+\end{istgame}
+\end{tcblisting}
+
+%\clearpage
+
+\subsubsection*{\cmd{\istb}}
+
+The macro \cmd{\istb} draws a branch with an optional action label and payoffs.
+Action labels and payoffs are defined to be in math mode, so you can use \verb|\text{...}| when you want to typeset them in text mode.
+
+\begin{tcblisting}{listing only,breakable}
+% \istb
+syntax: \istb<grow, distance>[<line sytle>]{<action>}[<pos>]{<payoff>}[<pos>]
+default: [south]{-}{}[]{}[\istgrowdirection]
+\end{tcblisting}
+
+
+\mbigskip1
+remark: What is \verb|\istgrowdirection| and what for?\par
+
+\mbigskip1
+\quad \cmd{\istgrowdirection} specifies the position of payoffs with \xword{south} as default.\par
+\quad \cmd{\istgrowdirection} is predefined and has the value of \verb|<grow key>| typed in \cmd{\istroot}.\par
+
+\mbigskip1
+If a tree grows to the right, \cmd{\istgrowdirection} makes the payoff put at the right of corresponding terminal node. We will see in more details below when we discuss how to put payoffs.
+
+Besides the direction of a branch,  \cmd{\istb} also controls the line style of a branch,
+the corresponding action label, and the payoffs and their position.
+To specify the position for the action label or payoffs within \cmd{\istb} or \cmd{\istb*}, 
+you can use the letter \xword{l} as an abbreviation for \xword{left}, \xword{r} for \xword{right}, \xword{a} for \xword{above}, and \xword{b} for \xword{below}.
+
+\mbigskip1
+Example: 
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot[-45](0)[initial node]
+  \istb[dashed,thick]{A} 
+  \istb
+  \istb[blue,very thick]{B}[above]
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\mbigskip1
+
+\subsubsection*{\textbackslash istb*}
+
+The starred version \cmd{\istb*} prints a ``terminal node" at the end of the corresponding branch. 
+\vspace{-2pt}
+
+\mbigskip1
+Example: 
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot[-45](0)[initial node]
+  \istb[dashed,thick]{A} 
+  \istb*
+  \istb*[blue,very thick]{B}[above]
+\endist
+\end{istgame}
+\end{tcblisting}
+
+%\mbigskip1
+Each terminal node is printed by each execution of the command \cmd{\istb*}.
+All the terminal nodes can be printed by one time execution of \cmd{\xtShowTerminalNodes}.
+You can change the style of terminal nodes by specifying it as an optional argument, like
+\cmd{\xtShowTerminalNodes[box node]}.
+Though \cmd{\xtHideTerminalNodes} can turn off the effect of \cmd{\xtShowTerminalNodes}, it is safe to use \cmd{\xtShowTerminalNodes} and \cmd{\xtHideTerminalNodes} in an \pkg{istgame} environment in order to avoid to get unexpected results.
+Notice also that \cmd{\istb*} overrides all the effect of these two macros by printing a \pkg{solid node}.
+
+\subsection{controlling the positions of payoffs, owners, and action labels}
+
+\subsubsection*{how to put payoffs}
+
+The direction of where payoffs are put from a terminal node follows \cmd{\istgrowdirection} typed in as the first optional argument of \cmd{\istroot}.
+The default direction is \xword{south} and can be changed by \cmd{\setistgrowdirection}.
+\verb|\setistgrwodirection{north}| changes the default direction to \xword{north}.
+
+\mbigskip1
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\xtShowTerminalNodes
+\istroot(0)[initial node]
+  \istb[dashed,thick]{A}{\binom23}
+  \istb{}{(-2,3)}
+  \istb[blue,very thick]{B}[right]{2,3}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\verb|grow=south| in default, so \verb|\istgrowdirection=south| (or below).\par
+This result is showing payoffs below (or at the south of) the terminal node.
+
+%\mbigskip1
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot[right](0)[initial node]
+  \istb[dashed,thick]{A}{\binom23}
+  \istb{}{(-2,3)}
+  \istb[blue,very thick]{B}[shift=(135:7pt)]{2,3}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\verb|grow=right=\istgrowdirection|, so the payoffs are put on the right.
+%
+%\mbigskip1
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\setistgrowdirection{north}
+\istroot(0)[initial node]
+  \istb[dashed,thick]{A}{\binom23}
+  \istb{}{(-2,3)}
+  \istb[blue,very thick]{B}[left]{2,3}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\verb|grow=north=\istgrowdirection|, so the payoffs are put above the terminal nodes.
+
+\mbigskip1
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}
+\istroot[south west](0)[initial node]
+  \istb[dashed,thick]{A}{\binom23}
+  \istb{}{(-2,3)}
+  \istb[blue,very thick]{B}[right]{2,3}[b]
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\verb|grow=south west=\istgrowdirection|, so the payoffs are put below left of the terminal node.
+
+\mbigskip1
+You can adjust the direction of any payoff to put by specifying an option right after the payoff, like \verb|\istb[blue,very thick]{B}[right]{2,3}[below]|. 
+You can use the abbreviations \xword{[l]}, \xword{[r]}, \xword{[a]}, and \xword{[b]} for \xword{[left]}, \xword{[right]}, \xword{[above]}, and \xword{[below]}, respectively.
+The abbreviations \xword{[al]}, \xword{[ar]}, \xword{[bl]}, and \xword{[br]} can be used
+for \xword{[above left]}, \xword{[above right]}, \xword{[below left]}, and \xword{[below right]}, respectively,
+to put payoffs. Notice also that, instead of the directional words, you can use degrees, like \verb|\istb[blue,very thick]{B}[right]{2,3}[-90]|.
+
+
+\subsubsection*{manipulating the position of action labels}
+
+In order to determine the direction of action labels for branches to put, you can use degrees and directional words and their abbreviations such as mentioned above.
+(Internally, the abbreviations for payoffs and that those for action labels work slightly differently in terms of \xword{xshift} and \xword{yshift}.)
+
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}[scale=1.2]
+\xtShowTerminalNodes
+\xtdistance{12mm}{16mm}
+\istroot(0)[chance node]
+  \istb<grow=0>{\fbox{$a$}}[a]
+  \istb<grow=90>{\fbox{$l$}}[l]
+  \istb<grow=180>{\fbox{$b$}}[b]
+  \istb<grow=-90>{\fbox{$r$}}[r]
+  \endist
+\end{istgame}
+\end{tcblisting}
+\captionof{figure}{action labels in defaults with \xword{l}, \xword{r}, \xword{a}, and \xword{b}}
+
+When you use these abbreviations you can manipulate the horizontal and/or the vertical shifts toward branches by using \cmd{\setistactionlabelshift}.
+
+\mbigskip1
+syntax: \verb|\setistactionlabelshift{<xshift dim> for l and r}{<yshift dim> for a and b}|
+
+default: \xword{xshift=<0pt>}, \xword{yshift=<0pt>}
+
+\mbigskip1
+For example, \verb|\setistactionlabelshift{-3pt}{5pt}| draws the labels put left and right by \xword{3pt} to the branch and push those put above and below \xword{5pt} away from the branch.
+
+\begin{tcblisting}{listing outside text, righthand width=.3\linewidth}
+\begin{istgame}[scale=1.2]
+\xtShowTerminalNodes
+\setistactionlabelshift{-3pt}{5pt} % look here
+\xtdistance{12mm}{16mm}
+\istroot(0)[chance node]
+  \istb<grow=0>{\fbox{$a$}}[a]
+  \istb<grow=90>{\fbox{$l$}}[l]
+  \istb<grow=180>{\fbox{$b$}}[b]
+  \istb<grow=-90>{\fbox{$r$}}[r]
+  \endist
+\end{istgame}
+\end{tcblisting}
+\captionof{figure}{action labels shifted: comparison}
+
+
+\subsubsection*{(experimental) efficient way of placing action labels}
+
+You can also use the abbreviations \xword{al}, \xword{ar}, \xword{bl}, and \xword{br} to represent
+\xword{above left}, \xword{above right}, \xword{below left}, and \xword{below right}, respectively,
+to position action labels. Precise representation of abbreviations is as follows:
+\begin{itemize}\tightlist
+\item \xword{[al]} represents \verb|[above left,xshift=0.5pt,yshift=-3.5pt,black]|
+\item \xword{[ar]} represents \verb|[above right,xshift=-0.5pt,yshift=-3.5pt,black]|
+\item \xword{[bl]} represents \verb|[below left,xshift=0.5pt,yshift=3.5pt,black]|
+\item \xword{[br]} represents \verb|[below right,xshift=-0.5pt,yshift=3.5pt,black]|
+\end{itemize}
+
+
+\begin{tcblisting}{breakable}
+\begin{istgame}[scale=1.2]
+\def\xbox#1{\fbox{$#1$}}  \def\ybox#1{#1}
+\xtdistance{12mm}{16mm}
+\istroot(0)[chance node]
+  \istb<grow=0>{\ybox{a}}[a]
+  \istb<grow=90>{\ybox{l}}[l]
+  \istb<grow=180>{\ybox{b}}[b]
+  \istb<grow=-90>{\ybox{r}}[r]
+  \endist
+\begin{scope}[line width=1.2]
+\xtdistance{10mm}{20mm}
+\istroot[90](N)(0-2)
+  \istb[red]{\xbox{br}}[br]{1,1}
+  \istb[blue,dashed]{\xbox{bl}}[bl]{2,2}
+  \endist
+\istroot[180](W)(0-3)
+  \istb[green]{\xbox{ar}}[ar]{0,3}
+  \istb[red]{\xbox{br}}[br]{2,1}
+  \endist
+\istroot[-90](S)(0-4)
+  \istb[dotted]{\xbox{al}}[al]{1,-1}
+  \istb[green]{\xbox{ar}}[ar]{-1,1}
+  \endist
+\istroot[0](E)(0-1)
+  \istb[blue,dashed]{\xbox{bl}}[bl]{1,3}
+  \istb[dotted]{\xbox{al}}[al]{2,0}
+  \endist
+\foreach \x in {1,...,4} {\xtNode(0-\x)}
+\end{scope}
+\end{istgame}
+\end{tcblisting}
+\captionof{figure}{positioning action labels}\label{fig:actlabel3}
+
+In Figure~\ref{fig:actlabel3}, \fbox{$al$}'s are put at the same position from dotted branches,
+and so are the other labels from their corresponding branches, like \fbox{$bl$}'s from blue dashed branches.
+
+You can also use \cmd{\setistactionlabelposition} to put and push labels horizontally and vertically.
+
+\mbigskip1
+syntax: \verb|\setistactionlabelposition{<horizontal shift dim>}{<vertical shift dim>}|
+
+default: \verb|{0.5pt}{3.5pt}|
+\mbigskip1
+
+When the dimensions get bigger than the defaults the labels get closer to the corresponding branches, and when smaller the labels get farther from their branches.
+See how it is used in the example of the subsection~\ref{p:poker-right}.
+
+
+%\clearpage
+
+\subsection{information sets and some supplement macros}
+
+\paragraph{information sets} ~
+
+syntax: \verb|\xtInfoset[<info line type>](<from>)(<to>){<owner>}[<pos>,<node opt>]|
+
+syntax: \verb|\xtInfoset*[<info line type>](<from>)(<to>){<owner>}[<pos>,<node opt>]|
+
+\mbigskip1
+\quad The starred version \cmd{\xtInfoset*} prints a bubble type information set. (experimental!)
+
+\paragraph{supplement macros} ~
+
+syntax: \verb|\xtInfosetOwner(<from>)(<to>){<owner>}[<pos>,<node opt>]|
+
+syntax: \verb|\xtActionLabel(<from>)(<to>){<action>}[<pos>,<node opt>]|
+
+syntax: \verb|\xtOwner(<coor>){<owner>}[<pos>,<node opt>]|
+
+syntax: \verb|\xtPayoff(<coor>){<payoff>}[<pos>,<node opt>]|
+
+syntax: \verb|\xtNode[<opt>](<coor>)[<node type>,<node opt>]{owner}|
+
+\mbigskip1
+Example:
+
+\begin{tcblisting}{}
+\begin{istgame}[scale=1.5]
+\istroot(0)[chance node]
+  \istb[dashed]{A}
+  \istb*
+  \istb*[blue,very thick]{B}[right,xshift=2pt,yshift=2pt,red]
+\endist
+\xtInfoset*(0)(0)
+\xtInfoset[thick](0-1)(0-2){1}
+\xtInfoset*[dashed,thick,red](0-2)(0-3){2}
+\xtInfoset[dashed,out=-30,in=210](0-1)(0-3)
+%-----------------
+\xtActionLabel(0)(0-3){\epsilon}[bl] % action label in math mode
+\xtInfosetOwner(0-1)(0-3){3}[xshift=-15pt,yshift=-20pt]
+\xtOwner(0){Nash}[xshift=-5pt,left]
+\xtPayoff(0-3){(u_1,u_2)}[right,xshift=5pt] % payoffs in math mode
+\xtNode[dotted](0-1)[box node,fill=blue!20]{Smith}
+\end{istgame}
+\end{tcblisting}
+
+\mbigskip1
+The supplement macros depend on the coordinates defined in the sequence of \cmd{\istroot}--\cmd{\istb}--\cmd{\endist} and print their corresponding objects on or around the specified coordinates.
+To specify the \xword{[<pos>]} option for the above supplement macros (other than \cmd{\xtNode}), 
+you can use the abbreviations 
+\xword{[l]}, \xword{[r]}, \xword{[a]}, \xword{[b]}, \xword{[al]}, \xword{[ar]}, \xword{[bl]}, and \xword{[br]}.
+Each of these abbreviations work only when used alone without any other option keys within brackets.
+For example, the option \xword{[r]} or \xword{[right]} or \verb+[right,xshift=5pt]+ works, but not \verb+[r,xshift=5pt]+.
+
+%\clearpage
+
+\paragraph{various branch types, directions, and lengths} ~
+
+\mbigskip1
+What follows is an example of how to deal with various line types, directions, and lengths of branches.
+
+\mbigskip1
+\begin{tcblisting}{breakable}
+\begin{istgame}[>=stealth,shorten >=.8pt]
+\istroot(0)[chance node]{N}+10mm..30mm+
+  \istb[->]{p}[al]
+  \istb[->]{1-p}[ar]
+\endist
+\istroot(1)(0-1)+15mm..30mm+
+  \istb<level distance=7mm,sibling distance=14mm>{L}[al]
+  \istb*[->]{R}[ar]
+\endist
+\istroot(2)(0-2)+10mm..15mm+
+  \istb[->,dashed]{A}
+  \istb<grow=30,level distance=30mm>[red]{a}[al]{(1,-1)}[[blue]right]
+  \istb*<grow=-45>[blue,thick]{b}[ar]{(u_{1},u_{2})}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+
+\clearpage
+
+\subsection{continuum of branches: \protect\cmd{\istcntm}}
+
+\subsubsection*{\textbackslash istcntm}
+
+\begin{tcblisting}{listing only}
+% \istcntm
+syntax: \istcntm[<grow key>](<coor>)(<coor>)[<fill color>]+levdist..sibdist+
+default: [south]()(0,0)[black!20]+15mm..15mm+
+\end{tcblisting}
+
+\mbigskip1
+Example:
+
+\begin{tcblisting}{listing outside text, righthand width=.25\linewidth}
+\begin{istgame}[scale=1.2]
+\istcntm(ctm)[green]+8mm..24mm+
+\istroot(0)(ctm){I}+8mm..8mm+
+  \istb{x}[r]
+  \istb<missing>
+\endist
+\xtdistance{10mm}{18mm}
+\istroot(1)(0-1)<[label distance=-3pt]120>{II}
+  \istb{Y}[l]{x,1-x}
+  \istb{N}[r]{0,0}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+The package \pkg{istgame} provides two types of macros to represent a continuum of branches.
+The first type \cmd{istcntm}, in fact, draws a background with the optional color filled representing a continuum of branches (the default color is \verb|black!25|).
+The second type is \cmd{\istcntm*}, which draws a background of two branches connected with an arc to represent a continuum of branches.
+
+\subsubsection*{\textbackslash istcntm*}
+
+\begin{tcblisting}{listing only}
+% \istcntm*
+syntax: \istcntm*[<grow key>](<coor>)(<coor>)[<color,opt>]{<num>}+levdist..sibdist+
+default: [south]()(0,0)[black!20]{.5}+15mm..15mm+
+\end{tcblisting}
+
+\mbigskip1
+The option \xword{<num>} (\xword{0.5} in default) specifies 
+the convex combination of the root and each background child node.
+The smaller \xword{<num>} is, the closer is the connecting arc drawn to the root.
+
+
+\mbigskip1
+Example:
+
+\begin{tcblisting}{listing outside text, righthand width=.25\linewidth}
+\begin{istgame}[scale=1.2]
+\istcntm*(ctm)[very thick,red]+8mm..24mm+
+\istroot(0)(ctm){I}+8mm..8mm+
+  \istb{x}[right]
+  \istb<missing>
+\endist
+\xtdistance{10mm}{18mm}
+\istroot(1)(0-1)<[label distance=-3pt]120>{II}
+  \istb{Y}[left]{x,1-x}
+  \istb{N}[right]{0,0}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\clearpage
+Example:
+
+\begin{tcblisting}{listing outside text, righthand width=.25\linewidth}
+\begin{istgame}[scale=1.2]
+\xtdistance{8mm}{2*sqrt(3)*\xtlevdist}
+\istcntm(period1)
+\istroot(0)(period1){I}+8mm..8mm+
+  \istb{x}[right]
+  \istb<missing>
+\endist
+\xtdistance{10mm}{20mm}
+\istroot(1)(0-1)<[label distance=-3pt]120>{II}
+  \istb{Y}[above]{x,1-x}
+  \istb{N}[above]
+\endist
+%---------------------------------------------------------
+\xtdistance{8mm}{3.464*\xtlevdist}
+\istcntm*(period2)(1-2)[thick,dashed,blue]{.45}
+\istroot(2)(period2){II}+8mm..8mm+
+  \istb{y}[right]
+  \istb<missing>
+\endist
+\xtdistance{10mm}{20mm}
+\istroot(3)(2-1)<[label distance=-3pt]120>{I}
+  \istb{Y}[left]{1-y,y}
+  \istb{N}[right]{0,0}
+\endist
+\end{istgame}
+\end{tcblisting}
+
+\clearpage
+\section{Game Tree Examples}
+
+\subsection{simple examples}
+
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}[->,>=stealth,shorten >=.5pt]
+\xtdistance{15mm}{30mm}
+\istroot(0)[initial node]{Child}
+  \istb{Good}[left]{(0,2)}
+  \istb{Bad}[right]
+\endist
+\istroot(1)(0-2)<30>{Parent}
+  \istb{Forgive}[left]{(1,1)}
+  \istb{Punish}[right]{(-1,-1)}
+\endist 
+\end{istgame}
+\end{tcblisting}
+
+\medskip 
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth}
+\begin{istgame}
+\xtdistance{10mm}{30mm}
+\istroot(0)[initial node]{1}
+  \istb{L}[al]
+  \istb{R}[ar]
+\endist
+\xtdistance{7mm}{15mm}
+\istroot(1a)(0-1)
+  \istb{a}[al]{1,0}
+  \istb{b}[ar]{2,3}
+\endist
+\istroot(1b)(0-2)
+  \istb{c}[al]{0,1}
+  \istb{d}[ar]{-1,0}
+\endist
+\xtInfoset(1a)(1b){2}
+\end{istgame}
+\end{tcblisting}
+
+\medskip 
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}
+\xtdistance{15mm}{30mm}
+\istroot[-135](0)[initial node]<0>{1}
+  \istb{A}[a]{(2,2)}[l]
+  \istb{D}[r]
+\endist 
+\istroot(1)(0-2)<left>{1}
+  \istb{L}[al]
+  \istb{R}[ar]
+\endist 
+\xtInfoset(1-1)(1-2){2}
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-1)
+  \istb{\ell}[al]{(4,2)}
+  \istb{r}[ar]{(1,1)}
+\endist 
+\istroot(3)(1-2)
+  \istb{\ell}[al]{(3,2)}
+  \istb{r}[ar]{(0,3)}
+\endist 
+\end{istgame}
+\end{tcblisting}
+
+\subsection{larger game trees}
+
+\begin{tcblisting}{}
+\begin{istgame}
+\xtShowTerminalNodes
+\xtdistance{10mm}{40mm}
+\istroot(0)[chance node]{1}  \istb  \istb  \istb  \endist
+\xtdistance{10mm}{10mm}
+\istroot(1)(0-1)  \istb  \istb  \istb  \endist
+\istroot(2)(0-2)  \istb  \istb  \istb  \endist
+\xtdistance{10mm}{20mm}
+\istroot(3)(0-3){2}  \istb  \istb  \endist
+\xtdistance{10mm}{7mm}
+\istroot(a)(1-3){1}  \istb  \istb  \istb  \endist
+\xtdistance{10mm}{14mm}
+\istroot(b)(2-3)  \istb  \istb  \endist
+\istroot(c)(3-1)  \istb  \istb  \endist
+\istroot(d)(3-2){3}  \istb  \istb  \endist
+\xtInfoset(1)(2){2}  \xtInfoset(2-3)(3-1){3}
+\end{istgame}
+\end{tcblisting}
+
+
+% tic-tac-toe
+\begin{tcblisting}{listing outside text, righthand width=.33\linewidth,breakable}
+\begin{istgame}[font=\tiny]
+\xtdistance{20mm}{7mm}
+\istroot(0) \istb \istb \istb \istb \istb \istb{\dots} \istb \istb \istb{9}[r] \endist
+\foreach \x in {1,...,4}
+{\xtActionLabel(0)(0-\x){\x}[l]}
+\xtdistance{10mm}{3mm}
+\istroot(a1)(0-1) \istb{2}[l] \istb \istb \istb \istb \istb \istb \istb{9}[r] \endist
+\istroot(a7)(0-7) \istb{1}[l] \istb \istb \istb \istb \istb \istb \istb{9}[r] \endist
+\xtdistance{10mm}{2mm}
+\istroot(A)(a1-3) \istb{2}[l] \istb \istb \istb \istb \istb \istb{9}[r] \endist
+\istroot(B)(a1-8) \istb{2}[l] \istb \istb \istb \istb \istb \istb{8}[r] \endist
+\istroot(C)(a7-8) \istb{1}[l] \istb \istb \istb \istb \istb \istb{8}[r] \endist
+\istroot(Bx)(B-7) \istb{2}[l] \istb \istb \istb \istb \istb{7}[r] \endist
+\istroot(By)(Bx-1) \istb{3}[l] \istb \istb \istb \istb{7}[r]  \endist
+\istroot(Bz)(By-1) \istb{4}[l] \istb \istb \istb{7}[r]  \endist
+\xtPayoff(Bz-4){\vdots}
+\xtPayoff(Bz-4){\cdots}[xshift=10pt,right]
+\end{istgame}
+\end{tcblisting}
+
+\subsection{some more extensive games}
+
+\subsubsection{centipede game}
+
+% centipede
+\begin{tcblisting}{}
+\begin{istgame}[scale=1.2]
+\setistgrowdirection{south east}
+\xtdistance{10mm}{20mm}
+\istroot(0)[initial node]{1}
+  \istb{Take}[r]{(2,0)}[b]
+  \istb{Pass}[a]
+\endist
+\istroot(1)(0-2){2}
+  \istb{Take}[r]{(1,3)}[b]
+  \istb{Pass}[a]
+\endist
+\istroot(2)(1-2){1}
+  \istb{Take}[r]{(4,2)}[b]
+  \istb{Pass}[a]
+\endist
+\xtInfoset(2-2)([xshift=5mm]2-2)
+%-------------
+\istroot(3)([xshift=5mm]2-2){2}
+  \istb{Take}[r]{(97,99)}[b]
+  \istb{Pass}[a]
+\endist
+\istroot(4)(3-2){1}
+  \istb{Take}[r]{(100,98)}[b]
+  \istb{Pass}[a]
+\endist
+\istroot(5)(4-2){2}
+  \istb{Take}[r]{(99,101)}[b]
+  \istb{Pass}[a]{(100,100)}[r]
+\endist
+\end{istgame}
+\end{tcblisting}
+
+
+\clearpage
+\subsubsection{poker game}
+
+
+% poker
+\begin{tcblisting}{}
+\begin{istgame}[scale=1.3]
+\xtdistance{15mm}{30mm}
+\istroot(0)[chance node]{N}
+  \istb{Black}[al]
+  \istb{Red}[ar]
+\endist
+\xtdistance{15mm}{30mm}
+\istroot(1-1)(0-1){1}
+  \istb<grow=-135,level distance=10mm>{Fold}[al]{1,-1}
+  \istb{Raise}[ar]
+\endist
+\xtdistance{10mm}{20mm}
+\istroot(1)(1-1-2)
+  \istb{Pass}[al]{1,-1}
+  \istb{Meet}[ar]{2,-2}
+\endist
+\xtdistance{15mm}{30mm}
+\istroot(1-2)(0-2){1}
+  \istb<grow=-135,level distance=10mm>{Fold}[al]{-1,1}
+  \istb{Raise}[ar]
+\endist
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-2-2){}
+  \istb{Pass}[al]{1,-1}
+  \istb{Meet}[ar]{-2,2}
+\endist
+\xtInfoset(1-1-2)(1-2-2){2}
+\xtActionLabel(0)(0-1){\ [\frac12]}[r]
+\xtActionLabel(0)(0-2){[\frac12]\ }[l]
+\end{istgame}
+\end{tcblisting}
+
+\clearpage
+\subsubsection{poker game: growing to the right}
+\label{p:poker-right}
+
+% poker: growing east
+\begin{tcblisting}{}
+\begin{istgame}[scale=1.3]
+\setistgrowdirection{0}   % default grow-direction is 'east' from now on
+\xtdistance{15mm}{30mm}
+\istroot(0)[chance node]<left>{N}
+  \istb{Black}[bl]
+  \istb{Red}[al]
+\endist
+\setistactionlabelposition{6pt}{1pt} % look here
+\xtdistance{15mm}{30mm}
+\istroot(1-1)(0-1)<left>{1}
+  \istb<grow=-45,level distance=10mm>{Fold}[bl]{1,-1}
+  \istb{Raise}[al]
+\endist
+\xtdistance{12mm}{24mm}
+\istroot(1)(1-1-2)
+  \istb{Pass}[bl]{1,-1}
+  \istb{Meet}[al]{2,-2}
+\endist
+\xtdistance{15mm}{30mm}
+\istroot(1-2)(0-2)<left>{1}
+  \istb<grow=-45,level distance=10mm>{Fold}[bl]{-1,1}[[xshift=5pt]below]
+  \istb{Raise}[al]
+\endist
+\xtdistance{12mm}{24mm}
+\istroot(2)(1-2-2)
+  \istb{Pass}[bl]{1,-1}
+  \istb{Meet}[al]{-2,2}
+\endist
+\xtInfoset(1-1-2)(1-2-2){2}[left,yshift=-5pt]
+\xtActionLabel(0)(0-1){\ [\frac12]}[a]
+\xtActionLabel(0)(0-2){\ [\frac12]}[b]
+\end{istgame}
+\end{tcblisting}
+
+\subsubsection{signaling game}
+
+\begin{tcblisting}{}
+\begin{istgame}[scale=1.3]
+\xtdistance{20mm}{20mm}
+\istroot(0)[chance node]{$c$}
+  \istb<grow=left>{\frac12}[a]
+  \istb<grow=right>{\frac12}[a]
+  \endist
+\xtdistance{10mm}{20mm}
+\istroot(1)(0-1)<180>{1}
+  \istb<grow=north>{a}[l]
+  \istb<grow=south>{b}[l]
+  \endist
+\istroot(2)(0-2)<0>{1}
+  \istb<grow=south>{a}[r]
+  \istb<grow=north>{b}[r]
+  \endist
+\istroot[north](a1)(1-1)
+  \istb{R}[br]{0,-1}
+  \istb{L}[bl]{-1,0}
+  \endist
+\istroot(b1)(1-2)
+  \istb{L}[al]{2,0}
+  \istb{R}[ar]{0,2}
+  \endist
+\istroot(a2)(2-1)
+  \istb{L}[al]{3,0}
+  \istb{R}[ar]{0,3}
+  \endist
+\istroot[north](b2)(2-2)
+  \istb{R}[br]{0,1}
+  \istb{L}[bl]{1,0}
+  \endist
+\xtInfoset(a1)(b2){2}
+\xtInfoset(b1)(a2){2}
+\end{istgame}
+\end{tcblisting}
+
+
+\clearpage
+\subsection{subgames and backward induction}
+
+\paragraph{a whole game} ~
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}
+\xtdistance{15mm}{30mm}
+\istroot[-135](0)[initial node]<0>{1}
+  \istb{A}[a]{(2,2)}[l]
+  \istb{D}[r]
+\endist 
+\istroot(1)(0-2)<left>{1}
+  \istb{L}[al]
+  \istb{R}[ar]
+\endist 
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-1)<135>{2}
+  \istb{\ell}[al]{(4,2)}
+  \istb{r}[ar]{(1,1)}
+\endist 
+\istroot(3)(1-2)<45>{2}
+  \istb{\ell}[al]{(3,2)}
+  \istb{r}[ar]{(0,3)}
+\endist 
+\end{istgame}
+\end{tcblisting}
+
+
+\paragraph{a subgame} ~
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}
+\xtdistance{15mm}{30mm}
+%\istroot[-135](0)[initial node]<0>{1}
+%  \istb{A}[a]{(2,2)}[l]
+%  \istb{D}[r]
+%\endist 
+\istroot(1)(0-2)<left>{1}
+  \istb{L}[al]
+  \istb{R}[ar]
+\endist 
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-1)<135>{2}
+  \istb{\ell}[al]{(4,2)}
+  \istb{r}[ar]{(1,1)}
+\endist 
+\istroot(3)(1-2)<45>{2}
+  \istb{\ell}[al]{(3,2)}
+  \istb{r}[ar]{(0,3)}
+\endist 
+\end{istgame}
+\end{tcblisting}
+
+\clearpage
+\paragraph{a smaller subgame} ~
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}
+%\xtdistance{15mm}{30mm}
+%\istroot[-135](0)[initial node]<0>{1}
+%  \istb{A}[a]{(2,2)}[l]
+%  \istb{D}[r]
+%\endist 
+%\istroot(1)(0-2)<left>{1}
+%  \istb{L}[al]
+%  \istb{R}[ar]
+%\endist 
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-1)<135>{2}
+  \istb{\ell}[al]{(4,2)}
+  \istb{r}[ar]{(1,1)}
+\endist 
+%\istroot(3)(1-2)<45>{2}
+%  \istb{\ell}[al]{(3,2)}
+%  \istb{r}[ar]{(0,3)}
+%\endist 
+\end{istgame}
+\end{tcblisting}
+
+
+\paragraph{backward induction} ~
+
+\begin{tcblisting}{listing outside text, righthand width=.4\linewidth,breakable}
+\begin{istgame}[>=stealth]
+\xtdistance{15mm}{30mm}
+\istroot[-135](0)[initial node]<0>{1}
+  \istb[dashed]{A}[a]{(2,2)}[l]
+  \istb[very thick]{D}[r]
+\endist 
+\istroot(1)(0-2)<left>{1}
+  \istb[very thick]{L}[al]
+  \istb<dashed>{R}[ar]
+\endist 
+\xtdistance{10mm}{20mm}
+\istroot(2)(1-1)<135>{2}
+  \istb[->,very thick,blue]{\ell}[al]{(4,2)}
+  \istb[thick,dotted]{r}[ar]{(1,1)}
+\endist 
+\istroot(3)(1-2)<45>{2}
+  \istb[thick,dotted]{\ell}[al]{(3,2)}
+  \istb[very thick,blue]{r}[ar]{(0,3)}
+\endist 
+\end{istgame}
+\end{tcblisting}
+
+
+\setsecnumdepth{chapter}
+\section{Version history}
+
+\begin{itemize}
+\item v0.91 (\tmpdate) 
+  \begin{itemize}
+  \item some internal macro names changed (\cmd{\xtnode}, \cmd{\xttnode},\cmd{\xtshowtnode})
+  \item conflict with \pkg{tikz-qtree} resolved. (\env{istgame} differs from \env{tikzpicture} with \pkg{tikz-qtree})
+  \item \cmd{\setistnodeanchors} added
+  \item \xword{zero node} added
+  \end{itemize}
+\item v0.8 (2017/01/17)
+  \begin{itemize}
+  \item macro names changed (to get ready to upload to CTAN)
+    \begin{itemize}
+      \item \cmd{\xtdistance}: prefix `\xword{x}' changed to `\xword{xt}' meaning `extensive tree'
+      \item \cmd{\xtInfoset(*)}, \cmd{\xtInfosetOwner}, \cmd{\xtActionLabel}, \cmd{xtOwner}, \cmd{\xtPayoff}, \cmd{\xtNode}
+      \item \cmd{\xtShowTerminalNodes}, \cmd{\xtHideTerminalNodes}
+      \item \cmd{\xtlevdist}, \cmd{\xtsibdist}
+    \end{itemize}
+  \item \cmd{\xtNode} redefined
+  \item some internal macro names changed (including \cmd{\xtpayff}, \cmd{\xtmove})
+  \item node styles redefined
+  \item \cmd{\setist<Solid>NodeStyle} added for <Various> node styles
+  \item \cmd{\setistdefaultnodecolor}, \cmd{setistdefaultnodebgcolor} added
+  \end{itemize}
+\end{itemize}
+
+
+\section{Acknowledgement}
+
+A special thanks goes to Kansoo Kim for his great help in using \pkg{expl3} to simplify the appearance and the usage of the macros.
+
+
+\section{References}
+\hpara{}Chen, H. K. (2013), ``Drawing Game Trees with \Tikz,'' \url{http://www.sfu.ca/~haiyunc/notes/Game_Trees_with_TikZ.pdf}.
+
+\hpara{}Osborne, M. J. (2004), ``Manual for \pkg{egameps.sty},'' Version 1.1, \url{http://texdoc.net/texmf-dist/doc/latex/egameps/egameps.pdf}
+
+\hpara{}Tantau, T. (2015), ``The \Tikz\ and PGF Packages,'' Version 3.0.1, \url{http://sourceforge.net/projects/pgf}.
+
+\section*{Discussions (in Korean) on KTUG board}
+
+\begin{itemize}
+\item Drawing Game Trees 1: \url{http://www.ktug.org/xe/index.php?document_srl=207287}
+
+\item Drawing Game Trees 1-1: \url{http://www.ktug.org/xe/index.php?document_srl=207513}
+
+\item Drawing Game Trees 1-2:
+\url{http://www.ktug.org/xe/index.php?document_srl=208286}
+
+\item Drawing Game Trees 2: \url{http://www.ktug.org/xe/index.php?document_srl=212043}
+
+\item Drawing Game Trees 2-1:
+\url{http://www.ktug.org/xe/index.php?document_srl=212225}
+
+\item Drawing Game Trees 2-2:
+\url{http://www.ktug.org/xe/index.php?document_srl=212319}
+\end{itemize}

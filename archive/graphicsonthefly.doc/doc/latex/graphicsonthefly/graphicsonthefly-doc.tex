@@ -1,0 +1,242 @@
+% !TEX program = arara
+% arara: xelatex: { shell: yes }
+\documentclass[b5paper,nanum]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\def\cs#1{\texttt{\textbackslash #1}}
+
+\usepackage[all]{graphicsonthefly}
+\usepackage{jiwonlipsum}
+\input insbox
+
+\begin{document}
+
+\title{Graphics on the fly}
+\author{Nova De Hi}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+웹상의 그림에 대해 url을 주면 다운로드받아서 문서에 넣자 하는 것입니다.
+url로 주어진 그림을 가져와서 \texttt{graphicx} 패키지의 \cs{includegraphics} 명령으로
+그림을 삽입하는 \cs{includegraphicsonthefly}와, url로 주어진 animated gif 그림을 가져와서
+\texttt{animate} 패키지의 \cs{animategraphics} 명령으로 그림을 삽입하는 \cs{animatedgifonthefly} 두 개의 명령으로 이루어져 있습니다.
+\end{abstract}
+
+\tableofcontents*
+
+\section{패키지 사용 선언}
+
+\begin{boxedverbatim}
+\usepackage[options]{graphicsonthefly}
+\end{boxedverbatim}
+
+옵션으로 \texttt{[renewall]}을 줄 수 있습니다. 기본적으로 로컬 폴더에 그림이 있으면 인터넷에 연결하지 않는데 이 옵션이 있으면 항상 새로 그림을 받아오려 합니다.
+
+옵션으로 \texttt{[animate]} 또는 \texttt{[all]}를 지정하면 \cs{animatedgifonthefly} 기능이 활성화됩니다. 기본값은 animate를 사용하지 않는 것입니다.
+
+온라인 상의 그림을 가져오는 데 사용하는 유틸리티는 윈도우즈의 경우 \texttt{wget}, 리눅스와 맥에서는 \texttt{curl}입니다. 만약 리눅스와 맥에서도 \texttt{wget}을 우선적으로 사용하려 한다면 \texttt{[wget]} 옵션을 지정하면 됩니다.
+
+\section{요구 사항}
+
+\begin{enumerate}\firmlist
+\item    컴파일시 \verb|--shell-escape| 옵션을 주어야 합니다.
+\item    Windows라면 \texttt{wget}이 설치되어 있어야 합니다. ktug 사설저장소에서 \texttt{ktugbin}을 설치하세요. (Mac이나 Linux에서는 \verb|wget| 대신 \verb|curl|을 사용하므로 추가로 설치할 것이 없습니다.)
+\begin{verbatim}
+> tlmgr install ktugbin
+\end{verbatim}
+
+\item    png, jpg, pdf, gif, bmp 그림을 처리합니다. gif, bmp 이미지는 ImageMagick이 설치되어 있어야 합니다. \cs{animatedgifonthefly} 명령을 사용하기 위해서도 ImageMagick \verb|convert|가 필요합니다.
+Mac의 경우 Mac\TeX\ 2013까지는 ImageMagick이 Mac\TeX에 포함되어 있었는데 2014에서는 어떤지 모르겠습니다. convert가 없으면 (homebrew 등으로) 새로 설치하세요. 윈도우즈는 직접 다운로드하여 설치하여야 합니다. \url{http://www.imagemagick.org/}
+
+\item    url은 그림의 확장명이 포함되어 있어야 합니다. 즉 단축 url과 같이 그림 확장명을 포함하지 않는 경우에는 정상 동작하지 않습니다.
+\item    그림을 불러오려면 (로컬에 저장된 그림이 없을 때) 컴파일시 인터넷에 연결되어 있어야 합니다. 인터넷에 연결되지 않은 기계에서 동작하게 하는 방법을 찾지 못했습니다.
+\end{enumerate}
+
+\section{그림 불러오기}
+
+\begin{boxedverbatim}
+\includegraphicsonthefly[옵션]{그림이름}{url}
+\end{boxedverbatim}
+
+\begin{itemize}\firmlist
+\item 옵션은 \cs{includegraphics}에 줄 옵션이고요
+\item 그림이름은 다운받아서 로컬에 저장할 파일이름을 \dotemph{확장자 없이} 써넣습니다.
+\item url은 url입니다.
+\end{itemize}
+
+이 명령은 \cs{includegraphics} 명령을 쓰고 마지막에 url 하나를 추가한 형태입니다.
+
+이전에 이미 다운받은 파일이 있으면 그것을 사용합니다.
+새로이 다운로드하도록 하려면
+\begin{verbatim}
+\includegraphicsonthefly*[width=\linewidth]{mygrf}{url}
+\end{verbatim}
+이렇게 별표붙은 명령을 주면 그 그림에 한하여 다시 다운받습니다.
+한편, \texttt{[renewall]} 옵션을 패키지에 주면 문서 내의 모든 그림을 다 새로 다운로드받습니다.
+
+\bigskip
+
+\noindent\textbullet\ 예제:
+\begin{verbatim}
+\includegraphicsonthefly[width=\textwidth]{test}%
+     {http://www.ktug.org/xe/files/attach/images/17577/ktugBanner-2014.png}
+\end{verbatim}
+\includegraphicsonthefly[width=\textwidth]{test}%
+     {http://www.ktug.org/xe/files/attach/images/17577/ktugBanner-2014.png}
+
+
+\section{Animated Gif}
+
+이 기능은 패키지 옵션으로 \texttt{[animate]} 또는 \texttt{[all]} 지정하여야 사용할 수 있습니다.
+
+animate 패키지를 이용하여 animated gif를 처리하는 시험판을 만들어 보았습니다. 역시 온라인 이미지를 가져와서 문서에 포함하는 것이 목적입니다.
+\begin{boxedverbatim}
+\animatedgifonthefly[옵션]{<fps>}{그림이름}%
+                    {시작카운터}{마지막카운터}{url}
+\end{boxedverbatim}
+마지막에 url이 붙는 것을 제외하면 \cs{animategraphics} 명령과 쓰는 방법이 (거의) 똑같습니다. 그림 이름에 \verb|-|를 붙이지 않아도 되는 것을 제외하면요.
+
+예를 들어 6프레임으로 이루어진 foo.gif의 url을 주면 다운로드받아서 모두 6장의 png로 변환합니다. 이것으로 애니메이트하는 것입니다. fps는 초당 프레임수입니다.
+
+자세한 것은 animate 패키지 문서를 참고하시고요.
+
+\begin{itemize}\firmlist
+\item    처음 gif를 다운로드받을 때는 모두 몇 프레임인지 알 수 없습니다. 따라서 시작 카운터를 0으로 하고 마지막 카운터도 0으로 한 다음 컴파일을 시도합니다.
+\item    한번 컴파일하고 나면 디렉토리에 모두 몇 개의 png파일이 생성되었는지 바로 알 수 있습니다. 마지막 숫자를 마지막 카운터 자리에 써넣습니다.
+%\item    애니메이션은 Adobe Reader 이외의 pdf 뷰어에서는 효과를 볼 수 없는 것으로 압니다.
+\item 굳이 animate할 필요 없이 첫 프레임만 그림으로 포함하려면 마지막카운터를 0 상태 그대로 두면 되겠습니다.
+\end{itemize}
+
+v0.6에서 마지막카운터에 별표를 쓸 수 있게 했습니다. 별표를 쓰면 프레임 수가 36장 이하일 때 알아서 체크하여 포함합니다. 36장을 넘는 gif는 36장까지만 포함합니다.
+
+\bigskip
+
+\noindent\textbullet\ 예제:
+\begin{verbatim}
+\animatedgifonthefly[width=4cm,autoplay,loop]%
+        {10}%
+        {butterfly}%
+        {0}%
+        {*}%
+        {http://www.animatedgif.net/animals/bugs/butrfly_e0.gif}
+\end{verbatim}
+\animatedgifonthefly[width=4cm,autoplay,loop]%
+        {10}%
+        {butterfly}%
+        {0}%
+        {*}%
+        {http://www.animatedgif.net/animals/bugs/butrfly_e0.gif}
+
+\bigskip
+
+로컬에 미리 다운로드받아둔 gif 파일이 있고 그 파일이 예컨대 butterfly.gif라면 url을 비우면 됩니다. 단 이 때는 웹에 접근하지 않을 것이므로 renewall 옵션이 작용하지 않도록 해두세요.
+\begin{verbatim}
+\animatedgifonthefly[width=\textwidth,autoplay,loop]%
+        {12}{butterfly}{0}{5}{}
+\end{verbatim}
+
+\medskip
+
+\cs{animatedgifonthefly}는 \cs{animategraphicsonthefly}라고 쓸 수도 있습니다.
+
+\section{다른 명령의 인자가 될 때}
+
+\marginpar{[v0.9]}
+\cs{includegraphicsonthefly}와 \cs{animatedgifonthefly} 명령은 예컨대 figure 환경이나
+minipage 안에 오는 경우 등에 대부분 정상적으로 동작합니다. 다만, \dotemph{다른 명령의 인자가 될 수 없습니다}.
+예를 들어 kswrapfig 패키지가 제공하는 \cs{kwrapfig} 명령을 쓰려한다면,
+\begin{verbatim}
+\kswrapfig[UseBox=true,Pos=r]%
+	{ \includegraphicsonthefly{testme}{<url>} }%
+	{ <text> }
+\end{verbatim}
+이런 식으로 써야 하는데 이 경우 ``인자''로 들어갔기 때문에 오류가 발생합니다.
+
+\begin{boxedverbatim}
+\prepareimgonthefly<star>{파일이름}{url}
+\end{boxedverbatim}
+이럴 때는 두 단계로 작업합니다. 먼저 그림만 다운로드받고 그림의 삽입은 그 후에 하는 것. 그림을 다운로드하기만 하는 명령이 \cs{prepareimgonthefly}입니다. \verb|<star>|는 별표(*)를 줄 수도 있다는 뜻이고 파일이 이미 있더라도 갱신하라는 것입니다.
+
+위의 오류가 발생하는 예제는 이제 다음처럼 할 수 있습니다.
+
+\begin{verbatim}
+\prepareimgonthefly{testme}{<url>}
+\kswrapfig[UseBox=false,Pos=r]{testme}%
+   {<text>}
+\end{verbatim}
+
+\begin{boxedverbatim}
+\useimgonthefly[<option>]
+\end{boxedverbatim}
+이 명령은 직전에 다운로드받은 그림을 바로 사용합니다. 옵션은 \cs{includegraphics}에 넘겨줄 옵션입니다.
+즉 \cs{prepareimgonthefly} 명령을 준 직후에 \cs{useimgonthefly}를 쓰는 것으로 파일 이름을 지정할 필요가 없습니다. (그럼 직전이 아니라 아까 다운받은 그림은? 그건 파일이름을 지정하였으니 그것으로 \cs{includegraphics}하면 되겠지요.)
+
+위의 예제를 이 명령을 사용하여 써보면
+\begin{verbatim}
+\prepareimgonthefly{testme}{<url>}
+\kswrapfig[UseBox=true,Pos=r]{\useimgonthefly[width=4cm]}
+{<text>}
+\end{verbatim}
+
+\medskip
+
+animated gif에 대해서도 비슷하게 할 수 있습니다. 일단 다운로드 명령은 \cs{prepareimgonthefly}로 동일합니다.
+
+\begin{boxedverbatim}
+\animatedgif[<option>]{<fps>}{파일이름}{start}{end}
+\end{boxedverbatim}
+
+만약 \cs{prepareimgonthefly}로 다운받은 파일이 animated gif라면 해당 파일 이름에 대하여 
+위의 명령을 씁니다. url이 없는 \cs{animatedgifonthefly}인데 마지막 \verb|<end>|에 별표를 쓸 수
+있습니다.
+
+\begin{boxedverbatim}
+\usegifonthefly[<option>]{fps,start,end}
+\end{boxedverbatim}
+\cs{useimgonthefly}와 같은 맥락에서 직전에 다운받은 파일을 사용하는 명령입니다.
+\verb|<option>|은 \cs{animategraphics}에 넘겨줄 옵션이며 fps, start, end는 각각 위에서
+설명한 바와 같습니다. \verb|end| 자리에 별표를 쓰면 36프레임까지 자동으로 포함합니다.
+
+\bigskip
+
+이 명령을 사용한 실제 예를 살펴보겠습니다.
+
+\begin{verbatim}
+\prepareimgonthefly{butt}%
+   {http://www.animatedgif.net/animals/bugs/butrfly_e0.gif}
+\InsertBoxL{2}{\usegifonthefly[loop,autoplay,width=3cm]{12,0,*}}
+\jiwon[1]
+\end{verbatim}
+
+gif 그림을 \cs{InsertBoxL} 명령의 \dotemph{인자로 써야 하므로} \cs{animatedgifonthefly} 명령은 적절치 않아서 먼저 \cs{prepareimgonthefly}하여 그림을 준비하고 실제로 명령의 인자 안에서는 \cs{usegifonthefly}하였습니다. 만약 이것이 animated gif가 아니라 그냥 그림이라면 \cs{usegifonthefly} 대신 사용법이 더 간단한 \cs{useimgonthefly}를 사용하면 되겠습니다. 이들 \cs{use...} 명령은 \dotemph{직전에 다운받은} 그림을 사용한다는 것을 잊지 마세요.
+
+위의 명령의 결과는 다음과 같습니다.
+
+\begin{framed}
+\prepareimgonthefly{butt}%
+   {http://www.animatedgif.net/animals/bugs/butrfly_e0.gif}%
+\InsertBoxL{2}{\usegifonthefly[loop,autoplay,width=3cm]{12,0,*}}%
+\jiwon[1]
+\end{framed}
+
+\section{주의사항}
+
+\begin{itemize}\firmlist
+\item url이 잘못되어서 그림을 다운받을 수 없는 경우의 에러에 대해서는 책임지지 않습니다. url은 이미지 자체에 대한 링크여야 하고 이미지를 다운받게 하는 웹페이지로의 링크여서는 안됩니다.
+\item Animate 효과는 Adobe Reader로 볼 때만 나타납니다.
+\end{itemize}
+
+\section{질문과 답변}
+\hangfrom{문: }어떤 목적으로 사용하는 것인지요? 웹에 올라와 있는 그림이라면, 언제라도 변경될 수 있는 가능성이 있기에, 잘되면 컴파일 할때마다 최신의 화일을 얻는 것이겠지만, 잘 못되면, 그림이 빠진 문서가 생성될 가능성이 높지 않은지요? (likesam)
+
+\hangfrom{답: }웹상의 그림을 문서에 포함한다고 할 때, 브라우저를 열고 $\rightarrow$ 다운로드받고 $\rightarrow$ 다운로드 폴더로 이동해서 그림을 작업중인 폴더로 가져오고 $\rightarrow$ 그것을 includegraphics하는데요, 이 과정을 좀 게으르게 가자는 목적입니다.
+일단 컴파일에 성공하면 로컬 폴더에 해당 그림이 저장되는 것이고요. 매번 컴파일할 때마다 새로 다운받지 않습니다. 폴더에 해당 그림이 있으면 \cs{includegraphics}와 똑같습니다.
+그리고 ``잘못되는 경우"는 생각할 필요 없지 않을까요? 그건 그 때 가서 문제고 어차피 url이 잘못되어 해당 그림을 다운받을 수 없는 것은 어째도 마찬가지일 테니까요.
+Con\TeX{t}의 \cs{externalfigure} 명령의 \LaTeX\ 대응이라고 생각하고 만든 것입니다.
+\cs{animategraphics}의 경우도 마찬가진데요, 그림을 다운받고 $\rightarrow$ convert 돌리고 $\rightarrow$ png 개수 확인하고 $\rightarrow$ animategraphics하는데요, 이 과정을 좀 간단하게 하고 싶어서 만든 것입니다.
+
+\end{document}

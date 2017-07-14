@@ -1,0 +1,10 @@
+name arara-rules-ko
+category Package
+revision 200
+shortdesc arara rules for ko.TeX, written by Karnes
+relocated 1
+runfiles size=4
+ RELOC/scripts/arara/rules/dvipdfmx.yaml
+ RELOC/scripts/arara/rules/komkindex.yaml
+ RELOC/scripts/arara/rules/kotexindy.yaml
+ RELOC/scripts/arara/rules/pdfcrop.yaml

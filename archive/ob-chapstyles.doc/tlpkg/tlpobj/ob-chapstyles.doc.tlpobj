@@ -1,0 +1,7 @@
+name ob-chapstyles.doc
+category Package
+revision 200
+shortdesc doc files of ob-chapstyles
+relocated 1
+docfiles size=19
+ RELOC/doc/latex/ob-chapstyles/ob-chapstyles.pdf

@@ -1,0 +1,10 @@
+name hnja2hngl.doc
+category Package
+revision 200
+shortdesc doc files of hnja2hngl
+relocated 1
+docfiles size=303
+ RELOC/doc/latex/hnja2hngl/grruby-doc.pdf
+ RELOC/doc/latex/hnja2hngl/grruby-doc.tex
+ RELOC/doc/latex/hnja2hngl/hnja2hngl-doc.pdf
+ RELOC/doc/latex/hnja2hngl/hnja2hngl-doc.tex

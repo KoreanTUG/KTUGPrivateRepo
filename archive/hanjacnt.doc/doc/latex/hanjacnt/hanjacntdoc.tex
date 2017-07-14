@@ -1,0 +1,549 @@
+% arara: xelatex
+% arara: xelatex
+% arara: lmkclean
+\documentclass[b5paper,nanum]{oblivoir}
+
+\setkomainfont(NanumMyeongjo)[](HanaMinA)
+\setkomonofont(Malgun Gothic)[](HanaMinA)
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\def\cs#1{\texttt{\textbackslash #1}}
+\def\ct#1{\texttt{#1}}
+\def\pkg#1{\textsf{#1}}
+\usepackage{kotex-logo}
+\def\xetexko{\hologo{XeTeX}-\ko}
+\def\luatexko{\hologo{LuaTeX}-\ko}
+\protected\def\pdftex{\hologo{pdfTeX}}
+
+\usepackage{ifpxltex}
+
+\usepackage{hanjacnt}
+
+\hypersetup{colorlinks}
+
+\usepackage{tabto,multido}
+\TabPositions{3cm,6cm,9cm,12cm,15cm}
+
+\begin{document}
+
+\title{hanjacnt, 한자/한글 숫자와 카운터}
+\author{Nova De Hi}
+\date{\HanjaToday, v2.7}
+
+\maketitle
+
+\begin{abstract}
+한자와 한글 카운터 수식자를 제공하는 \pkg{hanjacnt}를 완전히 다시 쓰고
+기능을 확장하였다. 숫자를 한자와 한글 표기로 표현한다.
+\end{abstract}
+
+\tableofcontents*
+
+\section{소개}
+
+원래의 \pkg{hanjacnt} 패키지\footnote{%
+	\url{http://ktug.kldp.net/jsboard/read.php?table=ktugbd&no=4810&page=118}}%
+는 1부터 999까지의 한자 및 한글 카운터를 제공하던 패키지였다.
+이를 완전히 새로 설계하였다.
+
+이전에 비하여 달라진 점은 다음과 같다.
+\begin{itemize}\firmlist
+\item 카운터 수식자(counter modifier)뿐 아니라 숫자 자체를 한자로 식자하는 명령을 도입하였다.
+\item 한자 숫자 표시 방법을 개선하였다. 다양한 방법으로 표기되는 한자 숫자 표현 방법을 지원한다.
+\item 한자 숫자를 식자할 폰트를 지정할 수 있다.
+\item 한글 숫자의 만 단위로 띄어쓰기를 할 수 있다.
+\item 큰 숫자도 잘 처리한다.
+\end{itemize}
+
+그러나 이전에 제공되던 두 개의 카운터 명령 \cs{HANJA}와 \cs{HANGUL}의 결과는 그대로이므로
+이전에 작성한 문서에서도 문제를 일으키지 않을 것이다.
+
+\section{사용법과 명령}
+
+\begin{boxedverbatim}
+\usepackage{hanjacnt}
+\end{boxedverbatim}
+
+패키지 옵션으로 \ct{[manspace]}와 \ct{[20]}, \ct{[finhanja]}를 줄 수 있다. \ct{[manspace]}는 \ref{sec:manspace}절에서, \ct{[20]}은 \ref{sec:twenty}절에서, \ct{[finhanja]}는 \ref{sec:fin}절에서 설명한다.
+
+\subsection{숫자의 표현}
+
+\begin{boxedverbatim}
+\NumHanja{<number>},    \NumHangul{<number>}
+\NumHanjaBig{<number>}, \NumHangulBig{<number>}
+\end{boxedverbatim}
+
+숫자를 한자 또는 한글로 표현한다.
+예를 들면 다음과 같다.
+\begin{verbatim}
+\NumHanja{1}, \NumHanja{2}, \NumHanja{10}, \NumHanja{96} \\
+\NumHangul{1}, \NumHangul{2}, \NumHangul{10}, \NumHangul{96}
+\end{verbatim}
+\IfpxlTeX*[F]{p}
+{
+\NumHanja{1}, \NumHanja{2}, \NumHanja{10}, \NumHanja{96} \\
+\NumHangul{1}, \NumHangul{2}, \NumHangul{10}, \NumHangul{96}
+}
+
+\medskip
+
+\cs{NumHanja}(\cs{NumHangul})로 사용 가능한 숫자의 범위는 10억 미만(아홉자리)이다. 
+\cs{NumHanjaBig}(\cs{NumHangulBig})은 이보다 큰 숫자나 쉼표로 구분된 숫자를 표현하기 위한 명령이고, 
+열세 자리(조)까지 숫자를 처리할 수 있다.
+%\footnote{%
+%	이 패키지에서 유효한 숫자는 쉼표로 자릿수를 구분하지 않는다.}
+
+\begin{verbatim}
+\NumHanjaBig{1205345624967}\\
+\NumHangulBig{1205345624967}\\
+\NumHanjaBig{2,345,100,124,287}\\
+\NumHangulBig{2,345,100,124,287}
+\end{verbatim}
+\NumHanjaBig{1205345624967}\\
+\NumHangulBig{1205345624967}\\
+\NumHanjaBig{2,345,100,124,287}\\
+\NumHangulBig{2,345,100,124,287}
+
+\medskip
+
+이 패키지는 내부적으로 다섯 자리까지는 `숫자'로 보고 처리한다.
+그러나 여섯 자리부터는 숫자로 보는 것이 아니라 토큰열(sequence)로 취급한다.
+[v2.2] 이전 버전에서 큰 숫자의 경우 직접 숫자가 아니라 control sequence로
+넘어오는 경우 확장해야 했던 불편을 없앴다. 그러므로 다음과 같이 자연스럽게 쓸 수 있게 되었다.
+%그래서 \cs{NumHanja}든 \cs{NumHanjaBig}이든 6자리 이상의 숫자가
+%직접 숫자 자체가 아니라 control sequence로 넘어온다면 확장해주지 않으면 오류가 발생한다.
+%다섯 자리까지는 그대로 써도 상관없다.
+\begin{verbatim}
+\def\test{20050}
+\newcount\testb\testb=91234
+\NumHanja{\test}, \NumHangul{\test},
+\NumHanja{\the\testb}, \NumHangul{\the\testb} \\
+\def\test{200500}\testb=1234567
+\NumHanja{\test},
+\NumHanja{\the\testb},
+\NumHangul{\test},
+\NumHangul{\the\testb}
+\end{verbatim}
+
+\def\test{20050}
+\newcount\testb\testb=91234
+\NumHanja{\test}, \NumHangul{\test},
+\NumHanja{\the\testb}, \NumHangul{\the\testb}
+
+\def\test{200500}\testb=1234567
+\NumHanja{\test},
+\NumHanja{\the\testb},
+\NumHangul{\test},
+\NumHangul{\the\testb}
+
+\medskip
+
+[v2.4] \cs{NumHanjaBig}과 \cs{NumHangulBig}은 큰 숫자를 다루기 때문에 쉼표로 세 자리마다 구분한 숫자도 처리한다.
+주의할 것은 \cs{NumHanja}나 \cs{NumHangul} 및 \cs{NumHanjaDig}, \cs{NumHangulDig}은 쉼표로 구분된 숫자를 다루지 않는다는 것이다.
+
+\begin{verbatim}
+\renewcommand\test{1,000,200,530,244}
+\NumHanjaBig{\test}\\
+\NumHangulBig{\test}\\
+\NumHanjaBig{12,000}\\
+\NumHangulBig{12,350}\\
+\end{verbatim}
+\renewcommand\test{1,000,200,530,244}
+\NumHanjaBig{\test}\\
+\NumHangulBig{\test}\\
+\NumHanjaBig{12,000}\\
+\NumHangulBig{12,350}
+
+\subsection{한자 갖은자}\label{sec:fin}
+
+[v2.3] 한자 숫자 표기에 갖은자를 쓰는 경우가 있다. 주로 돈의 액수를 표시할 때 쓴다.
+갖은자 한자 숫자를 식자하게 하려면 \ct{[finhanja]} 옵션을 준다. fin은 financial에서 온 것이다.
+
+단순히 \ct{[finhanja]}만을 선언하면 다음과 같이 숫자가 식자된다.
+\begin{verbatim}
+\NumHanja{123456789}
+\end{verbatim}
+\FinHanjaMode
+\NumHanja{123456789}
+
+\begin{boxedverbatim}
+\FinHanjaMode
+\end{boxedverbatim}
+
+갖은자 한자를 쓰는 방법이 몇 가지 있어서 이 명령을 마련했다. 인자 없이 쓰면 기본값을 쓰게 되고
+\ct{full}, \ct{var}, \ct{fullvar}를 인자로 주어 갖은자 쓰는 방법을 선택할 수 있다.
+\begin{verbatim}
+\FinHanjaMode{full}
+\NumHanja{987612345}
+\FinHanjaMode{var}
+\NumHanja{987612345}
+\FinHanjaMode{fullvar}
+\NumHanja{987612345}
+\FinHanjaMode
+\NumHanja{987612345}
+\end{verbatim}
+\FinHanjaMode{full}
+\NumHanja{987612345} \\
+\FinHanjaMode{var}
+\NumHanja{987612345} \\
+\FinHanjaMode{fullvar}
+\NumHanja{987612345} \\
+\FinHanjaMode
+\NumHanja{987612345}
+
+\medskip
+
+이 명령에 \ct{on}이나 \ct{off}를 주어서 갖은자 한자 모드를 켜거나 끌 수 있다.
+\begin{verbatim}
+\FinHanjaMode{off}
+\NumHanja{987612345}
+\FinHanjaMode{on}
+\NumHanja{987612345}
+\end{verbatim}
+\FinHanjaMode{off}
+\NumHanja{987612345} \\
+\FinHanjaMode{on}
+\NumHanja{987612345}
+
+\medskip
+
+\cs{FinHanjaMode}와 \cs{FinHanjaMode\{on\}}은 거의 같은 의미이다.
+\cs{usepackage}하면서 \ct{[fullfinhanja]}나 \ct{[varfinhanja]}를 선언하면 처음부터 해당 모드의 갖은자 한자로 식자한다.
+
+\medskip
+
+갖은자로 한자를 식자하는 명령은 \cs{NumHanja}, \cs{NumHanjaBig}이다.
+큰 수나 쉼표로 자릿수가 구분된 숫자에는 \cs{...Big}을 쓴다.
+
+\begin{verbatim}
+\NumHanjaBig{1,130,150,471}
+\end{verbatim}
+\NumHanjaBig{1,130,150,471}
+
+\FinHanjaMode{off}
+
+\subsection{한글 숫자의 띄어쓰기}\label{sec:manspace}
+
+한글 맞춤법에 ``수를 적을 적에는 만 단위로 띄어쓴다''는 규정이 있다. 이 규정을 살려서 큰 숫자를 만 단위로
+띄어쓰게 하려면 패키지 옵션으로 \ct{[manspace]}를 지정한다. 한자에는 이것이 적용되지 않는다.
+
+\ManSpaceOn
+\begin{verbatim}
+\NumHangulBig{2345100024287}
+\end{verbatim}
+\NumHangulBig{2345100024287}
+
+\begin{boxedverbatim}
+\ManSpaceOn, \ManSpaceOff
+\end{boxedverbatim}
+이 설정을 중간에 끄거나 켜는 명령이다.
+
+\begin{verbatim}
+\ManSpaceOff
+\NumHangulBig{2345100024287}
+\end{verbatim}
+\ManSpaceOff
+\NumHangulBig{2345100024287}
+
+\subsection{자릿수별로 표시하기}\label{sec:twenty}
+\begin{boxedverbatim}
+\NumHanjaDig{<number>}
+\HanjaZero{<char>}
+\HanjaZeroFont{<font>}
+\TwentyHanjaChar[2|20|30|21|31]
+\end{boxedverbatim}
+\HanjaZeroFont{HanaMinA}
+한자 숫자를 사용할 때 예를 들어 45의 경우 \NumHanja{45}와 같이 읽는 것이 일반적이지만
+가끔 \NumHanjaDig{45}로 표시하는 것이 좋을 경우가 있다.
+% 예전 개역성경 간이국한문판에서 절(verse)을
+%표시하기 위해 이런 식의 표기법을 사용하였다.
+이 표기법에서 20부터 29까지의 숫자는 \NumHanjaDig{20},
+\NumHanjaDig{21}과 같이 쓰지 않고 \TwentyHanjaChar[20]\NumHanjaDig{20}, \NumHanjaDig{21}과 같이
+표기할 수 있다.
+
+%이 표기법과 관련하여 몇 가지 알아둘 점이 있다.
+\begin{itemize}\firmlist
+\item $0$을 표기하는 데 사용되는 글자 \ct{[U+3007]}(상형문자 zero)가 빠져 있는 폰트가 있다.
+나눔명조와 나눔고딕이 그렇다. 이런 폰트를 주 폰트로 쓰고 있다면 상형문자 zero를 표기할 때 사용할 폰트만 지정해줄 수 있다. \cs{HanjaZeroFont}를 쓴다.
+\verb|\HanjaZeroFont{HCR Batang LVT}|
+\item 폰트를 바꾸지 않고 상형문자 zero에 해당하는 글자 자체를 바꿀 수 있다. \verb|\HanjaZero{○}|.
+\end{itemize}
+
+\hanjafontspec{HanaMinA}
+$20$에 해당하는 한자는 원래 廿(스물 입)이다(이 글자는 KS X 1001에 포함되지 않기 때문에 많은 한글 폰트에서 이 글자가 결락되어 있다). 그 이체자는 卄이고 이 글자를 포함하고 있는 폰트가 더 많다. 어떤 글자를 쓸 것인가를 다음과 같이 \cs{TwentyHanjaChar}의 옵션으로 \ct{[2]}, \ct{[20]}, \ct{[21]}을 주어서 선택할 수 있다.\footnote{%
+	이 문서의 기본 폰트인 나눔 명조, 나눔 고딕에도 廿이 없는 까닭에 이 단락에서 한자 폰트를 HanaMinA로 하였다.}
+
+\begin{verbatim}
+\TwentyHanjaChar[2]\NumHanjaDig{20}
+\TwentyHanjaChar[20]\NumHanjaDig{20}
+\TwentyHanjaChar[21]\NumHanjaDig{20}
+\end{verbatim}
+\TwentyHanjaChar[2]\NumHanjaDig{20}
+\TwentyHanjaChar[20]\NumHanjaDig{20}
+\TwentyHanjaChar[21]\NumHanjaDig{20}
+
+\medskip
+
+[v2.5] 한편, 30에 해당하는 한자 卅(서른 삽)을 쓰는 경우도 있을 수 있다. 원한다면 이 글자를 선언할 수 있는데 \cs{TwentyHanjaChar}에 \ct{[30]}을 지시하면 된다. 이 옵션이 들어오면 20도 스물 입을 사용한다.
+마찬가지로 \ct{[31]}을 선언하면 20에 해당하는 글자를 廿으로 만든다. 30에 해당하는 글자에는 변경이 없다.
+\begin{verbatim}
+\TwentyHanjaChar[30]
+\NumHanjaDig{20}, \NumHanjaDig{30}\\
+\TwentyHanjaChar[31]
+\NumHanjaDig{20}, \NumHanjaDig{30}
+\end{verbatim}
+\TwentyHanjaChar[30]
+\NumHanjaDig{20}, \NumHanjaDig{30}\\
+\TwentyHanjaChar[31]
+\NumHanjaDig{20}, \NumHanjaDig{30}
+
+\medskip
+
+패키지 옵션으로는 \ct{[2]}, \ct{[20]}, \ct{[30]}이 있고 의미는 위에 설명한 바와 같다. \ct{[21]}이나
+\ct{[31]}은 패키지 옵션이 아니라 \cs{TwentyHanjaChar} 명령으로 활성화한다.
+
+\bigskip
+
+[v2.6] 사실 스물 입이나 서른 삽과 같은 글자를 사용하여 숫자를 표시하는 일은 우리 문헌에 극히 드물다.
+출판된 서적 가운데는 아마도 대한성서공회의 \bnm{성경전서} 개역한글판(1962)과 간이국한문(1964)이 유일한 예일 것이다.
+이 책의 `관주'라 불리는 상호참조 정보에 쓰인 한자 숫자는 본문 장절표시를 위한 한자 숫자 체계와 또 달라서 매우 독특한 
+표기를 보여주는데, 다음은 이를 재현해본 것이다. 이 표기에서 ○은 숫자 영($0$)이 아니고 장과 절 사이의 구분 기호이고 숫자 앞에 붙은 글자들은 성경의 책 이름 약자이다. 이런 것이 실제로 쓰일 일은 거의 없을 것이다.\footnote{%
+	이 명령들은 스물 입과 서른 삽 글자가 갖추어진 폰트가 아니라면 제대로 나타나지 않는다.}
+\begin{verbatim}
+\KRVcom{22},
+\KRVverse{Gen}{45.22}{25},
+\KRVverse{1Ki}{13.34}
+\end{verbatim}
+\KRVcom{22},
+\KRVverse{Gen}{45.22}{25},
+\KRVverse{1Ki}{13.34}
+
+\subsection{한자 숫자의 교체}
+\begin{boxedverbatim}
+\MarkHanja{ <name> } { <char> }
+\end{boxedverbatim}
+[v2.7] 각 숫자에 해당하는 한자를 사용자가 별도로 정의하여 쓸 수 있다.
+이 명령은 두 개의 인자를 받아들이는데 첫 번째 것은 숫자의 이름이다. 이 자리에 올 수 있는 것은,
+1부터 9까지의 숫자, one, two, three, four, five, six, seven, eight, nine과
+십, 백, 천, 만, 억, 조에 해당하는 shi, bae, chu, man, eok, cho이다. 십, 백, 천은 ten, hundred, thousand를
+쓸 수도 있다. 사용자 정의 한자를 식자하는 것은 갖은자 모드가 아닐 때이고 \cs{NumHanja}, \cs{NumHanjaBig}뿐 아니라 \cs{NumHanjaDig} 및 카운터 \cs{HANJA}와 \cs{HANJADIG}에도 효력을 미친다.
+\begin{verbatim}
+\MarkHanja{man}{万}
+\MarkHanja{one}{壱}
+\MarkHanja{two}{弍}
+\NumHanjaBig{12,011}
+\end{verbatim}
+\MarkHanja{man}{万}
+\MarkHanja{one}{壱}
+\MarkHanja{two}{弍}
+\NumHanjaBig{12,011}
+
+\medskip
+
+모두 기본값으로 되돌리려면 \cs{MarkHanja\{default\}}라고 선언한다. 이 경우 두 번째 인자는 없다.
+
+\begin{verbatim}
+\MarkHanja{default}
+\NumHanjaBig{12,011}
+\end{verbatim}
+\MarkHanja{default}
+\NumHanjaBig{12,011}
+
+\medskip
+
+이 기능을 이용하면 기본적으로 제공되지 않는 ``만 단위로 띄어쓰기''를 한자 숫자에도 적용할 수 있다.
+\begin{verbatim}
+\MarkHanja{eok}{億\space}
+\MarkHanja{man}{萬\space}
+\NumHanjaBig{123,453,012}
+\end{verbatim}
+\MarkHanja{eok}{億\space}
+\MarkHanja{man}{萬\space}
+\NumHanjaBig{123,453,012}
+
+\MarkHanja{default}
+
+\subsection{카운터}
+\begin{boxedverbatim}
+\HANJA{<counter>}, \HANGUL{<counter>}, \HANJADIG{<counter>}
+\end{boxedverbatim}
+위에 설명된 \cs{NumHanja}, \cs{NumHangul}, \cs{NumHanjaDig}과 같으나 숫자를 인자로 취하는 것이 아니라
+카운터 변수를 취한다. 원래의 \pkg{hanjacnt}가 이러한 카운터 수식명령만을 제공하였다.
+
+\begin{verbatim}
+\newcounter{foo}
+\stepcounter{foo}\HANJA{foo},
+\addtocounter{foo}{5}\HANGUL{foo},
+\setcounter{foo}{105}\HANJA{foo} \HANGUL{foo} \HANJADIG{foo}
+\end{verbatim}
+\newcounter{foo}
+\stepcounter{foo}\HANJA{foo},
+\addtocounter{foo}{5}\HANGUL{foo},
+\setcounter{foo}{105}\HANJA{foo} \HANGUL{foo} \HANJADIG{foo}
+
+\medskip
+
+\cs{pagenumbering}과도 함께 쓸 수 있다. \verb|\pagenumbering{HANJA}|.
+그러나 \pkg{memoir}나 \pkg{oblivoir}라면 다음과 같이 pagestyle을 정의하는 쪽을 권장한다.
+\begin{verbatim}
+\makeoddfoot{plain}{}{\HANJA{page}}{}
+\end{verbatim}
+\makeoddfoot{plain}{}{\HANJA{page}}{}
+이제 이 페이지부터 plain 페이지스타일에서 바닥에 페이지 번호가 한자로 찍힐 것이다.
+카운터로 다룰 수 있는 한자/한글 숫자의 범위는 10만 미만(다섯 자리)이다.
+\begin{verbatim}
+\setcounter{foo}{11111}
+\HANJA{foo} \HANGUL{foo}
+\end{verbatim}
+\setcounter{foo}{11111}
+\HANJA{foo} \HANGUL{foo}
+
+\bigskip
+
+갖은자 한자 카운터는 \cs{FinHanjaMode}에 의해 활성화된다. \cs{HANJADIG}으로는 갖은자를 식자할
+필요가 없으므로 이와 무관하다.
+\begin{verbatim}
+\FinHanjaMode{on}
+\HANJA{foo}
+\end{verbatim}
+\FinHanjaMode{on}
+\HANJA{foo}
+
+\FinHanjaMode{off}
+
+\subsection{한글/한자 날짜}
+
+날짜를 표시하는 데 한글이나 한자를 써야 하는 경우가 있다.
+
+\begin{boxedverbatim}
+\HanjaYear{ year }, \HanjaMonth{ month }, \HanjaDay { day },
+\HangulYear{ year }, \HangulMonth{ month }, \HangulDay { day },
+\HanjaToday, \HangulToday
+\end{boxedverbatim}
+
+\cs{HanjaToday}와 \cs{HangulToday}의 결과는 각각 다음과 같다.
+
+\medskip
+
+\HanjaToday, \HangulToday
+
+\medskip
+
+\cs{HangulLunarToday}라는 명령을 주면 표현 방식이 다음처럼 나타난다. 한자에는 해당 명령이 없다.
+단, 이 패키지는 양력-음력 변환을 해주지는 않으므로 양력 날짜를 `음력식' 읽기로 보여주는 것뿐이다.
+
+\medskip
+
+\HangulLunarToday
+
+\medskip
+
+\cs{Hangul|Hanja||Year|Month|Day} 명령에는 인자로 숫자를 줄 수 있다. 한자 연도표시는 \cs{...Dig} 방식을 따른다. 일반적인 한자 읽기 방식을 쓰려면 직접 `\verb|\NumHanja{2002}年|'과 같이 쓰도록 하라 (\NumHanja{2002}年).
+
+\begin{verbatim}
+\HangulYear{2000}, \HanjaYear{2002} \\
+\HangulMonth{10}, \HangulMonth{6}, \HanjaMonth{1} \\
+\HangulDay{10}, \HanjaDay{15}
+\end{verbatim}
+\HangulYear{2000}, \HanjaYear{2002} \\
+\HangulMonth{10}, \HangulMonth{6}, \HanjaMonth{1} \\
+\HangulDay{10}, \HanjaDay{15}
+
+\medskip
+
+한글 날짜의 `음력식' 읽기는 \cs{HangulLunarDay}를 이용한다. 양력 날짜를 음력식으로 읽는 것이라서 (원래는 없는) 30일과 31일이 추가되어 있다. 만약 그 달의 마지막 날을 표시하려면 인자로 100을 준다.
+
+\begin{verbatim}
+\HangulLunarDay{15}, \HangulLunarDay{5}, \HangulLunarDay{100}
+\end{verbatim}
+\HangulLunarDay{15}, \HangulLunarDay{5}, \HangulLunarDay{100}
+
+\medskip
+
+이 명령을 인자 없이 쓰면 오늘 날짜를 음력식으로 읽는다. \cs{HangulLunarDay} \HangulLunarDay.
+\ct{HanjaLunarDay}는 정의하지 않았다.
+
+단기 연호를 사용하려면 \cs{HangulDangiYear}를 쓰면 된다. 이 명령은 인자를 반드시 주어야 하고 인자는 서기 연도여야 한다. \cs{HanjaDangiYear} 명령도 있다.
+\begin{verbatim}
+\HangulDangiYear{\the\year}, \HangulDangiYear{2007},
+\HanjaDangiYear{\the\year}
+\end{verbatim}
+\HangulDangiYear{\the\year}, \HangulDangiYear{2007}, \HanjaDangiYear{\the\year}
+
+\medskip
+
+불멸기원도 마찬가지로 표현할 수 있다.
+\begin{verbatim}
+\HangulBulgiYear{\the\year},
+\HanjaBulgiYear{\the\year}
+\end{verbatim}
+\HangulBulgiYear{\the\year},
+\HanjaBulgiYear{\the\year}
+
+
+\subsection{폰트}
+\begin{boxedverbatim}
+\NumHanjaFont{ <font> }
+\end{boxedverbatim}
+한자 숫자에 대해서만 별도의 폰트를 써야 할 때가 있다. 페이지번호 장식과 같은 것이 대표적일 것이다.
+이 때 \cs{NumHanjaFont}를 쓰면 된다. 이것은 \cs{hanjafontspec} 명령을 이용하기 때문에
+\xetexko, \luatexko가 아니면 의미가 없다. 여기서 폰트를 선언하면 그 효과는 이 페이지의 페이지 번호에 바로 나타난다.
+\begin{verbatim}
+\NumHanjaFont{HYhaeseo}
+\end{verbatim}
+\NumHanjaFont{HYhaeseo}
+
+\subsection{\texorpdfstring{\pdftex}{pdfTeX}의 경우}
+\pdftex에서 \koTeX-utf를 쓰는 상황이라면 이 패키지의 몇 가지 기능을 사용할 수 없다. \cs{HANJADIG}은
+오류를 일으키지 않으나 상형문자 zero가 제대로 나타나지 않는다. 폰트 관련 명령은 \pdftex에서는 의미가 없다.
+그러므로 \cs{HANJA}, \cs{HANGUL}, \cs{NumHanja}, \cs{NumHangul}을 쓸 수 있다고 생각하면 된다.
+
+
+\section{바뀐 점}
+
+\noindent\textbullet\ v2.7 (2015/06/28) 사용자 한자 숫자 정의 도입. 날짜표기.
+
+\noindent\textbullet\ v2.5 (2015/06/27) 스물 입, 서른 삽의 처리. 스물 입의 이체자. 
+
+\noindent\textbullet\ v2.4 (2015/06/26) 쉼표로 구분된 숫자의 처리.
+
+\noindent\textbullet\ v2.3 (2015/06/26) 한자 갖은자 숫자의 식자 가능. (suggested by nomos)
+
+\noindent\textbullet\ v2.2 (2015/06/26) \cs{expandafter}하던 문제를 해결.
+
+\clearpage
+
+\section{테스트}
+
+한자 숫자 글꼴을 HanaMinA로 하여 테스트한다. 20은 \ct{[21]} 상태이다.
+\TwentyHanjaChar[21]
+
+\bigskip
+
+\NumHanjaFont{HanaMinA}
+
+\parindent=0pt
+\long\def\TestLine{%
+	\stepcounter{foo}\thefoo \tab
+	\HANGUL{foo} \tab
+	\HANJA{foo} \tab
+	\HANJADIG{foo} \par
+}
+
+\setcounter{foo}{-1}
+카운터\tab \cs{HANGUL}\tab \cs{HANJA}\tab \cs{HANJADIG} \\
+\multido{\i=1+1}{51}{ \TestLine }
+
+\setcounter{foo}{80}
+\multido{\i=1+1}{30}{ \TestLine }
+
+\setcounter{foo}{1000}
+\thefoo\tab \HANGUL{foo}\tab \HANJA{foo}\tab \HANJADIG{foo} \par
+
+\setcounter{foo}{\the\year}
+\thefoo\tab \HANGUL{foo}\tab \HANJA{foo}\tab \HANJADIG{foo} \par
+
+
+\end{document}

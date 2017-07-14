@@ -1,0 +1,8 @@
+name kotex-euc.x86_64-linux
+category Package
+revision 200
+shortdesc x86_64-linux files of kotex-euc
+binfiles arch=x86_64-linux size=8
+ bin/x86_64-linux/euc-bookmark
+ bin/x86_64-linux/hbibtex
+ bin/x86_64-linux/hmakeindex

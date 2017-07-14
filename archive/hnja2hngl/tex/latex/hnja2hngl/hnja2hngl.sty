@@ -1,0 +1,688 @@
+% hnja2hngl
+%
+\ProvidesPackage{hnja2hngl}[2015/05/18 v0.9.3]
+
+\def\hnjahnglpkgdate{2015/05/17}
+\def\hnjahnglpkgversion{v0.9.3}
+
+\RequirePackage{expl3,xparse}
+\RequirePackage{l3str-convert}
+\RequirePackage{l3keys2e}
+
+\ExplSyntaxOn 
+
+\keys_define:nn { hnjahngl }
+{
+	dry		.bool_set:N = \hnjahngl_dry_bool,
+	full	.bool_set_inverse:N = \hnjahngl_dry_bool,
+	draft	.bool_set:N = \hnjahngl_draft_bool,
+	grruby	.bool_set:N = \hnjahngl_grruby_opt,
+}
+
+\ProcessKeysOptions { hnjahngl }
+\scan_stop:
+
+\cs_new:Npn \__hh_to_string:n #1
+{
+	\seq_set_split:Nnn \l_hhtostr_seq { } { #1 }
+	\int_zero_new:N \hh_tmp_int
+	\seq_map_inline:Nn \l_hhtostr_seq
+	{
+    	\int_incr:N \hh_tmp_int
+    	\tl_set:cn 
+			{ _krr_ \int_to_roman:n { \hh_tmp_int } } 
+			{ \int_to_roman:n { \int_from_hex:n { ##1 } } }
+	}
+}
+
+\NewDocumentCommand \kHangulReading { m m o }
+{
+	\__hh_to_string:n { #1 }
+	\tl_set:cn 
+		{ k_hangul_reading_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv } 
+		{ #2 }
+	\IfValueTF { #3 }
+	{
+	\tl_set:cn
+		{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		{ #3 }
+	}
+	{
+	\tl_set:cn
+		{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		{ 0 }
+	}
+}
+
+\NewDocumentCommand \kHnjaHnglData { m m m }
+{
+	\kHangulReading { #1 } { #2 }
+	\tl_set:cn
+		{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		{ #3 }
+}
+
+\bool_if:NF \hnjahngl_dry_bool
+{
+	\file_input:n { HanjakHangul.dat }
+}
+
+\NewDocumentCommand \LoadHanReadingDB { }
+{
+	\file_input:n { HanjakHangul.dat }
+}
+
+\cs_new:Npn \__show_all_hangul:n #1
+{
+	\int_zero_new:N \l_hangul_itm
+	\clist_map_inline:Nn \l_rh_tmp_clist
+	{
+		\int_incr:N \l_hangul_itm
+		\int_compare:nTF { \l_hangul_itm = #1 }
+		{
+			\fboxsep=1pt \fbox { ##1 }
+		}
+		{
+			##1
+		}
+	}
+}
+
+\cs_new:Npn \read_hanja:nn #1 #2
+{
+	\str_set_convert:Nnnn \l_rh_tmp_tl { #1 } { } { utf16be/hex }
+	\exp_args:No \__hh_to_string:n { \l_rh_tmp_tl }
+
+	\tl_if_exist:cTF { k_hangul_reading_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+	{
+		\clist_set:Nx \l_rh_tmp_clist {
+			\use:c { k_hangul_reading_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		}
+		\str_case:nnTF { #2 }
+		{
+			{ 0 } { } { 1 } { } { 2 } { } 
+			{ 3 } { } { 4 } { } { 5 } { }
+			{ 6 } { } { 7 } { } { 8 } { }
+			{ 9 } { } 
+		}
+		{
+			\int_compare:nTF { #2 >= \clist_count:N \l_rh_tmp_clist }
+			{
+				\bool_if:NTF \hnjahngl_draft_bool
+				{
+					\__show_all_hangul:n { 1 }
+				}
+				{
+					\clist_item:Nn \l_rh_tmp_clist { 1 } 
+				}
+			}
+			{
+				\bool_if:NTF \hnjahngl_draft_bool
+				{
+					\__show_all_hangul:n { #2 + 1 }
+				}
+				{
+					\clist_item:Nn \l_rh_tmp_clist { #2 + 1 } 
+				}
+			}
+		}
+		{
+			\bool_if:NTF \hnjahngl_draft_bool
+			{ \fboxsep=1pt \fbox{#2} }
+			{ #2 } 
+		}
+	}
+	{
+		\fboxsep=1pt
+		\fbox { \footnotesize \color{red} \tl_use:N \l_rh_tmp_tl }
+	}
+}
+
+\NewDocumentCommand \readhanja { m o }
+{
+	\IfValueTF { #2 }
+	{ \read_hanja:nn { #1 } { #2 } }
+	{ \read_hanja:nn { #1 } { 0 } }
+}
+
+\NewDocumentCommand \readhanjaword { s m }
+{
+	\seq_clear:N \l_rhr_l_seq
+	\seq_clear:N \l_rhr_r_seq
+	\int_zero:N \k_cnt
+	
+	\read_hanja_read:n #2 \q_recursion_tail \q_recursion_stop
+	\seq_mapthread_function:NNN \l_rhr_l_seq \l_rhr_r_seq \read_hanja:nn
+}
+
+\cs_new:Npn \read_hanja_eachchar:nn #1 #2
+{
+	\seq_pop_left:NN \l_ec_tmp_seq \l_ec_tmp_tl
+	\grfoo \read_hanja:nn #1 #2 
+	( \tl_use:N \l_ec_tmp_tl )
+	\allowbreak
+}
+
+\NewDocumentCommand \rw_hanjachar { m }
+{
+	\seq_clear:N \l_rhr_l_seq
+	\seq_clear:N \l_rhr_r_seq
+	\int_zero:N \k_cnt
+	
+	\read_hanja_read:n #1 \q_recursion_tail \q_recursion_stop
+	\rx_hanja_md:n { #1 }
+	\exp_args:NNnx \seq_set_split:Nnn \l_ec_tmp_seq {} { \_brk_cleared_arg }
+
+	\seq_mapthread_function:NNN \l_rhr_l_seq \l_rhr_r_seq \read_hanja_eachchar:nn
+}
+
+\NewDocumentCommand \rw_hanja { m }
+{
+	\rx_hanja_md:n { #1 }
+	\tl_use:N \rw_hangul_tl  ( \tl_use:N \_brk_cleared_arg )
+}
+
+\NewDocumentCommand \gr_rw_hanja { m }
+{
+	\rx_hanja_md:n { #1 }
+	\grfoo \tl_use:N \rw_hangul_tl ( \tl_use:N \_brk_cleared_arg )
+}
+
+\cs_new:Npn \rx_hanja_md:n #1
+{
+	\tl_set:Nx \rw_hangul_tl { \readhanjaword { #1 } }
+	\tl_set:Nn \rw_hanja_tl { #1 }
+
+	\tl_clear:N \_brk_cleared_arg
+	\tl_map_inline:Nn \rw_hanja_tl
+	{
+		\str_case_x:nnTF { ##1 }
+		{
+			{ [ } { \bool_set_true:N \rhr_test_bool }
+			{ ] } { \bool_set_false:N \rhr_test_bool }
+		}
+		{ }
+		{
+			\bool_if:NTF \rhr_test_bool
+			{ }
+			{ \tl_put_right:Nn \_brk_cleared_arg { ##1 } }
+		}
+	}
+}
+
+\bool_new:N \rhr_test_bool
+\int_new:N \k_cnt
+
+\cs_new:Npn \read_hanja_read:n #1
+{
+	\quark_if_recursion_tail_stop:n #1
+	
+	\int_incr:N \k_cnt
+	
+	\str_case:nnF { #1 }
+	{
+		{ [ } { \bool_set_true:N \rhr_test_bool }
+		{ ] } { \bool_set_false:N \rhr_test_bool }
+	}
+	{
+		\bool_if:NTF \rhr_test_bool
+		{
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_put_right:Nn \l_rhr_r_seq { #1 }
+		}
+		{
+			\seq_put_right:Nn \l_rhr_l_seq { #1 }
+			\int_compare:nTF { \k_cnt = 1 }
+			{ \seq_put_right:Nn \l_rhr_r_seq { 1 } }
+			{ \seq_put_right:Nn \l_rhr_r_seq { 0 } }
+		}
+	}
+	
+	\str_case:nnTF { #1 }
+	{
+		{ 不 } {
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_pop_right:NN \l_rhr_l_seq \l_nothing_tl
+			\treat_bul:n
+		}
+		{ 不 } {
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_pop_right:NN \l_rhr_l_seq \l_nothing_tl
+			\treat_bul:n
+		}
+		{ 一 } {
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_pop_right:NN \l_rhr_l_seq \l_nothing_tl
+			\treat_ilche:n
+		}
+		{ 菩 } {
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_pop_right:NN \l_rhr_l_seq \l_nothing_tl
+			\treat_bori:n
+		}
+		{ 布 } {
+			\seq_pop_right:NN \l_rhr_r_seq \l_nothing_tl
+			\seq_pop_right:NN \l_rhr_l_seq \l_nothing_tl
+			\treat_boshi:n
+		}
+	}
+	{
+	}
+	{ \read_hanja_read:n }
+}
+
+%% to avoid error
+\kHnjaHnglData{005B}{}{0}
+\kHnjaHnglData{005C}{}{0}
+\kHnjaHnglData{005D}{}{0}
+
+% special: 不=불/부
+\cs_new:Npn \treat_bul:n #1
+{
+	\__code_point:n { #1 }
+	\exp_args:No \__hh_to_string:n { \code_point_view_tl }
+
+	\tl_if_exist:cTF
+	{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+	{
+		\exp_args:NNx \int_set:Nn \l_tmpa_int {
+			\use:c { k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		}
+	}
+	{
+		\int_set:Nn \l_tmpa_int { 0 }
+	}
+	
+	\bool_if:nTF 
+	{
+	  ( \int_compare_p:n { \l_tmpa_int >= 1594 } && \int_compare_p:n { \l_tmpa_int <= 1946 } )
+	  ||
+	  ( \int_compare_p:n { \l_tmpa_int >= 6025 } && \int_compare_p:n { \l_tmpa_int <= 7053 } )
+	  ||
+	  ( \int_compare_p:n { \l_tmpa_int = 11111 } )
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 不 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 2 }
+	}
+	{
+		\int_compare:nTF { \l_tmpa_int = 4475 }  % special: 不實=부실
+		{
+			\seq_put_right:Nn \l_rhr_l_seq { 不 }
+			\seq_put_right:Nn \l_rhr_r_seq { 2 }
+		}
+		{
+			\seq_put_right:Nn \l_rhr_l_seq { 不 }
+			\seq_put_right:Nn \l_rhr_r_seq { 0 }
+		}
+	}
+	  
+	\read_hanja_read:n #1
+}
+
+% special: 一切=일체
+\cs_new:Npn \treat_ilche:n #1
+{
+	\__code_point:n { #1 }
+	\exp_args:No \__hh_to_string:n { \code_point_view_tl }
+
+	\tl_if_exist:cTF
+	{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+	{
+		\exp_args:NNx \int_set:Nn \l_tmpa_int {
+			\use:c { k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		}
+	}
+	{
+		\int_set:Nn \l_tmpa_int { 0 }
+	}
+	
+	\bool_if:nTF 
+	{
+	  ( \int_compare_p:n { \l_tmpa_int = 6427 } ) || 
+	  ( \int_compare_p:n { \l_tmpa_int = 7425 } )
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 一 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 0 }
+	  \seq_put_right:Nn \l_rhr_l_seq { 切 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 2 }
+	  \read_hanja_read:n
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 一 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 0 }
+	  \read_hanja_read:n #1
+	}
+}
+
+% special: 菩提=보리
+\cs_new:Npn \treat_bori:n #1
+{
+	\__code_point:n { #1 }
+	\exp_args:No \__hh_to_string:n { \code_point_view_tl }
+
+	\tl_if_exist:cTF
+	{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+	{
+		\exp_args:NNx \int_set:Nn \l_tmpa_int {
+			\use:c { k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		}
+	}
+	{
+		\int_set:Nn \l_tmpa_int { 0 }
+	}
+	
+	\bool_if:nTF 
+	{
+	  ( \int_compare_p:n { \l_tmpa_int = 6555 } ) || 
+	  ( \int_compare_p:n { \l_tmpa_int = 6571 } )
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 菩 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 0 }
+	  \seq_put_right:Nn \l_rhr_l_seq { #1 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 리 }
+	  \read_hanja_read:n
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 菩 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 0 }
+	  \read_hanja_read:n #1
+	}
+}
+
+% special: 布施=보시
+\cs_new:Npn \treat_boshi:n #1
+{
+	\__code_point:n { #1 }
+	\exp_args:No \__hh_to_string:n { \code_point_view_tl }
+
+	\tl_if_exist:cTF
+	{ k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+	{
+		\exp_args:NNx \int_set:Nn \l_tmpa_int {
+			\use:c { k_hangul_reading_seqnum_ \_krr_i _ \_krr_ii _ \_krr_iii _ \_krr_iv }
+		}
+	}
+	{
+		\int_set:Nn \l_tmpa_int { 0 }
+	}
+	
+	\bool_if:nTF 
+	{
+	  ( \int_compare_p:n { \l_tmpa_int = 4361 } )
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 布 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 보 }
+	  \seq_put_right:Nn \l_rhr_l_seq { #1 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 시 }
+	  \read_hanja_read:n
+	}
+	{
+	  \seq_put_right:Nn \l_rhr_l_seq { 布 }
+	  \seq_put_right:Nn \l_rhr_r_seq { 0 }
+	  \read_hanja_read:n #1
+	}
+}
+
+
+\cs_new:Npn \__code_point:n #1
+{
+	\str_set_convert:Nnnn \code_point_view_tl { #1 } { } { utf16be/hex }
+}
+
+\NewDocumentCommand \viewCodePoint { m }
+{
+	\__code_point:n { #1 }
+	#1 \fbox{ \tl_use:N \code_point_view_tl }
+}
+
+\NewDocumentCommand \AssignReading { s m m }
+{
+	\__code_point:n { #2 }
+%	\str_set_convert:Nnnn \l_tmpa_tl { #1 } { } { utf16be/hex }
+	\IfBooleanTF { #1 }
+	{
+	\exp_args:No \kHangulReading { \code_point_view_tl } { #3 } [ 11111 ]
+	}
+	{
+	\exp_args:No \kHangulReading { \code_point_view_tl } { #3 }
+	}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\token_new:Nn \c_period_token { . }
+\token_new:Nn \c_divide_token { | }
+
+%% at(@) will be used as an end-mark of input stream
+%% therefore the catcode of @ should be set to other(12)
+\char_set_catcode_other:N \@
+\token_new:Nn \c_tmpend_token { @ }
+
+\tl_new:N \hnhg_output_tl
+\tl_new:N \hnhg_output_com_tl
+\tl_new:N \hnhg_long_str
+
+\int_new:N \i_cnt
+\int_new:N \j_cnt
+
+\cs_new:Npn \hnhg_takepara:n #1
+{
+	\token_if_eq_charcode:NNTF #1 \c_tmpend_token
+	{
+		\tl_put_right:Nn \hnhg_long_str { }
+	  	\exp_args:NNnx \seq_set_split:Nnn \l_takepara_seq { \c_divide_token } { \tl_use:N \hnhg_long_str }
+		\int_set:Nn \j_cnt { \seq_count:N \l_takepara_seq }
+		\int_zero:N \i_cnt
+		\seq_map_inline:Nn \l_takepara_seq
+		{
+			\int_incr:N \i_cnt
+			\hnhg_procword ( ##1 )
+			\int_compare:nF { \i_cnt = \j_cnt }
+			{ \space }
+		}
+	}
+	{
+		\tl_put_right:Nn \hnhg_long_str { #1 }
+		\peek_catcode:NTF \c_space_token
+		{ \tl_put_right:Nn \hnhg_long_str { \c_divide_token }
+		  \hnhg_takepara:n }
+		{ \hnhg_takepara:n }
+	}
+}
+
+\NewDocumentCommand \hnhg_grra {  }
+{
+	\tl_clear:N \hnhg_output_tl
+	\tl_clear:N \hnhg_output_com_tl
+	\tl_clear:N \grsp_tl
+	\grsp_spc:n
+}
+
+\cs_new:Npn \grsp_spc:n #1
+{
+	\peek_catcode:NTF \c_space_token
+	{
+		\tl_put_right:Nn \grsp_tl { #1 } 
+		\exp_args:Nx \hnhg_takeword:n { \tl_use:N \grsp_tl }
+	}
+	{ \tl_put_right:Nn \grsp_tl { #1 } \grsp_spc:n }
+}
+
+\cs_new:Npn \hnhg_takeword:n #1
+{
+	\hnhg_procword ( #1 )
+}
+
+\NewDocumentCommand \hnhg_procword { d() }
+{
+	\hnhg_grra:n #1@ \q_recursion_tail \q_recursion_stop
+}
+
+\bool_new:N \flush_hanja_cluster
+\bool_new:N \is_hanja_bool
+
+%% is this character a hanja?
+\cs_new:Npn \is_hanja_check:n #1
+{
+	\str_set_convert:Nnnn \l_tmpa_tl { #1 } { } { clist }
+	\bool_if:nTF
+	{
+%% 13312(x3400)--40959(x9FFF): 한중일 통합한자 확장 A, 한중일 통합한자
+	  ( \int_compare_p:n { \l_tmpa_tl >= 13312 } && \int_compare_p:n { \l_tmpa_tl <= 40959 } ) 
+	  ||
+%% 63744(xF900)--64255(xFAFF): 한중일 호환한자
+	  ( \int_compare_p:n { \l_tmpa_tl >= 63744 } && \int_compare_p:n { \l_tmpa_tl <= 64255 } )
+	  || 
+%% 131072(x20000)--195103(x2FA1F) : 한중일 통합한자 확장 B, C, D, 보충
+	  ( \int_compare_p:n { \l_tmpa_tl >= 131072 } && \int_compare_p:n { \l_tmpa_tl <= 195103 } )
+%%% [와 ]
+	  ||
+	  ( \int_compare_p:n { \l_tmpa_tl = 91 } ) || ( \int_compare_p:n { \l_tmpa_tl = 93 } )
+	}
+	{ \bool_set_true:N \is_hanja_bool  }
+	{ \bool_set_false:N \is_hanja_bool }
+}
+
+\bool_new:N \ignore_mode_bool
+
+\cs_new:Npn \hnhg_grra:n #1
+{
+	\quark_if_recursion_tail_stop:n #1
+	
+	\str_case:nn { #1 }
+	{
+		{ [ } { \bool_set_true:N \ignore_mode_bool }
+		{ ] } { \bool_set_false:N \ignore_mode_bool }
+	}
+
+	\is_hanja_check:n { #1 }
+	\bool_if:nTF { ( \is_hanja_bool ) || ( \ignore_mode_bool ) }
+	{
+		\bool_set_true:N \flush_hanja_cluster
+		\tl_put_right:Nn \hnhg_output_tl { #1 }
+	}
+	{
+		\bool_if:NT \flush_hanja_cluster
+		{
+			\exp_args:Nx \rwhanja { \tl_use:N \hnhg_output_tl } 
+			\tl_clear:N \hnhg_output_tl
+			\bool_set_false:N \flush_hanja_cluster
+		}
+		\token_if_eq_charcode:NNF #1 @ { #1 }
+	}
+	\hnhg_grra:n
+}
+
+\NewDocumentCommand \rpSetReading { m }
+{
+	\clist_set:Nn \l_tmp_clist { #1 }
+	\clist_map_inline:Nn \l_tmp_clist
+	{
+		\tl_if_in:nnTF { ##1 } { * }
+		{ \__divide_arg_rp_star:w ##1 \q_stop }
+		{ \__divide_arg_rp:w ##1 \q_stop }
+	}
+}
+
+\cs_new:Npn \__divide_arg_rp:w #1 = #2 \q_stop
+{
+	\AssignReading  { #1 } { #2 }
+}
+
+\cs_new:Npn \__divide_arg_rp_star:w #1 = #2 * \q_stop
+{
+	\AssignReading*  { #1 } { #2 }
+}
+
+\NewDocumentCommand \rpRead { m o }
+{
+	\IfValueT { #2 } { \rpSetReading { #2 } }
+	\use:c { rphanja #1 }
+}
+
+\def\rphanjapara#1\par{ 
+	\tl_clear:N \hnhg_long_str 
+	\hnhg_takepara:n #1\c_tmpend_token \par 
+}
+
+\def\rphanjaperiod#1.{
+	\tl_clear:N \hnhg_long_str
+	\hnhg_takepara:n #1\c_tmpend_token .
+}
+
+\def\rphanjacomma#1,{
+	\tl_clear:N \hnhg_long_str
+	\hnhg_takepara:n #1\c_tmpend_token ,
+}
+
+\def\rphanjaat#1@{
+	\tl_clear:N \hnhg_long_str
+	\hnhg_takepara:n #1\c_tmpend_token
+}
+
+%%%
+\NewDocumentCommand \hnjahngldrafton { }
+{
+	\cs_set_eq:NN \tmp_rwhanja \rwhanja
+	\cs_set_eq:NN \tmp_grrwhanja \grrwhanja
+	\bool_set_true:N \hnjahngl_draft_bool
+	\cs_set_eq:NN \rwhanja \rw_hanjachar
+	\cs_set_eq:NN \grrwhanja \rw_hanjachar
+}
+
+\NewDocumentCommand \hnjahngldraftoff { }
+{
+	\bool_set_false:N \hnjahngl_draft_bool
+	\cs_if_exist:NTF \tmp_rwhanja
+	{
+		\cs_set_eq:NN \rwhanja \tmp_rwhanja
+		\cs_set_eq:NN \grrwhanja \tmp_grrwhanja
+	}
+	{
+		\cs_set_eq:NN \rwhanja \rw_hanja
+		\cs_set_eq:NN \grrwhanja \gr_rw_hanja
+	}
+}
+
+\bool_if:NTF \hnjahngl_draft_bool
+{
+	\RequirePackage{grruby}
+	\cs_set_eq:NN \rwhanja \rw_hanjachar
+	\cs_set_eq:NN \grrwhanja \rw_hanjachar
+	\cs_set_eq:NN \rwhanjachar \rw_hanjachar
+}
+{
+	\bool_if:NTF \hnjahngl_grruby_opt
+	{
+		\RequirePackage{grruby}
+		\cs_set_eq:NN \rwhanja \gr_rw_hanja
+		\cs_set_eq:NN \grrwhanja \gr_rw_hanja
+		\cs_set_eq:NN \rwhanjachar \rw_hanjachar
+	}
+	{
+		\cs_set_eq:NN \rwhanja \rw_hanja
+		\cs_set_eq:NN \grrwhanja \gr_rw_hanja
+		\cs_set_eq:NN \rwhanjachar \rw_hanjachar
+	}
+}
+
+\ExplSyntaxOff
+
+\endinput
+
+% v0.9.3: "부실" special
+% v0.9.2: bug fix concerning ruby
+% v0.9.1: "일체" "보리" "보시" special
+% v0.9: draft redefined, [grruby] 옵션
+% v0.8: `不' 독음 자동화
+% v0.7: revise \rw_hanja method, add [draft] option
+% v0.6: luatex-ko compatible
+% v0.5.2: comments
+% v0.5.1: code refinement
+% v0.5: add [dry] option
+% v0.3: fix HanjakHangul.dat
+% v0.2: fix comma-missing bug

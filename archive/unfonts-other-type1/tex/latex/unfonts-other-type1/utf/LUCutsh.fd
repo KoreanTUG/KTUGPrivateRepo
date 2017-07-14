@@ -1,0 +1,9 @@
+\DeclareFontFamily{LUC}{utsh}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utsh}{m}{n}{<-> LUC * outshm}{}
+\DeclareFontShape{LUC}{utsh}{m}{sl}{<-> LUC * outshmo}{}
+\DeclareFontShape{LUC}{utsh}{m}{it}{<-> LUC * outshmo}{}
+
+\DeclareFontShape{LUC}{utsh}{c}{n}{<-> LUC * outshc}{}
+\DeclareFontShape{LUC}{utsh}{c}{sl}{<-> LUC * outshco}{}
+\DeclareFontShape{LUC}{utsh}{c}{it}{<-> LUC * outshco}{}

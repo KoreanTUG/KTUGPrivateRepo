@@ -1,0 +1,8 @@
+name kswrapfig
+category Package
+revision 200
+shortdesc text flows around figure, written by Karnes
+relocated 1
+runfiles size=9
+ RELOC/tex/latex/kswrapfig/ksinsbox.sty
+ RELOC/tex/latex/kswrapfig/kswrapfig.sty

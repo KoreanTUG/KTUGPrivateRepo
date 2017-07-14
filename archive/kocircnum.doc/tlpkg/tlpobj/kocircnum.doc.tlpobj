@@ -1,0 +1,9 @@
+name kocircnum.doc
+category Package
+revision 200
+shortdesc doc files of kocircnum
+relocated 1
+docfiles size=88
+ RELOC/doc/latex/kocircnum/kocircnumdoc-hcrpart.tex
+ RELOC/doc/latex/kocircnum/kocircnumdoc.pdf
+ RELOC/doc/latex/kocircnum/kocircnumdoc.tex

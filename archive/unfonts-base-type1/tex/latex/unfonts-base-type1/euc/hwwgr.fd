@@ -1,0 +1,21 @@
+%% hwwgr.fd: UhcGraphic for LaTeX
+
+\DeclareFontFamily{H}{wwgr}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwgr}{c}{n}{<->wgrc}{}
+\DeclareFontShape{H}{wwgr}{c}{sl}{<->wgrco}{}
+\DeclareHFontShape{H}{wwgr}{c}{it}{<->hssub*wwgr/c/sl}{}
+\DeclareFontShape{H}{wwgr}{m}{n}{<->wgr}{}
+\DeclareFontShape{H}{wwgr}{m}{sl}{<->wgro}{}
+\DeclareHFontShape{H}{wwgr}{m}{it}{<->hssub*wwgr/m/sl}{}
+\DeclareFontShape{H}{wwgr}{bc}{n}{<->wgrbc}{}
+\DeclareFontShape{H}{wwgr}{bc}{sl}{<->wgrbco}{}
+\DeclareHFontShape{H}{wwgr}{bc}{it}{<->hssub*wwgr/bc/sl}{}
+\DeclareFontShape{H}{wwgr}{b}{n}{<->wgrb}{}
+\DeclareFontShape{H}{wwgr}{b}{sl}{<->wgrbo}{}
+\DeclareHFontShape{H}{wwgr}{b}{it}{<->hssub*wwgr/b/sl}{}
+\DeclareFontShape{H}{wwgr}{bx}{n}{<->wgrb}{}
+\DeclareFontShape{H}{wwgr}{bx}{sl}{<->wgrbo}{}
+\DeclareHFontShape{H}{wwgr}{bx}{it}{<->hssub*wwgr/b/sl}{}
+
+%% End of hwwgr.fd

@@ -1,0 +1,9 @@
+\DeclareFontFamily{LUC}{utbm}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utbm}{m}{n}{<-> LUC * outbmm}{}
+\DeclareFontShape{LUC}{utbm}{m}{sl}{<-> LUC * outbmmo}{}
+\DeclareFontShape{LUC}{utbm}{m}{it}{<-> LUC * outbmmo}{}
+
+\DeclareFontShape{LUC}{utbm}{c}{n}{<-> LUC * outbmc}{}
+\DeclareFontShape{LUC}{utbm}{c}{sl}{<-> LUC * outbmco}{}
+\DeclareFontShape{LUC}{utbm}{c}{it}{<-> LUC * outbmco}{}

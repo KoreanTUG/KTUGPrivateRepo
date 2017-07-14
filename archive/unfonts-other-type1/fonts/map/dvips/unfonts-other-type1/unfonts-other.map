@@ -1,0 +1,3002 @@
+outbmc00 outbmm00 " .93 ExtendFont "	<outbmm00.pfb
+outbmc01 outbmm01 " .93 ExtendFont "    <outbmm01.pfb
+outbmc02 outbmm02 " .93 ExtendFont "    <outbmm02.pfb
+outbmc03 outbmm03 " .93 ExtendFont "    <outbmm03.pfb
+outbmc04 outbmm04 " .93 ExtendFont "    <outbmm04.pfb
+outbmc11 outbmm11 " .93 ExtendFont "    <outbmm11.pfb
+outbmc20 outbmm20 " .93 ExtendFont "    <outbmm20.pfb
+outbmc21 outbmm21 " .93 ExtendFont "    <outbmm21.pfb
+outbmc22 outbmm22 " .93 ExtendFont "    <outbmm22.pfb
+outbmc23 outbmm23 " .93 ExtendFont "    <outbmm23.pfb
+outbmc24 outbmm24 " .93 ExtendFont "    <outbmm24.pfb
+outbmc25 outbmm25 " .93 ExtendFont "    <outbmm25.pfb
+outbmc26 outbmm26 " .93 ExtendFont "    <outbmm26.pfb
+outbmc30 outbmm30 " .93 ExtendFont "    <outbmm30.pfb
+outbmc31 outbmm31 " .93 ExtendFont "    <outbmm31.pfb
+outbmc32 outbmm32 " .93 ExtendFont "    <outbmm32.pfb
+outbmc33 outbmm33 " .93 ExtendFont "    <outbmm33.pfb
+outbmcac outbmmac " .93 ExtendFont "    <outbmmac.pfb
+outbmcad outbmmad " .93 ExtendFont "    <outbmmad.pfb
+outbmcae outbmmae " .93 ExtendFont "    <outbmmae.pfb
+outbmcaf outbmmaf " .93 ExtendFont "    <outbmmaf.pfb
+outbmcb0 outbmmb0 " .93 ExtendFont "    <outbmmb0.pfb
+outbmcb1 outbmmb1 " .93 ExtendFont "    <outbmmb1.pfb
+outbmcb2 outbmmb2 " .93 ExtendFont "    <outbmmb2.pfb
+outbmcb3 outbmmb3 " .93 ExtendFont "    <outbmmb3.pfb
+outbmcb4 outbmmb4 " .93 ExtendFont "    <outbmmb4.pfb
+outbmcb5 outbmmb5 " .93 ExtendFont "    <outbmmb5.pfb
+outbmcb6 outbmmb6 " .93 ExtendFont "    <outbmmb6.pfb
+outbmcb7 outbmmb7 " .93 ExtendFont "    <outbmmb7.pfb
+outbmcb8 outbmmb8 " .93 ExtendFont "    <outbmmb8.pfb
+outbmcb9 outbmmb9 " .93 ExtendFont "    <outbmmb9.pfb
+outbmcba outbmmba " .93 ExtendFont "    <outbmmba.pfb
+outbmcbb outbmmbb " .93 ExtendFont "    <outbmmbb.pfb
+outbmcbc outbmmbc " .93 ExtendFont "    <outbmmbc.pfb
+outbmcbd outbmmbd " .93 ExtendFont "    <outbmmbd.pfb
+outbmcbe outbmmbe " .93 ExtendFont "    <outbmmbe.pfb
+outbmcbf outbmmbf " .93 ExtendFont "    <outbmmbf.pfb
+outbmcc0 outbmmc0 " .93 ExtendFont "    <outbmmc0.pfb
+outbmcc1 outbmmc1 " .93 ExtendFont "    <outbmmc1.pfb
+outbmcc2 outbmmc2 " .93 ExtendFont "    <outbmmc2.pfb
+outbmcc3 outbmmc3 " .93 ExtendFont "    <outbmmc3.pfb
+outbmcc4 outbmmc4 " .93 ExtendFont "    <outbmmc4.pfb
+outbmcc5 outbmmc5 " .93 ExtendFont "    <outbmmc5.pfb
+outbmcc6 outbmmc6 " .93 ExtendFont "    <outbmmc6.pfb
+outbmcc7 outbmmc7 " .93 ExtendFont "    <outbmmc7.pfb
+outbmcc8 outbmmc8 " .93 ExtendFont "    <outbmmc8.pfb
+outbmcc9 outbmmc9 " .93 ExtendFont "    <outbmmc9.pfb
+outbmcca outbmmca " .93 ExtendFont "    <outbmmca.pfb
+outbmccb outbmmcb " .93 ExtendFont "    <outbmmcb.pfb
+outbmccc outbmmcc " .93 ExtendFont "    <outbmmcc.pfb
+outbmccd outbmmcd " .93 ExtendFont "    <outbmmcd.pfb
+outbmcce outbmmce " .93 ExtendFont "    <outbmmce.pfb
+outbmccf outbmmcf " .93 ExtendFont "    <outbmmcf.pfb
+outbmcd0 outbmmd0 " .93 ExtendFont "    <outbmmd0.pfb
+outbmcd1 outbmmd1 " .93 ExtendFont "    <outbmmd1.pfb
+outbmcd2 outbmmd2 " .93 ExtendFont "    <outbmmd2.pfb
+outbmcd3 outbmmd3 " .93 ExtendFont "    <outbmmd3.pfb
+outbmcd4 outbmmd4 " .93 ExtendFont "    <outbmmd4.pfb
+outbmcd5 outbmmd5 " .93 ExtendFont "    <outbmmd5.pfb
+outbmcd6 outbmmd6 " .93 ExtendFont "    <outbmmd6.pfb
+outbmcd7 outbmmd7 " .93 ExtendFont "    <outbmmd7.pfb
+outbmcea outbmmea " .93 ExtendFont "    <outbmmea.pfb
+outbmceb outbmmeb " .93 ExtendFont "    <outbmmeb.pfb
+outbmcec outbmmec " .93 ExtendFont "    <outbmmec.pfb
+outbmced outbmmed " .93 ExtendFont "    <outbmmed.pfb
+outbmcee outbmmee " .93 ExtendFont "    <outbmmee.pfb
+outbmcff outbmmff " .93 ExtendFont "    <outbmmff.pfb
+outbmco00 outbmm00 " .167 SlantFont .93 ExtendFont "	<outbmm00.pfb
+outbmco01 outbmm01 " .167 SlantFont .93 ExtendFont "    <outbmm01.pfb
+outbmco02 outbmm02 " .167 SlantFont .93 ExtendFont "    <outbmm02.pfb
+outbmco03 outbmm03 " .167 SlantFont .93 ExtendFont "    <outbmm03.pfb
+outbmco04 outbmm04 " .167 SlantFont .93 ExtendFont "    <outbmm04.pfb
+outbmco11 outbmm11 " .167 SlantFont .93 ExtendFont "    <outbmm11.pfb
+outbmco20 outbmm20 " .167 SlantFont .93 ExtendFont "    <outbmm20.pfb
+outbmco21 outbmm21 " .167 SlantFont .93 ExtendFont "    <outbmm21.pfb
+outbmco22 outbmm22 " .167 SlantFont .93 ExtendFont "    <outbmm22.pfb
+outbmco23 outbmm23 " .167 SlantFont .93 ExtendFont "    <outbmm23.pfb
+outbmco24 outbmm24 " .167 SlantFont .93 ExtendFont "    <outbmm24.pfb
+outbmco25 outbmm25 " .167 SlantFont .93 ExtendFont "    <outbmm25.pfb
+outbmco26 outbmm26 " .167 SlantFont .93 ExtendFont "    <outbmm26.pfb
+outbmco30 outbmm30 " .167 SlantFont .93 ExtendFont "    <outbmm30.pfb
+outbmco31 outbmm31 " .167 SlantFont .93 ExtendFont "    <outbmm31.pfb
+outbmco32 outbmm32 " .167 SlantFont .93 ExtendFont "    <outbmm32.pfb
+outbmco33 outbmm33 " .167 SlantFont .93 ExtendFont "    <outbmm33.pfb
+outbmcoac outbmmac " .167 SlantFont .93 ExtendFont "    <outbmmac.pfb
+outbmcoad outbmmad " .167 SlantFont .93 ExtendFont "    <outbmmad.pfb
+outbmcoae outbmmae " .167 SlantFont .93 ExtendFont "    <outbmmae.pfb
+outbmcoaf outbmmaf " .167 SlantFont .93 ExtendFont "    <outbmmaf.pfb
+outbmcob0 outbmmb0 " .167 SlantFont .93 ExtendFont "    <outbmmb0.pfb
+outbmcob1 outbmmb1 " .167 SlantFont .93 ExtendFont "    <outbmmb1.pfb
+outbmcob2 outbmmb2 " .167 SlantFont .93 ExtendFont "    <outbmmb2.pfb
+outbmcob3 outbmmb3 " .167 SlantFont .93 ExtendFont "    <outbmmb3.pfb
+outbmcob4 outbmmb4 " .167 SlantFont .93 ExtendFont "    <outbmmb4.pfb
+outbmcob5 outbmmb5 " .167 SlantFont .93 ExtendFont "    <outbmmb5.pfb
+outbmcob6 outbmmb6 " .167 SlantFont .93 ExtendFont "    <outbmmb6.pfb
+outbmcob7 outbmmb7 " .167 SlantFont .93 ExtendFont "    <outbmmb7.pfb
+outbmcob8 outbmmb8 " .167 SlantFont .93 ExtendFont "    <outbmmb8.pfb
+outbmcob9 outbmmb9 " .167 SlantFont .93 ExtendFont "    <outbmmb9.pfb
+outbmcoba outbmmba " .167 SlantFont .93 ExtendFont "    <outbmmba.pfb
+outbmcobb outbmmbb " .167 SlantFont .93 ExtendFont "    <outbmmbb.pfb
+outbmcobc outbmmbc " .167 SlantFont .93 ExtendFont "    <outbmmbc.pfb
+outbmcobd outbmmbd " .167 SlantFont .93 ExtendFont "    <outbmmbd.pfb
+outbmcobe outbmmbe " .167 SlantFont .93 ExtendFont "    <outbmmbe.pfb
+outbmcobf outbmmbf " .167 SlantFont .93 ExtendFont "    <outbmmbf.pfb
+outbmcoc0 outbmmc0 " .167 SlantFont .93 ExtendFont "    <outbmmc0.pfb
+outbmcoc1 outbmmc1 " .167 SlantFont .93 ExtendFont "    <outbmmc1.pfb
+outbmcoc2 outbmmc2 " .167 SlantFont .93 ExtendFont "    <outbmmc2.pfb
+outbmcoc3 outbmmc3 " .167 SlantFont .93 ExtendFont "    <outbmmc3.pfb
+outbmcoc4 outbmmc4 " .167 SlantFont .93 ExtendFont "    <outbmmc4.pfb
+outbmcoc5 outbmmc5 " .167 SlantFont .93 ExtendFont "    <outbmmc5.pfb
+outbmcoc6 outbmmc6 " .167 SlantFont .93 ExtendFont "    <outbmmc6.pfb
+outbmcoc7 outbmmc7 " .167 SlantFont .93 ExtendFont "    <outbmmc7.pfb
+outbmcoc8 outbmmc8 " .167 SlantFont .93 ExtendFont "    <outbmmc8.pfb
+outbmcoc9 outbmmc9 " .167 SlantFont .93 ExtendFont "    <outbmmc9.pfb
+outbmcoca outbmmca " .167 SlantFont .93 ExtendFont "    <outbmmca.pfb
+outbmcocb outbmmcb " .167 SlantFont .93 ExtendFont "    <outbmmcb.pfb
+outbmcocc outbmmcc " .167 SlantFont .93 ExtendFont "    <outbmmcc.pfb
+outbmcocd outbmmcd " .167 SlantFont .93 ExtendFont "    <outbmmcd.pfb
+outbmcoce outbmmce " .167 SlantFont .93 ExtendFont "    <outbmmce.pfb
+outbmcocf outbmmcf " .167 SlantFont .93 ExtendFont "    <outbmmcf.pfb
+outbmcod0 outbmmd0 " .167 SlantFont .93 ExtendFont "    <outbmmd0.pfb
+outbmcod1 outbmmd1 " .167 SlantFont .93 ExtendFont "    <outbmmd1.pfb
+outbmcod2 outbmmd2 " .167 SlantFont .93 ExtendFont "    <outbmmd2.pfb
+outbmcod3 outbmmd3 " .167 SlantFont .93 ExtendFont "    <outbmmd3.pfb
+outbmcod4 outbmmd4 " .167 SlantFont .93 ExtendFont "    <outbmmd4.pfb
+outbmcod5 outbmmd5 " .167 SlantFont .93 ExtendFont "    <outbmmd5.pfb
+outbmcod6 outbmmd6 " .167 SlantFont .93 ExtendFont "    <outbmmd6.pfb
+outbmcod7 outbmmd7 " .167 SlantFont .93 ExtendFont "    <outbmmd7.pfb
+outbmcoea outbmmea " .167 SlantFont .93 ExtendFont "    <outbmmea.pfb
+outbmcoeb outbmmeb " .167 SlantFont .93 ExtendFont "    <outbmmeb.pfb
+outbmcoec outbmmec " .167 SlantFont .93 ExtendFont "    <outbmmec.pfb
+outbmcoed outbmmed " .167 SlantFont .93 ExtendFont "    <outbmmed.pfb
+outbmcoee outbmmee " .167 SlantFont .93 ExtendFont "    <outbmmee.pfb
+outbmcoff outbmmff " .167 SlantFont .93 ExtendFont "    <outbmmff.pfb
+outbmm00 outbmm00	<outbmm00.pfb
+outbmm01 outbmm01       <outbmm01.pfb
+outbmm02 outbmm02       <outbmm02.pfb
+outbmm03 outbmm03       <outbmm03.pfb
+outbmm04 outbmm04       <outbmm04.pfb
+outbmm11 outbmm11       <outbmm11.pfb
+outbmm20 outbmm20       <outbmm20.pfb
+outbmm21 outbmm21       <outbmm21.pfb
+outbmm22 outbmm22       <outbmm22.pfb
+outbmm23 outbmm23       <outbmm23.pfb
+outbmm24 outbmm24       <outbmm24.pfb
+outbmm25 outbmm25       <outbmm25.pfb
+outbmm26 outbmm26       <outbmm26.pfb
+outbmm30 outbmm30       <outbmm30.pfb
+outbmm31 outbmm31       <outbmm31.pfb
+outbmm32 outbmm32       <outbmm32.pfb
+outbmm33 outbmm33       <outbmm33.pfb
+outbmmac outbmmac       <outbmmac.pfb
+outbmmad outbmmad       <outbmmad.pfb
+outbmmae outbmmae       <outbmmae.pfb
+outbmmaf outbmmaf       <outbmmaf.pfb
+outbmmb0 outbmmb0       <outbmmb0.pfb
+outbmmb1 outbmmb1       <outbmmb1.pfb
+outbmmb2 outbmmb2       <outbmmb2.pfb
+outbmmb3 outbmmb3       <outbmmb3.pfb
+outbmmb4 outbmmb4       <outbmmb4.pfb
+outbmmb5 outbmmb5       <outbmmb5.pfb
+outbmmb6 outbmmb6       <outbmmb6.pfb
+outbmmb7 outbmmb7       <outbmmb7.pfb
+outbmmb8 outbmmb8       <outbmmb8.pfb
+outbmmb9 outbmmb9       <outbmmb9.pfb
+outbmmba outbmmba       <outbmmba.pfb
+outbmmbb outbmmbb       <outbmmbb.pfb
+outbmmbc outbmmbc       <outbmmbc.pfb
+outbmmbd outbmmbd       <outbmmbd.pfb
+outbmmbe outbmmbe       <outbmmbe.pfb
+outbmmbf outbmmbf       <outbmmbf.pfb
+outbmmc0 outbmmc0       <outbmmc0.pfb
+outbmmc1 outbmmc1       <outbmmc1.pfb
+outbmmc2 outbmmc2       <outbmmc2.pfb
+outbmmc3 outbmmc3       <outbmmc3.pfb
+outbmmc4 outbmmc4       <outbmmc4.pfb
+outbmmc5 outbmmc5       <outbmmc5.pfb
+outbmmc6 outbmmc6       <outbmmc6.pfb
+outbmmc7 outbmmc7       <outbmmc7.pfb
+outbmmc8 outbmmc8       <outbmmc8.pfb
+outbmmc9 outbmmc9       <outbmmc9.pfb
+outbmmca outbmmca       <outbmmca.pfb
+outbmmcb outbmmcb       <outbmmcb.pfb
+outbmmcc outbmmcc       <outbmmcc.pfb
+outbmmcd outbmmcd       <outbmmcd.pfb
+outbmmce outbmmce       <outbmmce.pfb
+outbmmcf outbmmcf       <outbmmcf.pfb
+outbmmd0 outbmmd0       <outbmmd0.pfb
+outbmmd1 outbmmd1       <outbmmd1.pfb
+outbmmd2 outbmmd2       <outbmmd2.pfb
+outbmmd3 outbmmd3       <outbmmd3.pfb
+outbmmd4 outbmmd4       <outbmmd4.pfb
+outbmmd5 outbmmd5       <outbmmd5.pfb
+outbmmd6 outbmmd6       <outbmmd6.pfb
+outbmmd7 outbmmd7       <outbmmd7.pfb
+outbmmea outbmmea       <outbmmea.pfb
+outbmmeb outbmmeb       <outbmmeb.pfb
+outbmmec outbmmec       <outbmmec.pfb
+outbmmed outbmmed       <outbmmed.pfb
+outbmmee outbmmee       <outbmmee.pfb
+outbmmff outbmmff       <outbmmff.pfb
+outbmmo00 outbmm00 " .167 SlantFont "	<outbmm00.pfb
+outbmmo01 outbmm01 " .167 SlantFont "   <outbmm01.pfb
+outbmmo02 outbmm02 " .167 SlantFont "   <outbmm02.pfb
+outbmmo03 outbmm03 " .167 SlantFont "   <outbmm03.pfb
+outbmmo04 outbmm04 " .167 SlantFont "   <outbmm04.pfb
+outbmmo11 outbmm11 " .167 SlantFont "   <outbmm11.pfb
+outbmmo20 outbmm20 " .167 SlantFont "   <outbmm20.pfb
+outbmmo21 outbmm21 " .167 SlantFont "   <outbmm21.pfb
+outbmmo22 outbmm22 " .167 SlantFont "   <outbmm22.pfb
+outbmmo23 outbmm23 " .167 SlantFont "   <outbmm23.pfb
+outbmmo24 outbmm24 " .167 SlantFont "   <outbmm24.pfb
+outbmmo25 outbmm25 " .167 SlantFont "   <outbmm25.pfb
+outbmmo26 outbmm26 " .167 SlantFont "   <outbmm26.pfb
+outbmmo30 outbmm30 " .167 SlantFont "   <outbmm30.pfb
+outbmmo31 outbmm31 " .167 SlantFont "   <outbmm31.pfb
+outbmmo32 outbmm32 " .167 SlantFont "   <outbmm32.pfb
+outbmmo33 outbmm33 " .167 SlantFont "   <outbmm33.pfb
+outbmmoac outbmmac " .167 SlantFont "   <outbmmac.pfb
+outbmmoad outbmmad " .167 SlantFont "   <outbmmad.pfb
+outbmmoae outbmmae " .167 SlantFont "   <outbmmae.pfb
+outbmmoaf outbmmaf " .167 SlantFont "   <outbmmaf.pfb
+outbmmob0 outbmmb0 " .167 SlantFont "   <outbmmb0.pfb
+outbmmob1 outbmmb1 " .167 SlantFont "   <outbmmb1.pfb
+outbmmob2 outbmmb2 " .167 SlantFont "   <outbmmb2.pfb
+outbmmob3 outbmmb3 " .167 SlantFont "   <outbmmb3.pfb
+outbmmob4 outbmmb4 " .167 SlantFont "   <outbmmb4.pfb
+outbmmob5 outbmmb5 " .167 SlantFont "   <outbmmb5.pfb
+outbmmob6 outbmmb6 " .167 SlantFont "   <outbmmb6.pfb
+outbmmob7 outbmmb7 " .167 SlantFont "   <outbmmb7.pfb
+outbmmob8 outbmmb8 " .167 SlantFont "   <outbmmb8.pfb
+outbmmob9 outbmmb9 " .167 SlantFont "   <outbmmb9.pfb
+outbmmoba outbmmba " .167 SlantFont "   <outbmmba.pfb
+outbmmobb outbmmbb " .167 SlantFont "   <outbmmbb.pfb
+outbmmobc outbmmbc " .167 SlantFont "   <outbmmbc.pfb
+outbmmobd outbmmbd " .167 SlantFont "   <outbmmbd.pfb
+outbmmobe outbmmbe " .167 SlantFont "   <outbmmbe.pfb
+outbmmobf outbmmbf " .167 SlantFont "   <outbmmbf.pfb
+outbmmoc0 outbmmc0 " .167 SlantFont "   <outbmmc0.pfb
+outbmmoc1 outbmmc1 " .167 SlantFont "   <outbmmc1.pfb
+outbmmoc2 outbmmc2 " .167 SlantFont "   <outbmmc2.pfb
+outbmmoc3 outbmmc3 " .167 SlantFont "   <outbmmc3.pfb
+outbmmoc4 outbmmc4 " .167 SlantFont "   <outbmmc4.pfb
+outbmmoc5 outbmmc5 " .167 SlantFont "   <outbmmc5.pfb
+outbmmoc6 outbmmc6 " .167 SlantFont "   <outbmmc6.pfb
+outbmmoc7 outbmmc7 " .167 SlantFont "   <outbmmc7.pfb
+outbmmoc8 outbmmc8 " .167 SlantFont "   <outbmmc8.pfb
+outbmmoc9 outbmmc9 " .167 SlantFont "   <outbmmc9.pfb
+outbmmoca outbmmca " .167 SlantFont "   <outbmmca.pfb
+outbmmocb outbmmcb " .167 SlantFont "   <outbmmcb.pfb
+outbmmocc outbmmcc " .167 SlantFont "   <outbmmcc.pfb
+outbmmocd outbmmcd " .167 SlantFont "   <outbmmcd.pfb
+outbmmoce outbmmce " .167 SlantFont "   <outbmmce.pfb
+outbmmocf outbmmcf " .167 SlantFont "   <outbmmcf.pfb
+outbmmod0 outbmmd0 " .167 SlantFont "   <outbmmd0.pfb
+outbmmod1 outbmmd1 " .167 SlantFont "   <outbmmd1.pfb
+outbmmod2 outbmmd2 " .167 SlantFont "   <outbmmd2.pfb
+outbmmod3 outbmmd3 " .167 SlantFont "   <outbmmd3.pfb
+outbmmod4 outbmmd4 " .167 SlantFont "   <outbmmd4.pfb
+outbmmod5 outbmmd5 " .167 SlantFont "   <outbmmd5.pfb
+outbmmod6 outbmmd6 " .167 SlantFont "   <outbmmd6.pfb
+outbmmod7 outbmmd7 " .167 SlantFont "   <outbmmd7.pfb
+outbmmoea outbmmea " .167 SlantFont "   <outbmmea.pfb
+outbmmoeb outbmmeb " .167 SlantFont "   <outbmmeb.pfb
+outbmmoec outbmmec " .167 SlantFont "   <outbmmec.pfb
+outbmmoed outbmmed " .167 SlantFont "   <outbmmed.pfb
+outbmmoee outbmmee " .167 SlantFont "   <outbmmee.pfb
+outbmmoff outbmmff " .167 SlantFont "   <outbmmff.pfb
+outgsc00 outgsm00 " .93 ExtendFont "	<outgsm00.pfb
+outgsc01 outgsm01 " .93 ExtendFont "    <outgsm01.pfb
+outgsc02 outgsm02 " .93 ExtendFont "    <outgsm02.pfb
+outgsc03 outgsm03 " .93 ExtendFont "    <outgsm03.pfb
+outgsc04 outgsm04 " .93 ExtendFont "    <outgsm04.pfb
+outgsc11 outgsm11 " .93 ExtendFont "    <outgsm11.pfb
+outgsc20 outgsm20 " .93 ExtendFont "    <outgsm20.pfb
+outgsc21 outgsm21 " .93 ExtendFont "    <outgsm21.pfb
+outgsc22 outgsm22 " .93 ExtendFont "    <outgsm22.pfb
+outgsc23 outgsm23 " .93 ExtendFont "    <outgsm23.pfb
+outgsc24 outgsm24 " .93 ExtendFont "    <outgsm24.pfb
+outgsc25 outgsm25 " .93 ExtendFont "    <outgsm25.pfb
+outgsc26 outgsm26 " .93 ExtendFont "    <outgsm26.pfb
+outgsc30 outgsm30 " .93 ExtendFont "    <outgsm30.pfb
+outgsc31 outgsm31 " .93 ExtendFont "    <outgsm31.pfb
+outgsc32 outgsm32 " .93 ExtendFont "    <outgsm32.pfb
+outgsc33 outgsm33 " .93 ExtendFont "    <outgsm33.pfb
+outgsc4e outgsm4e " .93 ExtendFont "    <outgsm4e.pfb
+outgsc4f outgsm4f " .93 ExtendFont "    <outgsm4f.pfb
+outgsc50 outgsm50 " .93 ExtendFont "    <outgsm50.pfb
+outgsc51 outgsm51 " .93 ExtendFont "    <outgsm51.pfb
+outgsc52 outgsm52 " .93 ExtendFont "    <outgsm52.pfb
+outgsc53 outgsm53 " .93 ExtendFont "    <outgsm53.pfb
+outgsc54 outgsm54 " .93 ExtendFont "    <outgsm54.pfb
+outgsc55 outgsm55 " .93 ExtendFont "    <outgsm55.pfb
+outgsc56 outgsm56 " .93 ExtendFont "    <outgsm56.pfb
+outgsc57 outgsm57 " .93 ExtendFont "    <outgsm57.pfb
+outgsc58 outgsm58 " .93 ExtendFont "    <outgsm58.pfb
+outgsc59 outgsm59 " .93 ExtendFont "    <outgsm59.pfb
+outgsc5a outgsm5a " .93 ExtendFont "    <outgsm5a.pfb
+outgsc5b outgsm5b " .93 ExtendFont "    <outgsm5b.pfb
+outgsc5c outgsm5c " .93 ExtendFont "    <outgsm5c.pfb
+outgsc5d outgsm5d " .93 ExtendFont "    <outgsm5d.pfb
+outgsc5e outgsm5e " .93 ExtendFont "    <outgsm5e.pfb
+outgsc5f outgsm5f " .93 ExtendFont "    <outgsm5f.pfb
+outgsc60 outgsm60 " .93 ExtendFont "    <outgsm60.pfb
+outgsc61 outgsm61 " .93 ExtendFont "    <outgsm61.pfb
+outgsc62 outgsm62 " .93 ExtendFont "    <outgsm62.pfb
+outgsc63 outgsm63 " .93 ExtendFont "    <outgsm63.pfb
+outgsc64 outgsm64 " .93 ExtendFont "    <outgsm64.pfb
+outgsc65 outgsm65 " .93 ExtendFont "    <outgsm65.pfb
+outgsc66 outgsm66 " .93 ExtendFont "    <outgsm66.pfb
+outgsc67 outgsm67 " .93 ExtendFont "    <outgsm67.pfb
+outgsc68 outgsm68 " .93 ExtendFont "    <outgsm68.pfb
+outgsc69 outgsm69 " .93 ExtendFont "    <outgsm69.pfb
+outgsc6a outgsm6a " .93 ExtendFont "    <outgsm6a.pfb
+outgsc6b outgsm6b " .93 ExtendFont "    <outgsm6b.pfb
+outgsc6c outgsm6c " .93 ExtendFont "    <outgsm6c.pfb
+outgsc6d outgsm6d " .93 ExtendFont "    <outgsm6d.pfb
+outgsc6e outgsm6e " .93 ExtendFont "    <outgsm6e.pfb
+outgsc6f outgsm6f " .93 ExtendFont "    <outgsm6f.pfb
+outgsc70 outgsm70 " .93 ExtendFont "    <outgsm70.pfb
+outgsc71 outgsm71 " .93 ExtendFont "    <outgsm71.pfb
+outgsc72 outgsm72 " .93 ExtendFont "    <outgsm72.pfb
+outgsc73 outgsm73 " .93 ExtendFont "    <outgsm73.pfb
+outgsc74 outgsm74 " .93 ExtendFont "    <outgsm74.pfb
+outgsc75 outgsm75 " .93 ExtendFont "    <outgsm75.pfb
+outgsc76 outgsm76 " .93 ExtendFont "    <outgsm76.pfb
+outgsc77 outgsm77 " .93 ExtendFont "    <outgsm77.pfb
+outgsc78 outgsm78 " .93 ExtendFont "    <outgsm78.pfb
+outgsc79 outgsm79 " .93 ExtendFont "    <outgsm79.pfb
+outgsc7a outgsm7a " .93 ExtendFont "    <outgsm7a.pfb
+outgsc7b outgsm7b " .93 ExtendFont "    <outgsm7b.pfb
+outgsc7c outgsm7c " .93 ExtendFont "    <outgsm7c.pfb
+outgsc7d outgsm7d " .93 ExtendFont "    <outgsm7d.pfb
+outgsc7e outgsm7e " .93 ExtendFont "    <outgsm7e.pfb
+outgsc7f outgsm7f " .93 ExtendFont "    <outgsm7f.pfb
+outgsc80 outgsm80 " .93 ExtendFont "    <outgsm80.pfb
+outgsc81 outgsm81 " .93 ExtendFont "    <outgsm81.pfb
+outgsc82 outgsm82 " .93 ExtendFont "    <outgsm82.pfb
+outgsc83 outgsm83 " .93 ExtendFont "    <outgsm83.pfb
+outgsc84 outgsm84 " .93 ExtendFont "    <outgsm84.pfb
+outgsc85 outgsm85 " .93 ExtendFont "    <outgsm85.pfb
+outgsc86 outgsm86 " .93 ExtendFont "    <outgsm86.pfb
+outgsc87 outgsm87 " .93 ExtendFont "    <outgsm87.pfb
+outgsc88 outgsm88 " .93 ExtendFont "    <outgsm88.pfb
+outgsc89 outgsm89 " .93 ExtendFont "    <outgsm89.pfb
+outgsc8a outgsm8a " .93 ExtendFont "    <outgsm8a.pfb
+outgsc8b outgsm8b " .93 ExtendFont "    <outgsm8b.pfb
+outgsc8c outgsm8c " .93 ExtendFont "    <outgsm8c.pfb
+outgsc8d outgsm8d " .93 ExtendFont "    <outgsm8d.pfb
+outgsc8e outgsm8e " .93 ExtendFont "    <outgsm8e.pfb
+outgsc8f outgsm8f " .93 ExtendFont "    <outgsm8f.pfb
+outgsc90 outgsm90 " .93 ExtendFont "    <outgsm90.pfb
+outgsc91 outgsm91 " .93 ExtendFont "    <outgsm91.pfb
+outgsc92 outgsm92 " .93 ExtendFont "    <outgsm92.pfb
+outgsc93 outgsm93 " .93 ExtendFont "    <outgsm93.pfb
+outgsc94 outgsm94 " .93 ExtendFont "    <outgsm94.pfb
+outgsc95 outgsm95 " .93 ExtendFont "    <outgsm95.pfb
+outgsc96 outgsm96 " .93 ExtendFont "    <outgsm96.pfb
+outgsc97 outgsm97 " .93 ExtendFont "    <outgsm97.pfb
+outgsc98 outgsm98 " .93 ExtendFont "    <outgsm98.pfb
+outgsc99 outgsm99 " .93 ExtendFont "    <outgsm99.pfb
+outgsc9a outgsm9a " .93 ExtendFont "    <outgsm9a.pfb
+outgsc9b outgsm9b " .93 ExtendFont "    <outgsm9b.pfb
+outgsc9c outgsm9c " .93 ExtendFont "    <outgsm9c.pfb
+outgsc9d outgsm9d " .93 ExtendFont "    <outgsm9d.pfb
+outgsc9e outgsm9e " .93 ExtendFont "    <outgsm9e.pfb
+outgsc9f outgsm9f " .93 ExtendFont "    <outgsm9f.pfb
+outgscac outgsmac " .93 ExtendFont "    <outgsmac.pfb
+outgscad outgsmad " .93 ExtendFont "    <outgsmad.pfb
+outgscae outgsmae " .93 ExtendFont "    <outgsmae.pfb
+outgscaf outgsmaf " .93 ExtendFont "    <outgsmaf.pfb
+outgscb0 outgsmb0 " .93 ExtendFont "    <outgsmb0.pfb
+outgscb1 outgsmb1 " .93 ExtendFont "    <outgsmb1.pfb
+outgscb2 outgsmb2 " .93 ExtendFont "    <outgsmb2.pfb
+outgscb3 outgsmb3 " .93 ExtendFont "    <outgsmb3.pfb
+outgscb4 outgsmb4 " .93 ExtendFont "    <outgsmb4.pfb
+outgscb5 outgsmb5 " .93 ExtendFont "    <outgsmb5.pfb
+outgscb6 outgsmb6 " .93 ExtendFont "    <outgsmb6.pfb
+outgscb7 outgsmb7 " .93 ExtendFont "    <outgsmb7.pfb
+outgscb8 outgsmb8 " .93 ExtendFont "    <outgsmb8.pfb
+outgscb9 outgsmb9 " .93 ExtendFont "    <outgsmb9.pfb
+outgscba outgsmba " .93 ExtendFont "    <outgsmba.pfb
+outgscbb outgsmbb " .93 ExtendFont "    <outgsmbb.pfb
+outgscbc outgsmbc " .93 ExtendFont "    <outgsmbc.pfb
+outgscbd outgsmbd " .93 ExtendFont "    <outgsmbd.pfb
+outgscbe outgsmbe " .93 ExtendFont "    <outgsmbe.pfb
+outgscbf outgsmbf " .93 ExtendFont "    <outgsmbf.pfb
+outgscc0 outgsmc0 " .93 ExtendFont "    <outgsmc0.pfb
+outgscc1 outgsmc1 " .93 ExtendFont "    <outgsmc1.pfb
+outgscc2 outgsmc2 " .93 ExtendFont "    <outgsmc2.pfb
+outgscc3 outgsmc3 " .93 ExtendFont "    <outgsmc3.pfb
+outgscc4 outgsmc4 " .93 ExtendFont "    <outgsmc4.pfb
+outgscc5 outgsmc5 " .93 ExtendFont "    <outgsmc5.pfb
+outgscc6 outgsmc6 " .93 ExtendFont "    <outgsmc6.pfb
+outgscc7 outgsmc7 " .93 ExtendFont "    <outgsmc7.pfb
+outgscc8 outgsmc8 " .93 ExtendFont "    <outgsmc8.pfb
+outgscc9 outgsmc9 " .93 ExtendFont "    <outgsmc9.pfb
+outgscca outgsmca " .93 ExtendFont "    <outgsmca.pfb
+outgsccb outgsmcb " .93 ExtendFont "    <outgsmcb.pfb
+outgsccc outgsmcc " .93 ExtendFont "    <outgsmcc.pfb
+outgsccd outgsmcd " .93 ExtendFont "    <outgsmcd.pfb
+outgscce outgsmce " .93 ExtendFont "    <outgsmce.pfb
+outgsccf outgsmcf " .93 ExtendFont "    <outgsmcf.pfb
+outgscd0 outgsmd0 " .93 ExtendFont "    <outgsmd0.pfb
+outgscd1 outgsmd1 " .93 ExtendFont "    <outgsmd1.pfb
+outgscd2 outgsmd2 " .93 ExtendFont "    <outgsmd2.pfb
+outgscd3 outgsmd3 " .93 ExtendFont "    <outgsmd3.pfb
+outgscd4 outgsmd4 " .93 ExtendFont "    <outgsmd4.pfb
+outgscd5 outgsmd5 " .93 ExtendFont "    <outgsmd5.pfb
+outgscd6 outgsmd6 " .93 ExtendFont "    <outgsmd6.pfb
+outgscd7 outgsmd7 " .93 ExtendFont "    <outgsmd7.pfb
+outgscea outgsmea " .93 ExtendFont "    <outgsmea.pfb
+outgsceb outgsmeb " .93 ExtendFont "    <outgsmeb.pfb
+outgscec outgsmec " .93 ExtendFont "    <outgsmec.pfb
+outgsced outgsmed " .93 ExtendFont "    <outgsmed.pfb
+outgscee outgsmee " .93 ExtendFont "    <outgsmee.pfb
+outgscef outgsmef " .93 ExtendFont "    <outgsmef.pfb
+outgscf0 outgsmf0 " .93 ExtendFont "    <outgsmf0.pfb
+outgscf9 outgsmf9 " .93 ExtendFont "    <outgsmf9.pfb
+outgscfa outgsmfa " .93 ExtendFont "    <outgsmfa.pfb
+outgscff outgsmff " .93 ExtendFont "    <outgsmff.pfb
+outgsco00 outgsm00 " .167 SlantFont .93 ExtendFont "	<outgsm00.pfb
+outgsco01 outgsm01 " .167 SlantFont .93 ExtendFont "    <outgsm01.pfb
+outgsco02 outgsm02 " .167 SlantFont .93 ExtendFont "    <outgsm02.pfb
+outgsco03 outgsm03 " .167 SlantFont .93 ExtendFont "    <outgsm03.pfb
+outgsco04 outgsm04 " .167 SlantFont .93 ExtendFont "    <outgsm04.pfb
+outgsco11 outgsm11 " .167 SlantFont .93 ExtendFont "    <outgsm11.pfb
+outgsco20 outgsm20 " .167 SlantFont .93 ExtendFont "    <outgsm20.pfb
+outgsco21 outgsm21 " .167 SlantFont .93 ExtendFont "    <outgsm21.pfb
+outgsco22 outgsm22 " .167 SlantFont .93 ExtendFont "    <outgsm22.pfb
+outgsco23 outgsm23 " .167 SlantFont .93 ExtendFont "    <outgsm23.pfb
+outgsco24 outgsm24 " .167 SlantFont .93 ExtendFont "    <outgsm24.pfb
+outgsco25 outgsm25 " .167 SlantFont .93 ExtendFont "    <outgsm25.pfb
+outgsco26 outgsm26 " .167 SlantFont .93 ExtendFont "    <outgsm26.pfb
+outgsco30 outgsm30 " .167 SlantFont .93 ExtendFont "    <outgsm30.pfb
+outgsco31 outgsm31 " .167 SlantFont .93 ExtendFont "    <outgsm31.pfb
+outgsco32 outgsm32 " .167 SlantFont .93 ExtendFont "    <outgsm32.pfb
+outgsco33 outgsm33 " .167 SlantFont .93 ExtendFont "    <outgsm33.pfb
+outgsco4e outgsm4e " .167 SlantFont .93 ExtendFont "    <outgsm4e.pfb
+outgsco4f outgsm4f " .167 SlantFont .93 ExtendFont "    <outgsm4f.pfb
+outgsco50 outgsm50 " .167 SlantFont .93 ExtendFont "    <outgsm50.pfb
+outgsco51 outgsm51 " .167 SlantFont .93 ExtendFont "    <outgsm51.pfb
+outgsco52 outgsm52 " .167 SlantFont .93 ExtendFont "    <outgsm52.pfb
+outgsco53 outgsm53 " .167 SlantFont .93 ExtendFont "    <outgsm53.pfb
+outgsco54 outgsm54 " .167 SlantFont .93 ExtendFont "    <outgsm54.pfb
+outgsco55 outgsm55 " .167 SlantFont .93 ExtendFont "    <outgsm55.pfb
+outgsco56 outgsm56 " .167 SlantFont .93 ExtendFont "    <outgsm56.pfb
+outgsco57 outgsm57 " .167 SlantFont .93 ExtendFont "    <outgsm57.pfb
+outgsco58 outgsm58 " .167 SlantFont .93 ExtendFont "    <outgsm58.pfb
+outgsco59 outgsm59 " .167 SlantFont .93 ExtendFont "    <outgsm59.pfb
+outgsco5a outgsm5a " .167 SlantFont .93 ExtendFont "    <outgsm5a.pfb
+outgsco5b outgsm5b " .167 SlantFont .93 ExtendFont "    <outgsm5b.pfb
+outgsco5c outgsm5c " .167 SlantFont .93 ExtendFont "    <outgsm5c.pfb
+outgsco5d outgsm5d " .167 SlantFont .93 ExtendFont "    <outgsm5d.pfb
+outgsco5e outgsm5e " .167 SlantFont .93 ExtendFont "    <outgsm5e.pfb
+outgsco5f outgsm5f " .167 SlantFont .93 ExtendFont "    <outgsm5f.pfb
+outgsco60 outgsm60 " .167 SlantFont .93 ExtendFont "    <outgsm60.pfb
+outgsco61 outgsm61 " .167 SlantFont .93 ExtendFont "    <outgsm61.pfb
+outgsco62 outgsm62 " .167 SlantFont .93 ExtendFont "    <outgsm62.pfb
+outgsco63 outgsm63 " .167 SlantFont .93 ExtendFont "    <outgsm63.pfb
+outgsco64 outgsm64 " .167 SlantFont .93 ExtendFont "    <outgsm64.pfb
+outgsco65 outgsm65 " .167 SlantFont .93 ExtendFont "    <outgsm65.pfb
+outgsco66 outgsm66 " .167 SlantFont .93 ExtendFont "    <outgsm66.pfb
+outgsco67 outgsm67 " .167 SlantFont .93 ExtendFont "    <outgsm67.pfb
+outgsco68 outgsm68 " .167 SlantFont .93 ExtendFont "    <outgsm68.pfb
+outgsco69 outgsm69 " .167 SlantFont .93 ExtendFont "    <outgsm69.pfb
+outgsco6a outgsm6a " .167 SlantFont .93 ExtendFont "    <outgsm6a.pfb
+outgsco6b outgsm6b " .167 SlantFont .93 ExtendFont "    <outgsm6b.pfb
+outgsco6c outgsm6c " .167 SlantFont .93 ExtendFont "    <outgsm6c.pfb
+outgsco6d outgsm6d " .167 SlantFont .93 ExtendFont "    <outgsm6d.pfb
+outgsco6e outgsm6e " .167 SlantFont .93 ExtendFont "    <outgsm6e.pfb
+outgsco6f outgsm6f " .167 SlantFont .93 ExtendFont "    <outgsm6f.pfb
+outgsco70 outgsm70 " .167 SlantFont .93 ExtendFont "    <outgsm70.pfb
+outgsco71 outgsm71 " .167 SlantFont .93 ExtendFont "    <outgsm71.pfb
+outgsco72 outgsm72 " .167 SlantFont .93 ExtendFont "    <outgsm72.pfb
+outgsco73 outgsm73 " .167 SlantFont .93 ExtendFont "    <outgsm73.pfb
+outgsco74 outgsm74 " .167 SlantFont .93 ExtendFont "    <outgsm74.pfb
+outgsco75 outgsm75 " .167 SlantFont .93 ExtendFont "    <outgsm75.pfb
+outgsco76 outgsm76 " .167 SlantFont .93 ExtendFont "    <outgsm76.pfb
+outgsco77 outgsm77 " .167 SlantFont .93 ExtendFont "    <outgsm77.pfb
+outgsco78 outgsm78 " .167 SlantFont .93 ExtendFont "    <outgsm78.pfb
+outgsco79 outgsm79 " .167 SlantFont .93 ExtendFont "    <outgsm79.pfb
+outgsco7a outgsm7a " .167 SlantFont .93 ExtendFont "    <outgsm7a.pfb
+outgsco7b outgsm7b " .167 SlantFont .93 ExtendFont "    <outgsm7b.pfb
+outgsco7c outgsm7c " .167 SlantFont .93 ExtendFont "    <outgsm7c.pfb
+outgsco7d outgsm7d " .167 SlantFont .93 ExtendFont "    <outgsm7d.pfb
+outgsco7e outgsm7e " .167 SlantFont .93 ExtendFont "    <outgsm7e.pfb
+outgsco7f outgsm7f " .167 SlantFont .93 ExtendFont "    <outgsm7f.pfb
+outgsco80 outgsm80 " .167 SlantFont .93 ExtendFont "    <outgsm80.pfb
+outgsco81 outgsm81 " .167 SlantFont .93 ExtendFont "    <outgsm81.pfb
+outgsco82 outgsm82 " .167 SlantFont .93 ExtendFont "    <outgsm82.pfb
+outgsco83 outgsm83 " .167 SlantFont .93 ExtendFont "    <outgsm83.pfb
+outgsco84 outgsm84 " .167 SlantFont .93 ExtendFont "    <outgsm84.pfb
+outgsco85 outgsm85 " .167 SlantFont .93 ExtendFont "    <outgsm85.pfb
+outgsco86 outgsm86 " .167 SlantFont .93 ExtendFont "    <outgsm86.pfb
+outgsco87 outgsm87 " .167 SlantFont .93 ExtendFont "    <outgsm87.pfb
+outgsco88 outgsm88 " .167 SlantFont .93 ExtendFont "    <outgsm88.pfb
+outgsco89 outgsm89 " .167 SlantFont .93 ExtendFont "    <outgsm89.pfb
+outgsco8a outgsm8a " .167 SlantFont .93 ExtendFont "    <outgsm8a.pfb
+outgsco8b outgsm8b " .167 SlantFont .93 ExtendFont "    <outgsm8b.pfb
+outgsco8c outgsm8c " .167 SlantFont .93 ExtendFont "    <outgsm8c.pfb
+outgsco8d outgsm8d " .167 SlantFont .93 ExtendFont "    <outgsm8d.pfb
+outgsco8e outgsm8e " .167 SlantFont .93 ExtendFont "    <outgsm8e.pfb
+outgsco8f outgsm8f " .167 SlantFont .93 ExtendFont "    <outgsm8f.pfb
+outgsco90 outgsm90 " .167 SlantFont .93 ExtendFont "    <outgsm90.pfb
+outgsco91 outgsm91 " .167 SlantFont .93 ExtendFont "    <outgsm91.pfb
+outgsco92 outgsm92 " .167 SlantFont .93 ExtendFont "    <outgsm92.pfb
+outgsco93 outgsm93 " .167 SlantFont .93 ExtendFont "    <outgsm93.pfb
+outgsco94 outgsm94 " .167 SlantFont .93 ExtendFont "    <outgsm94.pfb
+outgsco95 outgsm95 " .167 SlantFont .93 ExtendFont "    <outgsm95.pfb
+outgsco96 outgsm96 " .167 SlantFont .93 ExtendFont "    <outgsm96.pfb
+outgsco97 outgsm97 " .167 SlantFont .93 ExtendFont "    <outgsm97.pfb
+outgsco98 outgsm98 " .167 SlantFont .93 ExtendFont "    <outgsm98.pfb
+outgsco99 outgsm99 " .167 SlantFont .93 ExtendFont "    <outgsm99.pfb
+outgsco9a outgsm9a " .167 SlantFont .93 ExtendFont "    <outgsm9a.pfb
+outgsco9b outgsm9b " .167 SlantFont .93 ExtendFont "    <outgsm9b.pfb
+outgsco9c outgsm9c " .167 SlantFont .93 ExtendFont "    <outgsm9c.pfb
+outgsco9d outgsm9d " .167 SlantFont .93 ExtendFont "    <outgsm9d.pfb
+outgsco9e outgsm9e " .167 SlantFont .93 ExtendFont "    <outgsm9e.pfb
+outgsco9f outgsm9f " .167 SlantFont .93 ExtendFont "    <outgsm9f.pfb
+outgscoac outgsmac " .167 SlantFont .93 ExtendFont "    <outgsmac.pfb
+outgscoad outgsmad " .167 SlantFont .93 ExtendFont "    <outgsmad.pfb
+outgscoae outgsmae " .167 SlantFont .93 ExtendFont "    <outgsmae.pfb
+outgscoaf outgsmaf " .167 SlantFont .93 ExtendFont "    <outgsmaf.pfb
+outgscob0 outgsmb0 " .167 SlantFont .93 ExtendFont "    <outgsmb0.pfb
+outgscob1 outgsmb1 " .167 SlantFont .93 ExtendFont "    <outgsmb1.pfb
+outgscob2 outgsmb2 " .167 SlantFont .93 ExtendFont "    <outgsmb2.pfb
+outgscob3 outgsmb3 " .167 SlantFont .93 ExtendFont "    <outgsmb3.pfb
+outgscob4 outgsmb4 " .167 SlantFont .93 ExtendFont "    <outgsmb4.pfb
+outgscob5 outgsmb5 " .167 SlantFont .93 ExtendFont "    <outgsmb5.pfb
+outgscob6 outgsmb6 " .167 SlantFont .93 ExtendFont "    <outgsmb6.pfb
+outgscob7 outgsmb7 " .167 SlantFont .93 ExtendFont "    <outgsmb7.pfb
+outgscob8 outgsmb8 " .167 SlantFont .93 ExtendFont "    <outgsmb8.pfb
+outgscob9 outgsmb9 " .167 SlantFont .93 ExtendFont "    <outgsmb9.pfb
+outgscoba outgsmba " .167 SlantFont .93 ExtendFont "    <outgsmba.pfb
+outgscobb outgsmbb " .167 SlantFont .93 ExtendFont "    <outgsmbb.pfb
+outgscobc outgsmbc " .167 SlantFont .93 ExtendFont "    <outgsmbc.pfb
+outgscobd outgsmbd " .167 SlantFont .93 ExtendFont "    <outgsmbd.pfb
+outgscobe outgsmbe " .167 SlantFont .93 ExtendFont "    <outgsmbe.pfb
+outgscobf outgsmbf " .167 SlantFont .93 ExtendFont "    <outgsmbf.pfb
+outgscoc0 outgsmc0 " .167 SlantFont .93 ExtendFont "    <outgsmc0.pfb
+outgscoc1 outgsmc1 " .167 SlantFont .93 ExtendFont "    <outgsmc1.pfb
+outgscoc2 outgsmc2 " .167 SlantFont .93 ExtendFont "    <outgsmc2.pfb
+outgscoc3 outgsmc3 " .167 SlantFont .93 ExtendFont "    <outgsmc3.pfb
+outgscoc4 outgsmc4 " .167 SlantFont .93 ExtendFont "    <outgsmc4.pfb
+outgscoc5 outgsmc5 " .167 SlantFont .93 ExtendFont "    <outgsmc5.pfb
+outgscoc6 outgsmc6 " .167 SlantFont .93 ExtendFont "    <outgsmc6.pfb
+outgscoc7 outgsmc7 " .167 SlantFont .93 ExtendFont "    <outgsmc7.pfb
+outgscoc8 outgsmc8 " .167 SlantFont .93 ExtendFont "    <outgsmc8.pfb
+outgscoc9 outgsmc9 " .167 SlantFont .93 ExtendFont "    <outgsmc9.pfb
+outgscoca outgsmca " .167 SlantFont .93 ExtendFont "    <outgsmca.pfb
+outgscocb outgsmcb " .167 SlantFont .93 ExtendFont "    <outgsmcb.pfb
+outgscocc outgsmcc " .167 SlantFont .93 ExtendFont "    <outgsmcc.pfb
+outgscocd outgsmcd " .167 SlantFont .93 ExtendFont "    <outgsmcd.pfb
+outgscoce outgsmce " .167 SlantFont .93 ExtendFont "    <outgsmce.pfb
+outgscocf outgsmcf " .167 SlantFont .93 ExtendFont "    <outgsmcf.pfb
+outgscod0 outgsmd0 " .167 SlantFont .93 ExtendFont "    <outgsmd0.pfb
+outgscod1 outgsmd1 " .167 SlantFont .93 ExtendFont "    <outgsmd1.pfb
+outgscod2 outgsmd2 " .167 SlantFont .93 ExtendFont "    <outgsmd2.pfb
+outgscod3 outgsmd3 " .167 SlantFont .93 ExtendFont "    <outgsmd3.pfb
+outgscod4 outgsmd4 " .167 SlantFont .93 ExtendFont "    <outgsmd4.pfb
+outgscod5 outgsmd5 " .167 SlantFont .93 ExtendFont "    <outgsmd5.pfb
+outgscod6 outgsmd6 " .167 SlantFont .93 ExtendFont "    <outgsmd6.pfb
+outgscod7 outgsmd7 " .167 SlantFont .93 ExtendFont "    <outgsmd7.pfb
+outgscoea outgsmea " .167 SlantFont .93 ExtendFont "    <outgsmea.pfb
+outgscoeb outgsmeb " .167 SlantFont .93 ExtendFont "    <outgsmeb.pfb
+outgscoec outgsmec " .167 SlantFont .93 ExtendFont "    <outgsmec.pfb
+outgscoed outgsmed " .167 SlantFont .93 ExtendFont "    <outgsmed.pfb
+outgscoee outgsmee " .167 SlantFont .93 ExtendFont "    <outgsmee.pfb
+outgscoef outgsmef " .167 SlantFont .93 ExtendFont "    <outgsmef.pfb
+outgscof0 outgsmf0 " .167 SlantFont .93 ExtendFont "    <outgsmf0.pfb
+outgscof9 outgsmf9 " .167 SlantFont .93 ExtendFont "    <outgsmf9.pfb
+outgscofa outgsmfa " .167 SlantFont .93 ExtendFont "    <outgsmfa.pfb
+outgscoff outgsmff " .167 SlantFont .93 ExtendFont "    <outgsmff.pfb
+outgsm00 outgsm00	<outgsm00.pfb
+outgsm01 outgsm01       <outgsm01.pfb
+outgsm02 outgsm02       <outgsm02.pfb
+outgsm03 outgsm03       <outgsm03.pfb
+outgsm04 outgsm04       <outgsm04.pfb
+outgsm11 outgsm11       <outgsm11.pfb
+outgsm20 outgsm20       <outgsm20.pfb
+outgsm21 outgsm21       <outgsm21.pfb
+outgsm22 outgsm22       <outgsm22.pfb
+outgsm23 outgsm23       <outgsm23.pfb
+outgsm24 outgsm24       <outgsm24.pfb
+outgsm25 outgsm25       <outgsm25.pfb
+outgsm26 outgsm26       <outgsm26.pfb
+outgsm30 outgsm30       <outgsm30.pfb
+outgsm31 outgsm31       <outgsm31.pfb
+outgsm32 outgsm32       <outgsm32.pfb
+outgsm33 outgsm33       <outgsm33.pfb
+outgsm4e outgsm4e       <outgsm4e.pfb
+outgsm4f outgsm4f       <outgsm4f.pfb
+outgsm50 outgsm50       <outgsm50.pfb
+outgsm51 outgsm51       <outgsm51.pfb
+outgsm52 outgsm52       <outgsm52.pfb
+outgsm53 outgsm53       <outgsm53.pfb
+outgsm54 outgsm54       <outgsm54.pfb
+outgsm55 outgsm55       <outgsm55.pfb
+outgsm56 outgsm56       <outgsm56.pfb
+outgsm57 outgsm57       <outgsm57.pfb
+outgsm58 outgsm58       <outgsm58.pfb
+outgsm59 outgsm59       <outgsm59.pfb
+outgsm5a outgsm5a       <outgsm5a.pfb
+outgsm5b outgsm5b       <outgsm5b.pfb
+outgsm5c outgsm5c       <outgsm5c.pfb
+outgsm5d outgsm5d       <outgsm5d.pfb
+outgsm5e outgsm5e       <outgsm5e.pfb
+outgsm5f outgsm5f       <outgsm5f.pfb
+outgsm60 outgsm60       <outgsm60.pfb
+outgsm61 outgsm61       <outgsm61.pfb
+outgsm62 outgsm62       <outgsm62.pfb
+outgsm63 outgsm63       <outgsm63.pfb
+outgsm64 outgsm64       <outgsm64.pfb
+outgsm65 outgsm65       <outgsm65.pfb
+outgsm66 outgsm66       <outgsm66.pfb
+outgsm67 outgsm67       <outgsm67.pfb
+outgsm68 outgsm68       <outgsm68.pfb
+outgsm69 outgsm69       <outgsm69.pfb
+outgsm6a outgsm6a       <outgsm6a.pfb
+outgsm6b outgsm6b       <outgsm6b.pfb
+outgsm6c outgsm6c       <outgsm6c.pfb
+outgsm6d outgsm6d       <outgsm6d.pfb
+outgsm6e outgsm6e       <outgsm6e.pfb
+outgsm6f outgsm6f       <outgsm6f.pfb
+outgsm70 outgsm70       <outgsm70.pfb
+outgsm71 outgsm71       <outgsm71.pfb
+outgsm72 outgsm72       <outgsm72.pfb
+outgsm73 outgsm73       <outgsm73.pfb
+outgsm74 outgsm74       <outgsm74.pfb
+outgsm75 outgsm75       <outgsm75.pfb
+outgsm76 outgsm76       <outgsm76.pfb
+outgsm77 outgsm77       <outgsm77.pfb
+outgsm78 outgsm78       <outgsm78.pfb
+outgsm79 outgsm79       <outgsm79.pfb
+outgsm7a outgsm7a       <outgsm7a.pfb
+outgsm7b outgsm7b       <outgsm7b.pfb
+outgsm7c outgsm7c       <outgsm7c.pfb
+outgsm7d outgsm7d       <outgsm7d.pfb
+outgsm7e outgsm7e       <outgsm7e.pfb
+outgsm7f outgsm7f       <outgsm7f.pfb
+outgsm80 outgsm80       <outgsm80.pfb
+outgsm81 outgsm81       <outgsm81.pfb
+outgsm82 outgsm82       <outgsm82.pfb
+outgsm83 outgsm83       <outgsm83.pfb
+outgsm84 outgsm84       <outgsm84.pfb
+outgsm85 outgsm85       <outgsm85.pfb
+outgsm86 outgsm86       <outgsm86.pfb
+outgsm87 outgsm87       <outgsm87.pfb
+outgsm88 outgsm88       <outgsm88.pfb
+outgsm89 outgsm89       <outgsm89.pfb
+outgsm8a outgsm8a       <outgsm8a.pfb
+outgsm8b outgsm8b       <outgsm8b.pfb
+outgsm8c outgsm8c       <outgsm8c.pfb
+outgsm8d outgsm8d       <outgsm8d.pfb
+outgsm8e outgsm8e       <outgsm8e.pfb
+outgsm8f outgsm8f       <outgsm8f.pfb
+outgsm90 outgsm90       <outgsm90.pfb
+outgsm91 outgsm91       <outgsm91.pfb
+outgsm92 outgsm92       <outgsm92.pfb
+outgsm93 outgsm93       <outgsm93.pfb
+outgsm94 outgsm94       <outgsm94.pfb
+outgsm95 outgsm95       <outgsm95.pfb
+outgsm96 outgsm96       <outgsm96.pfb
+outgsm97 outgsm97       <outgsm97.pfb
+outgsm98 outgsm98       <outgsm98.pfb
+outgsm99 outgsm99       <outgsm99.pfb
+outgsm9a outgsm9a       <outgsm9a.pfb
+outgsm9b outgsm9b       <outgsm9b.pfb
+outgsm9c outgsm9c       <outgsm9c.pfb
+outgsm9d outgsm9d       <outgsm9d.pfb
+outgsm9e outgsm9e       <outgsm9e.pfb
+outgsm9f outgsm9f       <outgsm9f.pfb
+outgsmac outgsmac       <outgsmac.pfb
+outgsmad outgsmad       <outgsmad.pfb
+outgsmae outgsmae       <outgsmae.pfb
+outgsmaf outgsmaf       <outgsmaf.pfb
+outgsmb0 outgsmb0       <outgsmb0.pfb
+outgsmb1 outgsmb1       <outgsmb1.pfb
+outgsmb2 outgsmb2       <outgsmb2.pfb
+outgsmb3 outgsmb3       <outgsmb3.pfb
+outgsmb4 outgsmb4       <outgsmb4.pfb
+outgsmb5 outgsmb5       <outgsmb5.pfb
+outgsmb6 outgsmb6       <outgsmb6.pfb
+outgsmb7 outgsmb7       <outgsmb7.pfb
+outgsmb8 outgsmb8       <outgsmb8.pfb
+outgsmb9 outgsmb9       <outgsmb9.pfb
+outgsmba outgsmba       <outgsmba.pfb
+outgsmbb outgsmbb       <outgsmbb.pfb
+outgsmbc outgsmbc       <outgsmbc.pfb
+outgsmbd outgsmbd       <outgsmbd.pfb
+outgsmbe outgsmbe       <outgsmbe.pfb
+outgsmbf outgsmbf       <outgsmbf.pfb
+outgsmc0 outgsmc0       <outgsmc0.pfb
+outgsmc1 outgsmc1       <outgsmc1.pfb
+outgsmc2 outgsmc2       <outgsmc2.pfb
+outgsmc3 outgsmc3       <outgsmc3.pfb
+outgsmc4 outgsmc4       <outgsmc4.pfb
+outgsmc5 outgsmc5       <outgsmc5.pfb
+outgsmc6 outgsmc6       <outgsmc6.pfb
+outgsmc7 outgsmc7       <outgsmc7.pfb
+outgsmc8 outgsmc8       <outgsmc8.pfb
+outgsmc9 outgsmc9       <outgsmc9.pfb
+outgsmca outgsmca       <outgsmca.pfb
+outgsmcb outgsmcb       <outgsmcb.pfb
+outgsmcc outgsmcc       <outgsmcc.pfb
+outgsmcd outgsmcd       <outgsmcd.pfb
+outgsmce outgsmce       <outgsmce.pfb
+outgsmcf outgsmcf       <outgsmcf.pfb
+outgsmd0 outgsmd0       <outgsmd0.pfb
+outgsmd1 outgsmd1       <outgsmd1.pfb
+outgsmd2 outgsmd2       <outgsmd2.pfb
+outgsmd3 outgsmd3       <outgsmd3.pfb
+outgsmd4 outgsmd4       <outgsmd4.pfb
+outgsmd5 outgsmd5       <outgsmd5.pfb
+outgsmd6 outgsmd6       <outgsmd6.pfb
+outgsmd7 outgsmd7       <outgsmd7.pfb
+outgsmea outgsmea       <outgsmea.pfb
+outgsmeb outgsmeb       <outgsmeb.pfb
+outgsmec outgsmec       <outgsmec.pfb
+outgsmed outgsmed       <outgsmed.pfb
+outgsmee outgsmee       <outgsmee.pfb
+outgsmef outgsmef       <outgsmef.pfb
+outgsmf0 outgsmf0       <outgsmf0.pfb
+outgsmf9 outgsmf9       <outgsmf9.pfb
+outgsmfa outgsmfa       <outgsmfa.pfb
+outgsmff outgsmff       <outgsmff.pfb
+outgsmo00 outgsm00 " .167 SlantFont "	<outgsm00.pfb
+outgsmo01 outgsm01 " .167 SlantFont "   <outgsm01.pfb
+outgsmo02 outgsm02 " .167 SlantFont "   <outgsm02.pfb
+outgsmo03 outgsm03 " .167 SlantFont "   <outgsm03.pfb
+outgsmo04 outgsm04 " .167 SlantFont "   <outgsm04.pfb
+outgsmo11 outgsm11 " .167 SlantFont "   <outgsm11.pfb
+outgsmo20 outgsm20 " .167 SlantFont "   <outgsm20.pfb
+outgsmo21 outgsm21 " .167 SlantFont "   <outgsm21.pfb
+outgsmo22 outgsm22 " .167 SlantFont "   <outgsm22.pfb
+outgsmo23 outgsm23 " .167 SlantFont "   <outgsm23.pfb
+outgsmo24 outgsm24 " .167 SlantFont "   <outgsm24.pfb
+outgsmo25 outgsm25 " .167 SlantFont "   <outgsm25.pfb
+outgsmo26 outgsm26 " .167 SlantFont "   <outgsm26.pfb
+outgsmo30 outgsm30 " .167 SlantFont "   <outgsm30.pfb
+outgsmo31 outgsm31 " .167 SlantFont "   <outgsm31.pfb
+outgsmo32 outgsm32 " .167 SlantFont "   <outgsm32.pfb
+outgsmo33 outgsm33 " .167 SlantFont "   <outgsm33.pfb
+outgsmo4e outgsm4e " .167 SlantFont "   <outgsm4e.pfb
+outgsmo4f outgsm4f " .167 SlantFont "   <outgsm4f.pfb
+outgsmo50 outgsm50 " .167 SlantFont "   <outgsm50.pfb
+outgsmo51 outgsm51 " .167 SlantFont "   <outgsm51.pfb
+outgsmo52 outgsm52 " .167 SlantFont "   <outgsm52.pfb
+outgsmo53 outgsm53 " .167 SlantFont "   <outgsm53.pfb
+outgsmo54 outgsm54 " .167 SlantFont "   <outgsm54.pfb
+outgsmo55 outgsm55 " .167 SlantFont "   <outgsm55.pfb
+outgsmo56 outgsm56 " .167 SlantFont "   <outgsm56.pfb
+outgsmo57 outgsm57 " .167 SlantFont "   <outgsm57.pfb
+outgsmo58 outgsm58 " .167 SlantFont "   <outgsm58.pfb
+outgsmo59 outgsm59 " .167 SlantFont "   <outgsm59.pfb
+outgsmo5a outgsm5a " .167 SlantFont "   <outgsm5a.pfb
+outgsmo5b outgsm5b " .167 SlantFont "   <outgsm5b.pfb
+outgsmo5c outgsm5c " .167 SlantFont "   <outgsm5c.pfb
+outgsmo5d outgsm5d " .167 SlantFont "   <outgsm5d.pfb
+outgsmo5e outgsm5e " .167 SlantFont "   <outgsm5e.pfb
+outgsmo5f outgsm5f " .167 SlantFont "   <outgsm5f.pfb
+outgsmo60 outgsm60 " .167 SlantFont "   <outgsm60.pfb
+outgsmo61 outgsm61 " .167 SlantFont "   <outgsm61.pfb
+outgsmo62 outgsm62 " .167 SlantFont "   <outgsm62.pfb
+outgsmo63 outgsm63 " .167 SlantFont "   <outgsm63.pfb
+outgsmo64 outgsm64 " .167 SlantFont "   <outgsm64.pfb
+outgsmo65 outgsm65 " .167 SlantFont "   <outgsm65.pfb
+outgsmo66 outgsm66 " .167 SlantFont "   <outgsm66.pfb
+outgsmo67 outgsm67 " .167 SlantFont "   <outgsm67.pfb
+outgsmo68 outgsm68 " .167 SlantFont "   <outgsm68.pfb
+outgsmo69 outgsm69 " .167 SlantFont "   <outgsm69.pfb
+outgsmo6a outgsm6a " .167 SlantFont "   <outgsm6a.pfb
+outgsmo6b outgsm6b " .167 SlantFont "   <outgsm6b.pfb
+outgsmo6c outgsm6c " .167 SlantFont "   <outgsm6c.pfb
+outgsmo6d outgsm6d " .167 SlantFont "   <outgsm6d.pfb
+outgsmo6e outgsm6e " .167 SlantFont "   <outgsm6e.pfb
+outgsmo6f outgsm6f " .167 SlantFont "   <outgsm6f.pfb
+outgsmo70 outgsm70 " .167 SlantFont "   <outgsm70.pfb
+outgsmo71 outgsm71 " .167 SlantFont "   <outgsm71.pfb
+outgsmo72 outgsm72 " .167 SlantFont "   <outgsm72.pfb
+outgsmo73 outgsm73 " .167 SlantFont "   <outgsm73.pfb
+outgsmo74 outgsm74 " .167 SlantFont "   <outgsm74.pfb
+outgsmo75 outgsm75 " .167 SlantFont "   <outgsm75.pfb
+outgsmo76 outgsm76 " .167 SlantFont "   <outgsm76.pfb
+outgsmo77 outgsm77 " .167 SlantFont "   <outgsm77.pfb
+outgsmo78 outgsm78 " .167 SlantFont "   <outgsm78.pfb
+outgsmo79 outgsm79 " .167 SlantFont "   <outgsm79.pfb
+outgsmo7a outgsm7a " .167 SlantFont "   <outgsm7a.pfb
+outgsmo7b outgsm7b " .167 SlantFont "   <outgsm7b.pfb
+outgsmo7c outgsm7c " .167 SlantFont "   <outgsm7c.pfb
+outgsmo7d outgsm7d " .167 SlantFont "   <outgsm7d.pfb
+outgsmo7e outgsm7e " .167 SlantFont "   <outgsm7e.pfb
+outgsmo7f outgsm7f " .167 SlantFont "   <outgsm7f.pfb
+outgsmo80 outgsm80 " .167 SlantFont "   <outgsm80.pfb
+outgsmo81 outgsm81 " .167 SlantFont "   <outgsm81.pfb
+outgsmo82 outgsm82 " .167 SlantFont "   <outgsm82.pfb
+outgsmo83 outgsm83 " .167 SlantFont "   <outgsm83.pfb
+outgsmo84 outgsm84 " .167 SlantFont "   <outgsm84.pfb
+outgsmo85 outgsm85 " .167 SlantFont "   <outgsm85.pfb
+outgsmo86 outgsm86 " .167 SlantFont "   <outgsm86.pfb
+outgsmo87 outgsm87 " .167 SlantFont "   <outgsm87.pfb
+outgsmo88 outgsm88 " .167 SlantFont "   <outgsm88.pfb
+outgsmo89 outgsm89 " .167 SlantFont "   <outgsm89.pfb
+outgsmo8a outgsm8a " .167 SlantFont "   <outgsm8a.pfb
+outgsmo8b outgsm8b " .167 SlantFont "   <outgsm8b.pfb
+outgsmo8c outgsm8c " .167 SlantFont "   <outgsm8c.pfb
+outgsmo8d outgsm8d " .167 SlantFont "   <outgsm8d.pfb
+outgsmo8e outgsm8e " .167 SlantFont "   <outgsm8e.pfb
+outgsmo8f outgsm8f " .167 SlantFont "   <outgsm8f.pfb
+outgsmo90 outgsm90 " .167 SlantFont "   <outgsm90.pfb
+outgsmo91 outgsm91 " .167 SlantFont "   <outgsm91.pfb
+outgsmo92 outgsm92 " .167 SlantFont "   <outgsm92.pfb
+outgsmo93 outgsm93 " .167 SlantFont "   <outgsm93.pfb
+outgsmo94 outgsm94 " .167 SlantFont "   <outgsm94.pfb
+outgsmo95 outgsm95 " .167 SlantFont "   <outgsm95.pfb
+outgsmo96 outgsm96 " .167 SlantFont "   <outgsm96.pfb
+outgsmo97 outgsm97 " .167 SlantFont "   <outgsm97.pfb
+outgsmo98 outgsm98 " .167 SlantFont "   <outgsm98.pfb
+outgsmo99 outgsm99 " .167 SlantFont "   <outgsm99.pfb
+outgsmo9a outgsm9a " .167 SlantFont "   <outgsm9a.pfb
+outgsmo9b outgsm9b " .167 SlantFont "   <outgsm9b.pfb
+outgsmo9c outgsm9c " .167 SlantFont "   <outgsm9c.pfb
+outgsmo9d outgsm9d " .167 SlantFont "   <outgsm9d.pfb
+outgsmo9e outgsm9e " .167 SlantFont "   <outgsm9e.pfb
+outgsmo9f outgsm9f " .167 SlantFont "   <outgsm9f.pfb
+outgsmoac outgsmac " .167 SlantFont "   <outgsmac.pfb
+outgsmoad outgsmad " .167 SlantFont "   <outgsmad.pfb
+outgsmoae outgsmae " .167 SlantFont "   <outgsmae.pfb
+outgsmoaf outgsmaf " .167 SlantFont "   <outgsmaf.pfb
+outgsmob0 outgsmb0 " .167 SlantFont "   <outgsmb0.pfb
+outgsmob1 outgsmb1 " .167 SlantFont "   <outgsmb1.pfb
+outgsmob2 outgsmb2 " .167 SlantFont "   <outgsmb2.pfb
+outgsmob3 outgsmb3 " .167 SlantFont "   <outgsmb3.pfb
+outgsmob4 outgsmb4 " .167 SlantFont "   <outgsmb4.pfb
+outgsmob5 outgsmb5 " .167 SlantFont "   <outgsmb5.pfb
+outgsmob6 outgsmb6 " .167 SlantFont "   <outgsmb6.pfb
+outgsmob7 outgsmb7 " .167 SlantFont "   <outgsmb7.pfb
+outgsmob8 outgsmb8 " .167 SlantFont "   <outgsmb8.pfb
+outgsmob9 outgsmb9 " .167 SlantFont "   <outgsmb9.pfb
+outgsmoba outgsmba " .167 SlantFont "   <outgsmba.pfb
+outgsmobb outgsmbb " .167 SlantFont "   <outgsmbb.pfb
+outgsmobc outgsmbc " .167 SlantFont "   <outgsmbc.pfb
+outgsmobd outgsmbd " .167 SlantFont "   <outgsmbd.pfb
+outgsmobe outgsmbe " .167 SlantFont "   <outgsmbe.pfb
+outgsmobf outgsmbf " .167 SlantFont "   <outgsmbf.pfb
+outgsmoc0 outgsmc0 " .167 SlantFont "   <outgsmc0.pfb
+outgsmoc1 outgsmc1 " .167 SlantFont "   <outgsmc1.pfb
+outgsmoc2 outgsmc2 " .167 SlantFont "   <outgsmc2.pfb
+outgsmoc3 outgsmc3 " .167 SlantFont "   <outgsmc3.pfb
+outgsmoc4 outgsmc4 " .167 SlantFont "   <outgsmc4.pfb
+outgsmoc5 outgsmc5 " .167 SlantFont "   <outgsmc5.pfb
+outgsmoc6 outgsmc6 " .167 SlantFont "   <outgsmc6.pfb
+outgsmoc7 outgsmc7 " .167 SlantFont "   <outgsmc7.pfb
+outgsmoc8 outgsmc8 " .167 SlantFont "   <outgsmc8.pfb
+outgsmoc9 outgsmc9 " .167 SlantFont "   <outgsmc9.pfb
+outgsmoca outgsmca " .167 SlantFont "   <outgsmca.pfb
+outgsmocb outgsmcb " .167 SlantFont "   <outgsmcb.pfb
+outgsmocc outgsmcc " .167 SlantFont "   <outgsmcc.pfb
+outgsmocd outgsmcd " .167 SlantFont "   <outgsmcd.pfb
+outgsmoce outgsmce " .167 SlantFont "   <outgsmce.pfb
+outgsmocf outgsmcf " .167 SlantFont "   <outgsmcf.pfb
+outgsmod0 outgsmd0 " .167 SlantFont "   <outgsmd0.pfb
+outgsmod1 outgsmd1 " .167 SlantFont "   <outgsmd1.pfb
+outgsmod2 outgsmd2 " .167 SlantFont "   <outgsmd2.pfb
+outgsmod3 outgsmd3 " .167 SlantFont "   <outgsmd3.pfb
+outgsmod4 outgsmd4 " .167 SlantFont "   <outgsmd4.pfb
+outgsmod5 outgsmd5 " .167 SlantFont "   <outgsmd5.pfb
+outgsmod6 outgsmd6 " .167 SlantFont "   <outgsmd6.pfb
+outgsmod7 outgsmd7 " .167 SlantFont "   <outgsmd7.pfb
+outgsmoea outgsmea " .167 SlantFont "   <outgsmea.pfb
+outgsmoeb outgsmeb " .167 SlantFont "   <outgsmeb.pfb
+outgsmoec outgsmec " .167 SlantFont "   <outgsmec.pfb
+outgsmoed outgsmed " .167 SlantFont "   <outgsmed.pfb
+outgsmoee outgsmee " .167 SlantFont "   <outgsmee.pfb
+outgsmoef outgsmef " .167 SlantFont "   <outgsmef.pfb
+outgsmof0 outgsmf0 " .167 SlantFont "   <outgsmf0.pfb
+outgsmof9 outgsmf9 " .167 SlantFont "   <outgsmf9.pfb
+outgsmofa outgsmfa " .167 SlantFont "   <outgsmfa.pfb
+outgsmoff outgsmff " .167 SlantFont "   <outgsmff.pfb
+outpgbc00 outpgb00 " .93 ExtendFont "	<outpgb00.pfb
+outpgbc01 outpgb01 " .93 ExtendFont "   <outpgb01.pfb
+outpgbc02 outpgb02 " .93 ExtendFont "   <outpgb02.pfb
+outpgbc03 outpgb03 " .93 ExtendFont "   <outpgb03.pfb
+outpgbc04 outpgb04 " .93 ExtendFont "   <outpgb04.pfb
+outpgbc11 outpgb11 " .93 ExtendFont "   <outpgb11.pfb
+outpgbc20 outpgb20 " .93 ExtendFont "   <outpgb20.pfb
+outpgbc21 outpgb21 " .93 ExtendFont "   <outpgb21.pfb
+outpgbc22 outpgb22 " .93 ExtendFont "   <outpgb22.pfb
+outpgbc23 outpgb23 " .93 ExtendFont "   <outpgb23.pfb
+outpgbc24 outpgb24 " .93 ExtendFont "   <outpgb24.pfb
+outpgbc25 outpgb25 " .93 ExtendFont "   <outpgb25.pfb
+outpgbc26 outpgb26 " .93 ExtendFont "   <outpgb26.pfb
+outpgbc30 outpgb30 " .93 ExtendFont "   <outpgb30.pfb
+outpgbc31 outpgb31 " .93 ExtendFont "   <outpgb31.pfb
+outpgbc32 outpgb32 " .93 ExtendFont "   <outpgb32.pfb
+outpgbc33 outpgb33 " .93 ExtendFont "   <outpgb33.pfb
+outpgbcac outpgbac " .93 ExtendFont "   <outpgbac.pfb
+outpgbcad outpgbad " .93 ExtendFont "   <outpgbad.pfb
+outpgbcae outpgbae " .93 ExtendFont "   <outpgbae.pfb
+outpgbcaf outpgbaf " .93 ExtendFont "   <outpgbaf.pfb
+outpgbcb0 outpgbb0 " .93 ExtendFont "   <outpgbb0.pfb
+outpgbcb1 outpgbb1 " .93 ExtendFont "   <outpgbb1.pfb
+outpgbcb2 outpgbb2 " .93 ExtendFont "   <outpgbb2.pfb
+outpgbcb3 outpgbb3 " .93 ExtendFont "   <outpgbb3.pfb
+outpgbcb4 outpgbb4 " .93 ExtendFont "   <outpgbb4.pfb
+outpgbcb5 outpgbb5 " .93 ExtendFont "   <outpgbb5.pfb
+outpgbcb6 outpgbb6 " .93 ExtendFont "   <outpgbb6.pfb
+outpgbcb7 outpgbb7 " .93 ExtendFont "   <outpgbb7.pfb
+outpgbcb8 outpgbb8 " .93 ExtendFont "   <outpgbb8.pfb
+outpgbcb9 outpgbb9 " .93 ExtendFont "   <outpgbb9.pfb
+outpgbcba outpgbba " .93 ExtendFont "   <outpgbba.pfb
+outpgbcbb outpgbbb " .93 ExtendFont "   <outpgbbb.pfb
+outpgbcbc outpgbbc " .93 ExtendFont "   <outpgbbc.pfb
+outpgbcbd outpgbbd " .93 ExtendFont "   <outpgbbd.pfb
+outpgbcbe outpgbbe " .93 ExtendFont "   <outpgbbe.pfb
+outpgbcbf outpgbbf " .93 ExtendFont "   <outpgbbf.pfb
+outpgbcc0 outpgbc0 " .93 ExtendFont "   <outpgbc0.pfb
+outpgbcc1 outpgbc1 " .93 ExtendFont "   <outpgbc1.pfb
+outpgbcc2 outpgbc2 " .93 ExtendFont "   <outpgbc2.pfb
+outpgbcc3 outpgbc3 " .93 ExtendFont "   <outpgbc3.pfb
+outpgbcc4 outpgbc4 " .93 ExtendFont "   <outpgbc4.pfb
+outpgbcc5 outpgbc5 " .93 ExtendFont "   <outpgbc5.pfb
+outpgbcc6 outpgbc6 " .93 ExtendFont "   <outpgbc6.pfb
+outpgbcc7 outpgbc7 " .93 ExtendFont "   <outpgbc7.pfb
+outpgbcc8 outpgbc8 " .93 ExtendFont "   <outpgbc8.pfb
+outpgbcc9 outpgbc9 " .93 ExtendFont "   <outpgbc9.pfb
+outpgbcca outpgbca " .93 ExtendFont "   <outpgbca.pfb
+outpgbccb outpgbcb " .93 ExtendFont "   <outpgbcb.pfb
+outpgbccc outpgbcc " .93 ExtendFont "   <outpgbcc.pfb
+outpgbccd outpgbcd " .93 ExtendFont "   <outpgbcd.pfb
+outpgbcce outpgbce " .93 ExtendFont "   <outpgbce.pfb
+outpgbccf outpgbcf " .93 ExtendFont "   <outpgbcf.pfb
+outpgbcd0 outpgbd0 " .93 ExtendFont "   <outpgbd0.pfb
+outpgbcd1 outpgbd1 " .93 ExtendFont "   <outpgbd1.pfb
+outpgbcd2 outpgbd2 " .93 ExtendFont "   <outpgbd2.pfb
+outpgbcd3 outpgbd3 " .93 ExtendFont "   <outpgbd3.pfb
+outpgbcd4 outpgbd4 " .93 ExtendFont "   <outpgbd4.pfb
+outpgbcd5 outpgbd5 " .93 ExtendFont "   <outpgbd5.pfb
+outpgbcd6 outpgbd6 " .93 ExtendFont "   <outpgbd6.pfb
+outpgbcd7 outpgbd7 " .93 ExtendFont "   <outpgbd7.pfb
+outpgbcea outpgbea " .93 ExtendFont "   <outpgbea.pfb
+outpgbceb outpgbeb " .93 ExtendFont "   <outpgbeb.pfb
+outpgbcec outpgbec " .93 ExtendFont "   <outpgbec.pfb
+outpgbcff outpgbff " .93 ExtendFont "   <outpgbff.pfb
+outpgbco00 outpgb00 " .167 SlantFont .93 ExtendFont "	<outpgb00.pfb
+outpgbco01 outpgb01 " .167 SlantFont .93 ExtendFont "   <outpgb01.pfb
+outpgbco02 outpgb02 " .167 SlantFont .93 ExtendFont "   <outpgb02.pfb
+outpgbco03 outpgb03 " .167 SlantFont .93 ExtendFont "   <outpgb03.pfb
+outpgbco04 outpgb04 " .167 SlantFont .93 ExtendFont "   <outpgb04.pfb
+outpgbco11 outpgb11 " .167 SlantFont .93 ExtendFont "   <outpgb11.pfb
+outpgbco20 outpgb20 " .167 SlantFont .93 ExtendFont "   <outpgb20.pfb
+outpgbco21 outpgb21 " .167 SlantFont .93 ExtendFont "   <outpgb21.pfb
+outpgbco22 outpgb22 " .167 SlantFont .93 ExtendFont "   <outpgb22.pfb
+outpgbco23 outpgb23 " .167 SlantFont .93 ExtendFont "   <outpgb23.pfb
+outpgbco24 outpgb24 " .167 SlantFont .93 ExtendFont "   <outpgb24.pfb
+outpgbco25 outpgb25 " .167 SlantFont .93 ExtendFont "   <outpgb25.pfb
+outpgbco26 outpgb26 " .167 SlantFont .93 ExtendFont "   <outpgb26.pfb
+outpgbco30 outpgb30 " .167 SlantFont .93 ExtendFont "   <outpgb30.pfb
+outpgbco31 outpgb31 " .167 SlantFont .93 ExtendFont "   <outpgb31.pfb
+outpgbco32 outpgb32 " .167 SlantFont .93 ExtendFont "   <outpgb32.pfb
+outpgbco33 outpgb33 " .167 SlantFont .93 ExtendFont "   <outpgb33.pfb
+outpgbcoac outpgbac " .167 SlantFont .93 ExtendFont "   <outpgbac.pfb
+outpgbcoad outpgbad " .167 SlantFont .93 ExtendFont "   <outpgbad.pfb
+outpgbcoae outpgbae " .167 SlantFont .93 ExtendFont "   <outpgbae.pfb
+outpgbcoaf outpgbaf " .167 SlantFont .93 ExtendFont "   <outpgbaf.pfb
+outpgbcob0 outpgbb0 " .167 SlantFont .93 ExtendFont "   <outpgbb0.pfb
+outpgbcob1 outpgbb1 " .167 SlantFont .93 ExtendFont "   <outpgbb1.pfb
+outpgbcob2 outpgbb2 " .167 SlantFont .93 ExtendFont "   <outpgbb2.pfb
+outpgbcob3 outpgbb3 " .167 SlantFont .93 ExtendFont "   <outpgbb3.pfb
+outpgbcob4 outpgbb4 " .167 SlantFont .93 ExtendFont "   <outpgbb4.pfb
+outpgbcob5 outpgbb5 " .167 SlantFont .93 ExtendFont "   <outpgbb5.pfb
+outpgbcob6 outpgbb6 " .167 SlantFont .93 ExtendFont "   <outpgbb6.pfb
+outpgbcob7 outpgbb7 " .167 SlantFont .93 ExtendFont "   <outpgbb7.pfb
+outpgbcob8 outpgbb8 " .167 SlantFont .93 ExtendFont "   <outpgbb8.pfb
+outpgbcob9 outpgbb9 " .167 SlantFont .93 ExtendFont "   <outpgbb9.pfb
+outpgbcoba outpgbba " .167 SlantFont .93 ExtendFont "   <outpgbba.pfb
+outpgbcobb outpgbbb " .167 SlantFont .93 ExtendFont "   <outpgbbb.pfb
+outpgbcobc outpgbbc " .167 SlantFont .93 ExtendFont "   <outpgbbc.pfb
+outpgbcobd outpgbbd " .167 SlantFont .93 ExtendFont "   <outpgbbd.pfb
+outpgbcobe outpgbbe " .167 SlantFont .93 ExtendFont "   <outpgbbe.pfb
+outpgbcobf outpgbbf " .167 SlantFont .93 ExtendFont "   <outpgbbf.pfb
+outpgbcoc0 outpgbc0 " .167 SlantFont .93 ExtendFont "   <outpgbc0.pfb
+outpgbcoc1 outpgbc1 " .167 SlantFont .93 ExtendFont "   <outpgbc1.pfb
+outpgbcoc2 outpgbc2 " .167 SlantFont .93 ExtendFont "   <outpgbc2.pfb
+outpgbcoc3 outpgbc3 " .167 SlantFont .93 ExtendFont "   <outpgbc3.pfb
+outpgbcoc4 outpgbc4 " .167 SlantFont .93 ExtendFont "   <outpgbc4.pfb
+outpgbcoc5 outpgbc5 " .167 SlantFont .93 ExtendFont "   <outpgbc5.pfb
+outpgbcoc6 outpgbc6 " .167 SlantFont .93 ExtendFont "   <outpgbc6.pfb
+outpgbcoc7 outpgbc7 " .167 SlantFont .93 ExtendFont "   <outpgbc7.pfb
+outpgbcoc8 outpgbc8 " .167 SlantFont .93 ExtendFont "   <outpgbc8.pfb
+outpgbcoc9 outpgbc9 " .167 SlantFont .93 ExtendFont "   <outpgbc9.pfb
+outpgbcoca outpgbca " .167 SlantFont .93 ExtendFont "   <outpgbca.pfb
+outpgbcocb outpgbcb " .167 SlantFont .93 ExtendFont "   <outpgbcb.pfb
+outpgbcocc outpgbcc " .167 SlantFont .93 ExtendFont "   <outpgbcc.pfb
+outpgbcocd outpgbcd " .167 SlantFont .93 ExtendFont "   <outpgbcd.pfb
+outpgbcoce outpgbce " .167 SlantFont .93 ExtendFont "   <outpgbce.pfb
+outpgbcocf outpgbcf " .167 SlantFont .93 ExtendFont "   <outpgbcf.pfb
+outpgbcod0 outpgbd0 " .167 SlantFont .93 ExtendFont "   <outpgbd0.pfb
+outpgbcod1 outpgbd1 " .167 SlantFont .93 ExtendFont "   <outpgbd1.pfb
+outpgbcod2 outpgbd2 " .167 SlantFont .93 ExtendFont "   <outpgbd2.pfb
+outpgbcod3 outpgbd3 " .167 SlantFont .93 ExtendFont "   <outpgbd3.pfb
+outpgbcod4 outpgbd4 " .167 SlantFont .93 ExtendFont "   <outpgbd4.pfb
+outpgbcod5 outpgbd5 " .167 SlantFont .93 ExtendFont "   <outpgbd5.pfb
+outpgbcod6 outpgbd6 " .167 SlantFont .93 ExtendFont "   <outpgbd6.pfb
+outpgbcod7 outpgbd7 " .167 SlantFont .93 ExtendFont "   <outpgbd7.pfb
+outpgbcoea outpgbea " .167 SlantFont .93 ExtendFont "   <outpgbea.pfb
+outpgbcoeb outpgbeb " .167 SlantFont .93 ExtendFont "   <outpgbeb.pfb
+outpgbcoec outpgbec " .167 SlantFont .93 ExtendFont "   <outpgbec.pfb
+outpgbcoff outpgbff " .167 SlantFont .93 ExtendFont "   <outpgbff.pfb
+outpgbo00 outpgb00 " .167 SlantFont "	<outpgb00.pfb
+outpgbo01 outpgb01 " .167 SlantFont "   <outpgb01.pfb
+outpgbo02 outpgb02 " .167 SlantFont "   <outpgb02.pfb
+outpgbo03 outpgb03 " .167 SlantFont "   <outpgb03.pfb
+outpgbo04 outpgb04 " .167 SlantFont "   <outpgb04.pfb
+outpgbo11 outpgb11 " .167 SlantFont "   <outpgb11.pfb
+outpgbo20 outpgb20 " .167 SlantFont "   <outpgb20.pfb
+outpgbo21 outpgb21 " .167 SlantFont "   <outpgb21.pfb
+outpgbo22 outpgb22 " .167 SlantFont "   <outpgb22.pfb
+outpgbo23 outpgb23 " .167 SlantFont "   <outpgb23.pfb
+outpgbo24 outpgb24 " .167 SlantFont "   <outpgb24.pfb
+outpgbo25 outpgb25 " .167 SlantFont "   <outpgb25.pfb
+outpgbo26 outpgb26 " .167 SlantFont "   <outpgb26.pfb
+outpgbo30 outpgb30 " .167 SlantFont "   <outpgb30.pfb
+outpgbo31 outpgb31 " .167 SlantFont "   <outpgb31.pfb
+outpgbo32 outpgb32 " .167 SlantFont "   <outpgb32.pfb
+outpgbo33 outpgb33 " .167 SlantFont "   <outpgb33.pfb
+outpgboac outpgbac " .167 SlantFont "   <outpgbac.pfb
+outpgboad outpgbad " .167 SlantFont "   <outpgbad.pfb
+outpgboae outpgbae " .167 SlantFont "   <outpgbae.pfb
+outpgboaf outpgbaf " .167 SlantFont "   <outpgbaf.pfb
+outpgbob0 outpgbb0 " .167 SlantFont "   <outpgbb0.pfb
+outpgbob1 outpgbb1 " .167 SlantFont "   <outpgbb1.pfb
+outpgbob2 outpgbb2 " .167 SlantFont "   <outpgbb2.pfb
+outpgbob3 outpgbb3 " .167 SlantFont "   <outpgbb3.pfb
+outpgbob4 outpgbb4 " .167 SlantFont "   <outpgbb4.pfb
+outpgbob5 outpgbb5 " .167 SlantFont "   <outpgbb5.pfb
+outpgbob6 outpgbb6 " .167 SlantFont "   <outpgbb6.pfb
+outpgbob7 outpgbb7 " .167 SlantFont "   <outpgbb7.pfb
+outpgbob8 outpgbb8 " .167 SlantFont "   <outpgbb8.pfb
+outpgbob9 outpgbb9 " .167 SlantFont "   <outpgbb9.pfb
+outpgboba outpgbba " .167 SlantFont "   <outpgbba.pfb
+outpgbobb outpgbbb " .167 SlantFont "   <outpgbbb.pfb
+outpgbobc outpgbbc " .167 SlantFont "   <outpgbbc.pfb
+outpgbobd outpgbbd " .167 SlantFont "   <outpgbbd.pfb
+outpgbobe outpgbbe " .167 SlantFont "   <outpgbbe.pfb
+outpgbobf outpgbbf " .167 SlantFont "   <outpgbbf.pfb
+outpgboc0 outpgbc0 " .167 SlantFont "   <outpgbc0.pfb
+outpgboc1 outpgbc1 " .167 SlantFont "   <outpgbc1.pfb
+outpgboc2 outpgbc2 " .167 SlantFont "   <outpgbc2.pfb
+outpgboc3 outpgbc3 " .167 SlantFont "   <outpgbc3.pfb
+outpgboc4 outpgbc4 " .167 SlantFont "   <outpgbc4.pfb
+outpgboc5 outpgbc5 " .167 SlantFont "   <outpgbc5.pfb
+outpgboc6 outpgbc6 " .167 SlantFont "   <outpgbc6.pfb
+outpgboc7 outpgbc7 " .167 SlantFont "   <outpgbc7.pfb
+outpgboc8 outpgbc8 " .167 SlantFont "   <outpgbc8.pfb
+outpgboc9 outpgbc9 " .167 SlantFont "   <outpgbc9.pfb
+outpgboca outpgbca " .167 SlantFont "   <outpgbca.pfb
+outpgbocb outpgbcb " .167 SlantFont "   <outpgbcb.pfb
+outpgbocc outpgbcc " .167 SlantFont "   <outpgbcc.pfb
+outpgbocd outpgbcd " .167 SlantFont "   <outpgbcd.pfb
+outpgboce outpgbce " .167 SlantFont "   <outpgbce.pfb
+outpgbocf outpgbcf " .167 SlantFont "   <outpgbcf.pfb
+outpgbod0 outpgbd0 " .167 SlantFont "   <outpgbd0.pfb
+outpgbod1 outpgbd1 " .167 SlantFont "   <outpgbd1.pfb
+outpgbod2 outpgbd2 " .167 SlantFont "   <outpgbd2.pfb
+outpgbod3 outpgbd3 " .167 SlantFont "   <outpgbd3.pfb
+outpgbod4 outpgbd4 " .167 SlantFont "   <outpgbd4.pfb
+outpgbod5 outpgbd5 " .167 SlantFont "   <outpgbd5.pfb
+outpgbod6 outpgbd6 " .167 SlantFont "   <outpgbd6.pfb
+outpgbod7 outpgbd7 " .167 SlantFont "   <outpgbd7.pfb
+outpgboea outpgbea " .167 SlantFont "   <outpgbea.pfb
+outpgboeb outpgbeb " .167 SlantFont "   <outpgbeb.pfb
+outpgboec outpgbec " .167 SlantFont "   <outpgbec.pfb
+outpgboff outpgbff " .167 SlantFont "   <outpgbff.pfb
+outpgc00 outpgm00 " .93 ExtendFont "	<outpgm00.pfb
+outpgc01 outpgm01 " .93 ExtendFont "    <outpgm01.pfb
+outpgc02 outpgm02 " .93 ExtendFont "    <outpgm02.pfb
+outpgc03 outpgm03 " .93 ExtendFont "    <outpgm03.pfb
+outpgc04 outpgm04 " .93 ExtendFont "    <outpgm04.pfb
+outpgc11 outpgm11 " .93 ExtendFont "    <outpgm11.pfb
+outpgc20 outpgm20 " .93 ExtendFont "    <outpgm20.pfb
+outpgc21 outpgm21 " .93 ExtendFont "    <outpgm21.pfb
+outpgc22 outpgm22 " .93 ExtendFont "    <outpgm22.pfb
+outpgc23 outpgm23 " .93 ExtendFont "    <outpgm23.pfb
+outpgc24 outpgm24 " .93 ExtendFont "    <outpgm24.pfb
+outpgc25 outpgm25 " .93 ExtendFont "    <outpgm25.pfb
+outpgc26 outpgm26 " .93 ExtendFont "    <outpgm26.pfb
+outpgc30 outpgm30 " .93 ExtendFont "    <outpgm30.pfb
+outpgc31 outpgm31 " .93 ExtendFont "    <outpgm31.pfb
+outpgc32 outpgm32 " .93 ExtendFont "    <outpgm32.pfb
+outpgc33 outpgm33 " .93 ExtendFont "    <outpgm33.pfb
+outpgcac outpgmac " .93 ExtendFont "    <outpgmac.pfb
+outpgcad outpgmad " .93 ExtendFont "    <outpgmad.pfb
+outpgcae outpgmae " .93 ExtendFont "    <outpgmae.pfb
+outpgcaf outpgmaf " .93 ExtendFont "    <outpgmaf.pfb
+outpgcb0 outpgmb0 " .93 ExtendFont "    <outpgmb0.pfb
+outpgcb1 outpgmb1 " .93 ExtendFont "    <outpgmb1.pfb
+outpgcb2 outpgmb2 " .93 ExtendFont "    <outpgmb2.pfb
+outpgcb3 outpgmb3 " .93 ExtendFont "    <outpgmb3.pfb
+outpgcb4 outpgmb4 " .93 ExtendFont "    <outpgmb4.pfb
+outpgcb5 outpgmb5 " .93 ExtendFont "    <outpgmb5.pfb
+outpgcb6 outpgmb6 " .93 ExtendFont "    <outpgmb6.pfb
+outpgcb7 outpgmb7 " .93 ExtendFont "    <outpgmb7.pfb
+outpgcb8 outpgmb8 " .93 ExtendFont "    <outpgmb8.pfb
+outpgcb9 outpgmb9 " .93 ExtendFont "    <outpgmb9.pfb
+outpgcba outpgmba " .93 ExtendFont "    <outpgmba.pfb
+outpgcbb outpgmbb " .93 ExtendFont "    <outpgmbb.pfb
+outpgcbc outpgmbc " .93 ExtendFont "    <outpgmbc.pfb
+outpgcbd outpgmbd " .93 ExtendFont "    <outpgmbd.pfb
+outpgcbe outpgmbe " .93 ExtendFont "    <outpgmbe.pfb
+outpgcbf outpgmbf " .93 ExtendFont "    <outpgmbf.pfb
+outpgcc0 outpgmc0 " .93 ExtendFont "    <outpgmc0.pfb
+outpgcc1 outpgmc1 " .93 ExtendFont "    <outpgmc1.pfb
+outpgcc2 outpgmc2 " .93 ExtendFont "    <outpgmc2.pfb
+outpgcc3 outpgmc3 " .93 ExtendFont "    <outpgmc3.pfb
+outpgcc4 outpgmc4 " .93 ExtendFont "    <outpgmc4.pfb
+outpgcc5 outpgmc5 " .93 ExtendFont "    <outpgmc5.pfb
+outpgcc6 outpgmc6 " .93 ExtendFont "    <outpgmc6.pfb
+outpgcc7 outpgmc7 " .93 ExtendFont "    <outpgmc7.pfb
+outpgcc8 outpgmc8 " .93 ExtendFont "    <outpgmc8.pfb
+outpgcc9 outpgmc9 " .93 ExtendFont "    <outpgmc9.pfb
+outpgcca outpgmca " .93 ExtendFont "    <outpgmca.pfb
+outpgccb outpgmcb " .93 ExtendFont "    <outpgmcb.pfb
+outpgccc outpgmcc " .93 ExtendFont "    <outpgmcc.pfb
+outpgccd outpgmcd " .93 ExtendFont "    <outpgmcd.pfb
+outpgcce outpgmce " .93 ExtendFont "    <outpgmce.pfb
+outpgccf outpgmcf " .93 ExtendFont "    <outpgmcf.pfb
+outpgcd0 outpgmd0 " .93 ExtendFont "    <outpgmd0.pfb
+outpgcd1 outpgmd1 " .93 ExtendFont "    <outpgmd1.pfb
+outpgcd2 outpgmd2 " .93 ExtendFont "    <outpgmd2.pfb
+outpgcd3 outpgmd3 " .93 ExtendFont "    <outpgmd3.pfb
+outpgcd4 outpgmd4 " .93 ExtendFont "    <outpgmd4.pfb
+outpgcd5 outpgmd5 " .93 ExtendFont "    <outpgmd5.pfb
+outpgcd6 outpgmd6 " .93 ExtendFont "    <outpgmd6.pfb
+outpgcd7 outpgmd7 " .93 ExtendFont "    <outpgmd7.pfb
+outpgcea outpgmea " .93 ExtendFont "    <outpgmea.pfb
+outpgceb outpgmeb " .93 ExtendFont "    <outpgmeb.pfb
+outpgcec outpgmec " .93 ExtendFont "    <outpgmec.pfb
+outpgcff outpgmff " .93 ExtendFont "    <outpgmff.pfb
+outpgco00 outpgm00 " .167 SlantFont .93 ExtendFont "	<outpgm00.pfb
+outpgco01 outpgm01 " .167 SlantFont .93 ExtendFont "    <outpgm01.pfb
+outpgco02 outpgm02 " .167 SlantFont .93 ExtendFont "    <outpgm02.pfb
+outpgco03 outpgm03 " .167 SlantFont .93 ExtendFont "    <outpgm03.pfb
+outpgco04 outpgm04 " .167 SlantFont .93 ExtendFont "    <outpgm04.pfb
+outpgco11 outpgm11 " .167 SlantFont .93 ExtendFont "    <outpgm11.pfb
+outpgco20 outpgm20 " .167 SlantFont .93 ExtendFont "    <outpgm20.pfb
+outpgco21 outpgm21 " .167 SlantFont .93 ExtendFont "    <outpgm21.pfb
+outpgco22 outpgm22 " .167 SlantFont .93 ExtendFont "    <outpgm22.pfb
+outpgco23 outpgm23 " .167 SlantFont .93 ExtendFont "    <outpgm23.pfb
+outpgco24 outpgm24 " .167 SlantFont .93 ExtendFont "    <outpgm24.pfb
+outpgco25 outpgm25 " .167 SlantFont .93 ExtendFont "    <outpgm25.pfb
+outpgco26 outpgm26 " .167 SlantFont .93 ExtendFont "    <outpgm26.pfb
+outpgco30 outpgm30 " .167 SlantFont .93 ExtendFont "    <outpgm30.pfb
+outpgco31 outpgm31 " .167 SlantFont .93 ExtendFont "    <outpgm31.pfb
+outpgco32 outpgm32 " .167 SlantFont .93 ExtendFont "    <outpgm32.pfb
+outpgco33 outpgm33 " .167 SlantFont .93 ExtendFont "    <outpgm33.pfb
+outpgcoac outpgmac " .167 SlantFont .93 ExtendFont "    <outpgmac.pfb
+outpgcoad outpgmad " .167 SlantFont .93 ExtendFont "    <outpgmad.pfb
+outpgcoae outpgmae " .167 SlantFont .93 ExtendFont "    <outpgmae.pfb
+outpgcoaf outpgmaf " .167 SlantFont .93 ExtendFont "    <outpgmaf.pfb
+outpgcob0 outpgmb0 " .167 SlantFont .93 ExtendFont "    <outpgmb0.pfb
+outpgcob1 outpgmb1 " .167 SlantFont .93 ExtendFont "    <outpgmb1.pfb
+outpgcob2 outpgmb2 " .167 SlantFont .93 ExtendFont "    <outpgmb2.pfb
+outpgcob3 outpgmb3 " .167 SlantFont .93 ExtendFont "    <outpgmb3.pfb
+outpgcob4 outpgmb4 " .167 SlantFont .93 ExtendFont "    <outpgmb4.pfb
+outpgcob5 outpgmb5 " .167 SlantFont .93 ExtendFont "    <outpgmb5.pfb
+outpgcob6 outpgmb6 " .167 SlantFont .93 ExtendFont "    <outpgmb6.pfb
+outpgcob7 outpgmb7 " .167 SlantFont .93 ExtendFont "    <outpgmb7.pfb
+outpgcob8 outpgmb8 " .167 SlantFont .93 ExtendFont "    <outpgmb8.pfb
+outpgcob9 outpgmb9 " .167 SlantFont .93 ExtendFont "    <outpgmb9.pfb
+outpgcoba outpgmba " .167 SlantFont .93 ExtendFont "    <outpgmba.pfb
+outpgcobb outpgmbb " .167 SlantFont .93 ExtendFont "    <outpgmbb.pfb
+outpgcobc outpgmbc " .167 SlantFont .93 ExtendFont "    <outpgmbc.pfb
+outpgcobd outpgmbd " .167 SlantFont .93 ExtendFont "    <outpgmbd.pfb
+outpgcobe outpgmbe " .167 SlantFont .93 ExtendFont "    <outpgmbe.pfb
+outpgcobf outpgmbf " .167 SlantFont .93 ExtendFont "    <outpgmbf.pfb
+outpgcoc0 outpgmc0 " .167 SlantFont .93 ExtendFont "    <outpgmc0.pfb
+outpgcoc1 outpgmc1 " .167 SlantFont .93 ExtendFont "    <outpgmc1.pfb
+outpgcoc2 outpgmc2 " .167 SlantFont .93 ExtendFont "    <outpgmc2.pfb
+outpgcoc3 outpgmc3 " .167 SlantFont .93 ExtendFont "    <outpgmc3.pfb
+outpgcoc4 outpgmc4 " .167 SlantFont .93 ExtendFont "    <outpgmc4.pfb
+outpgcoc5 outpgmc5 " .167 SlantFont .93 ExtendFont "    <outpgmc5.pfb
+outpgcoc6 outpgmc6 " .167 SlantFont .93 ExtendFont "    <outpgmc6.pfb
+outpgcoc7 outpgmc7 " .167 SlantFont .93 ExtendFont "    <outpgmc7.pfb
+outpgcoc8 outpgmc8 " .167 SlantFont .93 ExtendFont "    <outpgmc8.pfb
+outpgcoc9 outpgmc9 " .167 SlantFont .93 ExtendFont "    <outpgmc9.pfb
+outpgcoca outpgmca " .167 SlantFont .93 ExtendFont "    <outpgmca.pfb
+outpgcocb outpgmcb " .167 SlantFont .93 ExtendFont "    <outpgmcb.pfb
+outpgcocc outpgmcc " .167 SlantFont .93 ExtendFont "    <outpgmcc.pfb
+outpgcocd outpgmcd " .167 SlantFont .93 ExtendFont "    <outpgmcd.pfb
+outpgcoce outpgmce " .167 SlantFont .93 ExtendFont "    <outpgmce.pfb
+outpgcocf outpgmcf " .167 SlantFont .93 ExtendFont "    <outpgmcf.pfb
+outpgcod0 outpgmd0 " .167 SlantFont .93 ExtendFont "    <outpgmd0.pfb
+outpgcod1 outpgmd1 " .167 SlantFont .93 ExtendFont "    <outpgmd1.pfb
+outpgcod2 outpgmd2 " .167 SlantFont .93 ExtendFont "    <outpgmd2.pfb
+outpgcod3 outpgmd3 " .167 SlantFont .93 ExtendFont "    <outpgmd3.pfb
+outpgcod4 outpgmd4 " .167 SlantFont .93 ExtendFont "    <outpgmd4.pfb
+outpgcod5 outpgmd5 " .167 SlantFont .93 ExtendFont "    <outpgmd5.pfb
+outpgcod6 outpgmd6 " .167 SlantFont .93 ExtendFont "    <outpgmd6.pfb
+outpgcod7 outpgmd7 " .167 SlantFont .93 ExtendFont "    <outpgmd7.pfb
+outpgcoea outpgmea " .167 SlantFont .93 ExtendFont "    <outpgmea.pfb
+outpgcoeb outpgmeb " .167 SlantFont .93 ExtendFont "    <outpgmeb.pfb
+outpgcoec outpgmec " .167 SlantFont .93 ExtendFont "    <outpgmec.pfb
+outpgcoff outpgmff " .167 SlantFont .93 ExtendFont "    <outpgmff.pfb
+outpgb00 outpgb00	<outpgb00.pfb
+outpgb01 outpgb01       <outpgb01.pfb
+outpgb02 outpgb02       <outpgb02.pfb
+outpgb03 outpgb03       <outpgb03.pfb
+outpgb04 outpgb04       <outpgb04.pfb
+outpgb11 outpgb11       <outpgb11.pfb
+outpgb20 outpgb20       <outpgb20.pfb
+outpgb21 outpgb21       <outpgb21.pfb
+outpgb22 outpgb22       <outpgb22.pfb
+outpgb23 outpgb23       <outpgb23.pfb
+outpgb24 outpgb24       <outpgb24.pfb
+outpgb25 outpgb25       <outpgb25.pfb
+outpgb26 outpgb26       <outpgb26.pfb
+outpgb30 outpgb30       <outpgb30.pfb
+outpgb31 outpgb31       <outpgb31.pfb
+outpgb32 outpgb32       <outpgb32.pfb
+outpgb33 outpgb33       <outpgb33.pfb
+outpgbac outpgbac       <outpgbac.pfb
+outpgbad outpgbad       <outpgbad.pfb
+outpgbae outpgbae       <outpgbae.pfb
+outpgbaf outpgbaf       <outpgbaf.pfb
+outpgbb0 outpgbb0       <outpgbb0.pfb
+outpgbb1 outpgbb1       <outpgbb1.pfb
+outpgbb2 outpgbb2       <outpgbb2.pfb
+outpgbb3 outpgbb3       <outpgbb3.pfb
+outpgbb4 outpgbb4       <outpgbb4.pfb
+outpgbb5 outpgbb5       <outpgbb5.pfb
+outpgbb6 outpgbb6       <outpgbb6.pfb
+outpgbb7 outpgbb7       <outpgbb7.pfb
+outpgbb8 outpgbb8       <outpgbb8.pfb
+outpgbb9 outpgbb9       <outpgbb9.pfb
+outpgbba outpgbba       <outpgbba.pfb
+outpgbbb outpgbbb       <outpgbbb.pfb
+outpgbbc outpgbbc       <outpgbbc.pfb
+outpgbbd outpgbbd       <outpgbbd.pfb
+outpgbbe outpgbbe       <outpgbbe.pfb
+outpgbbf outpgbbf       <outpgbbf.pfb
+outpgbc0 outpgbc0       <outpgbc0.pfb
+outpgbc1 outpgbc1       <outpgbc1.pfb
+outpgbc2 outpgbc2       <outpgbc2.pfb
+outpgbc3 outpgbc3       <outpgbc3.pfb
+outpgbc4 outpgbc4       <outpgbc4.pfb
+outpgbc5 outpgbc5       <outpgbc5.pfb
+outpgbc6 outpgbc6       <outpgbc6.pfb
+outpgbc7 outpgbc7       <outpgbc7.pfb
+outpgbc8 outpgbc8       <outpgbc8.pfb
+outpgbc9 outpgbc9       <outpgbc9.pfb
+outpgbca outpgbca       <outpgbca.pfb
+outpgbcb outpgbcb       <outpgbcb.pfb
+outpgbcc outpgbcc       <outpgbcc.pfb
+outpgbcd outpgbcd       <outpgbcd.pfb
+outpgbce outpgbce       <outpgbce.pfb
+outpgbcf outpgbcf       <outpgbcf.pfb
+outpgbd0 outpgbd0       <outpgbd0.pfb
+outpgbd1 outpgbd1       <outpgbd1.pfb
+outpgbd2 outpgbd2       <outpgbd2.pfb
+outpgbd3 outpgbd3       <outpgbd3.pfb
+outpgbd4 outpgbd4       <outpgbd4.pfb
+outpgbd5 outpgbd5       <outpgbd5.pfb
+outpgbd6 outpgbd6       <outpgbd6.pfb
+outpgbd7 outpgbd7       <outpgbd7.pfb
+outpgbea outpgbea       <outpgbea.pfb
+outpgbeb outpgbeb       <outpgbeb.pfb
+outpgbec outpgbec       <outpgbec.pfb
+outpgbff outpgbff       <outpgbff.pfb
+outpgm00 outpgm00	<outpgm00.pfb
+outpgm01 outpgm01       <outpgm01.pfb
+outpgm02 outpgm02       <outpgm02.pfb
+outpgm03 outpgm03       <outpgm03.pfb
+outpgm04 outpgm04       <outpgm04.pfb
+outpgm11 outpgm11       <outpgm11.pfb
+outpgm20 outpgm20       <outpgm20.pfb
+outpgm21 outpgm21       <outpgm21.pfb
+outpgm22 outpgm22       <outpgm22.pfb
+outpgm23 outpgm23       <outpgm23.pfb
+outpgm24 outpgm24       <outpgm24.pfb
+outpgm25 outpgm25       <outpgm25.pfb
+outpgm26 outpgm26       <outpgm26.pfb
+outpgm30 outpgm30       <outpgm30.pfb
+outpgm31 outpgm31       <outpgm31.pfb
+outpgm32 outpgm32       <outpgm32.pfb
+outpgm33 outpgm33       <outpgm33.pfb
+outpgmac outpgmac       <outpgmac.pfb
+outpgmad outpgmad       <outpgmad.pfb
+outpgmae outpgmae       <outpgmae.pfb
+outpgmaf outpgmaf       <outpgmaf.pfb
+outpgmb0 outpgmb0       <outpgmb0.pfb
+outpgmb1 outpgmb1       <outpgmb1.pfb
+outpgmb2 outpgmb2       <outpgmb2.pfb
+outpgmb3 outpgmb3       <outpgmb3.pfb
+outpgmb4 outpgmb4       <outpgmb4.pfb
+outpgmb5 outpgmb5       <outpgmb5.pfb
+outpgmb6 outpgmb6       <outpgmb6.pfb
+outpgmb7 outpgmb7       <outpgmb7.pfb
+outpgmb8 outpgmb8       <outpgmb8.pfb
+outpgmb9 outpgmb9       <outpgmb9.pfb
+outpgmba outpgmba       <outpgmba.pfb
+outpgmbb outpgmbb       <outpgmbb.pfb
+outpgmbc outpgmbc       <outpgmbc.pfb
+outpgmbd outpgmbd       <outpgmbd.pfb
+outpgmbe outpgmbe       <outpgmbe.pfb
+outpgmbf outpgmbf       <outpgmbf.pfb
+outpgmc0 outpgmc0       <outpgmc0.pfb
+outpgmc1 outpgmc1       <outpgmc1.pfb
+outpgmc2 outpgmc2       <outpgmc2.pfb
+outpgmc3 outpgmc3       <outpgmc3.pfb
+outpgmc4 outpgmc4       <outpgmc4.pfb
+outpgmc5 outpgmc5       <outpgmc5.pfb
+outpgmc6 outpgmc6       <outpgmc6.pfb
+outpgmc7 outpgmc7       <outpgmc7.pfb
+outpgmc8 outpgmc8       <outpgmc8.pfb
+outpgmc9 outpgmc9       <outpgmc9.pfb
+outpgmca outpgmca       <outpgmca.pfb
+outpgmcb outpgmcb       <outpgmcb.pfb
+outpgmcc outpgmcc       <outpgmcc.pfb
+outpgmcd outpgmcd       <outpgmcd.pfb
+outpgmce outpgmce       <outpgmce.pfb
+outpgmcf outpgmcf       <outpgmcf.pfb
+outpgmd0 outpgmd0       <outpgmd0.pfb
+outpgmd1 outpgmd1       <outpgmd1.pfb
+outpgmd2 outpgmd2       <outpgmd2.pfb
+outpgmd3 outpgmd3       <outpgmd3.pfb
+outpgmd4 outpgmd4       <outpgmd4.pfb
+outpgmd5 outpgmd5       <outpgmd5.pfb
+outpgmd6 outpgmd6       <outpgmd6.pfb
+outpgmd7 outpgmd7       <outpgmd7.pfb
+outpgmea outpgmea       <outpgmea.pfb
+outpgmeb outpgmeb       <outpgmeb.pfb
+outpgmec outpgmec       <outpgmec.pfb
+outpgmff outpgmff       <outpgmff.pfb
+outpgmo00 outpgm00 " .167 SlantFont "	<outpgm00.pfb
+outpgmo01 outpgm01 " .167 SlantFont "   <outpgm01.pfb
+outpgmo02 outpgm02 " .167 SlantFont "   <outpgm02.pfb
+outpgmo03 outpgm03 " .167 SlantFont "   <outpgm03.pfb
+outpgmo04 outpgm04 " .167 SlantFont "   <outpgm04.pfb
+outpgmo11 outpgm11 " .167 SlantFont "   <outpgm11.pfb
+outpgmo20 outpgm20 " .167 SlantFont "   <outpgm20.pfb
+outpgmo21 outpgm21 " .167 SlantFont "   <outpgm21.pfb
+outpgmo22 outpgm22 " .167 SlantFont "   <outpgm22.pfb
+outpgmo23 outpgm23 " .167 SlantFont "   <outpgm23.pfb
+outpgmo24 outpgm24 " .167 SlantFont "   <outpgm24.pfb
+outpgmo25 outpgm25 " .167 SlantFont "   <outpgm25.pfb
+outpgmo26 outpgm26 " .167 SlantFont "   <outpgm26.pfb
+outpgmo30 outpgm30 " .167 SlantFont "   <outpgm30.pfb
+outpgmo31 outpgm31 " .167 SlantFont "   <outpgm31.pfb
+outpgmo32 outpgm32 " .167 SlantFont "   <outpgm32.pfb
+outpgmo33 outpgm33 " .167 SlantFont "   <outpgm33.pfb
+outpgmoac outpgmac " .167 SlantFont "   <outpgmac.pfb
+outpgmoad outpgmad " .167 SlantFont "   <outpgmad.pfb
+outpgmoae outpgmae " .167 SlantFont "   <outpgmae.pfb
+outpgmoaf outpgmaf " .167 SlantFont "   <outpgmaf.pfb
+outpgmob0 outpgmb0 " .167 SlantFont "   <outpgmb0.pfb
+outpgmob1 outpgmb1 " .167 SlantFont "   <outpgmb1.pfb
+outpgmob2 outpgmb2 " .167 SlantFont "   <outpgmb2.pfb
+outpgmob3 outpgmb3 " .167 SlantFont "   <outpgmb3.pfb
+outpgmob4 outpgmb4 " .167 SlantFont "   <outpgmb4.pfb
+outpgmob5 outpgmb5 " .167 SlantFont "   <outpgmb5.pfb
+outpgmob6 outpgmb6 " .167 SlantFont "   <outpgmb6.pfb
+outpgmob7 outpgmb7 " .167 SlantFont "   <outpgmb7.pfb
+outpgmob8 outpgmb8 " .167 SlantFont "   <outpgmb8.pfb
+outpgmob9 outpgmb9 " .167 SlantFont "   <outpgmb9.pfb
+outpgmoba outpgmba " .167 SlantFont "   <outpgmba.pfb
+outpgmobb outpgmbb " .167 SlantFont "   <outpgmbb.pfb
+outpgmobc outpgmbc " .167 SlantFont "   <outpgmbc.pfb
+outpgmobd outpgmbd " .167 SlantFont "   <outpgmbd.pfb
+outpgmobe outpgmbe " .167 SlantFont "   <outpgmbe.pfb
+outpgmobf outpgmbf " .167 SlantFont "   <outpgmbf.pfb
+outpgmoc0 outpgmc0 " .167 SlantFont "   <outpgmc0.pfb
+outpgmoc1 outpgmc1 " .167 SlantFont "   <outpgmc1.pfb
+outpgmoc2 outpgmc2 " .167 SlantFont "   <outpgmc2.pfb
+outpgmoc3 outpgmc3 " .167 SlantFont "   <outpgmc3.pfb
+outpgmoc4 outpgmc4 " .167 SlantFont "   <outpgmc4.pfb
+outpgmoc5 outpgmc5 " .167 SlantFont "   <outpgmc5.pfb
+outpgmoc6 outpgmc6 " .167 SlantFont "   <outpgmc6.pfb
+outpgmoc7 outpgmc7 " .167 SlantFont "   <outpgmc7.pfb
+outpgmoc8 outpgmc8 " .167 SlantFont "   <outpgmc8.pfb
+outpgmoc9 outpgmc9 " .167 SlantFont "   <outpgmc9.pfb
+outpgmoca outpgmca " .167 SlantFont "   <outpgmca.pfb
+outpgmocb outpgmcb " .167 SlantFont "   <outpgmcb.pfb
+outpgmocc outpgmcc " .167 SlantFont "   <outpgmcc.pfb
+outpgmocd outpgmcd " .167 SlantFont "   <outpgmcd.pfb
+outpgmoce outpgmce " .167 SlantFont "   <outpgmce.pfb
+outpgmocf outpgmcf " .167 SlantFont "   <outpgmcf.pfb
+outpgmod0 outpgmd0 " .167 SlantFont "   <outpgmd0.pfb
+outpgmod1 outpgmd1 " .167 SlantFont "   <outpgmd1.pfb
+outpgmod2 outpgmd2 " .167 SlantFont "   <outpgmd2.pfb
+outpgmod3 outpgmd3 " .167 SlantFont "   <outpgmd3.pfb
+outpgmod4 outpgmd4 " .167 SlantFont "   <outpgmd4.pfb
+outpgmod5 outpgmd5 " .167 SlantFont "   <outpgmd5.pfb
+outpgmod6 outpgmd6 " .167 SlantFont "   <outpgmd6.pfb
+outpgmod7 outpgmd7 " .167 SlantFont "   <outpgmd7.pfb
+outpgmoea outpgmea " .167 SlantFont "   <outpgmea.pfb
+outpgmoeb outpgmeb " .167 SlantFont "   <outpgmeb.pfb
+outpgmoec outpgmec " .167 SlantFont "   <outpgmec.pfb
+outpgmoff outpgmff " .167 SlantFont "   <outpgmff.pfb
+outphm00 outphm00	<outphm00.pfb
+outphm01 outphm01       <outphm01.pfb
+outphm02 outphm02       <outphm02.pfb
+outphm03 outphm03       <outphm03.pfb
+outphm04 outphm04       <outphm04.pfb
+outphm11 outphm11       <outphm11.pfb
+outphm20 outphm20       <outphm20.pfb
+outphm21 outphm21       <outphm21.pfb
+outphm22 outphm22       <outphm22.pfb
+outphm23 outphm23       <outphm23.pfb
+outphm24 outphm24       <outphm24.pfb
+outphm25 outphm25       <outphm25.pfb
+outphm26 outphm26       <outphm26.pfb
+outphm30 outphm30       <outphm30.pfb
+outphm31 outphm31       <outphm31.pfb
+outphm32 outphm32       <outphm32.pfb
+outphm33 outphm33       <outphm33.pfb
+outphmac outphmac       <outphmac.pfb
+outphmad outphmad       <outphmad.pfb
+outphmae outphmae       <outphmae.pfb
+outphmaf outphmaf       <outphmaf.pfb
+outphmb0 outphmb0       <outphmb0.pfb
+outphmb1 outphmb1       <outphmb1.pfb
+outphmb2 outphmb2       <outphmb2.pfb
+outphmb3 outphmb3       <outphmb3.pfb
+outphmb4 outphmb4       <outphmb4.pfb
+outphmb5 outphmb5       <outphmb5.pfb
+outphmb6 outphmb6       <outphmb6.pfb
+outphmb7 outphmb7       <outphmb7.pfb
+outphmb8 outphmb8       <outphmb8.pfb
+outphmb9 outphmb9       <outphmb9.pfb
+outphmba outphmba       <outphmba.pfb
+outphmbb outphmbb       <outphmbb.pfb
+outphmbc outphmbc       <outphmbc.pfb
+outphmbd outphmbd       <outphmbd.pfb
+outphmbe outphmbe       <outphmbe.pfb
+outphmbf outphmbf       <outphmbf.pfb
+outphmc0 outphmc0       <outphmc0.pfb
+outphmc1 outphmc1       <outphmc1.pfb
+outphmc2 outphmc2       <outphmc2.pfb
+outphmc3 outphmc3       <outphmc3.pfb
+outphmc4 outphmc4       <outphmc4.pfb
+outphmc5 outphmc5       <outphmc5.pfb
+outphmc6 outphmc6       <outphmc6.pfb
+outphmc7 outphmc7       <outphmc7.pfb
+outphmc8 outphmc8       <outphmc8.pfb
+outphmc9 outphmc9       <outphmc9.pfb
+outphmca outphmca       <outphmca.pfb
+outphmcb outphmcb       <outphmcb.pfb
+outphmcc outphmcc       <outphmcc.pfb
+outphmcd outphmcd       <outphmcd.pfb
+outphmce outphmce       <outphmce.pfb
+outphmcf outphmcf       <outphmcf.pfb
+outphmd0 outphmd0       <outphmd0.pfb
+outphmd1 outphmd1       <outphmd1.pfb
+outphmd2 outphmd2       <outphmd2.pfb
+outphmd3 outphmd3       <outphmd3.pfb
+outphmd4 outphmd4       <outphmd4.pfb
+outphmd5 outphmd5       <outphmd5.pfb
+outphmd6 outphmd6       <outphmd6.pfb
+outphmd7 outphmd7       <outphmd7.pfb
+outphmea outphmea       <outphmea.pfb
+outphmeb outphmeb       <outphmeb.pfb
+outphmec outphmec       <outphmec.pfb
+outphmed outphmed       <outphmed.pfb
+outphmee outphmee       <outphmee.pfb
+outphmff outphmff       <outphmff.pfb
+outpnm00 outpnm00	<outpnm00.pfb
+outpnm01 outpnm01       <outpnm01.pfb
+outpnm02 outpnm02       <outpnm02.pfb
+outpnm03 outpnm03       <outpnm03.pfb
+outpnm04 outpnm04       <outpnm04.pfb
+outpnm11 outpnm11       <outpnm11.pfb
+outpnm20 outpnm20       <outpnm20.pfb
+outpnm21 outpnm21       <outpnm21.pfb
+outpnm22 outpnm22       <outpnm22.pfb
+outpnm23 outpnm23       <outpnm23.pfb
+outpnm24 outpnm24       <outpnm24.pfb
+outpnm25 outpnm25       <outpnm25.pfb
+outpnm26 outpnm26       <outpnm26.pfb
+outpnm30 outpnm30       <outpnm30.pfb
+outpnm31 outpnm31       <outpnm31.pfb
+outpnm32 outpnm32       <outpnm32.pfb
+outpnm33 outpnm33       <outpnm33.pfb
+outpnmac outpnmac       <outpnmac.pfb
+outpnmad outpnmad       <outpnmad.pfb
+outpnmae outpnmae       <outpnmae.pfb
+outpnmaf outpnmaf       <outpnmaf.pfb
+outpnmb0 outpnmb0       <outpnmb0.pfb
+outpnmb1 outpnmb1       <outpnmb1.pfb
+outpnmb2 outpnmb2       <outpnmb2.pfb
+outpnmb3 outpnmb3       <outpnmb3.pfb
+outpnmb4 outpnmb4       <outpnmb4.pfb
+outpnmb5 outpnmb5       <outpnmb5.pfb
+outpnmb6 outpnmb6       <outpnmb6.pfb
+outpnmb7 outpnmb7       <outpnmb7.pfb
+outpnmb8 outpnmb8       <outpnmb8.pfb
+outpnmb9 outpnmb9       <outpnmb9.pfb
+outpnmba outpnmba       <outpnmba.pfb
+outpnmbb outpnmbb       <outpnmbb.pfb
+outpnmbc outpnmbc       <outpnmbc.pfb
+outpnmbd outpnmbd       <outpnmbd.pfb
+outpnmbe outpnmbe       <outpnmbe.pfb
+outpnmbf outpnmbf       <outpnmbf.pfb
+outpnmc0 outpnmc0       <outpnmc0.pfb
+outpnmc1 outpnmc1       <outpnmc1.pfb
+outpnmc2 outpnmc2       <outpnmc2.pfb
+outpnmc3 outpnmc3       <outpnmc3.pfb
+outpnmc4 outpnmc4       <outpnmc4.pfb
+outpnmc5 outpnmc5       <outpnmc5.pfb
+outpnmc6 outpnmc6       <outpnmc6.pfb
+outpnmc7 outpnmc7       <outpnmc7.pfb
+outpnmc8 outpnmc8       <outpnmc8.pfb
+outpnmc9 outpnmc9       <outpnmc9.pfb
+outpnmca outpnmca       <outpnmca.pfb
+outpnmcb outpnmcb       <outpnmcb.pfb
+outpnmcc outpnmcc       <outpnmcc.pfb
+outpnmcd outpnmcd       <outpnmcd.pfb
+outpnmce outpnmce       <outpnmce.pfb
+outpnmcf outpnmcf       <outpnmcf.pfb
+outpnmd0 outpnmd0       <outpnmd0.pfb
+outpnmd1 outpnmd1       <outpnmd1.pfb
+outpnmd2 outpnmd2       <outpnmd2.pfb
+outpnmd3 outpnmd3       <outpnmd3.pfb
+outpnmd4 outpnmd4       <outpnmd4.pfb
+outpnmd5 outpnmd5       <outpnmd5.pfb
+outpnmd6 outpnmd6       <outpnmd6.pfb
+outpnmd7 outpnmd7       <outpnmd7.pfb
+outpnmea outpnmea       <outpnmea.pfb
+outpnmeb outpnmeb       <outpnmeb.pfb
+outpnmec outpnmec       <outpnmec.pfb
+outpnmed outpnmed       <outpnmed.pfb
+outpnmee outpnmee       <outpnmee.pfb
+outpnmff outpnmff       <outpnmff.pfb
+outshc00 outshm00 " .93 ExtendFont "	<outshm00.pfb
+outshc01 outshm01 " .93 ExtendFont "    <outshm01.pfb
+outshc02 outshm02 " .93 ExtendFont "    <outshm02.pfb
+outshc03 outshm03 " .93 ExtendFont "    <outshm03.pfb
+outshc04 outshm04 " .93 ExtendFont "    <outshm04.pfb
+outshc11 outshm11 " .93 ExtendFont "    <outshm11.pfb
+outshc20 outshm20 " .93 ExtendFont "    <outshm20.pfb
+outshc21 outshm21 " .93 ExtendFont "    <outshm21.pfb
+outshc22 outshm22 " .93 ExtendFont "    <outshm22.pfb
+outshc23 outshm23 " .93 ExtendFont "    <outshm23.pfb
+outshc24 outshm24 " .93 ExtendFont "    <outshm24.pfb
+outshc25 outshm25 " .93 ExtendFont "    <outshm25.pfb
+outshc26 outshm26 " .93 ExtendFont "    <outshm26.pfb
+outshc30 outshm30 " .93 ExtendFont "    <outshm30.pfb
+outshc31 outshm31 " .93 ExtendFont "    <outshm31.pfb
+outshc32 outshm32 " .93 ExtendFont "    <outshm32.pfb
+outshc33 outshm33 " .93 ExtendFont "    <outshm33.pfb
+outshc4e outshm4e " .93 ExtendFont "    <outshm4e.pfb
+outshc4f outshm4f " .93 ExtendFont "    <outshm4f.pfb
+outshc50 outshm50 " .93 ExtendFont "    <outshm50.pfb
+outshc51 outshm51 " .93 ExtendFont "    <outshm51.pfb
+outshc52 outshm52 " .93 ExtendFont "    <outshm52.pfb
+outshc53 outshm53 " .93 ExtendFont "    <outshm53.pfb
+outshc54 outshm54 " .93 ExtendFont "    <outshm54.pfb
+outshc55 outshm55 " .93 ExtendFont "    <outshm55.pfb
+outshc56 outshm56 " .93 ExtendFont "    <outshm56.pfb
+outshc57 outshm57 " .93 ExtendFont "    <outshm57.pfb
+outshc58 outshm58 " .93 ExtendFont "    <outshm58.pfb
+outshc59 outshm59 " .93 ExtendFont "    <outshm59.pfb
+outshc5a outshm5a " .93 ExtendFont "    <outshm5a.pfb
+outshc5b outshm5b " .93 ExtendFont "    <outshm5b.pfb
+outshc5c outshm5c " .93 ExtendFont "    <outshm5c.pfb
+outshc5d outshm5d " .93 ExtendFont "    <outshm5d.pfb
+outshc5e outshm5e " .93 ExtendFont "    <outshm5e.pfb
+outshc5f outshm5f " .93 ExtendFont "    <outshm5f.pfb
+outshc60 outshm60 " .93 ExtendFont "    <outshm60.pfb
+outshc61 outshm61 " .93 ExtendFont "    <outshm61.pfb
+outshc62 outshm62 " .93 ExtendFont "    <outshm62.pfb
+outshc63 outshm63 " .93 ExtendFont "    <outshm63.pfb
+outshc64 outshm64 " .93 ExtendFont "    <outshm64.pfb
+outshc65 outshm65 " .93 ExtendFont "    <outshm65.pfb
+outshc66 outshm66 " .93 ExtendFont "    <outshm66.pfb
+outshc67 outshm67 " .93 ExtendFont "    <outshm67.pfb
+outshc68 outshm68 " .93 ExtendFont "    <outshm68.pfb
+outshc69 outshm69 " .93 ExtendFont "    <outshm69.pfb
+outshc6a outshm6a " .93 ExtendFont "    <outshm6a.pfb
+outshc6b outshm6b " .93 ExtendFont "    <outshm6b.pfb
+outshc6c outshm6c " .93 ExtendFont "    <outshm6c.pfb
+outshc6d outshm6d " .93 ExtendFont "    <outshm6d.pfb
+outshc6e outshm6e " .93 ExtendFont "    <outshm6e.pfb
+outshc6f outshm6f " .93 ExtendFont "    <outshm6f.pfb
+outshc70 outshm70 " .93 ExtendFont "    <outshm70.pfb
+outshc71 outshm71 " .93 ExtendFont "    <outshm71.pfb
+outshc72 outshm72 " .93 ExtendFont "    <outshm72.pfb
+outshc73 outshm73 " .93 ExtendFont "    <outshm73.pfb
+outshc74 outshm74 " .93 ExtendFont "    <outshm74.pfb
+outshc75 outshm75 " .93 ExtendFont "    <outshm75.pfb
+outshc76 outshm76 " .93 ExtendFont "    <outshm76.pfb
+outshc77 outshm77 " .93 ExtendFont "    <outshm77.pfb
+outshc78 outshm78 " .93 ExtendFont "    <outshm78.pfb
+outshc79 outshm79 " .93 ExtendFont "    <outshm79.pfb
+outshc7a outshm7a " .93 ExtendFont "    <outshm7a.pfb
+outshc7b outshm7b " .93 ExtendFont "    <outshm7b.pfb
+outshc7c outshm7c " .93 ExtendFont "    <outshm7c.pfb
+outshc7d outshm7d " .93 ExtendFont "    <outshm7d.pfb
+outshc7e outshm7e " .93 ExtendFont "    <outshm7e.pfb
+outshc7f outshm7f " .93 ExtendFont "    <outshm7f.pfb
+outshc80 outshm80 " .93 ExtendFont "    <outshm80.pfb
+outshc81 outshm81 " .93 ExtendFont "    <outshm81.pfb
+outshc82 outshm82 " .93 ExtendFont "    <outshm82.pfb
+outshc83 outshm83 " .93 ExtendFont "    <outshm83.pfb
+outshc84 outshm84 " .93 ExtendFont "    <outshm84.pfb
+outshc85 outshm85 " .93 ExtendFont "    <outshm85.pfb
+outshc86 outshm86 " .93 ExtendFont "    <outshm86.pfb
+outshc87 outshm87 " .93 ExtendFont "    <outshm87.pfb
+outshc88 outshm88 " .93 ExtendFont "    <outshm88.pfb
+outshc89 outshm89 " .93 ExtendFont "    <outshm89.pfb
+outshc8a outshm8a " .93 ExtendFont "    <outshm8a.pfb
+outshc8b outshm8b " .93 ExtendFont "    <outshm8b.pfb
+outshc8c outshm8c " .93 ExtendFont "    <outshm8c.pfb
+outshc8d outshm8d " .93 ExtendFont "    <outshm8d.pfb
+outshc8e outshm8e " .93 ExtendFont "    <outshm8e.pfb
+outshc8f outshm8f " .93 ExtendFont "    <outshm8f.pfb
+outshc90 outshm90 " .93 ExtendFont "    <outshm90.pfb
+outshc91 outshm91 " .93 ExtendFont "    <outshm91.pfb
+outshc92 outshm92 " .93 ExtendFont "    <outshm92.pfb
+outshc93 outshm93 " .93 ExtendFont "    <outshm93.pfb
+outshc94 outshm94 " .93 ExtendFont "    <outshm94.pfb
+outshc95 outshm95 " .93 ExtendFont "    <outshm95.pfb
+outshc96 outshm96 " .93 ExtendFont "    <outshm96.pfb
+outshc97 outshm97 " .93 ExtendFont "    <outshm97.pfb
+outshc98 outshm98 " .93 ExtendFont "    <outshm98.pfb
+outshc99 outshm99 " .93 ExtendFont "    <outshm99.pfb
+outshc9a outshm9a " .93 ExtendFont "    <outshm9a.pfb
+outshc9b outshm9b " .93 ExtendFont "    <outshm9b.pfb
+outshc9c outshm9c " .93 ExtendFont "    <outshm9c.pfb
+outshc9d outshm9d " .93 ExtendFont "    <outshm9d.pfb
+outshc9e outshm9e " .93 ExtendFont "    <outshm9e.pfb
+outshc9f outshm9f " .93 ExtendFont "    <outshm9f.pfb
+outshcac outshmac " .93 ExtendFont "    <outshmac.pfb
+outshcad outshmad " .93 ExtendFont "    <outshmad.pfb
+outshcae outshmae " .93 ExtendFont "    <outshmae.pfb
+outshcaf outshmaf " .93 ExtendFont "    <outshmaf.pfb
+outshcb0 outshmb0 " .93 ExtendFont "    <outshmb0.pfb
+outshcb1 outshmb1 " .93 ExtendFont "    <outshmb1.pfb
+outshcb2 outshmb2 " .93 ExtendFont "    <outshmb2.pfb
+outshcb3 outshmb3 " .93 ExtendFont "    <outshmb3.pfb
+outshcb4 outshmb4 " .93 ExtendFont "    <outshmb4.pfb
+outshcb5 outshmb5 " .93 ExtendFont "    <outshmb5.pfb
+outshcb6 outshmb6 " .93 ExtendFont "    <outshmb6.pfb
+outshcb7 outshmb7 " .93 ExtendFont "    <outshmb7.pfb
+outshcb8 outshmb8 " .93 ExtendFont "    <outshmb8.pfb
+outshcb9 outshmb9 " .93 ExtendFont "    <outshmb9.pfb
+outshcba outshmba " .93 ExtendFont "    <outshmba.pfb
+outshcbb outshmbb " .93 ExtendFont "    <outshmbb.pfb
+outshcbc outshmbc " .93 ExtendFont "    <outshmbc.pfb
+outshcbd outshmbd " .93 ExtendFont "    <outshmbd.pfb
+outshcbe outshmbe " .93 ExtendFont "    <outshmbe.pfb
+outshcbf outshmbf " .93 ExtendFont "    <outshmbf.pfb
+outshcc0 outshmc0 " .93 ExtendFont "    <outshmc0.pfb
+outshcc1 outshmc1 " .93 ExtendFont "    <outshmc1.pfb
+outshcc2 outshmc2 " .93 ExtendFont "    <outshmc2.pfb
+outshcc3 outshmc3 " .93 ExtendFont "    <outshmc3.pfb
+outshcc4 outshmc4 " .93 ExtendFont "    <outshmc4.pfb
+outshcc5 outshmc5 " .93 ExtendFont "    <outshmc5.pfb
+outshcc6 outshmc6 " .93 ExtendFont "    <outshmc6.pfb
+outshcc7 outshmc7 " .93 ExtendFont "    <outshmc7.pfb
+outshcc8 outshmc8 " .93 ExtendFont "    <outshmc8.pfb
+outshcc9 outshmc9 " .93 ExtendFont "    <outshmc9.pfb
+outshcca outshmca " .93 ExtendFont "    <outshmca.pfb
+outshccb outshmcb " .93 ExtendFont "    <outshmcb.pfb
+outshccc outshmcc " .93 ExtendFont "    <outshmcc.pfb
+outshccd outshmcd " .93 ExtendFont "    <outshmcd.pfb
+outshcce outshmce " .93 ExtendFont "    <outshmce.pfb
+outshccf outshmcf " .93 ExtendFont "    <outshmcf.pfb
+outshcd0 outshmd0 " .93 ExtendFont "    <outshmd0.pfb
+outshcd1 outshmd1 " .93 ExtendFont "    <outshmd1.pfb
+outshcd2 outshmd2 " .93 ExtendFont "    <outshmd2.pfb
+outshcd3 outshmd3 " .93 ExtendFont "    <outshmd3.pfb
+outshcd4 outshmd4 " .93 ExtendFont "    <outshmd4.pfb
+outshcd5 outshmd5 " .93 ExtendFont "    <outshmd5.pfb
+outshcd6 outshmd6 " .93 ExtendFont "    <outshmd6.pfb
+outshcd7 outshmd7 " .93 ExtendFont "    <outshmd7.pfb
+outshcea outshmea " .93 ExtendFont "    <outshmea.pfb
+outshceb outshmeb " .93 ExtendFont "    <outshmeb.pfb
+outshcec outshmec " .93 ExtendFont "    <outshmec.pfb
+outshced outshmed " .93 ExtendFont "    <outshmed.pfb
+outshcee outshmee " .93 ExtendFont "    <outshmee.pfb
+outshcef outshmef " .93 ExtendFont "    <outshmef.pfb
+outshcf0 outshmf0 " .93 ExtendFont "    <outshmf0.pfb
+outshcf9 outshmf9 " .93 ExtendFont "    <outshmf9.pfb
+outshcfa outshmfa " .93 ExtendFont "    <outshmfa.pfb
+outshcff outshmff " .93 ExtendFont "    <outshmff.pfb
+outshco00 outshm00 " .167 SlantFont .93 ExtendFont "	<outshm00.pfb
+outshco01 outshm01 " .167 SlantFont .93 ExtendFont "    <outshm01.pfb
+outshco02 outshm02 " .167 SlantFont .93 ExtendFont "    <outshm02.pfb
+outshco03 outshm03 " .167 SlantFont .93 ExtendFont "    <outshm03.pfb
+outshco04 outshm04 " .167 SlantFont .93 ExtendFont "    <outshm04.pfb
+outshco11 outshm11 " .167 SlantFont .93 ExtendFont "    <outshm11.pfb
+outshco20 outshm20 " .167 SlantFont .93 ExtendFont "    <outshm20.pfb
+outshco21 outshm21 " .167 SlantFont .93 ExtendFont "    <outshm21.pfb
+outshco22 outshm22 " .167 SlantFont .93 ExtendFont "    <outshm22.pfb
+outshco23 outshm23 " .167 SlantFont .93 ExtendFont "    <outshm23.pfb
+outshco24 outshm24 " .167 SlantFont .93 ExtendFont "    <outshm24.pfb
+outshco25 outshm25 " .167 SlantFont .93 ExtendFont "    <outshm25.pfb
+outshco26 outshm26 " .167 SlantFont .93 ExtendFont "    <outshm26.pfb
+outshco30 outshm30 " .167 SlantFont .93 ExtendFont "    <outshm30.pfb
+outshco31 outshm31 " .167 SlantFont .93 ExtendFont "    <outshm31.pfb
+outshco32 outshm32 " .167 SlantFont .93 ExtendFont "    <outshm32.pfb
+outshco33 outshm33 " .167 SlantFont .93 ExtendFont "    <outshm33.pfb
+outshco4e outshm4e " .167 SlantFont .93 ExtendFont "    <outshm4e.pfb
+outshco4f outshm4f " .167 SlantFont .93 ExtendFont "    <outshm4f.pfb
+outshco50 outshm50 " .167 SlantFont .93 ExtendFont "    <outshm50.pfb
+outshco51 outshm51 " .167 SlantFont .93 ExtendFont "    <outshm51.pfb
+outshco52 outshm52 " .167 SlantFont .93 ExtendFont "    <outshm52.pfb
+outshco53 outshm53 " .167 SlantFont .93 ExtendFont "    <outshm53.pfb
+outshco54 outshm54 " .167 SlantFont .93 ExtendFont "    <outshm54.pfb
+outshco55 outshm55 " .167 SlantFont .93 ExtendFont "    <outshm55.pfb
+outshco56 outshm56 " .167 SlantFont .93 ExtendFont "    <outshm56.pfb
+outshco57 outshm57 " .167 SlantFont .93 ExtendFont "    <outshm57.pfb
+outshco58 outshm58 " .167 SlantFont .93 ExtendFont "    <outshm58.pfb
+outshco59 outshm59 " .167 SlantFont .93 ExtendFont "    <outshm59.pfb
+outshco5a outshm5a " .167 SlantFont .93 ExtendFont "    <outshm5a.pfb
+outshco5b outshm5b " .167 SlantFont .93 ExtendFont "    <outshm5b.pfb
+outshco5c outshm5c " .167 SlantFont .93 ExtendFont "    <outshm5c.pfb
+outshco5d outshm5d " .167 SlantFont .93 ExtendFont "    <outshm5d.pfb
+outshco5e outshm5e " .167 SlantFont .93 ExtendFont "    <outshm5e.pfb
+outshco5f outshm5f " .167 SlantFont .93 ExtendFont "    <outshm5f.pfb
+outshco60 outshm60 " .167 SlantFont .93 ExtendFont "    <outshm60.pfb
+outshco61 outshm61 " .167 SlantFont .93 ExtendFont "    <outshm61.pfb
+outshco62 outshm62 " .167 SlantFont .93 ExtendFont "    <outshm62.pfb
+outshco63 outshm63 " .167 SlantFont .93 ExtendFont "    <outshm63.pfb
+outshco64 outshm64 " .167 SlantFont .93 ExtendFont "    <outshm64.pfb
+outshco65 outshm65 " .167 SlantFont .93 ExtendFont "    <outshm65.pfb
+outshco66 outshm66 " .167 SlantFont .93 ExtendFont "    <outshm66.pfb
+outshco67 outshm67 " .167 SlantFont .93 ExtendFont "    <outshm67.pfb
+outshco68 outshm68 " .167 SlantFont .93 ExtendFont "    <outshm68.pfb
+outshco69 outshm69 " .167 SlantFont .93 ExtendFont "    <outshm69.pfb
+outshco6a outshm6a " .167 SlantFont .93 ExtendFont "    <outshm6a.pfb
+outshco6b outshm6b " .167 SlantFont .93 ExtendFont "    <outshm6b.pfb
+outshco6c outshm6c " .167 SlantFont .93 ExtendFont "    <outshm6c.pfb
+outshco6d outshm6d " .167 SlantFont .93 ExtendFont "    <outshm6d.pfb
+outshco6e outshm6e " .167 SlantFont .93 ExtendFont "    <outshm6e.pfb
+outshco6f outshm6f " .167 SlantFont .93 ExtendFont "    <outshm6f.pfb
+outshco70 outshm70 " .167 SlantFont .93 ExtendFont "    <outshm70.pfb
+outshco71 outshm71 " .167 SlantFont .93 ExtendFont "    <outshm71.pfb
+outshco72 outshm72 " .167 SlantFont .93 ExtendFont "    <outshm72.pfb
+outshco73 outshm73 " .167 SlantFont .93 ExtendFont "    <outshm73.pfb
+outshco74 outshm74 " .167 SlantFont .93 ExtendFont "    <outshm74.pfb
+outshco75 outshm75 " .167 SlantFont .93 ExtendFont "    <outshm75.pfb
+outshco76 outshm76 " .167 SlantFont .93 ExtendFont "    <outshm76.pfb
+outshco77 outshm77 " .167 SlantFont .93 ExtendFont "    <outshm77.pfb
+outshco78 outshm78 " .167 SlantFont .93 ExtendFont "    <outshm78.pfb
+outshco79 outshm79 " .167 SlantFont .93 ExtendFont "    <outshm79.pfb
+outshco7a outshm7a " .167 SlantFont .93 ExtendFont "    <outshm7a.pfb
+outshco7b outshm7b " .167 SlantFont .93 ExtendFont "    <outshm7b.pfb
+outshco7c outshm7c " .167 SlantFont .93 ExtendFont "    <outshm7c.pfb
+outshco7d outshm7d " .167 SlantFont .93 ExtendFont "    <outshm7d.pfb
+outshco7e outshm7e " .167 SlantFont .93 ExtendFont "    <outshm7e.pfb
+outshco7f outshm7f " .167 SlantFont .93 ExtendFont "    <outshm7f.pfb
+outshco80 outshm80 " .167 SlantFont .93 ExtendFont "    <outshm80.pfb
+outshco81 outshm81 " .167 SlantFont .93 ExtendFont "    <outshm81.pfb
+outshco82 outshm82 " .167 SlantFont .93 ExtendFont "    <outshm82.pfb
+outshco83 outshm83 " .167 SlantFont .93 ExtendFont "    <outshm83.pfb
+outshco84 outshm84 " .167 SlantFont .93 ExtendFont "    <outshm84.pfb
+outshco85 outshm85 " .167 SlantFont .93 ExtendFont "    <outshm85.pfb
+outshco86 outshm86 " .167 SlantFont .93 ExtendFont "    <outshm86.pfb
+outshco87 outshm87 " .167 SlantFont .93 ExtendFont "    <outshm87.pfb
+outshco88 outshm88 " .167 SlantFont .93 ExtendFont "    <outshm88.pfb
+outshco89 outshm89 " .167 SlantFont .93 ExtendFont "    <outshm89.pfb
+outshco8a outshm8a " .167 SlantFont .93 ExtendFont "    <outshm8a.pfb
+outshco8b outshm8b " .167 SlantFont .93 ExtendFont "    <outshm8b.pfb
+outshco8c outshm8c " .167 SlantFont .93 ExtendFont "    <outshm8c.pfb
+outshco8d outshm8d " .167 SlantFont .93 ExtendFont "    <outshm8d.pfb
+outshco8e outshm8e " .167 SlantFont .93 ExtendFont "    <outshm8e.pfb
+outshco8f outshm8f " .167 SlantFont .93 ExtendFont "    <outshm8f.pfb
+outshco90 outshm90 " .167 SlantFont .93 ExtendFont "    <outshm90.pfb
+outshco91 outshm91 " .167 SlantFont .93 ExtendFont "    <outshm91.pfb
+outshco92 outshm92 " .167 SlantFont .93 ExtendFont "    <outshm92.pfb
+outshco93 outshm93 " .167 SlantFont .93 ExtendFont "    <outshm93.pfb
+outshco94 outshm94 " .167 SlantFont .93 ExtendFont "    <outshm94.pfb
+outshco95 outshm95 " .167 SlantFont .93 ExtendFont "    <outshm95.pfb
+outshco96 outshm96 " .167 SlantFont .93 ExtendFont "    <outshm96.pfb
+outshco97 outshm97 " .167 SlantFont .93 ExtendFont "    <outshm97.pfb
+outshco98 outshm98 " .167 SlantFont .93 ExtendFont "    <outshm98.pfb
+outshco99 outshm99 " .167 SlantFont .93 ExtendFont "    <outshm99.pfb
+outshco9a outshm9a " .167 SlantFont .93 ExtendFont "    <outshm9a.pfb
+outshco9b outshm9b " .167 SlantFont .93 ExtendFont "    <outshm9b.pfb
+outshco9c outshm9c " .167 SlantFont .93 ExtendFont "    <outshm9c.pfb
+outshco9d outshm9d " .167 SlantFont .93 ExtendFont "    <outshm9d.pfb
+outshco9e outshm9e " .167 SlantFont .93 ExtendFont "    <outshm9e.pfb
+outshco9f outshm9f " .167 SlantFont .93 ExtendFont "    <outshm9f.pfb
+outshcoac outshmac " .167 SlantFont .93 ExtendFont "    <outshmac.pfb
+outshcoad outshmad " .167 SlantFont .93 ExtendFont "    <outshmad.pfb
+outshcoae outshmae " .167 SlantFont .93 ExtendFont "    <outshmae.pfb
+outshcoaf outshmaf " .167 SlantFont .93 ExtendFont "    <outshmaf.pfb
+outshcob0 outshmb0 " .167 SlantFont .93 ExtendFont "    <outshmb0.pfb
+outshcob1 outshmb1 " .167 SlantFont .93 ExtendFont "    <outshmb1.pfb
+outshcob2 outshmb2 " .167 SlantFont .93 ExtendFont "    <outshmb2.pfb
+outshcob3 outshmb3 " .167 SlantFont .93 ExtendFont "    <outshmb3.pfb
+outshcob4 outshmb4 " .167 SlantFont .93 ExtendFont "    <outshmb4.pfb
+outshcob5 outshmb5 " .167 SlantFont .93 ExtendFont "    <outshmb5.pfb
+outshcob6 outshmb6 " .167 SlantFont .93 ExtendFont "    <outshmb6.pfb
+outshcob7 outshmb7 " .167 SlantFont .93 ExtendFont "    <outshmb7.pfb
+outshcob8 outshmb8 " .167 SlantFont .93 ExtendFont "    <outshmb8.pfb
+outshcob9 outshmb9 " .167 SlantFont .93 ExtendFont "    <outshmb9.pfb
+outshcoba outshmba " .167 SlantFont .93 ExtendFont "    <outshmba.pfb
+outshcobb outshmbb " .167 SlantFont .93 ExtendFont "    <outshmbb.pfb
+outshcobc outshmbc " .167 SlantFont .93 ExtendFont "    <outshmbc.pfb
+outshcobd outshmbd " .167 SlantFont .93 ExtendFont "    <outshmbd.pfb
+outshcobe outshmbe " .167 SlantFont .93 ExtendFont "    <outshmbe.pfb
+outshcobf outshmbf " .167 SlantFont .93 ExtendFont "    <outshmbf.pfb
+outshcoc0 outshmc0 " .167 SlantFont .93 ExtendFont "    <outshmc0.pfb
+outshcoc1 outshmc1 " .167 SlantFont .93 ExtendFont "    <outshmc1.pfb
+outshcoc2 outshmc2 " .167 SlantFont .93 ExtendFont "    <outshmc2.pfb
+outshcoc3 outshmc3 " .167 SlantFont .93 ExtendFont "    <outshmc3.pfb
+outshcoc4 outshmc4 " .167 SlantFont .93 ExtendFont "    <outshmc4.pfb
+outshcoc5 outshmc5 " .167 SlantFont .93 ExtendFont "    <outshmc5.pfb
+outshcoc6 outshmc6 " .167 SlantFont .93 ExtendFont "    <outshmc6.pfb
+outshcoc7 outshmc7 " .167 SlantFont .93 ExtendFont "    <outshmc7.pfb
+outshcoc8 outshmc8 " .167 SlantFont .93 ExtendFont "    <outshmc8.pfb
+outshcoc9 outshmc9 " .167 SlantFont .93 ExtendFont "    <outshmc9.pfb
+outshcoca outshmca " .167 SlantFont .93 ExtendFont "    <outshmca.pfb
+outshcocb outshmcb " .167 SlantFont .93 ExtendFont "    <outshmcb.pfb
+outshcocc outshmcc " .167 SlantFont .93 ExtendFont "    <outshmcc.pfb
+outshcocd outshmcd " .167 SlantFont .93 ExtendFont "    <outshmcd.pfb
+outshcoce outshmce " .167 SlantFont .93 ExtendFont "    <outshmce.pfb
+outshcocf outshmcf " .167 SlantFont .93 ExtendFont "    <outshmcf.pfb
+outshcod0 outshmd0 " .167 SlantFont .93 ExtendFont "    <outshmd0.pfb
+outshcod1 outshmd1 " .167 SlantFont .93 ExtendFont "    <outshmd1.pfb
+outshcod2 outshmd2 " .167 SlantFont .93 ExtendFont "    <outshmd2.pfb
+outshcod3 outshmd3 " .167 SlantFont .93 ExtendFont "    <outshmd3.pfb
+outshcod4 outshmd4 " .167 SlantFont .93 ExtendFont "    <outshmd4.pfb
+outshcod5 outshmd5 " .167 SlantFont .93 ExtendFont "    <outshmd5.pfb
+outshcod6 outshmd6 " .167 SlantFont .93 ExtendFont "    <outshmd6.pfb
+outshcod7 outshmd7 " .167 SlantFont .93 ExtendFont "    <outshmd7.pfb
+outshcoea outshmea " .167 SlantFont .93 ExtendFont "    <outshmea.pfb
+outshcoeb outshmeb " .167 SlantFont .93 ExtendFont "    <outshmeb.pfb
+outshcoec outshmec " .167 SlantFont .93 ExtendFont "    <outshmec.pfb
+outshcoed outshmed " .167 SlantFont .93 ExtendFont "    <outshmed.pfb
+outshcoee outshmee " .167 SlantFont .93 ExtendFont "    <outshmee.pfb
+outshcoef outshmef " .167 SlantFont .93 ExtendFont "    <outshmef.pfb
+outshcof0 outshmf0 " .167 SlantFont .93 ExtendFont "    <outshmf0.pfb
+outshcof9 outshmf9 " .167 SlantFont .93 ExtendFont "    <outshmf9.pfb
+outshcofa outshmfa " .167 SlantFont .93 ExtendFont "    <outshmfa.pfb
+outshcoff outshmff " .167 SlantFont .93 ExtendFont "    <outshmff.pfb
+outshm00 outshm00	<outshm00.pfb
+outshm01 outshm01       <outshm01.pfb
+outshm02 outshm02       <outshm02.pfb
+outshm03 outshm03       <outshm03.pfb
+outshm04 outshm04       <outshm04.pfb
+outshm11 outshm11       <outshm11.pfb
+outshm20 outshm20       <outshm20.pfb
+outshm21 outshm21       <outshm21.pfb
+outshm22 outshm22       <outshm22.pfb
+outshm23 outshm23       <outshm23.pfb
+outshm24 outshm24       <outshm24.pfb
+outshm25 outshm25       <outshm25.pfb
+outshm26 outshm26       <outshm26.pfb
+outshm30 outshm30       <outshm30.pfb
+outshm31 outshm31       <outshm31.pfb
+outshm32 outshm32       <outshm32.pfb
+outshm33 outshm33       <outshm33.pfb
+outshm4e outshm4e       <outshm4e.pfb
+outshm4f outshm4f       <outshm4f.pfb
+outshm50 outshm50       <outshm50.pfb
+outshm51 outshm51       <outshm51.pfb
+outshm52 outshm52       <outshm52.pfb
+outshm53 outshm53       <outshm53.pfb
+outshm54 outshm54       <outshm54.pfb
+outshm55 outshm55       <outshm55.pfb
+outshm56 outshm56       <outshm56.pfb
+outshm57 outshm57       <outshm57.pfb
+outshm58 outshm58       <outshm58.pfb
+outshm59 outshm59       <outshm59.pfb
+outshm5a outshm5a       <outshm5a.pfb
+outshm5b outshm5b       <outshm5b.pfb
+outshm5c outshm5c       <outshm5c.pfb
+outshm5d outshm5d       <outshm5d.pfb
+outshm5e outshm5e       <outshm5e.pfb
+outshm5f outshm5f       <outshm5f.pfb
+outshm60 outshm60       <outshm60.pfb
+outshm61 outshm61       <outshm61.pfb
+outshm62 outshm62       <outshm62.pfb
+outshm63 outshm63       <outshm63.pfb
+outshm64 outshm64       <outshm64.pfb
+outshm65 outshm65       <outshm65.pfb
+outshm66 outshm66       <outshm66.pfb
+outshm67 outshm67       <outshm67.pfb
+outshm68 outshm68       <outshm68.pfb
+outshm69 outshm69       <outshm69.pfb
+outshm6a outshm6a       <outshm6a.pfb
+outshm6b outshm6b       <outshm6b.pfb
+outshm6c outshm6c       <outshm6c.pfb
+outshm6d outshm6d       <outshm6d.pfb
+outshm6e outshm6e       <outshm6e.pfb
+outshm6f outshm6f       <outshm6f.pfb
+outshm70 outshm70       <outshm70.pfb
+outshm71 outshm71       <outshm71.pfb
+outshm72 outshm72       <outshm72.pfb
+outshm73 outshm73       <outshm73.pfb
+outshm74 outshm74       <outshm74.pfb
+outshm75 outshm75       <outshm75.pfb
+outshm76 outshm76       <outshm76.pfb
+outshm77 outshm77       <outshm77.pfb
+outshm78 outshm78       <outshm78.pfb
+outshm79 outshm79       <outshm79.pfb
+outshm7a outshm7a       <outshm7a.pfb
+outshm7b outshm7b       <outshm7b.pfb
+outshm7c outshm7c       <outshm7c.pfb
+outshm7d outshm7d       <outshm7d.pfb
+outshm7e outshm7e       <outshm7e.pfb
+outshm7f outshm7f       <outshm7f.pfb
+outshm80 outshm80       <outshm80.pfb
+outshm81 outshm81       <outshm81.pfb
+outshm82 outshm82       <outshm82.pfb
+outshm83 outshm83       <outshm83.pfb
+outshm84 outshm84       <outshm84.pfb
+outshm85 outshm85       <outshm85.pfb
+outshm86 outshm86       <outshm86.pfb
+outshm87 outshm87       <outshm87.pfb
+outshm88 outshm88       <outshm88.pfb
+outshm89 outshm89       <outshm89.pfb
+outshm8a outshm8a       <outshm8a.pfb
+outshm8b outshm8b       <outshm8b.pfb
+outshm8c outshm8c       <outshm8c.pfb
+outshm8d outshm8d       <outshm8d.pfb
+outshm8e outshm8e       <outshm8e.pfb
+outshm8f outshm8f       <outshm8f.pfb
+outshm90 outshm90       <outshm90.pfb
+outshm91 outshm91       <outshm91.pfb
+outshm92 outshm92       <outshm92.pfb
+outshm93 outshm93       <outshm93.pfb
+outshm94 outshm94       <outshm94.pfb
+outshm95 outshm95       <outshm95.pfb
+outshm96 outshm96       <outshm96.pfb
+outshm97 outshm97       <outshm97.pfb
+outshm98 outshm98       <outshm98.pfb
+outshm99 outshm99       <outshm99.pfb
+outshm9a outshm9a       <outshm9a.pfb
+outshm9b outshm9b       <outshm9b.pfb
+outshm9c outshm9c       <outshm9c.pfb
+outshm9d outshm9d       <outshm9d.pfb
+outshm9e outshm9e       <outshm9e.pfb
+outshm9f outshm9f       <outshm9f.pfb
+outshmac outshmac       <outshmac.pfb
+outshmad outshmad       <outshmad.pfb
+outshmae outshmae       <outshmae.pfb
+outshmaf outshmaf       <outshmaf.pfb
+outshmb0 outshmb0       <outshmb0.pfb
+outshmb1 outshmb1       <outshmb1.pfb
+outshmb2 outshmb2       <outshmb2.pfb
+outshmb3 outshmb3       <outshmb3.pfb
+outshmb4 outshmb4       <outshmb4.pfb
+outshmb5 outshmb5       <outshmb5.pfb
+outshmb6 outshmb6       <outshmb6.pfb
+outshmb7 outshmb7       <outshmb7.pfb
+outshmb8 outshmb8       <outshmb8.pfb
+outshmb9 outshmb9       <outshmb9.pfb
+outshmba outshmba       <outshmba.pfb
+outshmbb outshmbb       <outshmbb.pfb
+outshmbc outshmbc       <outshmbc.pfb
+outshmbd outshmbd       <outshmbd.pfb
+outshmbe outshmbe       <outshmbe.pfb
+outshmbf outshmbf       <outshmbf.pfb
+outshmc0 outshmc0       <outshmc0.pfb
+outshmc1 outshmc1       <outshmc1.pfb
+outshmc2 outshmc2       <outshmc2.pfb
+outshmc3 outshmc3       <outshmc3.pfb
+outshmc4 outshmc4       <outshmc4.pfb
+outshmc5 outshmc5       <outshmc5.pfb
+outshmc6 outshmc6       <outshmc6.pfb
+outshmc7 outshmc7       <outshmc7.pfb
+outshmc8 outshmc8       <outshmc8.pfb
+outshmc9 outshmc9       <outshmc9.pfb
+outshmca outshmca       <outshmca.pfb
+outshmcb outshmcb       <outshmcb.pfb
+outshmcc outshmcc       <outshmcc.pfb
+outshmcd outshmcd       <outshmcd.pfb
+outshmce outshmce       <outshmce.pfb
+outshmcf outshmcf       <outshmcf.pfb
+outshmd0 outshmd0       <outshmd0.pfb
+outshmd1 outshmd1       <outshmd1.pfb
+outshmd2 outshmd2       <outshmd2.pfb
+outshmd3 outshmd3       <outshmd3.pfb
+outshmd4 outshmd4       <outshmd4.pfb
+outshmd5 outshmd5       <outshmd5.pfb
+outshmd6 outshmd6       <outshmd6.pfb
+outshmd7 outshmd7       <outshmd7.pfb
+outshmea outshmea       <outshmea.pfb
+outshmeb outshmeb       <outshmeb.pfb
+outshmec outshmec       <outshmec.pfb
+outshmed outshmed       <outshmed.pfb
+outshmee outshmee       <outshmee.pfb
+outshmef outshmef       <outshmef.pfb
+outshmf0 outshmf0       <outshmf0.pfb
+outshmf9 outshmf9       <outshmf9.pfb
+outshmfa outshmfa       <outshmfa.pfb
+outshmff outshmff       <outshmff.pfb
+outshmo00 outshm00 " .167 SlantFont "	<outshm00.pfb
+outshmo01 outshm01 " .167 SlantFont "   <outshm01.pfb
+outshmo02 outshm02 " .167 SlantFont "   <outshm02.pfb
+outshmo03 outshm03 " .167 SlantFont "   <outshm03.pfb
+outshmo04 outshm04 " .167 SlantFont "   <outshm04.pfb
+outshmo11 outshm11 " .167 SlantFont "   <outshm11.pfb
+outshmo20 outshm20 " .167 SlantFont "   <outshm20.pfb
+outshmo21 outshm21 " .167 SlantFont "   <outshm21.pfb
+outshmo22 outshm22 " .167 SlantFont "   <outshm22.pfb
+outshmo23 outshm23 " .167 SlantFont "   <outshm23.pfb
+outshmo24 outshm24 " .167 SlantFont "   <outshm24.pfb
+outshmo25 outshm25 " .167 SlantFont "   <outshm25.pfb
+outshmo26 outshm26 " .167 SlantFont "   <outshm26.pfb
+outshmo30 outshm30 " .167 SlantFont "   <outshm30.pfb
+outshmo31 outshm31 " .167 SlantFont "   <outshm31.pfb
+outshmo32 outshm32 " .167 SlantFont "   <outshm32.pfb
+outshmo33 outshm33 " .167 SlantFont "   <outshm33.pfb
+outshmo4e outshm4e " .167 SlantFont "   <outshm4e.pfb
+outshmo4f outshm4f " .167 SlantFont "   <outshm4f.pfb
+outshmo50 outshm50 " .167 SlantFont "   <outshm50.pfb
+outshmo51 outshm51 " .167 SlantFont "   <outshm51.pfb
+outshmo52 outshm52 " .167 SlantFont "   <outshm52.pfb
+outshmo53 outshm53 " .167 SlantFont "   <outshm53.pfb
+outshmo54 outshm54 " .167 SlantFont "   <outshm54.pfb
+outshmo55 outshm55 " .167 SlantFont "   <outshm55.pfb
+outshmo56 outshm56 " .167 SlantFont "   <outshm56.pfb
+outshmo57 outshm57 " .167 SlantFont "   <outshm57.pfb
+outshmo58 outshm58 " .167 SlantFont "   <outshm58.pfb
+outshmo59 outshm59 " .167 SlantFont "   <outshm59.pfb
+outshmo5a outshm5a " .167 SlantFont "   <outshm5a.pfb
+outshmo5b outshm5b " .167 SlantFont "   <outshm5b.pfb
+outshmo5c outshm5c " .167 SlantFont "   <outshm5c.pfb
+outshmo5d outshm5d " .167 SlantFont "   <outshm5d.pfb
+outshmo5e outshm5e " .167 SlantFont "   <outshm5e.pfb
+outshmo5f outshm5f " .167 SlantFont "   <outshm5f.pfb
+outshmo60 outshm60 " .167 SlantFont "   <outshm60.pfb
+outshmo61 outshm61 " .167 SlantFont "   <outshm61.pfb
+outshmo62 outshm62 " .167 SlantFont "   <outshm62.pfb
+outshmo63 outshm63 " .167 SlantFont "   <outshm63.pfb
+outshmo64 outshm64 " .167 SlantFont "   <outshm64.pfb
+outshmo65 outshm65 " .167 SlantFont "   <outshm65.pfb
+outshmo66 outshm66 " .167 SlantFont "   <outshm66.pfb
+outshmo67 outshm67 " .167 SlantFont "   <outshm67.pfb
+outshmo68 outshm68 " .167 SlantFont "   <outshm68.pfb
+outshmo69 outshm69 " .167 SlantFont "   <outshm69.pfb
+outshmo6a outshm6a " .167 SlantFont "   <outshm6a.pfb
+outshmo6b outshm6b " .167 SlantFont "   <outshm6b.pfb
+outshmo6c outshm6c " .167 SlantFont "   <outshm6c.pfb
+outshmo6d outshm6d " .167 SlantFont "   <outshm6d.pfb
+outshmo6e outshm6e " .167 SlantFont "   <outshm6e.pfb
+outshmo6f outshm6f " .167 SlantFont "   <outshm6f.pfb
+outshmo70 outshm70 " .167 SlantFont "   <outshm70.pfb
+outshmo71 outshm71 " .167 SlantFont "   <outshm71.pfb
+outshmo72 outshm72 " .167 SlantFont "   <outshm72.pfb
+outshmo73 outshm73 " .167 SlantFont "   <outshm73.pfb
+outshmo74 outshm74 " .167 SlantFont "   <outshm74.pfb
+outshmo75 outshm75 " .167 SlantFont "   <outshm75.pfb
+outshmo76 outshm76 " .167 SlantFont "   <outshm76.pfb
+outshmo77 outshm77 " .167 SlantFont "   <outshm77.pfb
+outshmo78 outshm78 " .167 SlantFont "   <outshm78.pfb
+outshmo79 outshm79 " .167 SlantFont "   <outshm79.pfb
+outshmo7a outshm7a " .167 SlantFont "   <outshm7a.pfb
+outshmo7b outshm7b " .167 SlantFont "   <outshm7b.pfb
+outshmo7c outshm7c " .167 SlantFont "   <outshm7c.pfb
+outshmo7d outshm7d " .167 SlantFont "   <outshm7d.pfb
+outshmo7e outshm7e " .167 SlantFont "   <outshm7e.pfb
+outshmo7f outshm7f " .167 SlantFont "   <outshm7f.pfb
+outshmo80 outshm80 " .167 SlantFont "   <outshm80.pfb
+outshmo81 outshm81 " .167 SlantFont "   <outshm81.pfb
+outshmo82 outshm82 " .167 SlantFont "   <outshm82.pfb
+outshmo83 outshm83 " .167 SlantFont "   <outshm83.pfb
+outshmo84 outshm84 " .167 SlantFont "   <outshm84.pfb
+outshmo85 outshm85 " .167 SlantFont "   <outshm85.pfb
+outshmo86 outshm86 " .167 SlantFont "   <outshm86.pfb
+outshmo87 outshm87 " .167 SlantFont "   <outshm87.pfb
+outshmo88 outshm88 " .167 SlantFont "   <outshm88.pfb
+outshmo89 outshm89 " .167 SlantFont "   <outshm89.pfb
+outshmo8a outshm8a " .167 SlantFont "   <outshm8a.pfb
+outshmo8b outshm8b " .167 SlantFont "   <outshm8b.pfb
+outshmo8c outshm8c " .167 SlantFont "   <outshm8c.pfb
+outshmo8d outshm8d " .167 SlantFont "   <outshm8d.pfb
+outshmo8e outshm8e " .167 SlantFont "   <outshm8e.pfb
+outshmo8f outshm8f " .167 SlantFont "   <outshm8f.pfb
+outshmo90 outshm90 " .167 SlantFont "   <outshm90.pfb
+outshmo91 outshm91 " .167 SlantFont "   <outshm91.pfb
+outshmo92 outshm92 " .167 SlantFont "   <outshm92.pfb
+outshmo93 outshm93 " .167 SlantFont "   <outshm93.pfb
+outshmo94 outshm94 " .167 SlantFont "   <outshm94.pfb
+outshmo95 outshm95 " .167 SlantFont "   <outshm95.pfb
+outshmo96 outshm96 " .167 SlantFont "   <outshm96.pfb
+outshmo97 outshm97 " .167 SlantFont "   <outshm97.pfb
+outshmo98 outshm98 " .167 SlantFont "   <outshm98.pfb
+outshmo99 outshm99 " .167 SlantFont "   <outshm99.pfb
+outshmo9a outshm9a " .167 SlantFont "   <outshm9a.pfb
+outshmo9b outshm9b " .167 SlantFont "   <outshm9b.pfb
+outshmo9c outshm9c " .167 SlantFont "   <outshm9c.pfb
+outshmo9d outshm9d " .167 SlantFont "   <outshm9d.pfb
+outshmo9e outshm9e " .167 SlantFont "   <outshm9e.pfb
+outshmo9f outshm9f " .167 SlantFont "   <outshm9f.pfb
+outshmoac outshmac " .167 SlantFont "   <outshmac.pfb
+outshmoad outshmad " .167 SlantFont "   <outshmad.pfb
+outshmoae outshmae " .167 SlantFont "   <outshmae.pfb
+outshmoaf outshmaf " .167 SlantFont "   <outshmaf.pfb
+outshmob0 outshmb0 " .167 SlantFont "   <outshmb0.pfb
+outshmob1 outshmb1 " .167 SlantFont "   <outshmb1.pfb
+outshmob2 outshmb2 " .167 SlantFont "   <outshmb2.pfb
+outshmob3 outshmb3 " .167 SlantFont "   <outshmb3.pfb
+outshmob4 outshmb4 " .167 SlantFont "   <outshmb4.pfb
+outshmob5 outshmb5 " .167 SlantFont "   <outshmb5.pfb
+outshmob6 outshmb6 " .167 SlantFont "   <outshmb6.pfb
+outshmob7 outshmb7 " .167 SlantFont "   <outshmb7.pfb
+outshmob8 outshmb8 " .167 SlantFont "   <outshmb8.pfb
+outshmob9 outshmb9 " .167 SlantFont "   <outshmb9.pfb
+outshmoba outshmba " .167 SlantFont "   <outshmba.pfb
+outshmobb outshmbb " .167 SlantFont "   <outshmbb.pfb
+outshmobc outshmbc " .167 SlantFont "   <outshmbc.pfb
+outshmobd outshmbd " .167 SlantFont "   <outshmbd.pfb
+outshmobe outshmbe " .167 SlantFont "   <outshmbe.pfb
+outshmobf outshmbf " .167 SlantFont "   <outshmbf.pfb
+outshmoc0 outshmc0 " .167 SlantFont "   <outshmc0.pfb
+outshmoc1 outshmc1 " .167 SlantFont "   <outshmc1.pfb
+outshmoc2 outshmc2 " .167 SlantFont "   <outshmc2.pfb
+outshmoc3 outshmc3 " .167 SlantFont "   <outshmc3.pfb
+outshmoc4 outshmc4 " .167 SlantFont "   <outshmc4.pfb
+outshmoc5 outshmc5 " .167 SlantFont "   <outshmc5.pfb
+outshmoc6 outshmc6 " .167 SlantFont "   <outshmc6.pfb
+outshmoc7 outshmc7 " .167 SlantFont "   <outshmc7.pfb
+outshmoc8 outshmc8 " .167 SlantFont "   <outshmc8.pfb
+outshmoc9 outshmc9 " .167 SlantFont "   <outshmc9.pfb
+outshmoca outshmca " .167 SlantFont "   <outshmca.pfb
+outshmocb outshmcb " .167 SlantFont "   <outshmcb.pfb
+outshmocc outshmcc " .167 SlantFont "   <outshmcc.pfb
+outshmocd outshmcd " .167 SlantFont "   <outshmcd.pfb
+outshmoce outshmce " .167 SlantFont "   <outshmce.pfb
+outshmocf outshmcf " .167 SlantFont "   <outshmcf.pfb
+outshmod0 outshmd0 " .167 SlantFont "   <outshmd0.pfb
+outshmod1 outshmd1 " .167 SlantFont "   <outshmd1.pfb
+outshmod2 outshmd2 " .167 SlantFont "   <outshmd2.pfb
+outshmod3 outshmd3 " .167 SlantFont "   <outshmd3.pfb
+outshmod4 outshmd4 " .167 SlantFont "   <outshmd4.pfb
+outshmod5 outshmd5 " .167 SlantFont "   <outshmd5.pfb
+outshmod6 outshmd6 " .167 SlantFont "   <outshmd6.pfb
+outshmod7 outshmd7 " .167 SlantFont "   <outshmd7.pfb
+outshmoea outshmea " .167 SlantFont "   <outshmea.pfb
+outshmoeb outshmeb " .167 SlantFont "   <outshmeb.pfb
+outshmoec outshmec " .167 SlantFont "   <outshmec.pfb
+outshmoed outshmed " .167 SlantFont "   <outshmed.pfb
+outshmoee outshmee " .167 SlantFont "   <outshmee.pfb
+outshmoef outshmef " .167 SlantFont "   <outshmef.pfb
+outshmof0 outshmf0 " .167 SlantFont "   <outshmf0.pfb
+outshmof9 outshmf9 " .167 SlantFont "   <outshmf9.pfb
+outshmofa outshmfa " .167 SlantFont "   <outshmfa.pfb
+outshmoff outshmff " .167 SlantFont "   <outshmff.pfb
+outytc00 outytm00 " .93 ExtendFont "	<outytm00.pfb
+outytc01 outytm01 " .93 ExtendFont "    <outytm01.pfb
+outytc02 outytm02 " .93 ExtendFont "    <outytm02.pfb
+outytc03 outytm03 " .93 ExtendFont "    <outytm03.pfb
+outytc04 outytm04 " .93 ExtendFont "    <outytm04.pfb
+outytc11 outytm11 " .93 ExtendFont "    <outytm11.pfb
+outytc20 outytm20 " .93 ExtendFont "    <outytm20.pfb
+outytc21 outytm21 " .93 ExtendFont "    <outytm21.pfb
+outytc22 outytm22 " .93 ExtendFont "    <outytm22.pfb
+outytc23 outytm23 " .93 ExtendFont "    <outytm23.pfb
+outytc24 outytm24 " .93 ExtendFont "    <outytm24.pfb
+outytc25 outytm25 " .93 ExtendFont "    <outytm25.pfb
+outytc26 outytm26 " .93 ExtendFont "    <outytm26.pfb
+outytc30 outytm30 " .93 ExtendFont "    <outytm30.pfb
+outytc31 outytm31 " .93 ExtendFont "    <outytm31.pfb
+outytc32 outytm32 " .93 ExtendFont "    <outytm32.pfb
+outytc33 outytm33 " .93 ExtendFont "    <outytm33.pfb
+outytc4e outytm4e " .93 ExtendFont "    <outytm4e.pfb
+outytc4f outytm4f " .93 ExtendFont "    <outytm4f.pfb
+outytc50 outytm50 " .93 ExtendFont "    <outytm50.pfb
+outytc51 outytm51 " .93 ExtendFont "    <outytm51.pfb
+outytc52 outytm52 " .93 ExtendFont "    <outytm52.pfb
+outytc53 outytm53 " .93 ExtendFont "    <outytm53.pfb
+outytc54 outytm54 " .93 ExtendFont "    <outytm54.pfb
+outytc55 outytm55 " .93 ExtendFont "    <outytm55.pfb
+outytc56 outytm56 " .93 ExtendFont "    <outytm56.pfb
+outytc57 outytm57 " .93 ExtendFont "    <outytm57.pfb
+outytc58 outytm58 " .93 ExtendFont "    <outytm58.pfb
+outytc59 outytm59 " .93 ExtendFont "    <outytm59.pfb
+outytc5a outytm5a " .93 ExtendFont "    <outytm5a.pfb
+outytc5b outytm5b " .93 ExtendFont "    <outytm5b.pfb
+outytc5c outytm5c " .93 ExtendFont "    <outytm5c.pfb
+outytc5d outytm5d " .93 ExtendFont "    <outytm5d.pfb
+outytc5e outytm5e " .93 ExtendFont "    <outytm5e.pfb
+outytc5f outytm5f " .93 ExtendFont "    <outytm5f.pfb
+outytc60 outytm60 " .93 ExtendFont "    <outytm60.pfb
+outytc61 outytm61 " .93 ExtendFont "    <outytm61.pfb
+outytc62 outytm62 " .93 ExtendFont "    <outytm62.pfb
+outytc63 outytm63 " .93 ExtendFont "    <outytm63.pfb
+outytc64 outytm64 " .93 ExtendFont "    <outytm64.pfb
+outytc65 outytm65 " .93 ExtendFont "    <outytm65.pfb
+outytc66 outytm66 " .93 ExtendFont "    <outytm66.pfb
+outytc67 outytm67 " .93 ExtendFont "    <outytm67.pfb
+outytc68 outytm68 " .93 ExtendFont "    <outytm68.pfb
+outytc69 outytm69 " .93 ExtendFont "    <outytm69.pfb
+outytc6a outytm6a " .93 ExtendFont "    <outytm6a.pfb
+outytc6b outytm6b " .93 ExtendFont "    <outytm6b.pfb
+outytc6c outytm6c " .93 ExtendFont "    <outytm6c.pfb
+outytc6d outytm6d " .93 ExtendFont "    <outytm6d.pfb
+outytc6e outytm6e " .93 ExtendFont "    <outytm6e.pfb
+outytc6f outytm6f " .93 ExtendFont "    <outytm6f.pfb
+outytc70 outytm70 " .93 ExtendFont "    <outytm70.pfb
+outytc71 outytm71 " .93 ExtendFont "    <outytm71.pfb
+outytc72 outytm72 " .93 ExtendFont "    <outytm72.pfb
+outytc73 outytm73 " .93 ExtendFont "    <outytm73.pfb
+outytc74 outytm74 " .93 ExtendFont "    <outytm74.pfb
+outytc75 outytm75 " .93 ExtendFont "    <outytm75.pfb
+outytc76 outytm76 " .93 ExtendFont "    <outytm76.pfb
+outytc77 outytm77 " .93 ExtendFont "    <outytm77.pfb
+outytc78 outytm78 " .93 ExtendFont "    <outytm78.pfb
+outytc79 outytm79 " .93 ExtendFont "    <outytm79.pfb
+outytc7a outytm7a " .93 ExtendFont "    <outytm7a.pfb
+outytc7b outytm7b " .93 ExtendFont "    <outytm7b.pfb
+outytc7c outytm7c " .93 ExtendFont "    <outytm7c.pfb
+outytc7d outytm7d " .93 ExtendFont "    <outytm7d.pfb
+outytc7e outytm7e " .93 ExtendFont "    <outytm7e.pfb
+outytc7f outytm7f " .93 ExtendFont "    <outytm7f.pfb
+outytc80 outytm80 " .93 ExtendFont "    <outytm80.pfb
+outytc81 outytm81 " .93 ExtendFont "    <outytm81.pfb
+outytc82 outytm82 " .93 ExtendFont "    <outytm82.pfb
+outytc83 outytm83 " .93 ExtendFont "    <outytm83.pfb
+outytc84 outytm84 " .93 ExtendFont "    <outytm84.pfb
+outytc85 outytm85 " .93 ExtendFont "    <outytm85.pfb
+outytc86 outytm86 " .93 ExtendFont "    <outytm86.pfb
+outytc87 outytm87 " .93 ExtendFont "    <outytm87.pfb
+outytc88 outytm88 " .93 ExtendFont "    <outytm88.pfb
+outytc89 outytm89 " .93 ExtendFont "    <outytm89.pfb
+outytc8a outytm8a " .93 ExtendFont "    <outytm8a.pfb
+outytc8b outytm8b " .93 ExtendFont "    <outytm8b.pfb
+outytc8c outytm8c " .93 ExtendFont "    <outytm8c.pfb
+outytc8d outytm8d " .93 ExtendFont "    <outytm8d.pfb
+outytc8e outytm8e " .93 ExtendFont "    <outytm8e.pfb
+outytc8f outytm8f " .93 ExtendFont "    <outytm8f.pfb
+outytc90 outytm90 " .93 ExtendFont "    <outytm90.pfb
+outytc91 outytm91 " .93 ExtendFont "    <outytm91.pfb
+outytc92 outytm92 " .93 ExtendFont "    <outytm92.pfb
+outytc93 outytm93 " .93 ExtendFont "    <outytm93.pfb
+outytc94 outytm94 " .93 ExtendFont "    <outytm94.pfb
+outytc95 outytm95 " .93 ExtendFont "    <outytm95.pfb
+outytc96 outytm96 " .93 ExtendFont "    <outytm96.pfb
+outytc97 outytm97 " .93 ExtendFont "    <outytm97.pfb
+outytc98 outytm98 " .93 ExtendFont "    <outytm98.pfb
+outytc99 outytm99 " .93 ExtendFont "    <outytm99.pfb
+outytc9a outytm9a " .93 ExtendFont "    <outytm9a.pfb
+outytc9b outytm9b " .93 ExtendFont "    <outytm9b.pfb
+outytc9c outytm9c " .93 ExtendFont "    <outytm9c.pfb
+outytc9d outytm9d " .93 ExtendFont "    <outytm9d.pfb
+outytc9e outytm9e " .93 ExtendFont "    <outytm9e.pfb
+outytc9f outytm9f " .93 ExtendFont "    <outytm9f.pfb
+outytcac outytmac " .93 ExtendFont "    <outytmac.pfb
+outytcad outytmad " .93 ExtendFont "    <outytmad.pfb
+outytcae outytmae " .93 ExtendFont "    <outytmae.pfb
+outytcaf outytmaf " .93 ExtendFont "    <outytmaf.pfb
+outytcb0 outytmb0 " .93 ExtendFont "    <outytmb0.pfb
+outytcb1 outytmb1 " .93 ExtendFont "    <outytmb1.pfb
+outytcb2 outytmb2 " .93 ExtendFont "    <outytmb2.pfb
+outytcb3 outytmb3 " .93 ExtendFont "    <outytmb3.pfb
+outytcb4 outytmb4 " .93 ExtendFont "    <outytmb4.pfb
+outytcb5 outytmb5 " .93 ExtendFont "    <outytmb5.pfb
+outytcb6 outytmb6 " .93 ExtendFont "    <outytmb6.pfb
+outytcb7 outytmb7 " .93 ExtendFont "    <outytmb7.pfb
+outytcb8 outytmb8 " .93 ExtendFont "    <outytmb8.pfb
+outytcb9 outytmb9 " .93 ExtendFont "    <outytmb9.pfb
+outytcba outytmba " .93 ExtendFont "    <outytmba.pfb
+outytcbb outytmbb " .93 ExtendFont "    <outytmbb.pfb
+outytcbc outytmbc " .93 ExtendFont "    <outytmbc.pfb
+outytcbd outytmbd " .93 ExtendFont "    <outytmbd.pfb
+outytcbe outytmbe " .93 ExtendFont "    <outytmbe.pfb
+outytcbf outytmbf " .93 ExtendFont "    <outytmbf.pfb
+outytcc0 outytmc0 " .93 ExtendFont "    <outytmc0.pfb
+outytcc1 outytmc1 " .93 ExtendFont "    <outytmc1.pfb
+outytcc2 outytmc2 " .93 ExtendFont "    <outytmc2.pfb
+outytcc3 outytmc3 " .93 ExtendFont "    <outytmc3.pfb
+outytcc4 outytmc4 " .93 ExtendFont "    <outytmc4.pfb
+outytcc5 outytmc5 " .93 ExtendFont "    <outytmc5.pfb
+outytcc6 outytmc6 " .93 ExtendFont "    <outytmc6.pfb
+outytcc7 outytmc7 " .93 ExtendFont "    <outytmc7.pfb
+outytcc8 outytmc8 " .93 ExtendFont "    <outytmc8.pfb
+outytcc9 outytmc9 " .93 ExtendFont "    <outytmc9.pfb
+outytcca outytmca " .93 ExtendFont "    <outytmca.pfb
+outytccb outytmcb " .93 ExtendFont "    <outytmcb.pfb
+outytccc outytmcc " .93 ExtendFont "    <outytmcc.pfb
+outytccd outytmcd " .93 ExtendFont "    <outytmcd.pfb
+outytcce outytmce " .93 ExtendFont "    <outytmce.pfb
+outytccf outytmcf " .93 ExtendFont "    <outytmcf.pfb
+outytcd0 outytmd0 " .93 ExtendFont "    <outytmd0.pfb
+outytcd1 outytmd1 " .93 ExtendFont "    <outytmd1.pfb
+outytcd2 outytmd2 " .93 ExtendFont "    <outytmd2.pfb
+outytcd3 outytmd3 " .93 ExtendFont "    <outytmd3.pfb
+outytcd4 outytmd4 " .93 ExtendFont "    <outytmd4.pfb
+outytcd5 outytmd5 " .93 ExtendFont "    <outytmd5.pfb
+outytcd6 outytmd6 " .93 ExtendFont "    <outytmd6.pfb
+outytcd7 outytmd7 " .93 ExtendFont "    <outytmd7.pfb
+outytcea outytmea " .93 ExtendFont "    <outytmea.pfb
+outytceb outytmeb " .93 ExtendFont "    <outytmeb.pfb
+outytcec outytmec " .93 ExtendFont "    <outytmec.pfb
+outytced outytmed " .93 ExtendFont "    <outytmed.pfb
+outytcf9 outytmf9 " .93 ExtendFont "    <outytmf9.pfb
+outytcfa outytmfa " .93 ExtendFont "    <outytmfa.pfb
+outytcff outytmff " .93 ExtendFont "    <outytmff.pfb
+outytco00 outytm00 " .167 SlantFont .93 ExtendFont "	<outytm00.pfb
+outytco01 outytm01 " .167 SlantFont .93 ExtendFont "    <outytm01.pfb
+outytco02 outytm02 " .167 SlantFont .93 ExtendFont "    <outytm02.pfb
+outytco03 outytm03 " .167 SlantFont .93 ExtendFont "    <outytm03.pfb
+outytco04 outytm04 " .167 SlantFont .93 ExtendFont "    <outytm04.pfb
+outytco11 outytm11 " .167 SlantFont .93 ExtendFont "    <outytm11.pfb
+outytco20 outytm20 " .167 SlantFont .93 ExtendFont "    <outytm20.pfb
+outytco21 outytm21 " .167 SlantFont .93 ExtendFont "    <outytm21.pfb
+outytco22 outytm22 " .167 SlantFont .93 ExtendFont "    <outytm22.pfb
+outytco23 outytm23 " .167 SlantFont .93 ExtendFont "    <outytm23.pfb
+outytco24 outytm24 " .167 SlantFont .93 ExtendFont "    <outytm24.pfb
+outytco25 outytm25 " .167 SlantFont .93 ExtendFont "    <outytm25.pfb
+outytco26 outytm26 " .167 SlantFont .93 ExtendFont "    <outytm26.pfb
+outytco30 outytm30 " .167 SlantFont .93 ExtendFont "    <outytm30.pfb
+outytco31 outytm31 " .167 SlantFont .93 ExtendFont "    <outytm31.pfb
+outytco32 outytm32 " .167 SlantFont .93 ExtendFont "    <outytm32.pfb
+outytco33 outytm33 " .167 SlantFont .93 ExtendFont "    <outytm33.pfb
+outytco4e outytm4e " .167 SlantFont .93 ExtendFont "    <outytm4e.pfb
+outytco4f outytm4f " .167 SlantFont .93 ExtendFont "    <outytm4f.pfb
+outytco50 outytm50 " .167 SlantFont .93 ExtendFont "    <outytm50.pfb
+outytco51 outytm51 " .167 SlantFont .93 ExtendFont "    <outytm51.pfb
+outytco52 outytm52 " .167 SlantFont .93 ExtendFont "    <outytm52.pfb
+outytco53 outytm53 " .167 SlantFont .93 ExtendFont "    <outytm53.pfb
+outytco54 outytm54 " .167 SlantFont .93 ExtendFont "    <outytm54.pfb
+outytco55 outytm55 " .167 SlantFont .93 ExtendFont "    <outytm55.pfb
+outytco56 outytm56 " .167 SlantFont .93 ExtendFont "    <outytm56.pfb
+outytco57 outytm57 " .167 SlantFont .93 ExtendFont "    <outytm57.pfb
+outytco58 outytm58 " .167 SlantFont .93 ExtendFont "    <outytm58.pfb
+outytco59 outytm59 " .167 SlantFont .93 ExtendFont "    <outytm59.pfb
+outytco5a outytm5a " .167 SlantFont .93 ExtendFont "    <outytm5a.pfb
+outytco5b outytm5b " .167 SlantFont .93 ExtendFont "    <outytm5b.pfb
+outytco5c outytm5c " .167 SlantFont .93 ExtendFont "    <outytm5c.pfb
+outytco5d outytm5d " .167 SlantFont .93 ExtendFont "    <outytm5d.pfb
+outytco5e outytm5e " .167 SlantFont .93 ExtendFont "    <outytm5e.pfb
+outytco5f outytm5f " .167 SlantFont .93 ExtendFont "    <outytm5f.pfb
+outytco60 outytm60 " .167 SlantFont .93 ExtendFont "    <outytm60.pfb
+outytco61 outytm61 " .167 SlantFont .93 ExtendFont "    <outytm61.pfb
+outytco62 outytm62 " .167 SlantFont .93 ExtendFont "    <outytm62.pfb
+outytco63 outytm63 " .167 SlantFont .93 ExtendFont "    <outytm63.pfb
+outytco64 outytm64 " .167 SlantFont .93 ExtendFont "    <outytm64.pfb
+outytco65 outytm65 " .167 SlantFont .93 ExtendFont "    <outytm65.pfb
+outytco66 outytm66 " .167 SlantFont .93 ExtendFont "    <outytm66.pfb
+outytco67 outytm67 " .167 SlantFont .93 ExtendFont "    <outytm67.pfb
+outytco68 outytm68 " .167 SlantFont .93 ExtendFont "    <outytm68.pfb
+outytco69 outytm69 " .167 SlantFont .93 ExtendFont "    <outytm69.pfb
+outytco6a outytm6a " .167 SlantFont .93 ExtendFont "    <outytm6a.pfb
+outytco6b outytm6b " .167 SlantFont .93 ExtendFont "    <outytm6b.pfb
+outytco6c outytm6c " .167 SlantFont .93 ExtendFont "    <outytm6c.pfb
+outytco6d outytm6d " .167 SlantFont .93 ExtendFont "    <outytm6d.pfb
+outytco6e outytm6e " .167 SlantFont .93 ExtendFont "    <outytm6e.pfb
+outytco6f outytm6f " .167 SlantFont .93 ExtendFont "    <outytm6f.pfb
+outytco70 outytm70 " .167 SlantFont .93 ExtendFont "    <outytm70.pfb
+outytco71 outytm71 " .167 SlantFont .93 ExtendFont "    <outytm71.pfb
+outytco72 outytm72 " .167 SlantFont .93 ExtendFont "    <outytm72.pfb
+outytco73 outytm73 " .167 SlantFont .93 ExtendFont "    <outytm73.pfb
+outytco74 outytm74 " .167 SlantFont .93 ExtendFont "    <outytm74.pfb
+outytco75 outytm75 " .167 SlantFont .93 ExtendFont "    <outytm75.pfb
+outytco76 outytm76 " .167 SlantFont .93 ExtendFont "    <outytm76.pfb
+outytco77 outytm77 " .167 SlantFont .93 ExtendFont "    <outytm77.pfb
+outytco78 outytm78 " .167 SlantFont .93 ExtendFont "    <outytm78.pfb
+outytco79 outytm79 " .167 SlantFont .93 ExtendFont "    <outytm79.pfb
+outytco7a outytm7a " .167 SlantFont .93 ExtendFont "    <outytm7a.pfb
+outytco7b outytm7b " .167 SlantFont .93 ExtendFont "    <outytm7b.pfb
+outytco7c outytm7c " .167 SlantFont .93 ExtendFont "    <outytm7c.pfb
+outytco7d outytm7d " .167 SlantFont .93 ExtendFont "    <outytm7d.pfb
+outytco7e outytm7e " .167 SlantFont .93 ExtendFont "    <outytm7e.pfb
+outytco7f outytm7f " .167 SlantFont .93 ExtendFont "    <outytm7f.pfb
+outytco80 outytm80 " .167 SlantFont .93 ExtendFont "    <outytm80.pfb
+outytco81 outytm81 " .167 SlantFont .93 ExtendFont "    <outytm81.pfb
+outytco82 outytm82 " .167 SlantFont .93 ExtendFont "    <outytm82.pfb
+outytco83 outytm83 " .167 SlantFont .93 ExtendFont "    <outytm83.pfb
+outytco84 outytm84 " .167 SlantFont .93 ExtendFont "    <outytm84.pfb
+outytco85 outytm85 " .167 SlantFont .93 ExtendFont "    <outytm85.pfb
+outytco86 outytm86 " .167 SlantFont .93 ExtendFont "    <outytm86.pfb
+outytco87 outytm87 " .167 SlantFont .93 ExtendFont "    <outytm87.pfb
+outytco88 outytm88 " .167 SlantFont .93 ExtendFont "    <outytm88.pfb
+outytco89 outytm89 " .167 SlantFont .93 ExtendFont "    <outytm89.pfb
+outytco8a outytm8a " .167 SlantFont .93 ExtendFont "    <outytm8a.pfb
+outytco8b outytm8b " .167 SlantFont .93 ExtendFont "    <outytm8b.pfb
+outytco8c outytm8c " .167 SlantFont .93 ExtendFont "    <outytm8c.pfb
+outytco8d outytm8d " .167 SlantFont .93 ExtendFont "    <outytm8d.pfb
+outytco8e outytm8e " .167 SlantFont .93 ExtendFont "    <outytm8e.pfb
+outytco8f outytm8f " .167 SlantFont .93 ExtendFont "    <outytm8f.pfb
+outytco90 outytm90 " .167 SlantFont .93 ExtendFont "    <outytm90.pfb
+outytco91 outytm91 " .167 SlantFont .93 ExtendFont "    <outytm91.pfb
+outytco92 outytm92 " .167 SlantFont .93 ExtendFont "    <outytm92.pfb
+outytco93 outytm93 " .167 SlantFont .93 ExtendFont "    <outytm93.pfb
+outytco94 outytm94 " .167 SlantFont .93 ExtendFont "    <outytm94.pfb
+outytco95 outytm95 " .167 SlantFont .93 ExtendFont "    <outytm95.pfb
+outytco96 outytm96 " .167 SlantFont .93 ExtendFont "    <outytm96.pfb
+outytco97 outytm97 " .167 SlantFont .93 ExtendFont "    <outytm97.pfb
+outytco98 outytm98 " .167 SlantFont .93 ExtendFont "    <outytm98.pfb
+outytco99 outytm99 " .167 SlantFont .93 ExtendFont "    <outytm99.pfb
+outytco9a outytm9a " .167 SlantFont .93 ExtendFont "    <outytm9a.pfb
+outytco9b outytm9b " .167 SlantFont .93 ExtendFont "    <outytm9b.pfb
+outytco9c outytm9c " .167 SlantFont .93 ExtendFont "    <outytm9c.pfb
+outytco9d outytm9d " .167 SlantFont .93 ExtendFont "    <outytm9d.pfb
+outytco9e outytm9e " .167 SlantFont .93 ExtendFont "    <outytm9e.pfb
+outytco9f outytm9f " .167 SlantFont .93 ExtendFont "    <outytm9f.pfb
+outytcoac outytmac " .167 SlantFont .93 ExtendFont "    <outytmac.pfb
+outytcoad outytmad " .167 SlantFont .93 ExtendFont "    <outytmad.pfb
+outytcoae outytmae " .167 SlantFont .93 ExtendFont "    <outytmae.pfb
+outytcoaf outytmaf " .167 SlantFont .93 ExtendFont "    <outytmaf.pfb
+outytcob0 outytmb0 " .167 SlantFont .93 ExtendFont "    <outytmb0.pfb
+outytcob1 outytmb1 " .167 SlantFont .93 ExtendFont "    <outytmb1.pfb
+outytcob2 outytmb2 " .167 SlantFont .93 ExtendFont "    <outytmb2.pfb
+outytcob3 outytmb3 " .167 SlantFont .93 ExtendFont "    <outytmb3.pfb
+outytcob4 outytmb4 " .167 SlantFont .93 ExtendFont "    <outytmb4.pfb
+outytcob5 outytmb5 " .167 SlantFont .93 ExtendFont "    <outytmb5.pfb
+outytcob6 outytmb6 " .167 SlantFont .93 ExtendFont "    <outytmb6.pfb
+outytcob7 outytmb7 " .167 SlantFont .93 ExtendFont "    <outytmb7.pfb
+outytcob8 outytmb8 " .167 SlantFont .93 ExtendFont "    <outytmb8.pfb
+outytcob9 outytmb9 " .167 SlantFont .93 ExtendFont "    <outytmb9.pfb
+outytcoba outytmba " .167 SlantFont .93 ExtendFont "    <outytmba.pfb
+outytcobb outytmbb " .167 SlantFont .93 ExtendFont "    <outytmbb.pfb
+outytcobc outytmbc " .167 SlantFont .93 ExtendFont "    <outytmbc.pfb
+outytcobd outytmbd " .167 SlantFont .93 ExtendFont "    <outytmbd.pfb
+outytcobe outytmbe " .167 SlantFont .93 ExtendFont "    <outytmbe.pfb
+outytcobf outytmbf " .167 SlantFont .93 ExtendFont "    <outytmbf.pfb
+outytcoc0 outytmc0 " .167 SlantFont .93 ExtendFont "    <outytmc0.pfb
+outytcoc1 outytmc1 " .167 SlantFont .93 ExtendFont "    <outytmc1.pfb
+outytcoc2 outytmc2 " .167 SlantFont .93 ExtendFont "    <outytmc2.pfb
+outytcoc3 outytmc3 " .167 SlantFont .93 ExtendFont "    <outytmc3.pfb
+outytcoc4 outytmc4 " .167 SlantFont .93 ExtendFont "    <outytmc4.pfb
+outytcoc5 outytmc5 " .167 SlantFont .93 ExtendFont "    <outytmc5.pfb
+outytcoc6 outytmc6 " .167 SlantFont .93 ExtendFont "    <outytmc6.pfb
+outytcoc7 outytmc7 " .167 SlantFont .93 ExtendFont "    <outytmc7.pfb
+outytcoc8 outytmc8 " .167 SlantFont .93 ExtendFont "    <outytmc8.pfb
+outytcoc9 outytmc9 " .167 SlantFont .93 ExtendFont "    <outytmc9.pfb
+outytcoca outytmca " .167 SlantFont .93 ExtendFont "    <outytmca.pfb
+outytcocb outytmcb " .167 SlantFont .93 ExtendFont "    <outytmcb.pfb
+outytcocc outytmcc " .167 SlantFont .93 ExtendFont "    <outytmcc.pfb
+outytcocd outytmcd " .167 SlantFont .93 ExtendFont "    <outytmcd.pfb
+outytcoce outytmce " .167 SlantFont .93 ExtendFont "    <outytmce.pfb
+outytcocf outytmcf " .167 SlantFont .93 ExtendFont "    <outytmcf.pfb
+outytcod0 outytmd0 " .167 SlantFont .93 ExtendFont "    <outytmd0.pfb
+outytcod1 outytmd1 " .167 SlantFont .93 ExtendFont "    <outytmd1.pfb
+outytcod2 outytmd2 " .167 SlantFont .93 ExtendFont "    <outytmd2.pfb
+outytcod3 outytmd3 " .167 SlantFont .93 ExtendFont "    <outytmd3.pfb
+outytcod4 outytmd4 " .167 SlantFont .93 ExtendFont "    <outytmd4.pfb
+outytcod5 outytmd5 " .167 SlantFont .93 ExtendFont "    <outytmd5.pfb
+outytcod6 outytmd6 " .167 SlantFont .93 ExtendFont "    <outytmd6.pfb
+outytcod7 outytmd7 " .167 SlantFont .93 ExtendFont "    <outytmd7.pfb
+outytcoea outytmea " .167 SlantFont .93 ExtendFont "    <outytmea.pfb
+outytcoeb outytmeb " .167 SlantFont .93 ExtendFont "    <outytmeb.pfb
+outytcoec outytmec " .167 SlantFont .93 ExtendFont "    <outytmec.pfb
+outytcoed outytmed " .167 SlantFont .93 ExtendFont "    <outytmed.pfb
+outytcof9 outytmf9 " .167 SlantFont .93 ExtendFont "    <outytmf9.pfb
+outytcofa outytmfa " .167 SlantFont .93 ExtendFont "    <outytmfa.pfb
+outytcoff outytmff " .167 SlantFont .93 ExtendFont "    <outytmff.pfb
+outytm00 outytm00	<outytm00.pfb
+outytm01 outytm01       <outytm01.pfb
+outytm02 outytm02       <outytm02.pfb
+outytm03 outytm03       <outytm03.pfb
+outytm04 outytm04       <outytm04.pfb
+outytm11 outytm11       <outytm11.pfb
+outytm20 outytm20       <outytm20.pfb
+outytm21 outytm21       <outytm21.pfb
+outytm22 outytm22       <outytm22.pfb
+outytm23 outytm23       <outytm23.pfb
+outytm24 outytm24       <outytm24.pfb
+outytm25 outytm25       <outytm25.pfb
+outytm26 outytm26       <outytm26.pfb
+outytm30 outytm30       <outytm30.pfb
+outytm31 outytm31       <outytm31.pfb
+outytm32 outytm32       <outytm32.pfb
+outytm33 outytm33       <outytm33.pfb
+outytm4e outytm4e       <outytm4e.pfb
+outytm4f outytm4f       <outytm4f.pfb
+outytm50 outytm50       <outytm50.pfb
+outytm51 outytm51       <outytm51.pfb
+outytm52 outytm52       <outytm52.pfb
+outytm53 outytm53       <outytm53.pfb
+outytm54 outytm54       <outytm54.pfb
+outytm55 outytm55       <outytm55.pfb
+outytm56 outytm56       <outytm56.pfb
+outytm57 outytm57       <outytm57.pfb
+outytm58 outytm58       <outytm58.pfb
+outytm59 outytm59       <outytm59.pfb
+outytm5a outytm5a       <outytm5a.pfb
+outytm5b outytm5b       <outytm5b.pfb
+outytm5c outytm5c       <outytm5c.pfb
+outytm5d outytm5d       <outytm5d.pfb
+outytm5e outytm5e       <outytm5e.pfb
+outytm5f outytm5f       <outytm5f.pfb
+outytm60 outytm60       <outytm60.pfb
+outytm61 outytm61       <outytm61.pfb
+outytm62 outytm62       <outytm62.pfb
+outytm63 outytm63       <outytm63.pfb
+outytm64 outytm64       <outytm64.pfb
+outytm65 outytm65       <outytm65.pfb
+outytm66 outytm66       <outytm66.pfb
+outytm67 outytm67       <outytm67.pfb
+outytm68 outytm68       <outytm68.pfb
+outytm69 outytm69       <outytm69.pfb
+outytm6a outytm6a       <outytm6a.pfb
+outytm6b outytm6b       <outytm6b.pfb
+outytm6c outytm6c       <outytm6c.pfb
+outytm6d outytm6d       <outytm6d.pfb
+outytm6e outytm6e       <outytm6e.pfb
+outytm6f outytm6f       <outytm6f.pfb
+outytm70 outytm70       <outytm70.pfb
+outytm71 outytm71       <outytm71.pfb
+outytm72 outytm72       <outytm72.pfb
+outytm73 outytm73       <outytm73.pfb
+outytm74 outytm74       <outytm74.pfb
+outytm75 outytm75       <outytm75.pfb
+outytm76 outytm76       <outytm76.pfb
+outytm77 outytm77       <outytm77.pfb
+outytm78 outytm78       <outytm78.pfb
+outytm79 outytm79       <outytm79.pfb
+outytm7a outytm7a       <outytm7a.pfb
+outytm7b outytm7b       <outytm7b.pfb
+outytm7c outytm7c       <outytm7c.pfb
+outytm7d outytm7d       <outytm7d.pfb
+outytm7e outytm7e       <outytm7e.pfb
+outytm7f outytm7f       <outytm7f.pfb
+outytm80 outytm80       <outytm80.pfb
+outytm81 outytm81       <outytm81.pfb
+outytm82 outytm82       <outytm82.pfb
+outytm83 outytm83       <outytm83.pfb
+outytm84 outytm84       <outytm84.pfb
+outytm85 outytm85       <outytm85.pfb
+outytm86 outytm86       <outytm86.pfb
+outytm87 outytm87       <outytm87.pfb
+outytm88 outytm88       <outytm88.pfb
+outytm89 outytm89       <outytm89.pfb
+outytm8a outytm8a       <outytm8a.pfb
+outytm8b outytm8b       <outytm8b.pfb
+outytm8c outytm8c       <outytm8c.pfb
+outytm8d outytm8d       <outytm8d.pfb
+outytm8e outytm8e       <outytm8e.pfb
+outytm8f outytm8f       <outytm8f.pfb
+outytm90 outytm90       <outytm90.pfb
+outytm91 outytm91       <outytm91.pfb
+outytm92 outytm92       <outytm92.pfb
+outytm93 outytm93       <outytm93.pfb
+outytm94 outytm94       <outytm94.pfb
+outytm95 outytm95       <outytm95.pfb
+outytm96 outytm96       <outytm96.pfb
+outytm97 outytm97       <outytm97.pfb
+outytm98 outytm98       <outytm98.pfb
+outytm99 outytm99       <outytm99.pfb
+outytm9a outytm9a       <outytm9a.pfb
+outytm9b outytm9b       <outytm9b.pfb
+outytm9c outytm9c       <outytm9c.pfb
+outytm9d outytm9d       <outytm9d.pfb
+outytm9e outytm9e       <outytm9e.pfb
+outytm9f outytm9f       <outytm9f.pfb
+outytmac outytmac       <outytmac.pfb
+outytmad outytmad       <outytmad.pfb
+outytmae outytmae       <outytmae.pfb
+outytmaf outytmaf       <outytmaf.pfb
+outytmb0 outytmb0       <outytmb0.pfb
+outytmb1 outytmb1       <outytmb1.pfb
+outytmb2 outytmb2       <outytmb2.pfb
+outytmb3 outytmb3       <outytmb3.pfb
+outytmb4 outytmb4       <outytmb4.pfb
+outytmb5 outytmb5       <outytmb5.pfb
+outytmb6 outytmb6       <outytmb6.pfb
+outytmb7 outytmb7       <outytmb7.pfb
+outytmb8 outytmb8       <outytmb8.pfb
+outytmb9 outytmb9       <outytmb9.pfb
+outytmba outytmba       <outytmba.pfb
+outytmbb outytmbb       <outytmbb.pfb
+outytmbc outytmbc       <outytmbc.pfb
+outytmbd outytmbd       <outytmbd.pfb
+outytmbe outytmbe       <outytmbe.pfb
+outytmbf outytmbf       <outytmbf.pfb
+outytmc0 outytmc0       <outytmc0.pfb
+outytmc1 outytmc1       <outytmc1.pfb
+outytmc2 outytmc2       <outytmc2.pfb
+outytmc3 outytmc3       <outytmc3.pfb
+outytmc4 outytmc4       <outytmc4.pfb
+outytmc5 outytmc5       <outytmc5.pfb
+outytmc6 outytmc6       <outytmc6.pfb
+outytmc7 outytmc7       <outytmc7.pfb
+outytmc8 outytmc8       <outytmc8.pfb
+outytmc9 outytmc9       <outytmc9.pfb
+outytmca outytmca       <outytmca.pfb
+outytmcb outytmcb       <outytmcb.pfb
+outytmcc outytmcc       <outytmcc.pfb
+outytmcd outytmcd       <outytmcd.pfb
+outytmce outytmce       <outytmce.pfb
+outytmcf outytmcf       <outytmcf.pfb
+outytmd0 outytmd0       <outytmd0.pfb
+outytmd1 outytmd1       <outytmd1.pfb
+outytmd2 outytmd2       <outytmd2.pfb
+outytmd3 outytmd3       <outytmd3.pfb
+outytmd4 outytmd4       <outytmd4.pfb
+outytmd5 outytmd5       <outytmd5.pfb
+outytmd6 outytmd6       <outytmd6.pfb
+outytmd7 outytmd7       <outytmd7.pfb
+outytmea outytmea       <outytmea.pfb
+outytmeb outytmeb       <outytmeb.pfb
+outytmec outytmec       <outytmec.pfb
+outytmed outytmed       <outytmed.pfb
+outytmf9 outytmf9       <outytmf9.pfb
+outytmfa outytmfa       <outytmfa.pfb
+outytmff outytmff       <outytmff.pfb
+outytmo00 outytm00 " .167 SlantFont "	<outytm00.pfb
+outytmo01 outytm01 " .167 SlantFont "   <outytm01.pfb
+outytmo02 outytm02 " .167 SlantFont "   <outytm02.pfb
+outytmo03 outytm03 " .167 SlantFont "   <outytm03.pfb
+outytmo04 outytm04 " .167 SlantFont "   <outytm04.pfb
+outytmo11 outytm11 " .167 SlantFont "   <outytm11.pfb
+outytmo20 outytm20 " .167 SlantFont "   <outytm20.pfb
+outytmo21 outytm21 " .167 SlantFont "   <outytm21.pfb
+outytmo22 outytm22 " .167 SlantFont "   <outytm22.pfb
+outytmo23 outytm23 " .167 SlantFont "   <outytm23.pfb
+outytmo24 outytm24 " .167 SlantFont "   <outytm24.pfb
+outytmo25 outytm25 " .167 SlantFont "   <outytm25.pfb
+outytmo26 outytm26 " .167 SlantFont "   <outytm26.pfb
+outytmo30 outytm30 " .167 SlantFont "   <outytm30.pfb
+outytmo31 outytm31 " .167 SlantFont "   <outytm31.pfb
+outytmo32 outytm32 " .167 SlantFont "   <outytm32.pfb
+outytmo33 outytm33 " .167 SlantFont "   <outytm33.pfb
+outytmo4e outytm4e " .167 SlantFont "   <outytm4e.pfb
+outytmo4f outytm4f " .167 SlantFont "   <outytm4f.pfb
+outytmo50 outytm50 " .167 SlantFont "   <outytm50.pfb
+outytmo51 outytm51 " .167 SlantFont "   <outytm51.pfb
+outytmo52 outytm52 " .167 SlantFont "   <outytm52.pfb
+outytmo53 outytm53 " .167 SlantFont "   <outytm53.pfb
+outytmo54 outytm54 " .167 SlantFont "   <outytm54.pfb
+outytmo55 outytm55 " .167 SlantFont "   <outytm55.pfb
+outytmo56 outytm56 " .167 SlantFont "   <outytm56.pfb
+outytmo57 outytm57 " .167 SlantFont "   <outytm57.pfb
+outytmo58 outytm58 " .167 SlantFont "   <outytm58.pfb
+outytmo59 outytm59 " .167 SlantFont "   <outytm59.pfb
+outytmo5a outytm5a " .167 SlantFont "   <outytm5a.pfb
+outytmo5b outytm5b " .167 SlantFont "   <outytm5b.pfb
+outytmo5c outytm5c " .167 SlantFont "   <outytm5c.pfb
+outytmo5d outytm5d " .167 SlantFont "   <outytm5d.pfb
+outytmo5e outytm5e " .167 SlantFont "   <outytm5e.pfb
+outytmo5f outytm5f " .167 SlantFont "   <outytm5f.pfb
+outytmo60 outytm60 " .167 SlantFont "   <outytm60.pfb
+outytmo61 outytm61 " .167 SlantFont "   <outytm61.pfb
+outytmo62 outytm62 " .167 SlantFont "   <outytm62.pfb
+outytmo63 outytm63 " .167 SlantFont "   <outytm63.pfb
+outytmo64 outytm64 " .167 SlantFont "   <outytm64.pfb
+outytmo65 outytm65 " .167 SlantFont "   <outytm65.pfb
+outytmo66 outytm66 " .167 SlantFont "   <outytm66.pfb
+outytmo67 outytm67 " .167 SlantFont "   <outytm67.pfb
+outytmo68 outytm68 " .167 SlantFont "   <outytm68.pfb
+outytmo69 outytm69 " .167 SlantFont "   <outytm69.pfb
+outytmo6a outytm6a " .167 SlantFont "   <outytm6a.pfb
+outytmo6b outytm6b " .167 SlantFont "   <outytm6b.pfb
+outytmo6c outytm6c " .167 SlantFont "   <outytm6c.pfb
+outytmo6d outytm6d " .167 SlantFont "   <outytm6d.pfb
+outytmo6e outytm6e " .167 SlantFont "   <outytm6e.pfb
+outytmo6f outytm6f " .167 SlantFont "   <outytm6f.pfb
+outytmo70 outytm70 " .167 SlantFont "   <outytm70.pfb
+outytmo71 outytm71 " .167 SlantFont "   <outytm71.pfb
+outytmo72 outytm72 " .167 SlantFont "   <outytm72.pfb
+outytmo73 outytm73 " .167 SlantFont "   <outytm73.pfb
+outytmo74 outytm74 " .167 SlantFont "   <outytm74.pfb
+outytmo75 outytm75 " .167 SlantFont "   <outytm75.pfb
+outytmo76 outytm76 " .167 SlantFont "   <outytm76.pfb
+outytmo77 outytm77 " .167 SlantFont "   <outytm77.pfb
+outytmo78 outytm78 " .167 SlantFont "   <outytm78.pfb
+outytmo79 outytm79 " .167 SlantFont "   <outytm79.pfb
+outytmo7a outytm7a " .167 SlantFont "   <outytm7a.pfb
+outytmo7b outytm7b " .167 SlantFont "   <outytm7b.pfb
+outytmo7c outytm7c " .167 SlantFont "   <outytm7c.pfb
+outytmo7d outytm7d " .167 SlantFont "   <outytm7d.pfb
+outytmo7e outytm7e " .167 SlantFont "   <outytm7e.pfb
+outytmo7f outytm7f " .167 SlantFont "   <outytm7f.pfb
+outytmo80 outytm80 " .167 SlantFont "   <outytm80.pfb
+outytmo81 outytm81 " .167 SlantFont "   <outytm81.pfb
+outytmo82 outytm82 " .167 SlantFont "   <outytm82.pfb
+outytmo83 outytm83 " .167 SlantFont "   <outytm83.pfb
+outytmo84 outytm84 " .167 SlantFont "   <outytm84.pfb
+outytmo85 outytm85 " .167 SlantFont "   <outytm85.pfb
+outytmo86 outytm86 " .167 SlantFont "   <outytm86.pfb
+outytmo87 outytm87 " .167 SlantFont "   <outytm87.pfb
+outytmo88 outytm88 " .167 SlantFont "   <outytm88.pfb
+outytmo89 outytm89 " .167 SlantFont "   <outytm89.pfb
+outytmo8a outytm8a " .167 SlantFont "   <outytm8a.pfb
+outytmo8b outytm8b " .167 SlantFont "   <outytm8b.pfb
+outytmo8c outytm8c " .167 SlantFont "   <outytm8c.pfb
+outytmo8d outytm8d " .167 SlantFont "   <outytm8d.pfb
+outytmo8e outytm8e " .167 SlantFont "   <outytm8e.pfb
+outytmo8f outytm8f " .167 SlantFont "   <outytm8f.pfb
+outytmo90 outytm90 " .167 SlantFont "   <outytm90.pfb
+outytmo91 outytm91 " .167 SlantFont "   <outytm91.pfb
+outytmo92 outytm92 " .167 SlantFont "   <outytm92.pfb
+outytmo93 outytm93 " .167 SlantFont "   <outytm93.pfb
+outytmo94 outytm94 " .167 SlantFont "   <outytm94.pfb
+outytmo95 outytm95 " .167 SlantFont "   <outytm95.pfb
+outytmo96 outytm96 " .167 SlantFont "   <outytm96.pfb
+outytmo97 outytm97 " .167 SlantFont "   <outytm97.pfb
+outytmo98 outytm98 " .167 SlantFont "   <outytm98.pfb
+outytmo99 outytm99 " .167 SlantFont "   <outytm99.pfb
+outytmo9a outytm9a " .167 SlantFont "   <outytm9a.pfb
+outytmo9b outytm9b " .167 SlantFont "   <outytm9b.pfb
+outytmo9c outytm9c " .167 SlantFont "   <outytm9c.pfb
+outytmo9d outytm9d " .167 SlantFont "   <outytm9d.pfb
+outytmo9e outytm9e " .167 SlantFont "   <outytm9e.pfb
+outytmo9f outytm9f " .167 SlantFont "   <outytm9f.pfb
+outytmoac outytmac " .167 SlantFont "   <outytmac.pfb
+outytmoad outytmad " .167 SlantFont "   <outytmad.pfb
+outytmoae outytmae " .167 SlantFont "   <outytmae.pfb
+outytmoaf outytmaf " .167 SlantFont "   <outytmaf.pfb
+outytmob0 outytmb0 " .167 SlantFont "   <outytmb0.pfb
+outytmob1 outytmb1 " .167 SlantFont "   <outytmb1.pfb
+outytmob2 outytmb2 " .167 SlantFont "   <outytmb2.pfb
+outytmob3 outytmb3 " .167 SlantFont "   <outytmb3.pfb
+outytmob4 outytmb4 " .167 SlantFont "   <outytmb4.pfb
+outytmob5 outytmb5 " .167 SlantFont "   <outytmb5.pfb
+outytmob6 outytmb6 " .167 SlantFont "   <outytmb6.pfb
+outytmob7 outytmb7 " .167 SlantFont "   <outytmb7.pfb
+outytmob8 outytmb8 " .167 SlantFont "   <outytmb8.pfb
+outytmob9 outytmb9 " .167 SlantFont "   <outytmb9.pfb
+outytmoba outytmba " .167 SlantFont "   <outytmba.pfb
+outytmobb outytmbb " .167 SlantFont "   <outytmbb.pfb
+outytmobc outytmbc " .167 SlantFont "   <outytmbc.pfb
+outytmobd outytmbd " .167 SlantFont "   <outytmbd.pfb
+outytmobe outytmbe " .167 SlantFont "   <outytmbe.pfb
+outytmobf outytmbf " .167 SlantFont "   <outytmbf.pfb
+outytmoc0 outytmc0 " .167 SlantFont "   <outytmc0.pfb
+outytmoc1 outytmc1 " .167 SlantFont "   <outytmc1.pfb
+outytmoc2 outytmc2 " .167 SlantFont "   <outytmc2.pfb
+outytmoc3 outytmc3 " .167 SlantFont "   <outytmc3.pfb
+outytmoc4 outytmc4 " .167 SlantFont "   <outytmc4.pfb
+outytmoc5 outytmc5 " .167 SlantFont "   <outytmc5.pfb
+outytmoc6 outytmc6 " .167 SlantFont "   <outytmc6.pfb
+outytmoc7 outytmc7 " .167 SlantFont "   <outytmc7.pfb
+outytmoc8 outytmc8 " .167 SlantFont "   <outytmc8.pfb
+outytmoc9 outytmc9 " .167 SlantFont "   <outytmc9.pfb
+outytmoca outytmca " .167 SlantFont "   <outytmca.pfb
+outytmocb outytmcb " .167 SlantFont "   <outytmcb.pfb
+outytmocc outytmcc " .167 SlantFont "   <outytmcc.pfb
+outytmocd outytmcd " .167 SlantFont "   <outytmcd.pfb
+outytmoce outytmce " .167 SlantFont "   <outytmce.pfb
+outytmocf outytmcf " .167 SlantFont "   <outytmcf.pfb
+outytmod0 outytmd0 " .167 SlantFont "   <outytmd0.pfb
+outytmod1 outytmd1 " .167 SlantFont "   <outytmd1.pfb
+outytmod2 outytmd2 " .167 SlantFont "   <outytmd2.pfb
+outytmod3 outytmd3 " .167 SlantFont "   <outytmd3.pfb
+outytmod4 outytmd4 " .167 SlantFont "   <outytmd4.pfb
+outytmod5 outytmd5 " .167 SlantFont "   <outytmd5.pfb
+outytmod6 outytmd6 " .167 SlantFont "   <outytmd6.pfb
+outytmod7 outytmd7 " .167 SlantFont "   <outytmd7.pfb
+outytmoea outytmea " .167 SlantFont "   <outytmea.pfb
+outytmoeb outytmeb " .167 SlantFont "   <outytmeb.pfb
+outytmoec outytmec " .167 SlantFont "   <outytmec.pfb
+outytmoed outytmed " .167 SlantFont "   <outytmed.pfb
+outytmof9 outytmf9 " .167 SlantFont "   <outytmf9.pfb
+outytmofa outytmfa " .167 SlantFont "   <outytmfa.pfb
+outytmoff outytmff " .167 SlantFont "   <outytmff.pfb
+outjbtm00 outjbtm00	<outjbtm00.pfb
+outjbtm01 outjbtm01     <outjbtm01.pfb
+outjbtm02 outjbtm02     <outjbtm02.pfb
+outjbtm03 outjbtm03     <outjbtm03.pfb
+outjbtm04 outjbtm04     <outjbtm04.pfb
+outjbtm11 outjbtm11     <outjbtm11.pfb
+outjbtm20 outjbtm20     <outjbtm20.pfb
+outjbtm21 outjbtm21     <outjbtm21.pfb
+outjbtm22 outjbtm22     <outjbtm22.pfb
+outjbtm23 outjbtm23     <outjbtm23.pfb
+outjbtm24 outjbtm24     <outjbtm24.pfb
+outjbtm25 outjbtm25     <outjbtm25.pfb
+outjbtm26 outjbtm26     <outjbtm26.pfb
+outjbtm30 outjbtm30     <outjbtm30.pfb
+outjbtm31 outjbtm31     <outjbtm31.pfb
+outjbtm32 outjbtm32     <outjbtm32.pfb
+outjbtm33 outjbtm33     <outjbtm33.pfb
+outjbtmac outjbtmac     <outjbtmac.pfb
+outjbtmad outjbtmad     <outjbtmad.pfb
+outjbtmae outjbtmae     <outjbtmae.pfb
+outjbtmaf outjbtmaf     <outjbtmaf.pfb
+outjbtmb0 outjbtmb0     <outjbtmb0.pfb
+outjbtmb1 outjbtmb1     <outjbtmb1.pfb
+outjbtmb2 outjbtmb2     <outjbtmb2.pfb
+outjbtmb3 outjbtmb3     <outjbtmb3.pfb
+outjbtmb4 outjbtmb4     <outjbtmb4.pfb
+outjbtmb5 outjbtmb5     <outjbtmb5.pfb
+outjbtmb6 outjbtmb6     <outjbtmb6.pfb
+outjbtmb7 outjbtmb7     <outjbtmb7.pfb
+outjbtmb8 outjbtmb8     <outjbtmb8.pfb
+outjbtmb9 outjbtmb9     <outjbtmb9.pfb
+outjbtmba outjbtmba     <outjbtmba.pfb
+outjbtmbb outjbtmbb     <outjbtmbb.pfb
+outjbtmbc outjbtmbc     <outjbtmbc.pfb
+outjbtmbd outjbtmbd     <outjbtmbd.pfb
+outjbtmbe outjbtmbe     <outjbtmbe.pfb
+outjbtmbf outjbtmbf     <outjbtmbf.pfb
+outjbtmc0 outjbtmc0     <outjbtmc0.pfb
+outjbtmc1 outjbtmc1     <outjbtmc1.pfb
+outjbtmc2 outjbtmc2     <outjbtmc2.pfb
+outjbtmc3 outjbtmc3     <outjbtmc3.pfb
+outjbtmc4 outjbtmc4     <outjbtmc4.pfb
+outjbtmc5 outjbtmc5     <outjbtmc5.pfb
+outjbtmc6 outjbtmc6     <outjbtmc6.pfb
+outjbtmc7 outjbtmc7     <outjbtmc7.pfb
+outjbtmc8 outjbtmc8     <outjbtmc8.pfb
+outjbtmc9 outjbtmc9     <outjbtmc9.pfb
+outjbtmca outjbtmca     <outjbtmca.pfb
+outjbtmcb outjbtmcb     <outjbtmcb.pfb
+outjbtmcc outjbtmcc     <outjbtmcc.pfb
+outjbtmcd outjbtmcd     <outjbtmcd.pfb
+outjbtmce outjbtmce     <outjbtmce.pfb
+outjbtmcf outjbtmcf     <outjbtmcf.pfb
+outjbtmd0 outjbtmd0     <outjbtmd0.pfb
+outjbtmd1 outjbtmd1     <outjbtmd1.pfb
+outjbtmd2 outjbtmd2     <outjbtmd2.pfb
+outjbtmd3 outjbtmd3     <outjbtmd3.pfb
+outjbtmd4 outjbtmd4     <outjbtmd4.pfb
+outjbtmd5 outjbtmd5     <outjbtmd5.pfb
+outjbtmd6 outjbtmd6     <outjbtmd6.pfb
+outjbtmd7 outjbtmd7     <outjbtmd7.pfb
+outjbtmea outjbtmea     <outjbtmea.pfb
+outjbtmeb outjbtmeb     <outjbtmeb.pfb
+outjbtmff outjbtmff     <outjbtmff.pfb
+outjgtm00 outjgtm00	<outjgtm00.pfb
+outjgtm01 outjgtm01     <outjgtm01.pfb
+outjgtm02 outjgtm02     <outjgtm02.pfb
+outjgtm03 outjgtm03     <outjgtm03.pfb
+outjgtm04 outjgtm04     <outjgtm04.pfb
+outjgtm11 outjgtm11     <outjgtm11.pfb
+outjgtm20 outjgtm20     <outjgtm20.pfb
+outjgtm21 outjgtm21     <outjgtm21.pfb
+outjgtm22 outjgtm22     <outjgtm22.pfb
+outjgtm23 outjgtm23     <outjgtm23.pfb
+outjgtm24 outjgtm24     <outjgtm24.pfb
+outjgtm25 outjgtm25     <outjgtm25.pfb
+outjgtm26 outjgtm26     <outjgtm26.pfb
+outjgtm30 outjgtm30     <outjgtm30.pfb
+outjgtm31 outjgtm31     <outjgtm31.pfb
+outjgtm32 outjgtm32     <outjgtm32.pfb
+outjgtm33 outjgtm33     <outjgtm33.pfb
+outjgtmac outjgtmac     <outjgtmac.pfb
+outjgtmad outjgtmad     <outjgtmad.pfb
+outjgtmae outjgtmae     <outjgtmae.pfb
+outjgtmaf outjgtmaf     <outjgtmaf.pfb
+outjgtmb0 outjgtmb0     <outjgtmb0.pfb
+outjgtmb1 outjgtmb1     <outjgtmb1.pfb
+outjgtmb2 outjgtmb2     <outjgtmb2.pfb
+outjgtmb3 outjgtmb3     <outjgtmb3.pfb
+outjgtmb4 outjgtmb4     <outjgtmb4.pfb
+outjgtmb5 outjgtmb5     <outjgtmb5.pfb
+outjgtmb6 outjgtmb6     <outjgtmb6.pfb
+outjgtmb7 outjgtmb7     <outjgtmb7.pfb
+outjgtmb8 outjgtmb8     <outjgtmb8.pfb
+outjgtmb9 outjgtmb9     <outjgtmb9.pfb
+outjgtmba outjgtmba     <outjgtmba.pfb
+outjgtmbb outjgtmbb     <outjgtmbb.pfb
+outjgtmbc outjgtmbc     <outjgtmbc.pfb
+outjgtmbd outjgtmbd     <outjgtmbd.pfb
+outjgtmbe outjgtmbe     <outjgtmbe.pfb
+outjgtmbf outjgtmbf     <outjgtmbf.pfb
+outjgtmc0 outjgtmc0     <outjgtmc0.pfb
+outjgtmc1 outjgtmc1     <outjgtmc1.pfb
+outjgtmc2 outjgtmc2     <outjgtmc2.pfb
+outjgtmc3 outjgtmc3     <outjgtmc3.pfb
+outjgtmc4 outjgtmc4     <outjgtmc4.pfb
+outjgtmc5 outjgtmc5     <outjgtmc5.pfb
+outjgtmc6 outjgtmc6     <outjgtmc6.pfb
+outjgtmc7 outjgtmc7     <outjgtmc7.pfb
+outjgtmc8 outjgtmc8     <outjgtmc8.pfb
+outjgtmc9 outjgtmc9     <outjgtmc9.pfb
+outjgtmca outjgtmca     <outjgtmca.pfb
+outjgtmcb outjgtmcb     <outjgtmcb.pfb
+outjgtmcc outjgtmcc     <outjgtmcc.pfb
+outjgtmcd outjgtmcd     <outjgtmcd.pfb
+outjgtmce outjgtmce     <outjgtmce.pfb
+outjgtmcf outjgtmcf     <outjgtmcf.pfb
+outjgtmd0 outjgtmd0     <outjgtmd0.pfb
+outjgtmd1 outjgtmd1     <outjgtmd1.pfb
+outjgtmd2 outjgtmd2     <outjgtmd2.pfb
+outjgtmd3 outjgtmd3     <outjgtmd3.pfb
+outjgtmd4 outjgtmd4     <outjgtmd4.pfb
+outjgtmd5 outjgtmd5     <outjgtmd5.pfb
+outjgtmd6 outjgtmd6     <outjgtmd6.pfb
+outjgtmd7 outjgtmd7     <outjgtmd7.pfb
+outjgtmea outjgtmea     <outjgtmea.pfb
+outjgtmeb outjgtmeb     <outjgtmeb.pfb
+outjgtmff outjgtmff     <outjgtmff.pfb
+outjnvm00 outjnvm00	<outjnvm00.pfb
+outjnvm01 outjnvm01     <outjnvm01.pfb
+outjnvm02 outjnvm02     <outjnvm02.pfb
+outjnvm03 outjnvm03     <outjnvm03.pfb
+outjnvm04 outjnvm04     <outjnvm04.pfb
+outjnvm11 outjnvm11     <outjnvm11.pfb
+outjnvm20 outjnvm20     <outjnvm20.pfb
+outjnvm21 outjnvm21     <outjnvm21.pfb
+outjnvm22 outjnvm22     <outjnvm22.pfb
+outjnvm23 outjnvm23     <outjnvm23.pfb
+outjnvm24 outjnvm24     <outjnvm24.pfb
+outjnvm25 outjnvm25     <outjnvm25.pfb
+outjnvm26 outjnvm26     <outjnvm26.pfb
+outjnvm30 outjnvm30     <outjnvm30.pfb
+outjnvm31 outjnvm31     <outjnvm31.pfb
+outjnvm32 outjnvm32     <outjnvm32.pfb
+outjnvm33 outjnvm33     <outjnvm33.pfb
+outjnvmac outjnvmac     <outjnvmac.pfb
+outjnvmad outjnvmad     <outjnvmad.pfb
+outjnvmae outjnvmae     <outjnvmae.pfb
+outjnvmaf outjnvmaf     <outjnvmaf.pfb
+outjnvmb0 outjnvmb0     <outjnvmb0.pfb
+outjnvmb1 outjnvmb1     <outjnvmb1.pfb
+outjnvmb2 outjnvmb2     <outjnvmb2.pfb
+outjnvmb3 outjnvmb3     <outjnvmb3.pfb
+outjnvmb4 outjnvmb4     <outjnvmb4.pfb
+outjnvmb5 outjnvmb5     <outjnvmb5.pfb
+outjnvmb6 outjnvmb6     <outjnvmb6.pfb
+outjnvmb7 outjnvmb7     <outjnvmb7.pfb
+outjnvmb8 outjnvmb8     <outjnvmb8.pfb
+outjnvmb9 outjnvmb9     <outjnvmb9.pfb
+outjnvmba outjnvmba     <outjnvmba.pfb
+outjnvmbb outjnvmbb     <outjnvmbb.pfb
+outjnvmbc outjnvmbc     <outjnvmbc.pfb
+outjnvmbd outjnvmbd     <outjnvmbd.pfb
+outjnvmbe outjnvmbe     <outjnvmbe.pfb
+outjnvmbf outjnvmbf     <outjnvmbf.pfb
+outjnvmc0 outjnvmc0     <outjnvmc0.pfb
+outjnvmc1 outjnvmc1     <outjnvmc1.pfb
+outjnvmc2 outjnvmc2     <outjnvmc2.pfb
+outjnvmc3 outjnvmc3     <outjnvmc3.pfb
+outjnvmc4 outjnvmc4     <outjnvmc4.pfb
+outjnvmc5 outjnvmc5     <outjnvmc5.pfb
+outjnvmc6 outjnvmc6     <outjnvmc6.pfb
+outjnvmc7 outjnvmc7     <outjnvmc7.pfb
+outjnvmc8 outjnvmc8     <outjnvmc8.pfb
+outjnvmc9 outjnvmc9     <outjnvmc9.pfb
+outjnvmca outjnvmca     <outjnvmca.pfb
+outjnvmcb outjnvmcb     <outjnvmcb.pfb
+outjnvmcc outjnvmcc     <outjnvmcc.pfb
+outjnvmcd outjnvmcd     <outjnvmcd.pfb
+outjnvmce outjnvmce     <outjnvmce.pfb
+outjnvmcf outjnvmcf     <outjnvmcf.pfb
+outjnvmd0 outjnvmd0     <outjnvmd0.pfb
+outjnvmd1 outjnvmd1     <outjnvmd1.pfb
+outjnvmd2 outjnvmd2     <outjnvmd2.pfb
+outjnvmd3 outjnvmd3     <outjnvmd3.pfb
+outjnvmd4 outjnvmd4     <outjnvmd4.pfb
+outjnvmd5 outjnvmd5     <outjnvmd5.pfb
+outjnvmd6 outjnvmd6     <outjnvmd6.pfb
+outjnvmd7 outjnvmd7     <outjnvmd7.pfb
+outjnvmea outjnvmea     <outjnvmea.pfb
+outjnvmeb outjnvmeb     <outjnvmeb.pfb
+outjnvmff outjnvmff     <outjnvmff.pfb
+outjsrm00 outjsrm00	<outjsrm00.pfb
+outjsrm01 outjsrm01     <outjsrm01.pfb
+outjsrm02 outjsrm02     <outjsrm02.pfb
+outjsrm03 outjsrm03     <outjsrm03.pfb
+outjsrm04 outjsrm04     <outjsrm04.pfb
+outjsrm11 outjsrm11     <outjsrm11.pfb
+outjsrm20 outjsrm20     <outjsrm20.pfb
+outjsrm21 outjsrm21     <outjsrm21.pfb
+outjsrm22 outjsrm22     <outjsrm22.pfb
+outjsrm23 outjsrm23     <outjsrm23.pfb
+outjsrm24 outjsrm24     <outjsrm24.pfb
+outjsrm25 outjsrm25     <outjsrm25.pfb
+outjsrm26 outjsrm26     <outjsrm26.pfb
+outjsrm30 outjsrm30     <outjsrm30.pfb
+outjsrm31 outjsrm31     <outjsrm31.pfb
+outjsrm32 outjsrm32     <outjsrm32.pfb
+outjsrm33 outjsrm33     <outjsrm33.pfb
+outjsrmac outjsrmac     <outjsrmac.pfb
+outjsrmad outjsrmad     <outjsrmad.pfb
+outjsrmae outjsrmae     <outjsrmae.pfb
+outjsrmaf outjsrmaf     <outjsrmaf.pfb
+outjsrmb0 outjsrmb0     <outjsrmb0.pfb
+outjsrmb1 outjsrmb1     <outjsrmb1.pfb
+outjsrmb2 outjsrmb2     <outjsrmb2.pfb
+outjsrmb3 outjsrmb3     <outjsrmb3.pfb
+outjsrmb4 outjsrmb4     <outjsrmb4.pfb
+outjsrmb5 outjsrmb5     <outjsrmb5.pfb
+outjsrmb6 outjsrmb6     <outjsrmb6.pfb
+outjsrmb7 outjsrmb7     <outjsrmb7.pfb
+outjsrmb8 outjsrmb8     <outjsrmb8.pfb
+outjsrmb9 outjsrmb9     <outjsrmb9.pfb
+outjsrmba outjsrmba     <outjsrmba.pfb
+outjsrmbb outjsrmbb     <outjsrmbb.pfb
+outjsrmbc outjsrmbc     <outjsrmbc.pfb
+outjsrmbd outjsrmbd     <outjsrmbd.pfb
+outjsrmbe outjsrmbe     <outjsrmbe.pfb
+outjsrmbf outjsrmbf     <outjsrmbf.pfb
+outjsrmc0 outjsrmc0     <outjsrmc0.pfb
+outjsrmc1 outjsrmc1     <outjsrmc1.pfb
+outjsrmc2 outjsrmc2     <outjsrmc2.pfb
+outjsrmc3 outjsrmc3     <outjsrmc3.pfb
+outjsrmc4 outjsrmc4     <outjsrmc4.pfb
+outjsrmc5 outjsrmc5     <outjsrmc5.pfb
+outjsrmc6 outjsrmc6     <outjsrmc6.pfb
+outjsrmc7 outjsrmc7     <outjsrmc7.pfb
+outjsrmc8 outjsrmc8     <outjsrmc8.pfb
+outjsrmc9 outjsrmc9     <outjsrmc9.pfb
+outjsrmca outjsrmca     <outjsrmca.pfb
+outjsrmcb outjsrmcb     <outjsrmcb.pfb
+outjsrmcc outjsrmcc     <outjsrmcc.pfb
+outjsrmcd outjsrmcd     <outjsrmcd.pfb
+outjsrmce outjsrmce     <outjsrmce.pfb
+outjsrmcf outjsrmcf     <outjsrmcf.pfb
+outjsrmd0 outjsrmd0     <outjsrmd0.pfb
+outjsrmd1 outjsrmd1     <outjsrmd1.pfb
+outjsrmd2 outjsrmd2     <outjsrmd2.pfb
+outjsrmd3 outjsrmd3     <outjsrmd3.pfb
+outjsrmd4 outjsrmd4     <outjsrmd4.pfb
+outjsrmd5 outjsrmd5     <outjsrmd5.pfb
+outjsrmd6 outjsrmd6     <outjsrmd6.pfb
+outjsrmd7 outjsrmd7     <outjsrmd7.pfb
+outjsrmea outjsrmea     <outjsrmea.pfb
+outjsrmeb outjsrmeb     <outjsrmeb.pfb
+outjsrmff outjsrmff     <outjsrmff.pfb

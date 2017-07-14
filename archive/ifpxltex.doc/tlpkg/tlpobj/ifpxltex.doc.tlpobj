@@ -1,0 +1,8 @@
+name ifpxltex.doc
+category Package
+revision 200
+shortdesc doc files of ifpxltex
+relocated 1
+docfiles size=32
+ RELOC/doc/latex/ifpxltex/ifpxltexdoc.pdf
+ RELOC/doc/latex/ifpxltex/ifpxltexdoc.tex

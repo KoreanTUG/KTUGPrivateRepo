@@ -1,0 +1,9 @@
+name ksbaduk
+category Package
+revision 200
+shortdesc baduk typesetting by Karnes
+relocated 1
+runfiles size=112
+ RELOC/tex/latex/ksbaduk/badukpan.jpg
+ RELOC/tex/latex/ksbaduk/ksbaduk-wrapnum.sty
+ RELOC/tex/latex/ksbaduk/ksbaduk.sty

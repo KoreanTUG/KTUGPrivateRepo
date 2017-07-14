@@ -1,0 +1,10 @@
+name ksbaduk.doc
+category Package
+revision 200
+shortdesc doc files of ksbaduk
+relocated 1
+docfiles size=287
+ RELOC/doc/latex/ksbaduk/ksbaduk-doc-korean.pdf
+ RELOC/doc/latex/ksbaduk/ksbaduk-doc-korean.tex
+ RELOC/doc/latex/ksbaduk/ksbaduk-doc.pdf
+ RELOC/doc/latex/ksbaduk/ksbaduk-doc.tex

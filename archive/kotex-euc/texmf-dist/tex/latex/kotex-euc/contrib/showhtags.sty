@@ -1,0 +1,14 @@
+\input showtags.sty
+
+\ifx\nullocplist\undefined
+\def\@bibitem#1{\item\if@filesw {\let\protect\noexpand\immediate\write\@auxout
+    {\string\bibcite{#1}{\the\value{\@listctr}\string\make@josa{\the\value{\@listctr}}}}\fi\ignorespaces}
+  \@showtag{#1}}
+%
+\def\@lbibitem[#1]#2{\item[\@biblabel{#1}\hfill]\if@filesw
+  {\let\protect\noexpand
+    \immediate
+    \write\@auxout{\string\bibcite{#2}{#1\string\make@josa{#1}}}}\fi\ignorespaces
+  \@showtag{#2}}
+\fi
+\endinput

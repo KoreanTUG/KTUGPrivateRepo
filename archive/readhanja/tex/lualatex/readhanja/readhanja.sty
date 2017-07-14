@@ -1,0 +1,78 @@
+
+% 한자에 한글 독음을 달아준다.
+% written by Dohyun Kim
+% public domain
+
+\ProvidesPackage{readhanja}[2016/04/01 v0.8 Typeset Hanja-to-Hangul sound values]
+
+\RequirePackage{fontspec}
+
+\newattribute\readhanjatohangul
+\directlua{require "readhanja"}
+
+% [draft] 옵션을 주면 모든 독음을 다 나열한다.
+% 그중 하나를 '\t2樂' 방식으로 선택한다. 1이 기본값.
+% 현재 선택된 독음에 굵은 밑줄이 그어진다.
+\DeclareOption{draft}{\directlua{readhanja.draft=true}}
+\ProcessOptions\relax
+
+% 한글 독음에 쓰일 폰트는 \readhanjahangulfont로 지시한다.
+% 이 명령이 없으면 기본 한글 폰트로 식자한다.
+\protected\def\readhanjahangulfont{\newfontfamily\readhanja@hangulfont}
+
+% readhanja 환경 안 or 명령 이후에만 동작한다.
+\protected\def\readhanja{%
+  \readhanjatohangul\z@
+  \begingroup
+    \ifdefined\readhanja@hangulfont
+      \readhanja@hangulfont
+    \else
+      \ifdefined\hangul@font
+        \hangul@font
+      \fi
+    \fi
+    \directlua{readhanja.hangulfont=font.current()}%
+  \endgroup
+  \def\t{\begingroup\afterassignment\readhanja@tohangul\count@}%
+}
+\def\readhanja@tohangul#1{\readhanjatohangul\count@#1\endgroup}
+
+% 한글 독음을 추가/수정하기:
+%   \readhanjareading{樂}{낙,락,악,요}
+\protected\def\readhanjareading#1#2{%
+  \directlua{readhanja.add_hanja_reading("#1","#2")}%
+}
+
+% 한글 읽기 사전 추가:
+%   \readhanjadictionary{召史}{조이}
+% 사전에서 삭제:
+%   \readhanjadictionary{召史}{}
+\protected\def\readhanjadictionary#1#2{%
+  \directlua{readhanja.add_hanja_dictionary("#1","#2")}%
+}
+
+% 한글 독음의 올려쓰기 정도: \readhanjaraise{0.5ex}.
+% 독음 위치 pre 또는 post에서는 기본값이 0.5ex.
+% 독음 위치 top 또는 bottom에서는 기본값이 0pt.
+\protected\def\readhanjaraise#1{%
+  \directlua{readhanja.raise=tex.sp("#1")}%
+}
+
+% 읽기 단위: 독음을 글자마다 달 것인가, 단어 단위로 달 것인가?
+%   \readhanjaunit{char} or \readhanjaunit{word}
+% 기본값은 word.
+% [draft] 옵션은 읽기 단위 char를 강제한다.
+% 독음 위치 top 또는 bottom은 읽기 단위 char를 강제한다.
+\protected\def\readhanjaunit#1{%
+  \directlua{readhanja.unit="#1"}%
+}
+
+% 독음 달기 위치: 한자 앞에 달 것인가, 뒤에 달 것인가,
+%                 한자 위에 달 것인가, 아래에 달 것인가?
+%   \readhanjalocate{pre} or \readhanjalocate{post} or
+%   \readhanjalocate{top} or \readhanjalocate{bottom}
+% 기본값은 pre.
+% [draft] 옵션은 pre 또는 post만 허용한다.
+\protected\def\readhanjalocate#1{%
+  \directlua{readhanja.locate="#1"}%
+}

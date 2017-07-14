@@ -1,0 +1,1163 @@
+%% part of kotexguide
+\let\textmj\textrm
+\newcommand{\xample}[1]{\bgroup\small #1\egroup}
+\newcommand\pgffamily{%
+  \ifEUCmode
+    \hfontfamily{pg}\selectfont
+  \else
+    \SetAdhocFonts{utpg}{utgt}%
+  \fi
+}
+
+\chapter{\kotex/euc의 의의와 사용법}
+
+\section{\kotex/euc의 의의}
+
+\subsection{문자의 범위}
+
+\kotex/euc는 EUC-KR 한글만을 처리한다. EUC-KR 한글이라고 통칭하는 이 
+한글 인코딩 방식은 특히 KS X 1001의 완성형 한글과 한자 및 기호문자를
+지칭하는 것으로 사용하겠다. Windows 운영체제의 기본 한글 인코딩은
+CP949라고 불리는 것으로 이 EUC-KR 완성형 한글을 확장한 ``확장완성형''
+인코딩이다.
+
+EUC-KR은 한글 2350자만을 정의하고 있으므로 유니코드 현대 한글 음절문자
+11172자의 일부밖에는 표현하지 못한다. 우리의 언어 문자생활에 필요한 거의
+대부분의 문자가 들어 있다고 하나 한글의 특성 중 하나인 자유로운 자모
+결합에 의한 표현력을 희생하지 않을 수 없으며, (비록 표준 정서법에는
+어긋나더라도) 특별한 목적을 위해서 표현하고자 하는 일부 글자를 찍을
+수 없다는 한계를 갖는다.
+
+이러함에도 불구하고, EUC-KR의 필요성도 많다. 가장 많은 사람이
+사용하는 윈도우즈 운영체제에서 아무런 불편없이 입출력할 수 있다는 점,
+그리고 무엇보다 기존에 이 완성형 한글로 작성된 문서와 문헌이 워낙
+방대하다는 점이다.
+
+\kotex 이 EUC-KR 지원을 하는 이유는 궁극적으로 이 때문이다. 기존에
+작성된 문서들에 대한 호환성을 유지하는 것. 또한, 장차 \kotex은
+EUC-KR 문서를 안전하게 유니코드로 포팅하는 방법을 발전시켜\footnote{%
+  아직까지는 이 호환이 완전히 제공되지 않는다.}
+장기적으로 \kotex/utf로의 이행을 권장하기 위해서이다. 
+
+완성형 한글의 범위는 부록을 참고하라. 
+
+\subsection{\kotex/euc의 한계}
+
+\kotex/utf와는 달리 \kotex/euc가 호환을 위해서 제공되기 때문에
+\kotex/utf의 많은 기능들을 생략하거나 지원하지 않는다. 그 때문에
+이 두 형식의 문서가 출력 결과에 있어서 동일하지 않다. 
+
+\kotex/utf의 몇 가지 옵션, 예를 들면 \texttt{nonfrench, finemath}
+등은 지원하지 않는다. \kotex 의 자랑 중 하나인 미세 간격 기능은
+euc 버전에서는 동작하지 않는다. 
+
+\subsection{하위 호환성}
+
+종래의 한글 문서들이 \texttt{hangul} 또는 \texttt{hfont}
+패키지를 이용하고 있음이 엄연하고, 따라서 이 패키지들에 대하여 하위호환성을
+제공한다. 그러나 되도록 이 문서에서 설명하는 바와 같이 \texttt{kotex}
+기본 패키지를 이용하는 방식으로 이행해가는 것이 바람직하지 않겠는가
+기대한다. \verb|\usepackage{hfont}|는 \verb|\usepackage[euc]{kotex}|으로,
+\verb|\usepackage{hangul}|은 \verb|\usepackage[euc,hangul]{kotex}|으로
+바꾸어 쓰면 거의 동일하게 동작할 것이다.
+
+한글 라텍의 특징 중 하나였던 글꼴 선택 명령 체계는 여전히 지원된다.
+그러나 유니코드와의 호환성을 위하여 이 부분에 대한 설명은 최소한에
+그치고 호환성 높게 문서를 작성하는 방법을 위주로 설명하고자 한다.
+
+기본 글꼴은 더이상 UHC 폰트를 사용하지 않게 되었다. 그러나 사용자
+수준에서 글꼴 처리에 대해서는 걱정하지 않아도 좋다. 
+
+종래 \texttt{hangul} 패키지와 함께 제공되던 \texttt{khyper} 패키지는
+제외되었다. \kotex/euc가 \texttt{hyperref}을 잘 지원하며,
+심지어 필수적으로 요구하기까지 하는 까닭이다. 이 부분이 아마
+가장 많이 달라진 부분 중 하나일 것이다. 
+
+\subsection{사용설명서에 관하여}
+
+이 사용설명서의 \kotex/euc 부분은 한글 라텍의 ``한글 라텍 길잡이''
+문서를 거의 그대로 인용한 것이다. 
+
+\section{\kotex/euc의 사용 설명}
+\label{sec:use}\index{코텍@ko.TeX/euc!사용법}
+
+이 단원에서는 라텍 자체의 기본적인 사용법에 대한 설명을 피하고,
+한글 라텍에 관계되는 부분만을 간단히 다루려 한다. 
+
+\subsection{한글 문서의 틀}
+\index{한글 라텍!문서의 틀}
+
+문서는
+
+\verb|\documentclass[추가선택]{문서종류}|
+
+\noindent
+로 시작한다. \texttt{추가선택}에는 라텍의
+\texttt{문서종류}(class)에 종속적인 추가 선택을 지정한다.
+
+문서 종류 지정 후에 한글 라텍 꾸러미 사용을 지정한다.
+
+\verb|\usepackage[euc,추가선택]{kotex}|
+
+\noindent%
+한글 라텍의 \texttt{추가선택}의 종류는 다음과
+같다.\index{한글 라텍!추가 선택}
+\begin{list}{\textbullet}{\parsep0pt\itemsep0pt\topsep0pt\partopsep0pt}
+\item \texttt{euc}: EUC-KR 한글을 처리하는 \kotex/euc에서는 
+이 옵션이 가장 처음에 있어야 한다.
+\item \texttt{hanja}: 문서의 단원명이나 날짜가 한자로 표기된다.
+\item \texttt{hardbold}: \MF{}에 의해 만들어지는 두꺼운 글씨체를
+  쓰도록 한다.
+\item \texttt{nojosa}: 자동 조사 처리 기능을 억제하여 텍의 기억
+  용량 사용을 감소시킨다.
+%\item 판형: 책의 크기를 지정하는 선택 사항입니다.  책의 크기는 라텍
+%  자체의 추가 선택으로 지정되는데, 이 추가 선택에는 한국의 출판
+%  업계에서 사용되는 판형에 해당하는 크기가 없으므로 한글 라텍의 추가
+%  선택으로 지정해야 합니다.  한국에서 사용되는 책의 판형에는 표
+%  \ref{tab:papersize}\과 같은 종류가 있습니다.\index{판형} 국전지의 크기는
+%  939$\;\times\;$636mm이고 46전지의 크기는
+%  788$\;\times\;$1091mm입니다.
+
+%  \begin{table}[htbp]
+%    \centering
+%    \begin{tabular}{|l|r@{$\;\times\;$}l*{4}{|l}|}\hline
+%      판형명칭 & \multicolumn{2}{c|}{크기[mm]} & 사용종이 & 쪽수/전지 & \\\hline\hline
+%      \ttfamily 국판 & 148 & 210 & 국전지 & 32 & 교과서, 단행본 \\\hline
+%      \ttfamily 국배판 & 210 & 297 & 국전지 & 16 & 잡지 \\\hline
+%      \ttfamily 국반판 & 105 & 148 & 국전지 & 64 & 문고 \\\hline
+%      \ttfamily 타블로이드판 & 257 & 364 & 4x6전지 & 16 & 정보신문 \\\hline
+%      \ttfamily 사륙판 & 128 & 182 & 4x6전지 & 64 & 문고 \\\hline
+%      \ttfamily 사륙배판 & 182 & 257 & 4x6전지 & 32 & 참고서 \\\hline
+%      \ttfamily 사륙반판 & 94 & 128 & 4x6전지 & 128 & \\\hline
+%      \ttfamily 사륙배배판 & 254 & 374 & 4x6전지 & & \\\hline
+%      \ttfamily 신국판 & 152 & 225 & 국전지 & 32 & 단행본 \\\hline
+%      \ttfamily 대국전판 & 172 & 244 & 국전지 & & \\\hline
+%      \ttfamily 크라운판 & 176 & 248 & 4x6전지 & 36 & 사진집 \\\hline
+%      \ttfamily 삼십절판 & 125 & 205 & 4x6전지 & 60 & 단행본 \\\hline
+%      \ttfamily 신서판,삼륙판 & 103 & 182 & 4x6전지 & 80 & 문고 \\\hline
+%      \ttfamily 삼오판 & 84 & 148 & 4x6전지 & & \\\hline
+%    \end{tabular}
+%    \caption{판형의 종류}
+%    \label{tab:papersize}
+%  \end{table}
+\end{list}
+
+\texttt{kotex} 이외의 다른 꾸러미를 함께 쓰고자 할 경우에는
+반점(\texttt{,})으로 구분하여 이름을 쓰거나 따로 \verb|\usepackage|
+명령을 쓴다.  \texttt{kotex}의 추가 선택은 문서 종류의 추가
+선택에서 지정할 수도 있고 여기서 지정할 수도 있다. 추가 선택의
+처리 방식은 다음과 같다.\index{추가 선택 처리 방식}
+\begin{itemize}
+\item \verb|\documentclass|의 추가 선택은 전역적(global)이다.  어느
+  문서 종류나 꾸러미에서든지 이 추가 선택을 처리할 수 있다.
+\item \verb|\usepackage|의 추가 선택은 울안적(local)이다. 그
+  꾸러미에서 이 추가 선택을 처리할 수 있어야 한다.
+\end{itemize}
+
+다음의 예에서 보는 것처럼
+
+\verb|\usepackage[euc]{kotex,a4}|
+
+\noindent
+에서는 지정된 추가 선택 \texttt{euc}를 두 꾸러미 \texttt{kotex}과
+\texttt{a4}가 모두 처리할 수 있어야 한다.  \texttt{a4} 꾸러미는
+\texttt{euc}이라는 추가 선택을 처리할 수 없으므로 오류가 발생하게
+된다.  다음과 같이 각기 따로 지정하거나
+
+\verb|\usepackage[euc]{kotex}|
+
+\verb|\usepackage{a4}|
+
+\noindent
+아니면 문제가 되는 추가 선택 \texttt{euc}를 \verb|\documentclass|에서
+전역적 추가 선택으로 지정하면 오류가 발생하지 않는다.
+
+\verb|\begin{document}|
+
+\noindent
+로 문서를 시작하여 쓰고자 하는 글을 작성한 뒤
+
+\verb|\end{document}|
+
+\noindent
+로 문서 작성을 마친다.  (그림 \ref{fig:docstructure}\을 참조)
+
+\begin{figure}[htb]
+  \centering
+  \begin{tabular}{|p{6cm}cp{5.5cm}|}\hline
+    \verb|\documentclass[추가선택]{문서종류}| & &
+    \\[10pt]
+    \verb|\usepackage[euc,추가선택]{kotex}| & $\leftarrow$ &
+    {\pgffamily 한글 문서 틀잡기를 위해 \texttt{[hangul]}
+    추가선택을 추가할 수 있다.}
+    \\
+    \verb|\usepackage[추가선택]{꾸러미}| & $\leftarrow$ &
+    {\pgffamily 필요에 따라 사용될 각종
+    \texttt{꾸러미}를 지정한다.}
+    \\
+    $\ldots$ & $\leftarrow$ & {\pgffamily
+    꾸러미뿐만 아니라 문자를 출력하지 않는 다른 명령들을 여기에서
+    선언할 수 있다.}
+    \\
+    \verb|\begin{document}| & $\leftarrow$ &
+    {\pgffamily 이전까지를 전문
+    영역(pre\-amble)이라고 한다.}
+    \\
+    \ttfamily 나라의 말이 중국과 달라서 한자로는 서로 통하지
+    아니하므로 이런 까닭으로 어리석은 백성들이 말하고자 하는 바가
+    있어도 마침내 제뜻을 능히 펴지 못하는 사람이 많으니라.  내가
+    이를 불쌍히 여겨 새로 스물여덟자를 만드나니 &
+    $\leftarrow$ & {\pgffamily 문서의 작성은
+    \textrm{\TeX}의 관습에 따른다. 즉, 중첩된 공간 문자는 하나로
+    처리된다. 줄바꿈 문자가 한번 나오면 공간 문자로 처리되나, 두번
+    이상 중첩되면 하나의 줄바꿈 문자 역할을 한다. 등등.} \\
+    \verb|\end{document}| & $\leftarrow$ &
+    {\pgffamily 이 명령이 나온 후의 모든 문장은
+    무시된다.} \\\hline
+  \end{tabular}
+  \caption{한글 라텍 문서의 기본 구조}
+  \label{fig:docstructure}
+\end{figure}
+
+이제 \texttt{latex}이나 \texttt{pdflatex}으로 파일을 돌리면 된다.
+
+
+\subsection{문서의 모양새 설정}
+\label{sec:layout}\index{문서의 모양새}
+
+전반적인 문서의 종류를 결정하기 위해 다음 문장을 단 한 번 맨 처음에 쓴다.
+\begin{verbatim}
+\documentclass[추가선택]{문서종류}
+\end{verbatim}
+\texttt{문서종류(class)}에는 \texttt{article} 이외에 \texttt{report},
+\texttt{book}, \texttt{letter}, \texttt{slides} 등이 있다. 각
+\texttt{문서종류}는 \texttt{추가선택}에 의해 모양새가 달라질 수
+있다. 즉, 종이의 규격을 설정하는 \texttt{a4paper},
+\texttt{letterpaper}, $\cdots$ 및 글자의 크기를 정해주는
+\texttt{10pt}, \texttt{11pt}, \texttt{12pt} 등등이 있다.  일반 영문
+라텍의 문서 종류 설정은
+\cite{Kopka:LE91,Lamport:1985:LDP,Mittelbach:2004:LC}에 잘 설명되어
+있다.
+
+위와 같이 라텍에서 제공하는 기본적인 문서 종류 이외에 추가로 꾸러미(package)를
+사용하고자 할 경우에는 \verb|\usepackage| 명령을 쓴다.
+\begin{verbatim}
+\usepackage[추가선택]{꾸러미}
+\end{verbatim}
+우리말의 처리와
+같이, 라텍에서 제공되지 않는 기능을 쓸 경우에 \texttt{kotex.sty}을
+쓰는 것과 같다. 각 꾸러미는 자체의 \texttt{추가선택}이 있다.
+각종 꾸러미의 사용 방법 및 \texttt{추가선택}의 종류는
+\cite{Mittelbach:2004:LC}에 자세히 설명되어 있다.
+
+한글 라텍으로 우리말을 처리하게 하려면 다음과 같이 한다.
+\begin{verbatim}
+\usepackage[euc]{kotex}
+\end{verbatim}
+\texttt{kotex.sty}를 \texttt{euc}이외의 추가선택 없이 쓰면 (종래 \texttt{hfont.sty}를
+쓴 것과 같이) 문서 틀잡기가
+우리말에 어울리는 한글화를 전혀 반영하지 않고 단순히 한글 및 한자, 상징
+기호를 포함한 문서에서 우리말 처리가 제대로 될 수 있게만
+한다. 자동조사는 동작하지만, 자동조사의 동작을 위해서는 \pkg{hyperref}\를
+필요로 한다. 만약 순수하게 한글을 식자할 의도로 자동조사를 필요로
+하지 않는다면 \texttt{nojosa} 옵션을 주면 된다.\footnote{%
+  그러므로 엄밀히 말하면 예전의 \texttt{hfont}와 동일한
+  것은 \texttt{[nojosa]\{kotex\}}이다.} 
+
+영문 문서와 달리 우리말 문서에서는 줄간격을 특별히 취급해야 한다.
+이는 우리말 글자들이 영문자와 비교해서 모양이 복잡함으로 인해 발생하는
+문제로서, 라텍의 애초값으로 우리말 문서를 만들 경우 각각의
+\pagename\이 글자로 밀집된 인상을 받는다.  이는 글을 읽는 독자의
+시각을 분산시키는 악영향을 미치므로 다음과 같은 명령으로 줄간격을
+조절하는 것이 좋다.\index{줄간격}
+\begin{verbatim}
+\renewcommand{\baselinestretch}{1.3}
+\normalsize
+\end{verbatim}
+또는
+\begin{verbatim}
+\linespread{1.3}
+\end{verbatim}
+이 명령은 줄간격을 지정하는 레지스터인 \verb|\baselineskip|을 1.3배로
+증가시키는 작용을 하며 \verb|\normalsize|와 같이 글자체의 크기 바꿈
+명령이 나타날 때 이러한 변경이 효력을 발휘한다.  \kotex/euc에
+\texttt{[hangul]} 추가선택을 더하여 한글 문서 틀잡기를 활성화하면
+\verb|\baselinestretch|의 기본값이 1.333으로 자동 설정된다.  이
+설정은 문서의 어느 곳에서든지 사용자의 취향에 따라 변경될 수 있다.
+줄간격을 좀더 쉽게 제어할 수 있도록 하는 \pkg{hsetspace}\가
+제공된다. 이것은 \pkg{setspace}\를 불러들여서 문서 내의 각주나
+떠다니는 개체 내의 줄간격을 재설정하는 등 몇 가지 추가적인 기능을
+제공한다. \pageref{sec:setspace} 페이지 \ref{sec:setspace}절을
+참고하라.
+
+
+\subsection{글자체 선택}
+\label{sec:selectfont}\index{한글 라텍!글자체 선택}
+
+문서를 작성할 때, 어떤 특정한 부분의 글자체를 현재 쓰고 있는 글자체와
+달리 하고 싶을 때가 있다.  글자의 두께를 진하게 한다든지, 크기를
+크게 한다든지, 다른 모양을 쓴다든지, 또는 설계(design)가 전혀 다른
+글자체를 쓴다든지 등등.
+
+이러한 글자체 바꿈을 위해 라텍은 여러가지 글자체 바꿈 명령을
+제공한다.  라텍 209에서 제공됐던 \verb|\rm|, \verb|\sf|, \verb|\sl|,
+\verb|\it| 등등의 글자체 바꿈 명령들은 모두가 같은 차원에서 글자체를
+바꾸기 때문에 여러가지 단점을 가지고 있었다. 즉, 글자체의 설계가
+\verb|\rm|이 아닌 \verb|\sf|를 계속 써 오다가 그 글자체의 기울인 모양인
+\verb|\sl|로 글자체를 바꾸면 바뀐 글자체가 \verb|\sf|의 \verb|\sl|이
+아니라 \verb|\rm|의 \verb|\sl|이 된다.  이는 이런 글자체 바꿈 명령이
+일단 글자체를 애초값으로 복귀시킨 후 글자체를 바꾸기 때문이다.
+이러한 단점을 보완하기 위해 1989년부터 Frank Mittelbach와 Rainer
+Sch\"opf는 ``새로운 글자체 선택 방식''\textsf{(NFSS: New Font
+  Selection Scheme)}을 고안하기 시작하여 현재 라텍 버전 2$\epsilon$에
+채택되어 있는 \NFSS{}를 만들었다.
+
+
+\subsubsection{영문 글자체 선택 방법}
+\index{라텍!글자체 선택}
+
+\NFSS{}는 글자체를 다섯가지 요소로 구분하여 이 요소들을 각각
+독립적으로 선택할 수 있게 한다.\index{NFSS2} 그 다섯가지 요소는
+다음과 같다.\index{글자체!구성 요소}
+
+\begin{description}
+\item[글자체 부호화(encoding)] 다른 알파벳을 쓸 때 각 나라별로
+  \texttt{codepage}가 정해져 있다. 라텍에서는 다른 프로그램와
+  마찬가지로 각 글자와 0--255 사이의 글자체 위치를 연관시킴으로써 이를
+  해결한다.  라텍에서는 이를 ``부호화 방법''이라 한다.
+\item[글자체 가족(family)] 글자체 가족은 같은 설계 원칙을 갖는다.
+  가족 내에서는 크기(size)와 무게(weight), 폭(width), 모양(shape)으로
+  구성원이 구별된다.
+\item[글자체 모양(shape)] \ifEUCmode\else\ungremph\fi 
+  글자체 가족의 구성원을 구별하는 중요한
+  속성이다. ``\textup{곧은(upright) 모양}''과 ``\textit{굽은(italic)
+    모양}'' ``\textsl{기운(slanted) 모양}'' 혹은 대문자의 크기를
+  70\%정도로 축소하여 소문자 대신 쓰는 ``\textsc{작은키(Small Caps)
+    모양}''등으로 구별된다. 글자체 모양에 있어서 그 중요도는
+  떨어지지만 ``외곽형({\fontshape{ol}\selectfont outlined}) 모양''과
+  ``그림자(shaded) 모양'' 및 ``곧은 이탤릭({\fontshape{ui}\selectfont
+    upright italic}) 모양'' 등도 글자체 모양에 속한다.
+    \ifEUCmode\else\regremph\fi
+\item[글자체 무게(weight) 및 폭(width)] 무게와 폭은 서로의 조합으로
+  하나의 글자체 속성을 형성한다. 무게는 글자의 두께로서 결정되며
+  ``보통 두께(medium)'', ``가벼운 두께(light)'', ``무거운 두께(bold)''
+  $\ldots$ 등으로 나뉜다. ``가벼운 두께''에도 ``아주 가벼운
+  두께(extra light)'', ``매우 가벼운 두께(ultra light)'', ``보통
+  가벼운 두께(light)'', ``약간 가벼운 두께(semi light)'' 등등으로
+  분리되며 ``두꺼운 두께''도 이런 식으로 세분된다. 폭은 ``보통의
+  폭(medium width)'', ``확장된 폭(extended width)'' 등이 있다.
+\item[글자체 크기(size)] 글자체 크기는 인쇄기의 점을 단위로
+  표현된다. 인쇄기의 점을 텍에서는 \texttt{pt}라는 단위로 나타내며
+  1인치는 72.27\texttt{pt}이다.  라텍에서는 글자체 크기가 1.2의
+  승으로 구별된다. 이렇게 정한 배경에는 후에 축소 복사를 할 때의
+  편이함이 있다. 즉 A5 크기의 책자를 만들 경우, A4 종이에
+  $1.44=\sqrt2$의 글자체 크기를 선택하여 인쇄한 후 A5 크기로
+  축소한다.
+\end{description}
+
+글자체 선택에는 명령형과 선언형이 사용될 수
+있다.\index{명령형}\index{선언형} 명령형은 \verb|\textbf{...}|와
+같이 한가지 변수를 요구하며, 선언형은 \verb|\bfseries|와 같이 변수를
+요구하지 않는다. 선언형은 다음과 같이 환경 형태로도 쓰일 수
+있다.\index{환경형}
+
+\begin{center}
+\begin{tabular}{|m{55mm}cm{5cm}|}\hline
+  \begin{verbatim}몇몇 단어들은 \begin{bfseries}
+두껍게 \end{bfseries}
+인쇄된다.\end{verbatim}
+  & $\Rightarrow$ &
+  몇몇 단어들은 \begin{bfseries} 두껍게 \end{bfseries}
+  인쇄된다. \\\hline
+\end{tabular}
+\end{center}
+
+문서의 애초 글자체는 명령형 \verb|\textnormal|이나 선언형
+\verb|\normalfont|로 선택되며, 이 명령/선언은 문서의 글자체를
+초기화시킴으로써 항상 같은 모양을 선택할 수 있게 한다.
+
+문서의 글자체 가족에는 로만(roman)체, 산세리프(\textsf{sans serif})체,
+타자(\texttt{type\-writer})체가 있다.  이들은 각각 다음의 명령형과
+\begin{verbatim}
+\textrm \textsf \texttt
+\end{verbatim}
+선언형으로
+\begin{verbatim}
+\rmfamily \sffamily \ttfamily
+\end{verbatim}
+선택된다.  로만 글자체는 일반적으로 문서의 기본 글자체로 선언되어
+있다.
+
+문서의 글자체 시리즈(series)는 폭과 두께의 두 요소로 구성되며, 다음과
+같은 명령 및 선언형으로 선택된다.
+\begin{verbatim}
+\textmd   \mdseries
+\textbf   \bfseries
+\end{verbatim}
+애초값은 \verb|\textbf|가 확장된 두꺼운 두께(bold extended)이고
+\verb|\textmd|는 보통의 폭과 보통의 두께이다.
+
+글자체 모양은 애초값인 곧은 모양을 비롯하여 굽은 모양, 작은키 모양,
+기울인 모양이 있는데 이들은 각각 다음의 명령/선언형으로 선택된다.
+\begin{verbatim}
+\textup   \upshape
+\textit   \itshape
+\textsc   \scshape
+\textsl   \slshape
+\end{verbatim}
+이 중에 굽은 모양과 곧은 모양 사이의 전환은 \verb|\emph| 명령 및
+\verb|\em| 선언으로 이루어진다.
+
+
+글자체 크기 선택을 위해서는 10가지의 선언형이 사용된다. (명령형은
+없다.)
+
+\noindent
+\begin{tabular}{ll}
+\verb|\tiny|         & \tiny 미소한 크기       \\
+\verb|\scriptsize|   & \scriptsize 각본철 크기 \\
+\verb|\footnotesize| & \footnotesize 주석 크기 \\
+\verb|\small|        & \small 작은 크기        \\
+\verb|\normalsize|   & \normalsize 보통 크기   \\
+\verb|\large|        & \large 큰 크기          \\
+\verb|\Large|        & \Large 좀더 큰 크기     \\
+\verb|\LARGE|        & \LARGE 아주 큰 크기     \\
+\verb|\huge|         & \huge 거대한 크기       \\
+\verb|\Huge|         & \Huge 아주 거대한 크기  \\
+\end{tabular}
+
+\bigskip
+
+위와 같은 외형 글자체 바꿈 명령들의 행동 방식은 내형 글자체 바꿈
+명령에 의해 달라진다.\index{외형 글자체 바꿈 명령}%
+\index{내형 글자체 바꿈 명령} 예를들어
+\begin{verbatim}
+\renewcommand{\familydefault}{cmss}
+\end{verbatim}
+와 같은 내형 글자체 바꿈 명령을 쓰면 글자체 가족의 애초값이
+\texttt{cmss}(Computer Modern Sans Serif)로 바뀜으로써 주석 및 머릿말
+등, 외형 글자체 바꿈 명령만으로는 바뀌지 않는 부분까지의 글자체 가족이
+영향을 받는다.
+
+라텍에서 애초값은 표~\ref{tab:defaultfont}\와 같이 설정되어 있다.
+
+\begin{table}
+\centering
+\caption{라텍에서 글자체 애초값}\label{tab:defaultfont}
+\begin{tabular}{>{\ttfamily}l@{\quad}>{\ttfamily}l}\hline
+\textmj{내형 글자체} & \textmj{애초값} \\\hline
+\verb|\encodingdefault| & OT1 \\[3pt]
+\verb|\familydefault| & \verb|\rmdefault| \\
+\verb|\seriesdefault| & m \\
+\verb|\shapedefault| & n \\[3pt]
+\verb|\rmdefault| & cmr \\
+\verb|\sfdefault| & cmss \\
+\verb|\ttdefault| & cmtt \\[3pt]
+\verb|\bfdefault| & bx \\
+\verb|\mddefault| & m \\[3pt]
+\verb|\itdefault| & it \\
+\verb|\sldefault| & sl \\
+\verb|\scdefault| & sc \\
+\verb|\updefault| & n \\\hline
+\end{tabular}
+\end{table}
+
+
+\subsubsection{우리말 글자체 선택 방법의 개요}
+
+\medskip \HFSS{}\footnote{Hangul Font Selection Scheme}%
+는 \NFSS{}를 바탕으로 두고 있다. 우리말 부호화의 특성에
+따라 한국어 부호화(encoding) 방식을 지정하는 \verb|\hfontencoding|과 한국어
+글자체 가족(font family)을 지정하는 \verb|\hfontfamily|가 추가 되었으며 글자체 선택
+방식도 우리말 글자체에 맞도록 변경되었다.\index{HFSS}
+\begin{description}
+\item[글자체 부호화] 우리말의 부호화는 \texttt{H}로 설정되어 있고
+  \NFSS{}에서 사용되는 글자체 부호화 설정 모듬 명령
+  \verb|\fontencoding|을 우리말화한 \verb|\hfontencoding|을 쓴다.
+  우리말 글자체의 부호화는 사용자의 입장에서 볼 때 달리 설정할 이유가
+  없고, 영어 부호화 방식과의 구별에 그 주 목적이 있으며 \HFSS{}의
+  작동시 우리말 글자체의 선택을 우리말에 맞게 하도록 하는 기능을
+  한다.
+\item[글자체 가족] \NFSS{}에서와 같이 우리말의 글자체 가족은 글자체의
+  설계 원칙에 따라 구분이 되고, 우리말의 특성에 의해 두 요소로
+  표현된다.
+
+  첫번째 요소는, \verb|\kscfamily|로서 우리말의 상징 문자와 한글 및
+  한자를 구별한다. 이 모듬 명령도 사용자의 입장에서는 쓸 일이 거의
+  없고, 주로 한글 라텍의 내부 처리 과정에서 사용된다.
+
+  두번째 요소는 우리말의 글자체 가족을 나타내는
+  \verb|\hfontfamily|로서 우리말의 글자체 가족을 바꿀 때 사용자가
+  직면하게 되는, 실질상 우리말의 글자체 가족을 대표하는 요소이다.
+\item[글자체 무게 및 폭] 작동 방식과 내용이 \NFSS{}와 동일하다.
+  추가된 사항은 글자체 시리즈의 접두사 \texttt{S}로서 이는 우리말의
+  \verb|\bfseries|가 \texttt{softbold}로 처리되도록 한다.
+\item[글자체 모양] \NFSS{}와 같다.
+\item[글자체 크기] \NFSS{}와 같다.
+\end{description}
+
+
+\subsubsection{우리말 글자체의 가족 선택}
+
+\medskip KS X 1001의 부호 체계에 의한 상징 문자/한글/한자의 가족
+구분은 글자의 부호값으로 정해지므로 특별한 명령/선언 모듬 명령을
+필요로 하지 않는다.  단지 미래에 추가될 수도 있는 가능성을 위해 혹은
+운영 체계 관리자를 위해, 설치된 한글 라텍의 특성에 따라 다음의 모듬
+명령으로 상징 문자/한글/한자를 구분 설정할 수 있도록 하였다.
+\begin{verbatim}
+  \kscfamily{상징문자}{한글}{한자}
+\end{verbatim}
+이는 각각
+\begin{verbatim}
+\symboldefault
+\hanguldefault
+\hanjadefault
+\end{verbatim}
+로 설정되어 있으며 그 값은 각각 \texttt{s}, \texttt{w}, \texttt{h}이다.
+
+우리말 문서에서의 실질적인 『우리말 글자체 가족』은%
+\index{우리말 글자체 가족}
+\begin{verbatim}
+  \textmj  \mjfamily
+  \textgt  \gtfamily
+  \texttz  \tzfamily
+\end{verbatim}
+로 선택되며 이들은 각각
+\begin{verbatim}
+  \textrm  \rmfamily
+  \textsf  \sffamily
+  \texttt  \ttfamily
+\end{verbatim}
+와 같은 작용을 한다. (왼쪽은 명령형, 오른쪽은 선언형)
+
+위와 같은 모듬 명령들은 우리말 가족을 바꾸어 주는 모듬 명령
+\verb|\hfontfamily|를 사용한다.
+\begin{verbatim}
+  \hfontfamily{우리말가족}
+\end{verbatim}
+\texttt{우리말가족}에는 다음과 같은 글자체가 있다.
+\index{한글 라텍!글자체 종류}
+
+\begin{center}
+\begin{tabular}{|>{\ttfamily}ll>{\ttfamily}ll>{\ttfamily}ll|}\hline
+  \multicolumn{6}{|l|}{기본가족:}\\
+  mj  & (명조)     & gt  & (고딕)    & tz  & (타자)      \\\hline
+  \multicolumn{6}{|l|}{추가가족:}\\
+  gr  & (그래픽)   & gs  & (궁서)     & pg  & (필기)     \\
+  yt  & (옛글)     & bm  & (봄글씨)   & pn  & (펜글씨)   \\
+  ph  & (펜흘림)   & sh  & (신문)     & vd  & (바다)     \\
+  jmj & (자모명조) & jgt & (자모고딕) & jnv & (자모노벨) \\
+  jsr & (자모소라) &     &            &     &            \\ \hline
+%  dn  & (디나루)   & pga & (필기a)    &     &            \\\hline
+\end{tabular}
+\end{center}
+
+위와 같은 우리말 가족들은 상징 문자/한글/한자의 세 가족을 대표하는
+외형 가족으로서, 문서에서 \texttt{우리말가족}을 \texttt{tz}으로
+지정하였을 경우 한글 라텍은 한글/상징 문자/한자의 순으로 각각
+\begin{verbatim}
+ wtt, wtt, wtt
+\end{verbatim}
+의 내형 가족을 쓰도록 되어 있다.  외형 가족과 내형 가족의 연관은
+사용자가 다음의 명령으로 문서의 어디에서든지 변경할 수
+있다.\index{MapHangulFamily@\verb/\MapHangulFamily/}%
+\index{외형 가족}
+\begin{verbatim}
+ \MapHangulFamily{외형가족}{한글가족,상징문자가족,한자가족}
+\end{verbatim}
+\texttt{tz}의 경우 \texttt{내형가족}과의 연관은 다음과 같은 명령으로
+이루어진다.
+\begin{verbatim}
+ \MapHangulFamily{tz}{wtt,wtt,wtt}
+\end{verbatim}
+
+\subsubsection{우리말 글자체 시리즈}
+
+문서의 글자체 시리즈의 선택에는 \NFSS{}가 그대로 적용되며 라텍을 쓸
+때는 한글 라텍 버전 0.96까지 사용되었던 \texttt{softbold}를 위해 글자체
+시리즈의 접두사 \texttt{S}가 추가되어 보통 두께의
+글자체를(\texttt{mdseries}) 세 번 중첩 인쇄하는 기능을
+한다.\index{softbold@\texttt{softbold}} 그러므로 라텍 문서에서 다음의 명령은
+\begin{verbatim}
+  \renewcommand{\bfdefault}{Sbx}
+혹은
+  \fontseries{Sbx}
+\end{verbatim}
+우리말의 글자체 두께를 \texttt{softbold}로 처리하도록 하며 영문
+글자체의 두께는 \texttt{bx}가 되도록 한다. \texttt{kotex.sty}의 추가
+선택 \texttt{softbold}는 위와 같은 기능을 애초값으로 설정한다.
+
+\subsubsection{우리말 글자체의 모양과 크기}
+
+우리말 글자체의 모양/크기는 \NFSS{}와 같다.
+
+\subsubsection{우리말 글자체의 애초값}
+
+문서의 애초 글자체는 \NFSS{}에서와 같이 다음의 명령/선언형으로 선택된다.
+\begin{verbatim}
+ \textnormal   \normalfont
+\end{verbatim}
+한글 라텍에서 애초값은 다음과 같이 설정되어 있다.
+\begin{verbatim}
+                     한글 라텍
+  \hencodingdefault  H
+  \encodingdefault         
+  \symboldefault     s
+  \hanguldefault     w
+  \hanjadefault      h
+  \mjdefault         mj    
+  \gtdefault         gt    
+  \tzdefault         tt    
+  \hfamilydefault    \mjdefault
+\end{verbatim}
+위와 같은 애초값들은 운영 체계 관리자가 \texttt{hfont.cfg}에서
+변경 설정할 수 있고, 사용자도 문서의 서두에서 재정의할 수 있다.
+
+\subsubsection{그외 우리말 글자체의 모듬 명령}
+\label{sec:hangulmacro}
+
+한글 라텍 버전 0.96까지 써 오던 두 글자로 구성되는 글자체 바꿈 명령은
+기본 글자체 이외에는 모두 삭제되었다.  이들은 라텍 버전 209 식의
+글자체 바꿈 명령에 해당하며 사용을 회피하는 것이 좋다.
+\begin{verbatim}
+  \mj
+  \gt
+  \tz
+\end{verbatim}
+
+그 반면에 우리말로 구성되는 글자체 바꿈 명령은 글자체의 가족을
+선택하는 선언형으로서 계속 존재한다.%
+\index{한글 라텍!글자체 바꿈 명령}
+
+\begin{verbatim}
+                    한글 라텍  
+  \명조     \textmj \mjfamily
+  \고딕     \textgt \gtfamily
+  \타자     \texttz \tzfamily
+  \그래픽           \hfontfamily{gr}
+  \궁서             \hfontfamily{gs}
+  \신문             \hfontfamily{sh}
+  \필기             \hfontfamily{pg}
+  \펜글씨           \hfontfamily{pn}
+  \펜흘림           \hfontfamily{ph}
+  \봄글씨           \hfontfamily{bm}
+  \옛글             \hfontfamily{yt}
+  \자모명조         \hfontfamily{jmj}
+  \자모고딕         \hfontfamily{jgt}
+  \자모노벨         \hfontfamily{jnv}
+  \자모소라         \hfontfamily{jsr}
+\end{verbatim}
+\texttt{\textbackslash hfontfamily}나 \texttt{\textbackslash
+  fontfamily}로 글자체를 지정한 후에는 \texttt{\textbackslash
+  selectfont}로 글자체를 선택해야 글자체가 바뀐다.
+
+\medskip
+\verb|\usefont|는 \NFSS{}의 모듬 명령으로서 글자체의 부호화와 가족,
+시리즈 및 모양을 한번에 정할 수 있도록 한다.
+\begin{verbatim}
+  \usefont{부호화}{가족}{시리즈}{모양}
+\end{verbatim}
+이 모듬 명령에서 첫 번째 변수인 글자체 부호화가 \verb|\hfontencoding|과
+같을 경우에는 두 번째 변수를 \verb|\hfontfamily|로 취급한다.
+그러므로 다음의 선언은
+\begin{verbatim}
+  \usefont{H}{gs}{m}{n}
+\end{verbatim}
+우리말 글자체 중 궁서체의 보통 두께, 보통 모양을 쓰도록 한다. 이때
+영문의 경우도 두께와 모양에서 우리말을 따르게 된다.
+
+다음과 같은 명령은 \NFSS{}에 대응하는, 우리말을 위한 선언으로서
+\HFSS{}의 작동에 필수불가결한 모듬 명령이다.  이들은
+\verb|\begin{document}| 전에서만 선언할 수 있는 성질의 것인 만큼,
+  사용자의 입장에서는 보통의 경우 신경쓰지 않아도 된다.
+\begin{verbatim}
+\DeclareErrorHFont{부호화}{가족}{두께}{모양}{크기}
+\DeclareHFontSubstitution{부호화}{가족}{두께}{모양}{크기}
+\end{verbatim}
+
+\subsubsection{\kotex/utf와 \kotex/euc의 글자체 선택 방식}
+
+\kotex/utf는 HFSS를 채택하지 않고 있다. 따라서 \verb|\hfontfamily|나
+\verb|\hfontseries| 등에 상당하는 명령이 없다. 그 대신 한글 폰트의
+글꼴 가족을 지정하되, 다른 폰트 속성 등은 NFSS를 따르도록 하고 있다.
+
+또한 글꼴 가족에 대한 개념도 달라서, euc버전이 한글/심벌/한자를 묶어서
+하나의 가족으로 부르는 반면, utf에서는 한글 글꼴 가족과 한자 및 기타 문자
+글꼴 가족으로 분리시켜 두고 이들을 대응하는 방식을 선택하였다. 
+
+예를 들어, 본문의 rm/sf/tt 글꼴 세트를 바꾸기 위해서 euc 버전에서는
+\begin{verbatim}
+\MapHangulFamily{mj}{XXbt,XXbt,XXbt}
+\MapHangulFamily{gt}{XXgt,XXgt,XXgt}
+\MapHangulFamily{tz}{XXtz,XXtz,XXtz}
+\mjfamily, \gtfamily, \tzfamily
+\end{verbatim}
+와 같이 지정해야 할 것이나, 이것을 utf 버전에서는
+\begin{verbatim}
+\SetHangulFonts{XXbt}{XXgt}{XXtz}
+\SetHanjaFonts{XXbt}{XXgt}{XXtz}
+\end{verbatim}
+과 같이 할당한 다음, \verb|\rmfamily|, \verb|\sffamily|, \verb|\ttfamily|로
+쓰도록 하고 있다. euc 버전과 utf 버전 사이의 호환성에
+가장 큰 걸림돌이 이 폰트 선택 명령이다. 한글 라텍 방식대로 
+한다면 듣도보도못한 \verb|\XXfamily|가 나오지 말라는 법이
+없는데, 이것을 일일이 모두 지원할 수 없는 까닭이다. 
+
+실제로, HFSS로 인하여, \verb|\XXfamily| 명령을 남발하게 되면
+이것은 심각한 호환성의 문제를 불러일으킨다. 다른 곳에서는 컴파일이
+불가능한 상황이 생기는 것이다. 우리는 rm, gt, tz라는
+세 가지 한글 글꼴 패밀리도 너무 많다고 생각한다. 그러므로, 이 세 종류의
+글꼴 가족 이외에는 반드시 \verb|\hfontfamily{XX}\selectfont|를
+일관되게 쓰는 것이 좋으며, 본문 글꼴을 교체하려 할 때는 \verb|\MapHangulFamily|를
+사용하도록 할 것을 권장한다. 또한 \verb|\textmj|와 같은 명령은
+아예 일체 사용하지 않는 것이 좋다고 생각한다. 
+euc 버전에서도 \verb|\rmfamily|, \verb|\sffamily| 등
+NFSS 명령만을 사용해서 문서를 작성하는 것이 좋다. 
+
+\subsection{우리말 숫자 모듬 명령}
+\label{sec:nummacro}\index{한글 라텍!숫자 모듬 명령}
+
+한글 라텍에서는 우리말 숫자를 숫자 환경에서 쓸 수 있도록 우리말 숫자
+모듬 명령을 제공한다. 우리말 숫자 모듬 명령에는 다음과 같은 것들이
+있다.
+
+\begin{verbatim}
+\jaso(ㄱㄴㄷㄹ)  \gana(가나다라)
+\ojaso(㉠㉡㉢㉣) \ogana(㉮㉯㉰㉱)
+\pjaso(㈀㈁㈂㈃) \pgana(㈎㈏㈐㈑)
+\onum(①②③④)  \pnum(⑴⑵⑶⑷)
+\oeng(ⓐⓑⓒⓓ)  \peng(⒜⒝⒞⒟)
+\hnum(하나둘셋)  \Hnum(첫째둘째)
+\end{verbatim}
+
+예를들어, 다음과 같이 정의를 하면
+\begin{verbatim}
+\renewcommand{\labelenumi}{\gana{enumi})}
+\renewcommand{\labelenumii}{\jaso{enumii}.}
+\renewcommand{\labelitemi}{☞}
+\end{verbatim}
+\begin{tabular}[c]{|m{45mm}cm{4cm}|}
+\multicolumn{1}{l}{다음의 원전(text)은} & &
+\multicolumn{1}{l}{이렇게 나타납니다.} \\\hline
+\begin{verbatim}
+\begin{enumerate}
+\item 한글
+  \begin{enumerate}
+  \item 현대어
+  \item 고어
+  \end{enumerate}
+\item 漢字
+  \begin{enumerate}
+  \item 韓國語
+  \item 中國語
+  \item 日本語
+  \end{enumerate}
+\item 상징 기호
+  \begin{itemize}
+  \item ㉿
+  \item ￦
+  \item ㅫ
+  \end{itemize}
+\end{enumerate}
+\end{verbatim}
+& $\Rightarrow$ &
+\renewcommand{\labelenumi}{\gana{enumi})}
+\renewcommand{\labelenumii}{\jaso{enumii}.}
+\renewcommand{\labelitemi}{☞}
+\begin{enumerate}
+\item 한글
+  \begin{enumerate}
+  \item 현대어
+  \item 고어
+  \end{enumerate}
+\item 漢字
+  \begin{enumerate}
+  \item 韓國語
+  \item 中國語
+  \item 日本語
+  \end{enumerate}
+\item 상징 기호
+  \begin{itemize}
+  \item ㉿
+  \item ￦
+  \item ㅫ
+  \end{itemize}
+\end{enumerate} \\\hline
+\end{tabular}
+
+\bigskip
+
+나열환경의 항목 머리에 대하여 \kotex/utf는 좀더 편리한 방식을
+지원한다. 그렇지만 \kotex\-/euc에 대해서 별도의 추가 지원 패키지를 마련하지
+않았다. 즉 \kotex/euc에서는 \pkg{enumerate}의 환경 옵션으로 한글
+항목머리를 지시할 수 없다.\utf\footnote{%
+  \texttt{enumitem} 2.0 이후 버전은 항목 머리 옵션을
+  추가하는 것이 매우 쉬우므로 \kotex/euc에서도 설정해서 쓸 수
+  있을 것으로 생각한다.}
+
+\subsection{우리말 각주 판짜기}
+\label{sec:footnote}
+\index{각주 판짜기}
+
+영문 라텍에서의 기본적인 각주 판짜기 방식을 사용하면 각주 번호가
+표시되는 각주 첫 줄이 들여 쓰여진다.  각주 번호에는 수학식에서 멱수를
+나타내는 윗첨자가 사용되고 각주 번호와 각주문을 구분하는 공간이
+없다.  이와 같은 판짜기 방식 이외에도 출판된 우리말 문서를 보면
+다른 방식의 판짜기를 볼 수 있다.
+
+\cite{LeeJW91}\은 각주면을 본문의 왼쪽에 맞추는 방식과 각주면을
+본문의 안쪽으로 들여 넣는 방식으로 각주면 판짜기를 대분하고 각주문의
+첫줄을 들여쓰기와 내어쓰기에 의해 다시 세분하는 방식으로 각주 판짜기를
+분류한다.
+
+한글 라텍의 각주 판짜기는 영문에서의 방식을 그대로 사용한다.  그러나
+사용자의 선호도에 따른 각주 판짜기 방식을 쉽게 적용할 수 있도록
+\texttt{hangulfn.sty} 패키지를 따로 제공한다. \pageref{sec:fn}페이지를
+보라.
+
+\subsection{조사 이형태, 매개 모음, 지정사 탈락}
+\label{sec:autojosa}
+\index{자동 음운 변화}
+\index{조사 이형태}
+\index{매개 모음}
+\index{지정사 탈락}
+
+\verb|\ref|나 \verb|\pageref| 등의 교차 참조와 \texttt{\textbackslash
+  cite} 등의 문헌 인용을 사용하면 숫자나 이름표가 자동으로 생성된다.
+이 경우 문서를 작성하고 있는 순간에는 이 숫자나 문자가 무엇인 지를 알
+수 없다. 그러므로 그 다음에 오게 되는 주격 조사가 `\texttt{가}'가
+될 지 아니면 `\texttt{이}'가 될 지를 결정할 수 없다.  사용되는
+변이형은 자동으로 생성되는 숫자의 음가나 이름표의 마지막 음절이 무슨
+받침을 갖고 있는가에 따라 다르다.  매개 모음 ``으''의 삽입이나 지정사
+``이''의 탈락도 같은 경우다.  \kotex/euc는 다음과 같은
+음운 이형태를 자동 처리할 수 있도록 했다.\index{자동 음운 변화}
+\begin{verbatim}
+    은/는     이/가    을/를    와/과
+    으로/로    으로서/로서      으로써/로써
+    이라/라
+\end{verbatim}
+이를 처리해 주는 모듬 명령은 각각 다음과 같다.
+\begin{verbatim}
+    \은 \는         \이 \가         \을 \를         \와 \과
+    \으로 \로       \으로서 \로서   \으로써 \로써     \이라 \라
+\end{verbatim}
+이 가운데 `\verb|\라|, \verb|\이라|'는 \kotex/utf와의
+호환을 위하여 마련된 명령이며, 아래 설명하는 지정사 탈락을
+부분적으로 지원하는 것이다.
+
+매개 모음 ``으''의 삽입은 명령 ``\texttt{\{\textbackslash ㅡ\}}''를
+통해 구현다.  명령 이름은 ``으''의 모음 ``ㅡ''이다.  예를 들어
+``\texttt{\textbackslash 로}''의 정의는 ``\texttt{\{\textbackslash
+  ㅡ\}로}''이다.  매개 모음의 삽입은 동사의 굴절에서도 나타나지만
+이를 자동으로 처리해야 할 경우는 없을 것으로 보인다.  그 이유는
+동사가 굴절을 하지만 어간이 없는 동사가 없기 때문에 매개 모음의 앞에는
+정해진 동사 어간이 있기 때문이다.  한글 라텍에서 제공되지 않은 경우의
+매개 모음의 처리는 ``\texttt{\{\textbackslash ㅡ\}}''를 삽입하여 해결할
+수 있다.
+
+지정사 ``이''의 탈락은\footnote{지정사 ``이다''는 학자에 따라 조사로
+  취급하기도 하고 상태 동사의 하나로 분류하기도 한다.  여기서
+  국어학적 측면은 논외로 한다.}  ``교수(이)시니 선생님이시니?''  혹은
+``라텍이냐 워드(이)냐가 관건이다'' 등과 같이 많은 경우가 있다.
+경우의 수가 많은 이유는 지정사가 동사의 한 하위 부류로서 다양한 굴절을
+보이기 때문이다.  따라서 탈락 가능한 지정사에는 다음의 일반적인
+명령을 사용한다.  명령의 이름에 사용된 문자는 ``이''의 모음
+``ㅣ''이다.
+\begin{verbatim}
+    {\ㅣ}
+\end{verbatim}
+
+%예:
+%\begin{tabular}{|l@{$\;\;\;\rightarrow\;\;\;$}l|}\hline
+%  \ttfamily
+%  참고한 문헌은 \textbackslash cite\{Choi99\}\textbackslash ㅣ다. &
+%  참고한 문헌은 \cite{Choi99}\ㅣ다.\\\hline
+%\end{tabular}
+%\medskip
+
+\utf \kotex/utf에서는 `\verb|\ㅣ|'와 `\verb|\ㅡ|'를 채택하지 않고
+있다. 그러므로 호환가능한 문서를 작성할 때 이 부분에 주의를 요한다. 그
+대신 ``지정사 탈락''에 대비하기 위하여 `이라(고/서/\ldots)' 단 한 경우만을
+지원하며, 이것은 `\verb|\라|' `\verb|\이라|'로 구현하고 있다.
+
+\verb|\cite| 명령으로 문헌 인용을 할 때 \texttt{plain.bst} 모양새
+파일을 쓰면 인용의 이름표가 숫자로 표현되고 \texttt{halpha.bst} 모양새
+파일을 쓰면 인용의 이름표가 문자열로
+표현된다.\footnote{\texttt{alpha.bst}를 쓰면 우리말이
+  깨진다.}\index{자동 조사!인용} \index{halpha.bst} 후자의 경우,
+한글 라텍은 음운 변화 처리 기능을 쓰는데 있어서 문자열에 다음과 같은
+제한을 두고 있다.\index{자동 음운 변화 처리}
+\begin{enumerate}
+\item 문자열은 두 바이트 이상이어야 한다.  (\texttt{halpha.bst}를
+  쓰면 문자열은 보통 다섯 글자 이상이 된다. 우리말은 한 글자가 두
+  바이트 혹은 세 바이트로 구성되므로 우리말 한 글자는 문제의 대상에서
+  제외된다.)
+
+  \begin{tabular}[c]{|lcp{5cm}|}\hline
+    옳음: \verb|\bibitem[HKD]{홍길동}...| & & \\
+    틀림: \verb|\bibitem[H]{홍길동}...| & $\leftarrow$ &
+    {이름표 \texttt{H}는 한 바이트이므로 착오를 발생시킨다.}
+    \\\hline
+  \end{tabular}
+
+  본문에서 \verb|\cite{홍길동}\을|이라 하면 ``\xample{[HKD]를}''로
+  찍힌다.
+\item 문자열의 마지막 음절은 한글과 한자, 우리말 자소, 숫자 그리고
+  영문자로 구성된다.  즉, 자소를 제외한 상징 기호는 자동 음운 변화
+  처리에서 고려의 대상이 되지 않는다.\footnote{상징 기호가 인용의
+    이름표로 나올 일이 없을 것으로 생각한다.} 다시 말하자면, 자동
+  음운 변화 처리 기능은 작동하나 그 결과는 문법에 맞지 않을 수
+  있다.  이형태의 결정은 실질 형태소의 마지막 음절이 `ㄹ'이 아닌
+  종성인 경우로 간주된다.
+\item 문자열의 마지막 글자가 영문자일 경우에, 자동 음운 변화 처리
+  기능은 낱말의 음가를 고려하지 않고 마지막 문자의 우리말 음가로
+  이형태를 결정한다.\footnote{모든 영어 낱말의 우리말 음가를 올바로
+    분석하기는 매우 힘들다.}
+\end{enumerate}
+
+\begin{figure}
+\centering
+  \begin{tabular}[c]{|lcp{5.5cm}|}\hline
+    옳음: \verb|\bibitem[set]{홍길동}...| & $\leftarrow$ &
+    {영문자 이름표 \texttt{set}는 마지막 문자 \texttt{t}에 의해
+      이형태를 결정한다. \texttt{t}의 우리말 음가는 중성으로
+      끝나는 음절이다. \texttt{set}의 우리말 음가는 \texttt{세트}로서 역시
+      마지막 음절이 중성으로 끝난다.  문헌 인용의 결과는
+      \texttt{[set]로}이다.} \\
+    틀림: \verb|\bibitem[ping]{홍길동}...| & $\leftarrow$ &
+    {영문자 이름표 \texttt{ping}은 마지막 문자 \texttt{g}가
+      이형태를 결정된다. \texttt{g}의 우리말 음가는 중성으로
+      끝나는 음절이다. 그러나 \texttt{ping}의 우리말 음가는 \texttt{핑}으로서
+      종성으로 끝나는 음절이다.  문헌 인용의 결과는
+      \texttt{[ping]로}이다.} \\\hline
+  \end{tabular}
+\end{figure}
+
+\texttt{halpha.bst}를 사용할 경우에 인용의 부호는 저자의 이름 중 앞 세
+글자와 책이 출판된 연도의 뒷 두 숫자로 구성되거나 (저자가 한 명일 때),
+첫 번째 등장하는, 최대한 세 명의 저자 이름 중 첫 글자와
+\verb+\etalchar+ 그리고 책이 출판된 연도의 뒷 두 숫자로 구성되므로
+(저자가 여러명일 경우) 세 번째의 제한은 무시될 수 있다.  보통의
+경우에도 \verb|\cite|의 이름표(label)는 일련 번호이거나
+(\texttt{plain.bst}) \texttt{저자이름+책출판년도}를 약식으로
+표현한다 (\texttt{halpha.bst}).  그러므로 보통은 발생하기 힘든
+경우에 해당한다.  그러나 참고 문헌 작성 시에는 이런 사실을 알고
+있으므로써, 발생할 가능성이 있는 오류를 사전에 방지하는 것이 좋다.
+
+색인 작성 시에 \texttt{makeidx.sty}을 쓰면 \verb|\see| 명령이
+정의된다.  이 명령을 쓸 때는 \verb|\see|의 변수가 빈 칸을 포함하게
+되면 자동 음운 변화 처리 기능에 의해 오류가 발생한다.  빈칸 대신에
+``\texttt{\textasciitilde}''나
+``\texttt{\textbackslash\textvisiblespace}''를 쓰면 문제가 발생하지
+않는다.\index{자동 음운 변화!색인} 예: 그림~\ref{fig:autojosait}
+
+\begin{figure}
+\centering
+\begin{tabular}[c]{|lp{5.5cm}cp{5cm}|}\hline
+  옳음: & \verb!\index{절|see{첫장~첫절}}!
+  \verb!\index{절|see{첫장\ 첫절}}! &
+  $\leftarrow$ & `\texttt{\textasciitilde}'나
+  `\texttt{\textvisiblespace}'는 모두 빈 칸을
+  의미한다. `\texttt{\textasciitilde}'는 앞뒤의 단어를 같은 줄에
+  출력하도록 하고 `\texttt{\textvisiblespace}'는 다른 기능없이 빈 칸만
+  출력한다. \\
+  틀림: & \verb!\index{절|see{첫장 첫절}}! & & \\\hline
+\end{tabular}
+
+\texttt{출력:} 첫장 첫절\textit{\seename}
+\caption{색인 작성}\label{fig:autojosait}
+\end{figure}
+
+
+\verb|\pagename|, \verb|\chaptername|과 같이 우리말화 한 한글 이름들도
+자동 음운 변화 처리를 할 수 있다.  그러므로
+`\verb|\pagename\가|'라고 쓰면 ``\xample{\pagename\가}''라고
+출력된다.
+
+\subsection{우리말 이름}
+\label{sec:names}\index{우리말 이름}
+
+한글 라텍에서 사용되는 각종 이름들을 일률적으로
+\verb+\ksnamedef+ 모듬 명령에 의해 변경될 수 있도록
+하였다.\index{ksnamedef@\verb+\ksnamedef+} 
+이러한 ``한글 이름''을 사용하려면 \texttt{[hangul]} 옵션을
+지정하여야 한다.
+
+예를 들어, 라텍에서
+사용되는 `\refname{}'의 이름 `Reference'는 \verb+\refname+에 지정되어
+있다.  이를 우리말화 하는 방법은 다음과 같다.
+\begin{verbatim}
+  \ksnamedef{refname}{참고~문헌}
+\end{verbatim}
+
+\utf \kotex/utf 에서도 \texttt{[hangul]} 옵션을 준 경우라면
+이 명령을 사용할 수 있다.
+
+표~\ref{tab:names}에는 한글 라텍에서 한글화한 ``라텍 이름의 한글 및
+한자화''가 나열되어 있다.  이 한글화는
+\texttt{\textbackslash{}begin\{document\}} 앞에서 위에 예를 든 것처럼
+\texttt{\textbackslash{}ksnamedef}로 재정의하면 원하는대로 변경된다.
+
+\begin{table}[htbp]
+  \leavevmode
+  \centering
+  \begin{tabular}{|r|c|c|c|}\hline
+               라텍명령   & 한글 라텍(한글)  & 한글 라텍(漢字)  \\\hline\hline
+           \texttt{today} & 1994년 3월 6일  & 1994年 3月 6日  \\\hline
+        \texttt{enclname} & 동봉물          & 同封物          \\\hline
+          \texttt{ccname} & 사본            & 寫本            \\\hline
+      \texttt{headtoname} & 받는이          & 受信人          \\\hline
+         \texttt{seename} & \verb+\+을 참고 & \verb+\+을 參考 \\\hline
+    \texttt{contentsname} & 차\~{}례        & 目\~{}次        \\\hline
+\texttt{listfigurename} & 그림\~{}차례    & 그림\~{}目次    \\\hline
+ \texttt{listtablename} & 표\~{}차례      & 表\~{}目次      \\\hline
+         \texttt{refname} & 참고\~{}문헌    & 參考\~{}文獻    \\\hline
+       \texttt{indexname} & 찾아보기        & 索\~{}引        \\\hline
+       \texttt{tablename} & 표              & 表              \\\hline
+    \texttt{abstractname} & 요\~{}약        & 要\~{}約        \\\hline
+        \texttt{bibname}  & 참고\~{}문헌    & 參考\~{}文獻    \\\hline
+    \texttt{appendixname} & 부록            & 附錄            \\\hline
+           \texttt{ksTHE} & 제              & 第              \\\hline
+        \texttt{partname} & 편              & 篇              \\\hline
+     \texttt{chaptername} & 장              & 章              \\\hline
+     \texttt{sectionname} & 절              & 節              \\\hline
+      \texttt{colorlayer} & 환등판\~{}색깔  & 幻燈版\~{}色相  \\\hline
+    \texttt{glossaryname} & 용어집         & 語\~{}彙        \\\hline
+        \texttt{pagename} & 페이지          & 쪽              \\\hline
+      \texttt{figurename} & 그림            & 그림            \\\hline
+  \end{tabular}
+  \caption{라텍 이름의 한글 및 한자화}
+  \label{tab:names}
+\end{table}
+
+\texttt{\textbackslash{}ksTHE}는 라텍에 정의되어 있지 않고,
+한글 라텍에서 단원의 숫자 판짜기에 사용되도록 도입된 이름 모듬
+명령이다.  이는 라텍 이름을 한글/한자화 함으로써 발생하는 문제점들을
+해결하기 위해 사용된다.  예를 들어 \texttt{\textbackslash{}part}의
+일련 번호는 단원 숫자의 한글화로 인해 ``편 I''과 같이 나오며
+한글 라텍에서는 \texttt{\textbackslash{}ksTHE}를 도입하여 ``제 I 편''과
+같은 식으로 짜여지도록 하고 있다.
+
+한글 라텍에서는 \texttt{\textbackslash{}part}와
+\texttt{\textbackslash{}chapter}, \texttt{\textbackslash{}appendix},
+\texttt{\textbackslash{}section}까지를 위와 같이 한글화하고 있으며,
+각각 다음과 같이 설정되어 있다.\index{한글 라텍!단원 판짜기}
+
+\medskip
+\begin{tabular}{|r|rcl|}\hline
+         단원 종류 & 숫자 앞 & 숫자 & 숫자 뒤 \\\hline\hline
+      \verb+\part+ & \verb+\ksTHE~+ & \verb+\thepart+    &
+                                                \verb+~\partname+  \\\hline
+   \verb+\chapter+ & \verb+\ksTHE~+ & \verb+\thechapter+ &
+                                             \verb+~\chaptername+  \\\hline
+                   &                & \verb+\thesection+ & article \\
+  \raisebox{1.5ex}[-1.5ex]{\texttt{\textbackslash appendix}} &
+             \raisebox{1.5ex}[-1.5ex]{\texttt{\textbackslash
+                               appendixname\textasciitilde}} &
+                                  \verb+\thechapter+ & book/report \\\hline
+   \verb+\section+ & \verb+\ksTHE~+ & \verb+\thesection+ &
+                                             \verb+~\sectionname+  \\\hline
+\end{tabular}
+\medskip
+
+이를 사용자의 편의에 따라 재설정하기 위해서는 다음의 모듬 명령을
+사용한다.
+\begin{verbatim}
+  \kscntformat{단원이름}{앞}{뒤}
+\end{verbatim}
+예를 들어 \texttt{\textbackslash chapter}를 ``첫째 마당''과 같은 식으로
+짜기 위해서는 전문(preamble)---\texttt{\textbackslash begin\{document\}} 앞---에서 다음과
+같이 지정한다.
+\begin{verbatim}
+  \renewcommand{\thechapter}{\Hnum{chapter}}
+  \ksnamedef{chaptername}{마당}
+  \kscntformat{chapter}{}{~\chaptername}
+\end{verbatim}
+
+
+\subsection{그외의 우리말화}
+\label{sec:hangulization}
+
+우리말의 분철은\index{한글 라텍!분철} 붙임표가 사용되지 않으므로 영어권
+언어와는 다른 특별한 처리 방법이 요구된다.
+\def\hidewidth{\clearocplists\hskip\hideskip}
+
+영어 문서에서 단원 제목에 이은 첫 문단에서는 들여쓰기를 하지 않는다.
+그러나 한글 문서에서는 모든 문단에 들여쓰기가 적용되는 것으로
+보인다.  (이는 한글 문서 작성의 표준이 규정된 것으로 보이지 않으나
+한국의 출판 서적을 볼 때 그렇게 판단된다.)  첫 문단 들여쓰기를 하는
+국가는 한국 뿐만은 아닌 것으로 보이며, 텍 운영 체계에서
+\texttt{indentfirst} 꾸러미를 사용하여 이를 해결하도록 되어 있다.
+즉, 문서의 전문 영역에서
+\begin{verbatim}
+    \usepackage{indentfirst}
+\end{verbatim}
+를 지정하면 첫 문단 들여쓰기가 쉽게 이루어진다.
+
+또한 들여쓰기의 정도에 있어서도 영어 문서와 우리말 문서는 차이가 있는
+것으로 보인다.  (역시 정해진 표준이 있는 것으로 보이지 않고
+출판사에서 관습적으로 들여쓰기의 양을 정해 쓰는 것으로 보인다.)
+들여쓰기의 양은 한글 글자 두개의 넓이 즉 전각 2배각을
+쓰는 것이 적당해 보인다. 이는 많은 한국어 서적에서 보이는 전각 들여쓰기보다
+큰 값이지만 \cite{LeeJW91}\과 KS A 0104에서 채택되고 있는 값이고
+우리말 문서에 적당하게 보인다.  이 들여쓰기의 양은 다음과 같이
+설정할 수 있다.
+\begin{verbatim}
+    \parindent=2em
+\end{verbatim}
+
+\section{한글화}
+\label{sec:hangul}
+
+EUC-KR 부호화 문자를 처리하는 한글 라텍에서 발생하는 문제점들은 대부분이
+문자의 범주에 기인한다.  텍의 명령은 더 이상 \texttt{expand} 될 수
+없을 때까지 \texttt{expand} 되는 반면에 문자는 더 이상 \texttt{expand}
+되지 않는 범주에 속한다.  영어 알파벳 문자는 모두 문자 범주에
+속하므로 예를 들어 ``word''를 구성하는 네 개의 문자는 \texttt{expand}
+후에도 그대로 남는다.  반면에 EUC-KR로 부호화된 ``낱말''은 네 개의
+부호가 두 개씩 쌍을 이루고 있으며 각 쌍이 두 개의 한글 음절 ``낱''과
+``말''을 형성한다.  EUC-KR 부호화 방식은 한 음절을 구성하는 두 개의
+바이트 값에 의해 한국어 음절 값이 정해지므로 한글 라텍에서는 첫 번째
+바이트를 두 번째 바이트를 인수로 취하는 명령으로 인식하도록 하고
+있다.  그 결과 한글 음절은 \texttt{expand} 된 후에 소위 말하는 원시
+명령으로 구성되는 일련의 명령 집합체로 변한다.
+
+문자 범주를 기대하는 명령의 변수가 한글일 때 라텍은 오류를
+유발한다.  특히 \texttt{\textbackslash label}이나 \texttt{\textbackslash
+  cite} 명령 등의 변수가 한글일 때가 그러하다.  한글 라텍에서는 표준
+문서 양식에서 사용되는 이와 같은 명령들을 수정하여서 한글 라벨을 사용할
+수 있도록 했다.  그러나 다른 패키지에서 이런 명령들을 재정의하면
+또다시 문제가 발생할 수 있다.
+
+문제가 되는 것 중에 \pkg{hyperref}\가 있다. pdf 제작에 있어서는
+거의 필수적인 이 패키지가 한글 라벨 이름을 받아들이지 않는다.
+pdf를 제작하거나 \kotex/utf와의 호환을 고려한다면 되도록 한글
+라벨 이름을 쓰지 않는 것이 좋다. \utf
+
+\pkg{showkeys}\는 \texttt{\textbackslash label},
+\texttt{\textbackslash ref}, \texttt{\textbackslash pageref},
+\texttt{\textbackslash cite}, \texttt{\textbackslash bibitem} 명령을
+수정하여 내부적으로 사용되는 표지를 출력하는 기능을 수행한다.
+한글 라텍에서는 이 패키지를 한글화하여 \texttt{showhkeys.sty}의
+이름으로 제공한다.
+
+참고 문헌의 인용에 사용되는 표지를
+\texttt{showkeys} 패키지와는 다른 방식으로 출력하는
+\texttt{showtags} 패키지를 한글화한 파일은 \texttt{showhtags.sty}이다.
+
+%\texttt{hyperref} 패키지는 주로 \texttt{pdflatex}과 함께 쓰여 PDF 문서
+%내에서의 교차 참조 사이를 항해할 수 있는 기능을 제공합니다.
+%한글 라텍에서는 이 패키지도 한글화 하여 \texttt{khyper.sty}로
+%제공합니다.  다만 bookmarks 기능은 제대로 구현하지 못했습니다.  그
+%이유는 한글 문자의 부호화가 EUC-KR이기 때문이며 PDF에서는 유니코드를
+%요구합니다.  bookmarks의 한글화는 EUC-KR 부호화 문자를 출력하는
+%수준에서 그쳤습니다.  따라서 \texttt{pdflatex}의 bookmarks 기능은
+%사용하지 않는 편이 좋습니다.
+
+%한글Λ에서는 UTF-8로 부호화된 한글이 16비트의 문자 범주로 처리됩니다.
+%따라서 한글 라텍의 경우와는 달리 \texttt{expand}에 의한 오류가 발생하지
+%않습니다.  그러므로 \texttt{showkeys}, \texttt{showtags},
+%\texttt{hyperref}에서 요구하는 한글화 작업이 필요하지 않습니다.  만일
+%한글Λ에서 위의 한글화된 패키지를 사용했을 때는 한글화 되지 않은 기존
+%패키지만 사용되고 한글화 부분은 적용되지 않습니다.
+

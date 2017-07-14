@@ -1,0 +1,340 @@
+%% part of kotexguide. appendices.
+\phantomsection
+\section*{[부록] 완성형 한글 문자 예시}\index{한글!완성형}\label{kshan}
+\addtocontents{toc}{\protect\vspace{10pt}}
+\addcontentsline{toc}{chapter}{부록}
+\addcontentsline{toc}{section}{부록 A 완성형 한글 문자}
+
+\begingroup
+\parindent=0pt
+\sffamily
+
+\ifEUCmode
+ \input KS.HAN.tex
+\else
+ \interhchar{1pt}
+ \input KS.HAN.u.tex
+\fi
+\endgroup
+
+\clearpage\phantomsection
+\section*{[부록] Windows 유니코드 편집기}
+\addcontentsline{toc}{section}{부록 B 윈도우즈 유니코드 편집기}
+
+\LaTeX 작업을 가장 편리하게 할 수 있는 편집기 중의 하나로 단연
+UN*X 세계에서는 Emacs와 AUCTeX을 들 것이다. 그러나 윈도우즈 운영체제에서도
+Emacs를 사용할 수는 있지만 지배적 위치를 점하고 있지는 못하다.\footnote{%
+  그럼에도 불구하고, Windows에서도 Emacs는 여전히 가장 편리한
+  \LaTeX{} 작업 환경을 제공해준다. 유니코드의 입출력에도 큰 문제는
+  없다. 다만, 완성형 문자 범위를 넘는 한글을 입력하는 것이 어렵다는
+  점만 제외한다면.}
+
+\kotex~사용에 있어서 편집기는 반드시 유니코드/UTF-8 인코딩으로
+파일을 저장하고 불러오고 편집할 수 있어야 한다. \LaTeX{} 편집을
+위한 기본 기능이 지원되어야 좋을 것은 말할 나위도 없을 것이다.
+
+가장 많은 사용자를 가지고 있는 윈도우즈 라텍 편집기는 WinEdt\footnote{%
+  \url{http://www.winedt.com}}%
+이다. 비록 자유 소프트웨어는 아니지만 저렴한 가격에 비하여 성능이
+상당히 우수하고 정말 편리한 라텍 작업 환경을 제공하는
+라텍에 특화된 일종의 통합 개발 환경이다. 
+오래도록 이 편집기가 유니코드 입출력이 어려워서 상당히 곤란을 겪었으나
+최근 버전은 (제한적이기는 하나) 유니코드/UTF-8 파일을 저장하고
+편집할 수 있다. 제한적이라 한 것은, 윈도우즈에서 현재 활성화되어 있는
+코드 페이지(한글 윈도우즈의 경우 CP949)에 해당하는 범위의 문자만을
+유니코드/UTF-8로 저장할 수 있다는 점인데, 이 때문에 일본식 한자
+등이 섞여 있는 문서는 문제가 생길 수 있다. 
+그렇지만 일반적인 한글 문서는 잘 처리한다. 
+문서 시작 부분에서
+\begin{verbatim}
+% -*- TeX:UTF-8 -*-
+\end{verbatim}
+이라는 문서 포맷 표지를 붙이고, 저장할 때 UTF-8 인코딩을 잘 선택하면
+큰 무리없이 사용할 수 있다.
+
+KC2006에서 기본 편집기로 상정하고 있는 EmEditor\footnote{%
+  \url{http://www.emeditor.com}}%
+도 가격 대 성능비가 대단히 훌륭하다.\footnote{%
+  무료로 사용할 수 있는 버전도 있으나 빠진 기능이 많다.}
+이 편집기는 \LaTeX{} 관련 기능을 plug-in으로 제공하고 있으며,
+\LaTeX{} 전용 편집기는 아니지만, MTeXHelper2라는 plug-in을
+조금만 손보면 아주 잘 사용할 수 있다. EmEditor는 처음부터 유니코드
+편집기를 표방하고 있으므로 WinEdt과 같은 제한이 없이 유니코드 문서를
+잘 작성하고 처리할 수 있다. 
+
+최근 주목받고 있는 LyX\footnote{%
+  \url{http://www.lyx.org}}%
+이라는 프로그램도 일별할 가치가 있다.
+이 프로그램은 원래 Linux 세계에서 \LaTeX{} Front End WYSIWYG\footnote{%
+   LyX의 용어로는 WYSIWYG이 아니라 WYSIWYM (What You See Is What You \emph{Mean})이라 한다.}
+에디터로 유명했던 것인데, 버전 1.5.0부터 유니코드를 지원함으로써
+\kotex 을 위한 에디터로 손색없이 쓸 수 있다. 특히 이 프로그램의
+장점은 라텍 명령과 텍스트를 함께 써넣는 문서 작성과는 조금 다르게
+메뉴와 버튼을 이용해서 대부분의 라텍 관련 콘트롤 시퀀스를 생성해낸다는
+점이다. 라텍에 익숙하지 않은 분도 워드 프로세서처럼 쓸 수 있다.
+특히, LyX은 오픈소스 프로그램이라는 것이다! 이와 유사한 것으로 상업용
+프로그램이고 가격이 비교적 높은 편인 Scientific Word와 같은 것이
+있다. 
+
+이밖에도 좋은 에디터가 많이 있을 것이다. 에디터에 익숙해지는 것은
+\LaTeX 을 잘 사용하기 위한 출발점이다.
+
+\clearpage\phantomsection
+\section*{[부록] 이 문서에 대하여}
+\addcontentsline{toc}{section}{부록 C 이 문서에 대하여}
+
+\kotex{} 사용설명서는 은광희의 ``한글 라텍 길잡이''와 김강수의
+``\LaTeX 에서 한글 유니코드 문서 작성하기''를 합친 것이다.
+전자는 한글 라텍(H\LaTeX)의 사용설명서였고 후자는 Hangul-ucs의
+패키지 문서였다. 두 문서의 장점을 취합하려 노력하였으며, 가능한 한
+원래 텍스트의 모습을 유지하려 하였다. 
+이 문서는 현재 공저자 중 김강수에 의해 관리되고 있다.
+
+이 문서는 utf 버전과 euc 버전으로 컴파일할 수 있다. 다만, euc 버전으로
+컴파일했을 때는 utf 부분 사용 설명서가 모두 생략된다. euc 버전은
+단지 테스트를 위한 것이므로, 최종본을 얻으려면 utf 버전으로 컴파일하기
+바란다.
+
+euc 버전으로 컴파일하려면 
+현재 작업 디렉터리에 \texttt{definekg.eucmode}라는
+파일을 만들면 된다. 내용은 상관이 없다.\footnote{%
+  배포되는 소스 파일에서 EUC-KR 파일들을
+  생성해내는 \texttt{generateeucfiles.sh}를
+  실행하라.}
+\begin{verbatim}
+$ echo "no contents" > definekg.eucmode
+\end{verbatim}
+이 파일을 삭제하면 utf 모드로 컴파일한다.
+
+pdf 제작은 DVIPDFM$x$ 또는 pdf\LaTeX, 어느 쪽이든 가능하다. 다만
+DVIPDFM$x$를 이용하려 한다면 \texttt{fig/} 디렉터리 안의 그림들에
+대하여 미리 \texttt{.bb} 파일을 만들어두는 절차를 거쳐야 한다. \texttt{ebb},
+\texttt{xbb} 등의 유틸리티를 이용하면 된다. 만약 \texttt{xbb}가
+확장명 \texttt{.xbb}인 파일을 만들어낸다면 \texttt{kotexguidebody-*.tex}의
+제25행부터 정의되어 있는 \verb|\DeclareGraphicsRule| 명령의
+bb파일 확장명을 \texttt{.xbb}로 수정한다. 
+pdf\LaTeX 으로 컴파일한 pdf 문서는 그 크기가 좀 커질 것이다.
+
+이 문서는 \kotex~프로젝트의 일부로서,
+LPPL version 3 또는 그 이후 버전의 라이센스로 배포된다.
+
+이 문서의 내용에 대한 코멘트는 KTUG\footnote{\url{http://www.ktug.or.kr}}
+게시판에 글을 올리거나 저자\footnote{\url{mailto:info@mail.ktug.or.kr}}에게
+메일을 보내주기 바란다.
+
+\ifEUCmode\else
+\clearpage\phantomsection
+\section*{[부록] 글꼴 예문}
+\addcontentsline{toc}{section}{부록 D 글꼴 예문}
+
+\parindent=0pt
+
+\newcommand\teststring{%
+막차는 좀처럼 오지 않았다./
+대합실 밖에는 밤새 송이눈이 쌓이고/
+흰 보라 수수꽃 눈시린 유리창마다/
+톱밥 난로가 지펴지고 있었다./
+그믐처럼 몇은 졸고/
+몇은 감기에 쿨럭이고/
+그리웠던 순간들을 생각하며 나는/
+한 줌의 톱밥을 불빛 속에 던져 주었다.}
+
+\newcommand\testbstring{%
+\par\bfseries 막차는 좀처럼 오지 않았다./
+대합실 밖에는 밤새 송이눈이 쌓이고/
+흰 보라 수수꽃 눈시린 유리창마다/
+톱밥 난로가 지펴지고 있었다./
+그믐처럼 몇은 졸고/
+몇은 감기에 쿨럭이고/
+그리웠던 순간들을 생각하며 나는/
+한 줌의 톱밥을 불빛 속에 던져 주었다.}
+
+\newcommand\testhstring{%
+\par
+學而時習之, 不亦說乎.}
+
+\newcommand\testhbstring{%
+\par
+\bfseries 學而時習之, 不亦說乎.}
+
+\def\fnttest#1{%
+  \begingroup\SetAdhocFonts{ut#1}{utbt}\teststring\endgroup}
+
+\def\fnttstB#1{%
+  \begingroup\SetAdhocFonts{ut#1}{utbt}\testbstring\endgroup}
+\def\fnthjtst#1{%
+  \begingroup\SetAdhocFonts{utbt}{ut#1}\testhstring\endgroup}
+\def\fnthjtstB#1{%
+  \begingroup\SetAdhocFonts{utbt}{ut#1}\testhbstring\endgroup}
+
+\subsection*{기본 글꼴}
+
+\underline{은 바탕}\\
+\fnttest{bt}
+\fnttstB{bt}
+\fnthjtst{bt}
+\fnthjtstB{bt}
+\bigskip
+
+\underline{은 돋움}\\
+\fnttest{gt}
+\fnttstB{gt}
+\fnthjtst{gt}
+\fnthjtstB{gt}
+\bigskip
+
+\underline{은 타자}\\
+\fnttest{tz}
+\bigskip
+
+\underline{은 그래픽}\\
+\fnttest{gr}
+\fnttstB{gr}
+\bigskip
+
+\subsection*{추가 글꼴}
+
+\underline{은 봄}\\
+\fnttest{bm}
+\bigskip
+
+\underline{은 옛글}\\
+{
+ \interhchar{0pt}\fnttest{yt}
+ \fnthjtst{yt}
+}
+\bigskip
+
+\underline{은 궁서}\\
+\fnttest{gs}
+\fnthjtst{gs}
+\bigskip
+
+\underline{은 신문}\\
+\fnttest{sh}
+\fnthjtst{sh}
+\bigskip
+
+\underline{은 자모바탕}\\
+\fnttest{jbt}
+\bigskip
+
+\underline{은 자모돋움}\\
+\fnttest{jgt}
+\bigskip
+
+\underline{은 자모소라}\\
+\fnttest{jsr}
+\bigskip
+
+\underline{은 자모노벨}\\
+\fnttest{jnv}
+\bigskip
+
+\underline{은 필기}\\
+\fnttest{pg}
+\fnttstB{pg}
+\bigskip
+
+\underline{은 펜글씨}\\
+\fnttest{pn}
+\bigskip
+
+\underline{은 펜흘림}\\
+\fnttest{ph}
+\bigskip
+
+\fi
+
+\clearpage\phantomsection
+\section*{[부록] 용어 대조}
+\addcontentsline{toc}{section}{부록 E 용어 대조}
+
+이 글의 배경을 이루는 두 문서는 같은 단어에 대하여 서로 다른
+용어나 역어를 쓴 것이 있다. 원본 문서의 형태를 최대한 유지한다는
+원칙으로 이 문서가 작성된 까닭에 이러한 용어의 불일치를 소거하지
+않고 문서 중 모두 노출되도록 하였다(그 중 일부는 처음 출현할
+때 영어 단어를 병기함으로써 혼란을 줄이도록 하였다). 그러나
+이로부터 야기될 
+독자의 혼선을 피하자는 뜻에서 몇 가지 용어의 대조표를
+제시한다.\footnote{용어 선정에 도움을 준 \wi[인명]{이기황} 박사께 감사한다.}
+문서 A와 문서 B라 함은 반드시 특정 문서를 지칭하는 것은 아니다.
+
+\begin{longtable}{lll}
+\multicolumn{3}{c}{\centering 용어 대조} \\ \hline
+용어 & 문서 A의 용어 & 문서 B의 용어 \\ \hline
+\endfirsthead
+\multicolumn{3}{c}{\centering 용어 대조 (계속)} \\ \hline
+용어 & 문서 A의 용어 & 문서 B의 용어 \\ \hline
+\endhead
+\hline
+\endfoot
+
+bookmark & 북마크, 책갈피 & 책갈피 \\
+
+cite key & 참조자 & 참고 문헌 표지 \\
+code system & 코드 체계 & 부호 체계 \\
+
+default & 디폴트, 기본(값) & 애초(값) \\
+document class & 문서 클래스 & 문서 종류 \\
+driver & 드라이버 & 구동기 \\
+
+embed & 임베드, 내장 & 내장 \\
+encoding & 인코딩 & 부호화 \\
+encoding system & 인코딩 체계 & 부호 체계 \\
+external & --- & 외형 \\
+
+font & 폰트, 글꼴 & 글자체 \\
+font encoding & 폰트 인코딩 & 글자체 부호화 \\
+font family & 글꼴 가족 & 글자체 가족 \\
+font selection scheme & 폰트 선택 스킴 & 글자체 선택 방식 \\
+
+hyphen & 하이픈 & 붙임표 \\
+
+implementation & 구현 & 구현 \\
+inter-character space & 자간 & 자간 \\
+inter-word space & 단어간격, 어간 & 어간 \\
+internal & --- & 내형 \\
+
+label & 레이블 & 이름표 \\
+layout & 레이아웃 & 틀잡기 \\
+lead & 행간 & 줄간격 \\
+line breaking & 행나눔, 행자름, 개행 & --- \\
+macro & 매크로 & 모듬 명령 \\
+micro-typography & 미세 타이포그래피 & --- \\
+
+option & 옵션 & 추가선택 \\
+
+package & 패키지 & 꾸러미 \\
+patch & 패치 & 깁기 \\
+page & 페이지 & 쪽 \\
+preamble & 프리앰블 & 전문 영역 \\
+preprocessor & 전처리기 & 앞처리기 \\
+
+source & 소스, 원본 & 원천 \\
+source code & 소스 코드 & 원천 코드 \\
+style & 스타일, 형식 & 모양새 \\
+symbol (character) & 기호 (문자) & 상징 기호 \\
+system & 시스템, 체계 & 체계 \\
+
+truetype & 트루타입 & --- \\
+typesetting & 조판(식자) & 판짜기 \\
+typesetting system & 조판 시스템 & 식자 체계 \\
+typography & 타이포그래피 & --- \\
+
+\LaTeX & 레이텍 & 라텍 \\
+
+PUA (private use area) & PUA, 사용자 영역 & --- \\
+
+Unicode & 유니코드 & 유니코드 \\
+
+\TeX{} implementation & 텍 배포판 & 텍 구현 \\
+
+--- & 자동 조사 & 자동 음운 변화 처리 \\
+--- & 서술격 조사 어간 & 지정사 \\
+
+\hline
+
+\end{longtable}
+
+\endinput

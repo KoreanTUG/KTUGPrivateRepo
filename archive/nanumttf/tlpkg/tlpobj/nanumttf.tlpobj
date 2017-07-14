@@ -1,0 +1,19 @@
+name nanumttf
+category Package
+revision 200
+shortdesc Nanum Truetype fonts
+relocated 1
+longdesc The Nanum Truetype package contains Nanum Myeongjo, Nanum
+longdesc Gothic, Nanum Barun Gothic, Nanum Myeongjo YetHangul, and Nanum
+longdesc Barun Gothic YetHangul fonts.
+runfiles size=12259
+ RELOC/fonts/truetype/public/nanumttf/NanumBarunGothic-YetHangul.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumBarunGothic.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumBarunGothicBold.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumGothic.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumGothicBold.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumGothicExtraBold.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumMyeongjo-YetHangul.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumMyeongjo.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumMyeongjoBold.ttf
+ RELOC/fonts/truetype/public/nanumttf/NanumMyeongjoExtraBold.ttf

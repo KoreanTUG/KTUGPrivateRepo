@@ -1,0 +1,242 @@
+%%% kstextks.sty
+%%%
+%%% version 0.1.1
+%%% written by nanim
+%%%
+\ProvidesPackage{kstextks}[2015/08/06 v0.1.1 KS X 1001 Special Characters]
+
+\RequirePackage{xparse,expl3,l3keys2e}
+
+\ExplSyntaxOn
+
+\bool_new:N \ks_symfont_bool
+
+\keys_define:nn { kstextks }
+{
+  hcr	.bool_set:N = \ks_hcr_bool,
+  symfont .code:n = { \bool_set_true:N \ks_symfont_bool \tl_set:Nn \ks_sym_font { #1 } },
+  units	.bool_set:N = \ks_units_bool,
+}
+
+\ProcessKeysOptions { kstextks }
+
+\bool_if:NT \ks_hcr_bool
+{
+  \bool_set_true:N \ks_symfont_bool
+  \tl_set:Nn \ks_sym_font { HCR Batang LVT }
+}
+
+\RequirePackage{fontspec}
+\RequirePackage{amsmath}
+
+\clist_new:N \provided_commands_clist
+
+\cs_new:Npn \provide_command_ks_text:nn #1 #2
+{
+  \expandafter \providecommand \cs:w textks #1 \cs_end:
+  {
+    \group_begin:
+    \bool_if:NT \ks_symfont_bool
+    {
+       \exp_args:Nf \fontspec{ \ks_sym_font }
+       \cs_if_exist:NT \hangulfontspec
+       {
+	\exp_args:Nf \adhochanjafont{ \ks_sym_font }
+	\exp_args:Nf \adhochangulfont{ \ks_sym_font }
+       }
+    }
+    #2
+    \group_end:
+  }
+  
+  \clist_put_right:Nn \provided_commands_clist { #1 }
+}
+
+\provide_command_ks_text:nn {sharp} {＃}
+\provide_command_ks_text:nn {amp} {＆}
+\provide_command_ks_text:nn {asterisk} {＊}
+\provide_command_ks_text:nn {at} {＠}
+\provide_command_ks_text:nn {secsign} {§}
+\provide_command_ks_text:nn {referencemark} {※}  %% billiards mark?
+\provide_command_ks_text:nn {starwhite} {☆}
+\provide_command_ks_text:nn {starblack} {★}
+\provide_command_ks_text:nn {circlewhite} {○}
+\provide_command_ks_text:nn {circleblack} {●}
+\provide_command_ks_text:nn {dblcircle} {◎}
+\provide_command_ks_text:nn {diamondwhite} {◇}
+\provide_command_ks_text:nn {diamondblack} {◆}
+\provide_command_ks_text:nn {squarewhite} {□}
+\provide_command_ks_text:nn {squareblack} {■}
+\provide_command_ks_text:nn {trianglewhite} {△}
+\provide_command_ks_text:nn {triangleblack} {▲}
+\provide_command_ks_text:nn {invtrianglewhite} {▽}
+\provide_command_ks_text:nn {invtriangleblack} {▼}
+\provide_command_ks_text:nn {rightarrow} {→}
+\provide_command_ks_text:nn {leftarrow} {←}
+\provide_command_ks_text:nn {uparrow} {↑}
+\provide_command_ks_text:nn {downarrow} {↓}
+\provide_command_ks_text:nn {leftrightarrow} {↔}
+\provide_command_ks_text:nn {equalsign} {〓}
+\provide_command_ks_text:nn {lefttrianglewhite} {◁}
+\provide_command_ks_text:nn {lefttriangleblack} {◀}
+\provide_command_ks_text:nn {righttrianglewhite} {▷}
+\provide_command_ks_text:nn {righttriangleblack} {▶}
+\provide_command_ks_text:nn {spadewhite} {♤}
+\provide_command_ks_text:nn {spadeblack} {♠}
+\provide_command_ks_text:nn {heartwhite} {♡}
+\provide_command_ks_text:nn {heartblack} {♥}
+\provide_command_ks_text:nn {cloverwhite} {♧}
+\provide_command_ks_text:nn {cloverblack} {♣}
+\provide_command_ks_text:nn {framedcircle} {⊙}
+\provide_command_ks_text:nn {frameddiamond} {◈}
+\provide_command_ks_text:nn {framedsquare} {▣}
+\provide_command_ks_text:nn {firstquartermoon} {◐}
+\provide_command_ks_text:nn {lastquartermoon} {◑}
+\provide_command_ks_text:nn {checkedrectangle} {▒}
+\provide_command_ks_text:nn {squarehorstripe} {▤}
+\provide_command_ks_text:nn {squarevertstripe} {▥}
+\provide_command_ks_text:nn {squareslashstripe} {▨}
+\provide_command_ks_text:nn {squarebackslashstripe} {▧}
+\provide_command_ks_text:nn {squarecrossstripe} {▦}
+\provide_command_ks_text:nn {squarediagcrossstripe} {▩}
+\provide_command_ks_text:nn {hotspring} {♨}
+\provide_command_ks_text:nn {telephonewhite} {☏}
+\provide_command_ks_text:nn {telephoneblack} {☎}
+\provide_command_ks_text:nn {fingerarrowleft} {☜}
+\provide_command_ks_text:nn {fingerarrowright} {☞}
+\provide_command_ks_text:nn {pilcrow} {¶}
+\provide_command_ks_text:nn {dagger} {†}
+\provide_command_ks_text:nn {dbldagger} {‡}
+\provide_command_ks_text:nn {updownarrow} {↕}
+\provide_command_ks_text:nn {rightuparrow} {↗}
+\provide_command_ks_text:nn {leftdownarrow} {↙}
+\provide_command_ks_text:nn {leftuparrow} {↖}
+\provide_command_ks_text:nn {rightdownarrow} {↘}
+\provide_command_ks_text:nn {flat} {♭}
+\provide_command_ks_text:nn {quarternote} {♩}
+\provide_command_ks_text:nn {eighthnote} {♪}
+\provide_command_ks_text:nn {sixteenthnote} {♬}
+\provide_command_ks_text:nn {ksmark} {㉿}
+\provide_command_ks_text:nn {corpmark} {㈜}
+\provide_command_ks_text:nn {numbermark} {№}
+\provide_command_ks_text:nn {comark} {㏇}
+\provide_command_ks_text:nn {trademark} {™}
+\provide_command_ks_text:nn {ammark} {㏂}
+\provide_command_ks_text:nn {pmmark} {㏘}
+\provide_command_ks_text:nn {telmark} {℡}
+\provide_command_ks_text:nn {registeredmark} {®}
+\provide_command_ks_text:nn {feminimeordinalindicatormark} {ª}
+\provide_command_ks_text:nn {masculineordinalindicatormark} {º}
+\provide_command_ks_text:nn {postalcodemark} {㉾}
+\provide_command_ks_text:nn {interrobang} {‽}
+\provide_command_ks_text:nn {asterim} {⁂}
+\provide_command_ks_text:nn {copyright} {©}
+\provide_command_ks_text:nn {longvowelmark} {ː}
+\provide_command_ks_text:nn {wavedash} {∼}
+\provide_command_ks_text:nn {vertcomma} {、}
+\provide_command_ks_text:nn {vertfullstop} {。}
+\provide_command_ks_text:nn {cdotsingle} {·}
+\provide_command_ks_text:nn {cdotdouble} {‥}
+\provide_command_ks_text:nn {halfellipsis} {…}
+\provide_command_ks_text:nn {leftparenthesis} {（}
+\provide_command_ks_text:nn {rightparenthesis} {）}
+\provide_command_ks_text:nn {leftbracket} {［}
+\provide_command_ks_text:nn {rightbracket} {］}
+\provide_command_ks_text:nn {leftbrace} {｛}
+\provide_command_ks_text:nn {rightbrace} {｝}
+\provide_command_ks_text:nn {leftsinglequote} {‘}
+\provide_command_ks_text:nn {rightsinglequote} {’}
+\provide_command_ks_text:nn {leftquote} {“}
+\provide_command_ks_text:nn {rightquote} {”}
+\provide_command_ks_text:nn {leftrbracket} {〔}
+\provide_command_ks_text:nn {rightrbracket} {〕}
+\provide_command_ks_text:nn {leftbbracket} {〈}
+\provide_command_ks_text:nn {rightbbracket} {〉}
+\provide_command_ks_text:nn {dblleftbbracket} {《}
+\provide_command_ks_text:nn {dblrightbbracket} {》}
+\provide_command_ks_text:nn {leftcbracket} {「}
+\provide_command_ks_text:nn {rightcbracket} {」}
+\provide_command_ks_text:nn {dblleftcbracket} {『}
+\provide_command_ks_text:nn {dblrightcbracket} {』}
+\provide_command_ks_text:nn {leftBracket} {【}
+\provide_command_ks_text:nn {rightBracket} {】}
+\provide_command_ks_text:nn {degreecelcius} {℃}
+\provide_command_ks_text:nn {degreefahrenheit} {℉}
+\provide_command_ks_text:nn {malesign} {♂}
+\provide_command_ks_text:nn {femalesign} {♀}
+
+\bool_if:NT \ks_units_bool
+{
+  \provide_command_ks_text:nn {degree} {˚}
+  \provide_command_ks_text:nn {minute} {′}
+  \provide_command_ks_text:nn {second} {″}
+  \provide_command_ks_text:nn {microliter} {㎕}
+  \provide_command_ks_text:nn {milliliter} {㎖}
+  \provide_command_ks_text:nn {deciliter} {㎗}
+  \provide_command_ks_text:nn {liter} {ℓ}
+  \provide_command_ks_text:nn {kiloliter} {㎘}
+  \provide_command_ks_text:nn {centicube} {㏄}
+  \provide_command_ks_text:nn {cubicmillimeter}{㎣}
+  \provide_command_ks_text:nn {cubiccentimeter} {㎤}
+  \provide_command_ks_text:nn {cubicmeter}{㎥}
+  \provide_command_ks_text:nn {cubickilometer}{㎦}
+  \provide_command_ks_text:nn {femtometer}{㎙}
+  \provide_command_ks_text:nn {nanometer} {㎚}
+  \provide_command_ks_text:nn {micrometer}{㎛}
+  \provide_command_ks_text:nn {millimeter} {㎜}
+  \provide_command_ks_text:nn {centimeter} {㎝}
+  \provide_command_ks_text:nn {kilometer} {㎞}
+  \provide_command_ks_text:nn {squaremillimeter} {㎟}
+  \provide_command_ks_text:nn {squarecentimeter} {㎠}
+  \provide_command_ks_text:nn {squaremeter} {㎡}
+  \provide_command_ks_text:nn {squarekilometer} {㎢}
+  \provide_command_ks_text:nn {hectare} {㏊}
+  \provide_command_ks_text:nn {microgram} {㎍}
+  \provide_command_ks_text:nn {milligram} {㎎}
+  \provide_command_ks_text:nn {kilogram} {㎏}
+  \provide_command_ks_text:nn {kiloton} {㏏}
+  \provide_command_ks_text:nn {calorie} {㎈}
+  \provide_command_ks_text:nn {kilocalorie} {㎉}
+  \provide_command_ks_text:nn {decibel} {㏈}
+  \provide_command_ks_text:nn {meterpersecond} {㎧}
+  \provide_command_ks_text:nn {meterpersecondsquared} {㎨}
+  \provide_command_ks_text:nn {picosecond} {㎰}
+  \provide_command_ks_text:nn {nanosecond} {㎱}
+  \provide_command_ks_text:nn {microsecond} {㎲}
+  \provide_command_ks_text:nn {millisecond} {㎳}
+  \provide_command_ks_text:nn {hertz} {㎐}
+  \provide_command_ks_text:nn {kilohertz} {㎑}
+  \provide_command_ks_text:nn {megahertz} {㎒}
+  \provide_command_ks_text:nn {gigahertz} {㎓}
+  \provide_command_ks_text:nn {terahertz} {㎔}
+}
+
+
+\cs_new:Npn \kstext_dispcs:n #1
+{
+  \texttt { \textbackslash textks#1 }
+}
+
+\cs_new:Npn \kstext_dispfrm:n #1
+{
+  \fbox { \use:c { textks #1 } }
+}
+
+\NewDocumentCommand \DisplayAllSymbols { }
+{
+   \clist_map_inline:Nn \provided_commands_clist
+   {
+      \makebox [1.8em] [l] { \kstext_dispfrm:n { ##1 } }
+      \space 
+      \kstext_dispcs:n { ##1 } 
+      \par 
+   }
+}
+
+\ExplSyntaxOff 
+
+\providecommand*\kssim{%
+   \ifmmode\;\text{\fontspec{NanumMyeongjo}∽}\;\else{\fontspec{NanumMyeongjo}∽}\fi
+}
+
+\endinput

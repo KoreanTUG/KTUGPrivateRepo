@@ -1,0 +1,197 @@
+%%% file: ifpxltex.sty
+%%% written by Nova De Hi.
+%%% public domain.
+%%%
+%%% Changes:
+%%%   2014-05-25: v0.0012: \pxlRequireTeX introduced.
+%%%   2014-05-24: v0.0010: \IfpxlTeXpxl* defined.
+%%%   2014-05-23: v0.0009: deprecate etextools dependency.
+%%%   2014-05-20: v0.0008: deprecate iftex dependency.
+%%%
+%%% provided commands:
+%%%
+%%% \IfpxlTeX{[p,x,l]}{<true>}{<false>}   %% requires 3 arguments
+%%% 
+%%% \IfpxlTeX* 
+%%%    \IfpxlTeX*{[p,x,l]}{<true>}           %% <false> can be omitted
+%%%    \IfpxlTeX*[T]{[p,x,l]}{<true>}        %% <false> can be omitted
+%%%    \IfpxlTeX*[F]{[p,x,l]}{<false>}       %% <true>  can be omitted
+%%%
+%%% \IfpxlTeXpxl  %% requires 3 arguments
+%%%		{ pdftex stuffs }
+%%%		{ xetex stuffs  }
+%%%		{ luatex stuffs }
+%%%
+%%% \IfpxlTeXpxl*  %% requires 4 arguments
+%%%     { [p,x,l] } { [p,x,l] }
+%%%     { expansion of condition #1 } { expansion of condition #2 }
+%%%
+%%% \pxlThisTeX : current running TeX engine. pdfTeX, XeTeX, LuaTeX.
+%%%	\pxlThisTeX[<enginename>] : \hologo{<enginename>}
+%%% \pxlThisLaTeX : pdfLaTeX, XeLaTeX, LuaLaTeX.
+%%% \pxlThisPLaTeX : pdf(La)TeX, Xe(La)TeX, Lua(La)TeX.
+%%%
+\RequirePackage{expl3}
+\ProvidesExplPackage{ifpxltex}
+{2014/05/25}{0.0012}{provides IfpxlTeX command}
+
+\RequirePackage{xparse}
+\RequirePackage{hologo}
+
+\ExplSyntaxOn
+
+\bool_new:N \pxl_bool_engine
+
+\cs_new_protected_nopar:Npn \pxl_test:n #1
+{
+	\bool_gset_false:N \pxl_bool_engine
+
+	\clist_set:Nn \l_tmpa_clist { #1 }
+	\clist_if_in:NnT \l_tmpa_clist {p}
+	{
+		\pdftex_if_engine:T
+		{ \bool_gset_true:N \pxl_bool_engine }
+	}
+	\clist_if_in:NnT \l_tmpa_clist {x}
+	{
+		\xetex_if_engine:T
+		{ \bool_gset_true:N \pxl_bool_engine }
+	}
+	\clist_if_in:NnT \l_tmpa_clist {l}
+	{
+		\luatex_if_engine:T
+		{ \bool_gset_true:N \pxl_bool_engine }
+	}
+}
+
+\cs_new_protected:Npn \pxl_do_truefalse:nn #1 #2 
+{
+	\bool_if:NTF \pxl_bool_engine {#1} {#2}
+}
+
+\cs_new_protected:Npn \pxl_do_true:n #1
+{
+	\bool_if:NT \pxl_bool_engine {#1}
+}
+
+\cs_new_protected:Npn \pxl_do_false:n #1
+{
+	\bool_if:NF \pxl_bool_engine {#1}
+}
+
+\cs_new_protected_nopar:Npn \pxl_main:nn #1 #2
+{
+	\pxl_test:n { #2 }
+	
+	\str_case:nn { #1 }
+	{
+		{ A } { \pxl_do_truefalse:nn }
+		{ T } { \pxl_do_true:n }
+		{ F } { \pxl_do_false:n }
+	}
+}
+
+\cs_new_protected:Npn \pxl_tex_case:nnnn #1 #2 #3 #4
+{
+	\IfpxlTeX* {#1} {#3}
+	\IfpxlTeX* {#2} {#4}
+}
+
+\NewDocumentCommand\pxlThisTeX { o }
+{
+	\IfNoValueTF { #1 }
+	{
+		\IfpxlTeXpxl
+			{ \hologo{pdfTeX} }
+			{ \hologo{XeTeX} }
+			{ \hologo{LuaTeX} } 
+	}
+	{ \hologo{#1} }
+}
+
+\NewDocumentCommand\pxlThisLaTeX { o }
+{
+	\IfNoValueTF { #1 }
+	{
+		\IfpxlTeXpxl
+			{ \hologo{pdfLaTeX} }
+			{ \hologo{XeLaTeX} }
+			{ \hologo{LuaLaTeX} } 
+	}
+	{ \hologo{#1} }
+}
+
+\NewDocumentCommand\pxlThisPLaTeX { o }
+{
+	\IfNoValueTF { #1 }
+	{
+		\IfpxlTeXpxl 
+			{ pdf(\hologo{La})\hologo{TeX} }
+			{ \hologo{Xe}(\hologo{La})\hologo{TeX} }
+			{ Lua(\hologo{La})\hologo{TeX} }
+	}
+	{ \hologo{#1} }
+}
+
+\NewDocumentCommand\IfpxlTeX { s o m +m }
+{
+	\IfBooleanTF { #1 }
+	{
+		\IfNoValueTF { #2 }
+		{
+			\pxl_main:nn {T} { #3 } { #4 }
+		}
+		{
+			\pxl_main:nn { #2 } { #3 } { #4 }
+		}
+	}
+	{
+			\pxl_main:nn {A} { #3 } { #4 }
+	}
+}
+
+\NewDocumentCommand\IfpxlTeXpxl { s +m +m +m }
+{
+	\IfBooleanTF { #1 }
+	{
+		\pxl_tex_case:nnnn { #2 } { #3 } { #4 }
+	}
+	{
+		\IfpxlTeX* {p}{ #2 }
+		\IfpxlTeX* {x}{ #3 }
+		\IfpxlTeX* {l}{ #4 }
+	}
+}
+
+\NewDocumentCommand\pxlRequireTeX { m }
+{
+	\clist_set:Nn \cl_tmp_option_rt { #1 }
+	\clist_clear_new:N \cl_tmp_req_tex
+	\clist_if_in:NnT \cl_tmp_option_rt { p } 
+	{
+		\clist_put_right:Nn \cl_tmp_req_tex { pdfTeX } 
+	}
+	\clist_if_in:NnT \cl_tmp_option_rt { x } 
+	{
+		\clist_put_right:Nn \cl_tmp_req_tex { XeTeX }
+	}
+	\clist_if_in:NnT \cl_tmp_option_rt { l } 
+	{
+		\clist_put_right:Nn \cl_tmp_req_tex { LuaTeX }
+	}
+
+	\msg_new:nnnn 
+		{ ifpxltex }
+		{ required~tex~missing }
+		{ `\clist_use:Nn \cl_tmp_req_tex { ~or~ }'~is~(are)~required~to~compile~this~document. }
+		{ Sorry. }
+	
+	\IfpxlTeX* [F] { #1 }
+	{
+		\msg_error:nn { ifpxltex } { required~tex~missing }
+	}
+}
+
+\ExplSyntaxOff
+
+\endinput

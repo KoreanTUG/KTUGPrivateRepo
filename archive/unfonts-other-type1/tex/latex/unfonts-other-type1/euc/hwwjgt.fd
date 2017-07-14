@@ -1,0 +1,7 @@
+%% hwwjgt.fd: UhcJamoGothic for LaTeX
+
+\DeclareFontFamily{H}{wwjgt}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwjgt}{m}{n}{<->wjgt}{}
+
+%% End of hwwjgt.fd

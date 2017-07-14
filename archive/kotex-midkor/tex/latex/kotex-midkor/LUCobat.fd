@@ -1,0 +1,4 @@
+\DeclareFontFamily{LUC}{obat}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{obat}{m}{n}{<-> LUC * obatang}{}
+

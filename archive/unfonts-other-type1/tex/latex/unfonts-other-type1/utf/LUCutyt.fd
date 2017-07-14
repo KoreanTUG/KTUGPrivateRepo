@@ -1,0 +1,9 @@
+\DeclareFontFamily{LUC}{utyt}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utyt}{m}{n}{<-> LUC * outytm}{}
+\DeclareFontShape{LUC}{utyt}{m}{sl}{<-> LUC * outytmo}{}
+\DeclareFontShape{LUC}{utyt}{m}{it}{<-> LUC * outytmo}{}
+
+\DeclareFontShape{LUC}{utyt}{c}{n}{<-> LUC * outytc}{}
+\DeclareFontShape{LUC}{utyt}{c}{sl}{<-> LUC * outytco}{}
+\DeclareFontShape{LUC}{utyt}{c}{it}{<-> LUC * outytco}{}

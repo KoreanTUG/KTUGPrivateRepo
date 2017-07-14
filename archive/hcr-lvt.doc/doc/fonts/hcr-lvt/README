@@ -1,0 +1,8 @@
+Hamchorom LVT Truetype package
+=============================
+
+* 함초롬체LVT는 한글과컴퓨터(http://www.hancom.com)에서 무료로 배포(http://www.hancom.co.kr/downLoad.downView.do?mcd_save=005&seqno=3136&targetRow=1)하는 함초롬체에 한국텍학회가 GSUB/GPOS 정보를 추가하여 재배포하는 글꼴이다.
+* 주 목적은 첫가끝(자모) 옛한글의 올바른 처리를 위한 것이다.
+* 이 글꼴을 이용하면 한컴오피스에서만 볼 수 있던 함초롬체 옛한글을 GSUB를 지원하는 모든 응용프로그램에서 볼 수 있다. 
+* 배포 위치: http://wiki.ktug.org/wiki/wiki.php/%ED%95%A8%EC%B4%88%EB%A1%AC%EC%B2%B4LVT
+

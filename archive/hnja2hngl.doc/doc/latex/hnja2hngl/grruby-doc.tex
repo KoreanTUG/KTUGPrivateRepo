@@ -1,0 +1,274 @@
+%!TEX TS-program = arara
+% arara: xelatex: { shell: yes }
+% arara: lmkclean
+% $Rev: 77 $
+%
+% minted + python + pygments (required)
+%
+\documentclass[a4paper,12pt,itemph,footnote]{oblivoir}
+
+\usepackage{fapapersize}
+\setmarginnotes{10pt}{2.2in}{12pt}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\setmainfont{Minion Pro}
+\setkomainfont[KoPubBatang ](Light)(Bold)[][KoPubBatang ](Light)(Bold)
+\newfontfamily\fallbackhanjafont{HCR Batang LVT}
+%\ifXeTeX \hangulmarks \fi
+\setmonofont{Noto Sans Mono CJK KR Regular}[Scale=.9]
+\setkormonofont{Noto Sans Mono CJK KR Regular}[Scale=.9,FakeStretch=1.08]
+\setmonohanjafont{Noto Sans Mono CJK KR Regular}[Scale=.9]
+
+\usepackage{xcolor}
+\usepackage{jiwonlipsum}
+\usepackage{kotex-logo}
+
+\ifXeTeX
+\usepackage[normalem]{ulem} 
+\usepackage{etoolbox}
+\robustify{\uline}
+\robustify{\uuline}
+\usepackage{ruby}
+\renewcommand\rubysep{-1ex}
+\renewcommand\rubysize{0.6}
+\fi
+
+\usepackage[rubystyle=default]{grruby}
+
+\ExplSyntaxOn
+\NewDocumentCommand \mycmd { m }
+{
+	\tl_if_head_eq_charcode:nNTF { #1 } \
+	{ \texttt { \tl_to_str:n { #1 } } \unskip }
+	{ \cnm{\textit { #1 }} } 
+}
+
+\ExplSyntaxOff 
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{minted}
+\newtcblisting{myexam}[1][\empty]{
+	breakable,
+	listing engine=minted,
+	listing style=tcblatex,
+	\ifx\empty#1\else#1\fi}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\title{그로몹 제안하신 \mycmd{grruby}}
+\author{nanim}
+\maketitle
+
+\begin{abstract}
+이 패키지의 제작에 얽힌 \grfoo 사연(事緣)은 \url{http://www.ktug.org/xe/index.php?document_srl=204424&mid=KTUG_open_board}\을 볼 것.
+\end{abstract}
+
+\section{간단 설명}
+
+\subsection{패키지}
+
+\begin{myexam}[listing only]
+\usepackage[rubystyle=<default|XXruby|ruby|progress|rup>,rubycolor=<color>]{grruby}
+\end{myexam}
+\cmd{gr}은 이 패키지의 아이디어를 제공하신 그로몹 님의 닉네임 첫 두 글자이다.
+그로몹께서 제안하신 환경의 이름이 \cmd{myruby}였기 때문에 이를 본따서 \mycmd{grruby}라고 하였다.
+이 패키지가 하는 일은 예를 들어 \texttt{한글(漢字)}와 같이 입력된 소스로부터 \grfoo 한글(漢字)와 같은
+결과를 얻게 하는 것이다. 원래 이것은 \verb|\ruby{한글}{漢字}|와 같이 단어마다 마킹하는 것이
+일반적이었는데 이마저 귀찮으니 자동으로 한자에 한글 음을 달아주게 하자는 발상의 구현. 요컨대 게으름의 소산일\ldots\ldots 는지도.
+
+\paragraph{루비 스타일}
+한글/한자가 구현되는 모양을 이 패키지에서는 \mycmd{rubystyle}이라고 부르는데 기본값은 그로몹께서 제안하신 바 한글이 한자의 왼쪽 위에 작은 글자로 (흐릿하게) 오게 하는 것이다. 옵션으로 선택할 수 있는 루비 스타일 다섯 개가 준비되어 있다. 
+\begin{description} \firmlist
+\item[\ttfamily default] \grrubystyle{default} \grfoo 한글(漢字). 이것이 디폴트이다. \texttt{gromob}으로 지정하여도 효과가 같다.
+\item[\ttfamily XXruby] \grrubystyle{XXruby}  \grfoo 한글(漢字).
+\item[\ttfamily ruby] \grrubystyle{ruby} \grfoo 한글(漢字).
+\item[\ttfamily progress] \grrubystyle{progress}  \grfoo 한글(漢字).
+\item[\ttfamily rup] \grrubystyle{rup} \grfoo 한글(漢字).
+\end{description}
+\hologo{XeLaTeX} 엔진에서는 XXruby와 ruby를 위해 \verb|\usepackage{ruby}|가 필요하다. 이 패키지를 자동으로 로드하지 않으므로 명시적으로 다음과 같이 preamble에 써주어야 한다.
+\begin{verbatim}
+\ifXeTeX
+\usepackage{ruby}
+\renewcommand\rubysep{-1ex}
+\renewcommand\rubysize{0.6}
+\fi
+\end{verbatim}
+그리고 XXruby는 ruby와 달리 한 글자씩 루비가 붙는다. 다만 \hologo{LuaTeX}-\ko 라면 ruby 패키지를 로드할 필요도 없고 XXruby과 ruby의 결과가 같다. 즉 \hologo{LuaLaTeX}에서는 XXruby를 쓸 필요가 없다.
+
+\paragraph{루비 칼러}
+이 옵션은 \texttt{default(gromob), progress, rup} 세 가지 스타일에 대하여 동작한다. \texttt{XXruby}와 \texttt{ruby}에는 효과가 없다. 이름 그대로 보조 문자의 색상을 지정할 수 있다. default 스타일에는 gray, progress와 rup에는 black이 기본값이다.\footnote{단, 문서 초기값이 default였고 나중에 스타일을 바꾼 경우라면 바뀐 스타일의 초기값이 default의 것(gray)을 따라간다. 이 문서에서 그러하다.}
+
+\grrubystyle{default}
+
+\subsection{명령과 환경}
+
+\begin{itemize}
+\item \mycmd{\grfoo} 명령: 이 명령의 뒤에 오는 한 개의 단어를 정해진 서식으로 식자한다. 괄호 바로 뒤에 중괄호로 잇대어 붙인 부분은 주석이 된다. 주석은 현재 각주(\cmd{\footnote})로 식자되게 되어 있는데 예컨대 \cmd{\sidefootnote}로 바꾸는 것은 간단하다.
+\begin{myexam}[]
+\grfoo 한글(漢字) \grfoo 한글(漢字){주석}
+\end{myexam}
+``한글(漢字)'' 입력 형식에서 괄호 안에 오는 텍스트가 스페이스로 분리되면 안 된다. 두 단어 이상을 한글/한자 방식으로 입력하려면 각각을 따로 입력하도록 한다. ``\verb*|한자(漢字) 입력(入力)|''은 좋지만 ``\verb*|한자 입력(漢字 入力)|''은 잘못이다. 반드시 이렇게 해야 할 필요가 있다면 한글 부분과 한자 부분을 그룹으로 묶어주어라. \verb*|\grfoo {한자 입력}({漢字 入力})| \grfoo {한자 입력}({漢字 入力}).\footnote{루비 스타일이 \texttt{XXruby}일 경우, 이렇게 묶어주는 것은 오류를 보일 수 있다. 왜냐하면 XXruby 스타일에서는 글자마다 한글 음을 붙이는 것이므로 이런 문제가 발생하지 않기 때문이다. XXruby 스타일에서라면 단어 단위로 한자를 괄호 안에 써넣는 것으로 충분하다.} 또는 공백을 명시적으로 틸데 기호(\verb|~|)로 표현한다. \verb*|\grfoo 한자~입력(漢字~入力)| \grfoo 한자~입력(漢字~入力).
+
+\item\mycmd{grruby} 환경: 한 문단 내에 있는 한글(漢字) 
+입력을 정해진 서식으로 식자한다.
+\begin{myexam}[]
+\begin{grruby}
+한 문단(文段) 내(內)에 있는 한글(漢字) 입력(入力)을
+정해진 서식(書式)으로 식자(植字)한다.
+\end{grruby}
+\end{myexam}
+
+반드시 하나의 문단이 와야 하는 것은 아니고 문단의 일부에 이 환경을 적용하는 것도 가능하지만 둘 이상의 문단은 올 수 없다. 다르게 말하면 ``문단 구분(\verb|\par|)''이 이 환경 내부에 오면 안 된다.
+
+\item \mycmd{grrubypars} 환경: 여러 문단에 걸친 텍스트를 같은 방식으로 처리한다.
+\begin{tcboutputlisting}
+\begin{grrubypars}
+여러 문단(文段)에 걸친 텍스트를 같은 방식(方式)으로 처리(處理)한다.
+
+둘 이상(以上)의 문단(文段)을 포함(包含)하는 것도 문제(問題)없다.
+\end{grrubypars}
+\end{tcboutputlisting}
+
+\begin{tcolorbox}
+\tcbuselistinglisting
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\begin{grrubypars}
+여러 문단(文段)에 걸친 텍스트를 같은 방식(方式)으로 처리(處理)한다.
+
+둘 이상(以上)의 문단(文段)을 포함(包含)하는 것도 문제(問題)없다.
+\end{grrubypars}
+\end{tcolorbox}
+
+이 환경은 \mycmd{grruby}에 비하여 약간의 제약이 있다. 주의하여 사용하여라.
+(그리고, \mycmd{grruby}와 \mycmd{grrubypars} 환경은 문단 처리에 조금 시간이 걸린다.
+컴파일 속도가 문제라면 \mycmd{\grfoo}만을 사용하는 것이 좋다.)
+
+\item\mycmd{\OffStuff} 명령: 인자로 주어지는 텍스트에 대해서 보통 텍스트로(즉 조판 형식을 적용하지 않은 것처럼) 처리한다. 수식이나 예외적인 괄호가 올 때 사용한다.
+\begin{myexam}[]
+\begin{grruby}
+인자(因子)로 주어지는 부분(部分)에 대해서는 
+\OffStuff{\uline{조판형식(組版形式)을}} 적용(適用)하지 않는다.
+\OffStuff{\uline{수식(數式)}도 $a(b+c)=ab+ac$} 이와 같이 
+처리(處理)하여라.
+\end{grruby}
+\end{myexam}
+
+\item \mycmd{\grrubystyle} 명령: 루비 스타일 바꾸기. 루비 스타일은 패키지 옵션으로 지정할 수 있으며, 문서의 중간에 교체할 수 있다. 이 때 사용하는 명령이다. \texttt{default, XXruby, ruby, progress, rup} 중에서 원하는 
+스타일을 인자로 지정하면 된다. 보기) \verb|\grrubystyle{progress}|.
+
+%\item 밑줄 긋기. \hologo{XeLaTeX}에서 ulem 패키지 명령을 사용할 때는 이 명령이 풀리지 않게 하는 것이 필요하다. 즉 etoolbox의 \mycmd{\robustify}로 \mycmd{\uline}을 묶어주어야 한다. \hologo{LuaTeX}-\ko가 재정의하고 있는 ulem-류 명령은 잘 된다. 밑줄 긋기는 \mycmd{\OffStuff} 영역에서 하거나, 아니면 한글 부분과 한자 부분을 따로 그어야 한다. 예를 들어 \verb|\uline{한글(漢字)}|로 하면 의도대로 식자되지 않을 것이다. 이것은 \verb|{\uline{한글}}(\uline{漢字})|로 해야 한다는 의미이다. 단, 루비 스타일이 \texttt{XXruby}일 때는 \mycmd{\OffStuff}이 아니면 밑줄 긋기를 할 수 없다.
+
+\item \mycmd{\grrubycolor} 명령: 루비 컬러 바꾸기. 루비 칼러는 패키지 옵션으로 지정할 수 있으며, 문서의 중간에 교체할 수 있다. 단 \texttt{XXruby}와 \texttt{ruby}에는 색상을 적용할 수 없다. 보기) \verb|\grrubycolor{red!60}|. {\grrubycolor{red!60}\grfoo 한글(漢字).}
+
+\item \grfoo 기타(其他). \grfoo 별행수식(別行數式), \grfoo 도표(圖表), 그림, verbatim 따위를 \mycmd{grruby} 환경 안에 넣을 생각은 하지 말자. section-\grfoo 류(類) 명령에서 사용하고자 한다면 \mycmd{\section}을 \mycmd{grruby} 안에 넣지 말고 \mycmd{\section} 안에서 단어별로 \mycmd{\grfoo}하는 것이 안전할 것이다. \grfoo 즉(卽), 이 \grfoo 환경(環境)은 \grfoo 평문단(平文段)에서 쓰려고 만든 것이다. 이 패키지는 오직 평문단에서만 위의 명령과 환경이 오류없이 동작할 가능성이 있음을 밝혀둔다.
+\end{itemize}
+
+\section{\texorpdfstring{\grfoo 예문(例文)}{예문}}
+
+\begin{tcbverbatimwrite}{\jobname-out.tex}
+\begin{grruby}
+부(夫) 천지자(天地者)는 만물지역려(萬物之逆旅){여관, 객사, 모텔.
+ 여기서 逆은 迎의 뜻이다.}요
+광음자(光陰者)는 백대지과객(百代之過客){일촌광음이라도 불가경이니라.}이라.
+이(而) 부생(浮生)이 약몽(若夢)하니 위환(爲歡)이 
+기하(幾何){몇 어찌. 어차피 인생 허무한데 안 즐기고 어쩌리요?}오?
+\OffStuff{고인(古人)이 병촉야유(秉燭夜遊)함이}
+양유이야(良有以也){옛사람도 놀았는데 우리라고 못 놀쏘냐.}라.
+\end{grruby}
+
+\begin{grruby}
+수식(數式)이 든 문장(文章)을 쓴다면,
+\OffStuff{$(a+b)^2=a^2+2ab+b^2$}
+이런 식(式)으로 함이 가(可)하리라.
+\end{grruby}
+
+\grrubystyle{XXruby}
+
+\begin{grrubypars}
+황(況) 양춘소아이연경(陽春召我以煙景){연경은 아지랑이 낀 경치, 아름다운 봄날의 경치}이요
+대괴가아이문장(大塊假我以文章){`대괴'는 대우주, 대자연. `가'는 借. 빌려준다.}이라,
+회(會) 도리지방원(桃李之芳園)하여 서(序) 천륜지락사(天倫之樂事)로라.
+
+\OffStuff{군계준수(群季俊秀)하여} 개위혜련(皆爲惠連){모두가 혜련이 될 만하다.}이어늘
+오인영가(吾人詠歌)는 독참강락(獨慙康樂){慙을 慚으로 쓴 곳도 있다.}이라.
+
+\grrubystyle{default}
+\jiwon[13]
+\OffStuff{\jiwon[15]}
+\grrubystyle{progress}
+\jiwon[16]
+
+\grrubystyle{gromob}
+유상미이(幽賞未已)에 고담전청(高談轉淸)하니
+개경연이좌화(開瓊筵以坐花){경연은 깔고앉을 자리.}하여
+비우상이취월(飛羽觴而醉月)%
+{우상은 깃털 모양의 술잔. 그냥 `술잔'을 우미하게 표현한 것이다.
+ 앞 구절의 좌화가 `꽃 아래 앉다(坐於花下)'인 것과 동일하게
+ 취월은 `달 아래 취하다(醉於月下)'이다.}이로다.
+
+\grrubystyle{rup}\grrubycolor{cyan!70}
+불유가작(不有佳作)에 하신아회(何伸雅懷)리오!
+여시불성(如詩不成){如는 若. 만약.}이면
+벌의금곡주수(罰依金谷酒數){금곡주수는 벌주 석 잔을 말한다.}하리라.
+\end{grrubypars}
+\end{tcbverbatimwrite}
+
+\begin{grruby}
+부(夫)
+천지자(天地者)는 만물지역려(萬物之逆旅){여관, 객사, 모텔. 여기서 逆은 迎의 뜻이다.}요
+광음자(光陰者)는 백대지과객(百代之過客){일촌광음이라도 불가경이니라.}이라.
+이(而) 부생(浮生)이 약몽(若夢)하니 위환(爲歡)이 
+기하(幾何){몇 어찌. 어차피 인생 허무한데 안 즐기고 어쩌리요?}오?
+\OffStuff{고인(古人)이 병촉야유(秉燭夜遊)함이}
+양유이야(良有以也){옛사람도 놀았는데 우리라고 못 놀쏘냐.}라.
+\end{grruby}
+
+\begin{grruby}
+수식(數式)이 든 문장(文章)을 쓴다면,
+\OffStuff{$(a+b)^2=a^2+2ab+b^2$}
+이런 식(式)으로 함이 가(可)하리라.
+\end{grruby}
+
+\grrubystyle{XXruby}
+\begin{grrubypars}
+황(況) 양춘소아이연경(陽春召我以煙景){연경은 아지랑이 낀 경치, 아름다운 봄날의 경치}이요
+대괴가아이문장(大塊假我以文章){`대괴'는 대우주, 대자연. `가'는 借. 빌려준다.}이라,
+회(會) 도리지방원(桃李之芳園)하여 서(序) 천륜지락사(天倫之樂事)로라.
+
+\OffStuff{군계준수(群季俊秀)하여} 개위혜련(皆爲惠連){모두가 혜련이 될 만하다.}이어늘
+오인영가(吾人詠歌)는 독참강락(獨慙康樂){慙을 慚으로 쓴 곳도 있다.}이라.
+
+\grrubystyle{default}
+\jiwon[13]
+\OffStuff{\jiwon[15]}
+\grrubystyle{progress}
+\jiwon[16]
+
+\grrubystyle{gromob}
+유상미이(幽賞未已)에 고담전청(高談轉淸)하니
+개경연이좌화(開瓊筵以坐花){경연은 깔고앉을 자리.}하여
+비우상이취월(飛羽觴而醉月)%
+{우상은 깃털 모양의 술잔. 그냥 `술잔'을 우미하게 표현한 것이다.
+ 앞 구절의 좌화가 `꽃 아래 앉다(坐於花下)'인 것과 동일하게
+ 취월은 `달 아래 취하다(醉於月下)'이다.}이로다.
+
+\grrubystyle{rup}\grrubycolor{cyan!70}
+불유가작(不有佳作)에 하신아회(何伸雅懷)리오!
+여시불성(如詩不成){如는 若. 만약.}이면
+벌의금곡주수(罰依金谷酒數){금곡주수는 벌주 석 잔을 말한다.}하리라.
+\end{grrubypars}
+
+\bigskip
+
+\tcbinputlisting{breakable,listing file=\jobname-out.tex,listing only,title=예문의 소스,listing style=tcblatex}
+
+\section{수정사항}
+
+\textbullet\ v0.2: \texttt{rubycolor} 옵션 및 \mycmd{\grrubycolor} 명령 추가.
+
+\end{document}
+

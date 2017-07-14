@@ -1,0 +1,12 @@
+%% hwwgs.fd: UhcGungseo for LaTeX
+
+\DeclareFontFamily{H}{wwgs}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwgs}{c}{n}{<->wgsc}{}
+\DeclareFontShape{H}{wwgs}{c}{sl}{<->wgsco}{}
+\DeclareHFontShape{H}{wwgs}{c}{it}{<->hssub*wwgs/c/sl}{}
+\DeclareFontShape{H}{wwgs}{m}{n}{<->wgs}{}
+\DeclareFontShape{H}{wwgs}{m}{sl}{<->wgso}{}
+\DeclareHFontShape{H}{wwgs}{m}{it}{<->hssub*wwgs/m/sl}{}
+
+%% End of hwwgs.fd

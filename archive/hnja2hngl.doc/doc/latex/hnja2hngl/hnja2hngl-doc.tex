@@ -1,0 +1,640 @@
+%!TEX TS-program = arara
+% arara: xelatex: { shell: yes, synctex: yes }
+% arara: lualatex: { files: [hnja2hngl-doc-luatexsample.tex] }
+% arara: pdfcrop: { from: hnja2hngl-doc-luatexsample, to: hnja2hngl-doc-luatexsample }
+% arara: xelatex: { shell: yes, synctex: yes }
+% arara: kotexindy
+% arara: xelatex: { shell: yes, synctex: yes }
+% arara: lmkclean
+% $Rev$
+%
+% minted + python + pygments (required)
+%
+\documentclass[a4paper,12pt,itemph,footnote]{oblivoir}
+
+\usepackage{fapapersize}
+\setmarginnotes{10pt}{2.2in}{12pt}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\setmainfont{Minion Pro}
+\setkomainfont[KoPubBatang ](Light)(Bold)[][KoPubBatang ](Light)(Bold)
+\newfontfamily\fallbackhanjafont{HCR Batang LVT}
+%\ifXeTeX \hangulmarks \fi
+\setmonofont{Noto Sans Mono CJK KR Regular}[Scale=.9]
+\setkormonofont{Noto Sans CJK KR Regular}[Scale=.9,FakeStretch=1.08,RawFeature={+hwid}]
+\setmonohanjafont{Noto Sans Mono CJK KR Regular}[Scale=.9]
+
+\usepackage{xcolor}
+
+\hypersetup{colorlinks}
+
+\usepackage{jiwonlipsum}
+\usepackage{kotex-logo}
+
+\ifXeTeX
+\usepackage[normalem]{ulem} 
+\usepackage{etoolbox}
+\robustify{\uline}
+\robustify{\uuline}
+\usepackage{ruby}
+\renewcommand\rubysep{-1ex}
+\renewcommand\rubysize{0.6}
+\fi
+
+\usepackage[rubystyle=default]{grruby}
+\usepackage{hnja2hngl}
+
+\makeindex
+
+\ExplSyntaxOn
+\NewDocumentCommand \mycmd { s m }
+{
+%	\tl_if_head_eq_charcode:nNTF { #1 } \
+%	{
+%		\texttt { \tl_to_str:n { #1 } } \unskip 
+%	}
+%	{
+%		\cnm{\textit { #1 }} 
+%	} 
+	\IfBooleanTF { #1 }
+	{
+		\texttt { \textbackslash #2 }
+		\index{Command!\textbackslash #2 }
+	}
+	{
+		\cnm{\textit { #2 } }
+	}
+}
+
+\NewDocumentCommand \pkg { m }
+{
+	\textsf { #1 }
+	\index{Package!#1}
+}
+
+\NewDocumentCommand \opt { m }
+{
+	\textit { #1 }
+	\index{Option!#1}
+}
+
+\NewDocumentCommand \wi { m }
+{
+	#1\index{#1}
+}
+
+\ExplSyntaxOff 
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{minted}
+\newtcblisting{myexam}[1][\empty]{
+	breakable,
+	listing engine=minted,
+	minted style=emacs,
+	\ifx\empty#1\else#1\fi}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\title{hnja2hngl: 한자음 달기}
+\author{nova de hi}
+\date{\hnjahnglpkgdate, \hnjahnglpkgversion}
+
+\maketitle
+
+\let\origrwhanja=\rwhanja
+\let\rwhanja=\grrwhanja
+\let\rw=\rwhanja
+
+\begin{abstract}
+\rwhanja{漢字}로 \rwhanja{入力}된 텍스트에 \rwhanja{對}하여 \rwhanja{對應}하는 한글 \rwhanja{音}을 붙여준다.
+이 패키지가 \rw{作成}된 \rw{事緣}은 KTUG의 \href{http://www.ktug.org/xe/index.php?document_srl=204761&mid=KTUG_open_board}{\rw{揭示物}}을 보아라.
+``故로 文之不工함은 非\ruby{텍}{\TeX}之罪也라.''
+\end{abstract}
+
+\tableofcontents*
+
+\section{패키지}
+\begin{tcblisting}{listing style=tcblatex,listing only}
+\usepackage{hnja2hngl}
+\end{tcblisting}
+이 패키지는 \XeTeX-\ko\ 또는 \LuaTeX-\ko 에서만 사용할 수 있다.
+PDF\TeX에서는 의도대로 동작하지 않는다.
+\pkg{kotex} 패키지(\pkg{xetexko} 또는 \pkg{luatexko})를 요구한다.
+
+이 패키지가 의도하는 바는, 입력은 오직 한자로만 하되 ``웬만한 한자음은 자동으로 달아주고 (그 자동으로 달아준 음이 좀 이상하면) 원하는 음을 붙일 수 있도록 하자''는 것이다.
+
+패키지 옵션으로 \opt{dry}와 \opt{draft}, \opt{grruby}가 있는데 이것은 \ref{sec:options}절에서 설명한다.
+
+\section{한자로 입력된 글자와 단어의 독음}
+
+\paragraph{\mycmd*{readhanja} 명령}
+인자로 주어진 한자 \wi{한 글자의 독음}을 식자한다. 인자로 두 글자 이상이 올 수 없다.
+
+\begin{myexam}[]
+\readhanja{漢}
+\end{myexam}
+
+\paragraph{\mycmd*{readhanjaword} 명령}
+인자로 두 자 이상이 올 수 있다. 인자 중에 온 스페이스는 무시되고
+\wi{한자 음을 한글로 출력}한다.
+\begin{myexam}[]
+\readhanjaword{漢字 植字}
+\end{myexam}
+
+\let\rwhanja=\origrwhanja
+\paragraph{\mycmd*{rwhanja} 명령}
+\mycmd*{readhanjaword}와 같으나 ``한글(漢字)'' 형식으로 식자한다.
+이 패키지의 중심 명령이다.
+\begin{myexam}[]
+\rwhanja{漢字植字}
+\end{myexam}
+
+\paragraph{\mycmd*{grrwhanja} 명령}
+\pkg{grruby} 패키지를 함께 쓸 수 있다.
+\mycmd*{grrwhanja}라는 명령은
+\pkg{grruby} 방식으로 \mycmd*{rwhanja}를 식자하라는 의미이다.
+\begin{tcblisting}{listing style=tcblatex,listing only}
+\usepackage{grruby}
+\end{tcblisting}
+\begin{myexam}[]
+\grrwhanja{漢字植字} \grrubystyle{progress}\grrwhanja{敎養}
+\end{myexam}
+패키지 옵션으로 \opt{grruby}를 지정하면 자동으로 로드되며 \mycmd*{rwhanja}가
+\mycmd*{grrwhanja}와 동일하게 동작한다. 이 패키지의 기능과 사용법은 패키지 문서(grruby-doc.pdf)를
+참고하라.
+
+\section{한자의 \protect\rwhanja{異音}}
+
+\subsection{`不'자의 독음}\index{不의 독음}
+
+`不'은 다음 자음이 `ㄷ'이거나 `ㅈ'이면 `부'로, 그렇지 않으면 `불'로 읽는다.
+그 다음 글자의 초성에 따라 \wi{독음이 시시때때로 변하는 글자}이다.
+\rwhanja{不屈} \rwhanja{不讀書}.
+이 독음을 자동화하였다. 
+
+\begin{myexam}[]
+\rwhanja{不斷} \rwhanja{不可} \rwhanja{不得不}
+\end{myexam}
+
+다만 자동 \wi{불/부 교체음 선택}은 그 다음에 오는 글자가 원래 데이터베이스에 등록된
+글자일 때만 동작하고 그 이외의 경우는 모두 `불'이 된다. 다음 예는 이를 피하기
+위한 방법 가운데 하나인데 더 자세한 사항은
+\ref{sec:assign}절을 보라.
+\begin{myexam}[]
+\rwhanja{不㥁} \AssignReading*{㥁}{덕}\rwhanja{不㥁}
+\rwhanja{不[2]㥁}
+\end{myexam}
+
+아주 특별한 경우에 자동화된 음과 다르게 읽어야 할 때는 아래 설명하는 이음 지정 옵션을
+이용하면 원하는 결과를 얻는다.
+
+\subsection{이음을 지정하는 옵션}
+
+하나의 한자가 \wi{둘 이상의 음}으로 읽히는 경우는 대단히 많다. 이 패키지가 사용하는 한자음은
+\wi{Unihan 라이브러리}\footnote{\url{http://unicode.org/charts/unihan.html}}가
+제공하는 것을 바탕으로 이를 조금 수정하여 이용하는데, \wi{둘 이상의 음}이 할당된 한자가 있다.
+\rwhanja{異音}이 부여되어 있다면 그 각각을 `0', `1', `2', \ldots의 alternative 번호(\wi{이음선택번호})로
+식별한다. 
+\mycmd*{readhanja}은 한 글자이므로 옵션인자처럼 이음선택번호를 부여한다.
+\begin{myexam}[]
+\readhanja{樂}[0] \readhanja{樂}[1] \readhanja{樂}[2] \readhanja{樂}[3]
+\end{myexam}
+\mycmd*{readhanjaword}와 \mycmd*{rwhanja}에서는 다른 음으로 읽어야 할
+한자의 직후에 alternative 번호\index{이음선택번호}를 대괄호로 묶어 전달한다.
+\begin{myexam}[]
+\readhanjaword{樂[0]山} \readhanjaword{樂[1]山} \readhanjaword{樂[3]山}\\
+\rwhanja{樂[0]山} \rwhanja{樂[1]山} \rwhanja{樂[3]山} \rwhanja{出必告[2]反必面}
+\end{myexam}
+
+\subsection{첫소리법칙과 한자음}
+
+[v0.4]
+\wi{첫소리법칙}(\wi{두음법칙})이 적용되는 한자음이 몇 있다. 예를 들면 落落長松은 ``낙락장송''으로 읽힌다.
+앞 절에서 언급한 이음 번호 가운데 1번이 이 첫소리를 위하여 사용된다. 할당된 음이 하나밖에 없다면
+그것이 첫소리 위치에서도 사용된다.
+즉, 단어의 제일 처음에 오는 한자는 무조건 `1'번에 할당된 소리 또는 그것이 없으면 `0'번에 해당하는 소리로 읽는다. 물론 한 글자만 읽는 \mycmd*{readhanja}는 
+이 규칙이 적용되지 않는다.
+\begin{myexam}[]
+\rwhanja{落落長松} \rwhanja{戀戀} \rwhanja{凜凜} \readhanja{凜}
+\end{myexam}
+
+\noindent
+따라서 alternative 번호\index{이음선택번호}의 `1'번은 \wi{첫소리법칙}을 위하여 예약되어 있다고 생각하는 것이 좋다.
+예컨대 `數'자의 경우 0도 `수'이고 1도 `수'이다. 이 글자는 첫소리 위치에서도 `수'로
+읽히기 때문이다. 이음 `삭'은 `2'로 불러야 한다.
+\begin{myexam}[]
+\rwhanja{數數數[2]} \rwhanja{龍[0]龍[1]龍[2]龍[3]} \rwhanja{飛龍} \rwhanja{龍山}
+\end{myexam}
+
+단, 두 단어 이상이 결합한 합성어에서 \wi{첫소리법칙}을 분석하여 식자해주는 기능은 없다. 예컨대 
+\rwhanja{民主}와 \rwhanja{理念}이 따로 각각의 단어일 때는 \wi{첫소리법칙}이 잘 적용되지만
+`\rwhanja{民主理念}'으로 합쳐진 경우 이 때의 理에 \wi{첫소리법칙}이 적용되어야 하는 것을 이 패키지는 알지 못한다.
+\mycmd*{rwhanja}\verb|{民主理[1]念}|으로 \wi{첫소리법칙}이 적용되는 자리임을 입력시에 밝혀주어야 한다.
+\rwhanja{民主理[1]念}.
+
+\subsection{임의의 한자음}\label{sec:force}
+
+\rwhanja{率}과 같은 글자는 \wi{첫소리법칙}에만 영향을 받는 것이 아니라 앞글자의 끝소리가
+모음이거나 `ㄴ'이면 `율'로 그밖의 경우에는 `률'로 적어야 한다.\footnote{%
+	참고로 `率'이 첫소리 자리에 와서 `율'로 읽어야 하는 경우는 거의 없다.
+	그런 까닭에 이 패키지는 率이 첫소리 자리에 오면 무조건 `솔'로 읽으며,
+	기본음(0)은 `율'로 되어 있다. `률'을 얻어야 한다면 `2'로 접근할 수 있다.
+	한편, 호환한자 영역의 \viewCodePoint{率}자는 첫소리 자리에서도 `솔'이고
+	기본음도 `솔'이다.
+}
+이러한 복잡한 음운변환을 모두 자동화하는 것은 불가능하다고 보인다.
+또한 문맥에 따라 특정 한자가 전혀 의외의 음으로 읽히는 경우마저 있으므로
+이럴 경우에 대비하여 강제로 음을 할당할 수 있도록 하였다. 이음선택번호를 
+써넣는 위치에 아예 독음을 써주는 것이다.
+이 방법으로 부여되는 독음은 해당 단어에서 효력이 있다.
+\begin{myexam}[]
+\readhanja{率}[률] \rwhanja{比率} \rwhanja{統率[솔]} \rwhanja{確率[률]}
+\end{myexam}
+
+\subsection{한자음의 설정}\label{sec:assign}
+
+\wi{Unihan 라이브러리}가 한자음을 제공하지 않으면 다음과 같이 나타난다. [U+3958]에 할당된 한자음이 없다는 뜻이다.
+\begin{myexam}[]
+\rwhanja{勇㥘}
+\end{myexam}
+일단 이 글자 자체를 \wi{라이브러리에 등록}해주어야 하는 것이다. 이를 위한 명령이
+\mycmd*{AssignReading}과 \mycmd*{kHangulReading}이다.
+\mycmd*{AssignReading}은 한자 자체를, \mycmd*{kHangulReading}은 유니코드 코드포인트를 인자로 취한다.
+다음 두 명령은 그 효과가 같다.
+\begin{tcblisting}{listing style=tcblatex,listing only}
+\AssignReading{㥘}{겁}
+\kHangulReading{3958}{겁}
+\end{tcblisting}
+
+이 두 명령은 이를테면 라이브러리의 한자음 등록정보를 설정하거나 갱신하는 효력이 있다. 
+이 명령은 선언된 이후 (현재 그룹 내에서) 계속해서 영향을 미친다.
+
+\paragraph{AssignReading}
+\mycmd*{AssignReading} 명령은 다음과 같은 방법으로 사용가능하다.
+\begin{enumerate}[(1)] \firmlist
+\item 글자와 독음을 인자로 지정한다.
+\begin{myexam}[]
+\AssignReading{率}{율} \rwhanja{比率}
+\end{myexam}
+\item 첫소리법칙을 위하여 `1'번 음을 포함하여 여러 음을 할당하는 방법.
+\begin{myexam}[]
+\AssignReading{辨}{판,변,판} \rwhanja{死生之辨先明於心} \rwhanja{辨明}
+\end{myexam}
+\item `不'자의 자동 독음 선택을 위하여 `부'로 읽혀야 할 다음 글자라면 `*'를 추가한다.
+\begin{myexam}[]
+\AssignReading*{悳}{덕} \rwhanja{不悳}
+\end{myexam}
+\end{enumerate}
+
+\paragraph{rpSetReading}
+두 글자 이상의 음을 할당하려 하는 경우 \mycmd*{rpSetReading} 명령을 쓸 수 있다.
+이것은 \mycmd*{AssignReading}을 반복 사용하는 것과 같다. `*'를
+不자의 아래 오면 `부'로 읽혀야 할 소리임을 표시하기 위해 음의 뒤에 붙일 수 있다.
+다음과 같이 사용한다.
+\begin{myexam}[]
+\rpSetReading{㥘=겁,鋋=연,悳=덕*} \rwhanja{勇㥘} \rwhanja{弓矛戈鋋} \rwhanja{不悳}
+\end{myexam}
+
+\subsection{한자음의 강제 할당과 첫소리법칙}
+
+사용자가 한자음을 할당하는 것은 \wi{독음 라이브러리를 갱신}하는 효과가 있다.
+%아래 예에서 \texttt{覆=\{부,부,복\}}으로 하여 `부'를 `0'과 `1'에, `복'을 `2'에 할당하였다.
+%그러므로 이 이후로 첫소리법칙이 적용되는 곳에서 `부'로 읽힐 것임을 알아두는 것이 좋다.
+%\begin{myexam}[]
+%\let\rwhanja=\grrwhanja \grrubystyle{rup} \grrubycolor{red!80}
+%\rpRead{at}[覆={부,부,복}] 都未得到答覆라.
+%不得不 離開長安하다.@
+%\end{myexam}
+만약 한 번이라도 \mycmd*{AssignReading}, \mycmd*{kHangulReading}이나
+\mycmd*{rpSetReading} 또는 \mycmd*{rpRead}의 옵션으로 
+사용자가 특정 한자음을 강제로 할당한 이후라면 \wi{첫소리법칙}은
+다음과 같이 동작한다.
+
+\begin{enumerate}[(1)] \firmlist
+\item 한자음을 하나만 지정한 경우에는 무조건 그 소리로 읽힌다.
+\begin{myexam}[]
+\AssignReading{數}{삭} \rwhanja{數學} \rwhanja{算數}
+\end{myexam}
+\item 한자음을 둘 이상 지정하여 `1'번에 해당하는 글자를 정해두면 첫소리 위치에서는 그 글자로 읽는다.
+\begin{myexam}[]
+\AssignReading{浪}{랑,낭} \rwhanja{浪士} \rwhanja{波浪}
+\end{myexam}
+\item \ref{sec:rpread}절에서 소개하는 
+\mycmd*{rpRead}나 \mycmd*{rpSetReading}의 옵션으로 첫소리 음을 지정할 때는 다음과 같이 한다.
+\begin{myexam}[]
+\rpSetReading{娘={랑,낭}} \rwhanja{娘娘}
+\end{myexam}
+\end{enumerate}
+
+\subsection{호환한자 관련 이슈}
+
+\wi{첫소리법칙}의 경우는 위와 같이 하여 어떻게든 피해간다 하더라도
+한 단어 안에서 같은 글자를 서로 다른 음으로 읽어야 할 때가 있다.
+
+소위 `\wi{한중일 호환한자}'([U+F900]--[U+FAD9]) 영역의 글자를 이용하면
+이런 경우에 대응할 방법이 있기는 하다.
+즉 예를 들어보자면 \viewCodePoint{不}자(한중일 통합한자)와
+\viewCodePoint{不}자(\wi{한중일 호환한자})를 구분하여 입력하는 것이다.
+적어도 KS X 1001에 중복 등록되어 있는 한자는 이 영역에서 발견할 수 있다.
+\begin{myexam}[]
+\rwhanja{不得不}
+\end{myexam}
+그렇기는 하지만 이를 구분하여 입력할 방법도 마땅치않고(이를 구분하여 입력하게 해주는 입력기를
+본 적이 없다) 또 다른 텍스트 프로세서들과의 호환성을
+염두에 둔다면 현실적으로 쉽지 않은 일이다.
+
+\section{확장}
+
+\subsection{\protect\mycmd*{rpRead}}\label{sec:rpread}
+
+글자마다 한글 음을 붙이는 것이 아니라 단어 단위로 하고 싶을 때
+단어마다 마크업을 붙여야 한다. 이것이 귀찮은 관계로 한 문장, 또는 한 단락
+전체에 대하여 자동으로 단어별로 처리하게 해주면 좋을 것이다.
+이를 위하여 \mycmd*{rpRead}가 정의되어 있다.
+
+\begin{myexam}[]
+\rpRead{period} 單語마다 讀音이 붙도록 하면 便利하다.
+\end{myexam}
+
+이 명령은 하나의 인자를 취하는데 이 때 올 수 있는 인자는 \texttt{period, comma, para, at} 네
+가지이다. 각각 마침표가 있는 데까지, 쉼표가 있는 데까지, 문단 구분(\verb|\par|나 두 줄의 공행)이 있는 데까지,
+at-기호(@)가 있는 데까지
+단어별로 한자의 독음을 붙여 식자해준다.
+한자 식자는 \mycmd*{rwhanja}를 이용하므로 이 명령을 \mycmd*{grrwhanja}로
+바꾸어놓거나 \opt{grruby} 옵션이 활성화된 상태라면 \pkg{grruby} 방식의 결과를 얻을 수 있다.
+만약 주어진 텍스트에 종지를 나타내는 부호(인자로 주어진 것)를
+발견하지 못하면 에러를 토한다.
+
+\begin{myexam}[]
+\let\rwhanja=\grrwhanja
+\rpRead{comma} 終止符나 休止符를 境界文字로 설정해두면 그 位置까지,
+漢字를 自動으로 植字한다.
+\end{myexam}
+
+\wi{수동으로 독음을 할당}해야 할 수 있는데 이를 위하여
+옵션 인자를 쓸 수 있다. 이 독음의 할당은 \mycmd*{AssignReading}과 마찬가지로 이후로 (현재 그룹 내에서) 계속
+영향을 미친다. \mycmd*{rpSetReading}과 같은 방식이지만 옵션 인자로 준다는 점에 주의.
+
+\begin{myexam}[]
+\rpRead{at}[度=탁,告=곡] 度支 出必告反必面@
+\end{myexam}
+
+이음선택번호를 주는 방법으로 입력하여도 된다.
+
+\begin{myexam}[]
+\let\rwhanja=\grrwhanja \grrubystyle{rup} \grrubycolor{red!80}
+\rpRead{para}
+悠久한 歷史와 傳統에 빛나는 우리 大韓國民은 3·1 運動으로 建立된
+大韓民國臨[1]時政府의 法統과 不義에 抗拒한 4·19 民主理[1]念을 繼承하고
+
+祖國의 民主改革과 平和的 統一의 使命에 立脚하여
+\end{myexam}
+
+이 명령을 사용할 때 주의해야 할 것이 있다. 
+\begin{itemize} \firmlist
+\item \mycmd*{rpRead}가 한자를 변형해서 식자하려고
+의도하는 범위 내에는 \uline{어떤 매크로도 올 수 없다}. 오직 일반문자, 한글, 한자, 문장부호만이 올 수 있다.
+개행기호 \verb|\\|같은 것도 오면 안 된다. \mycmd*{rpSetReading}이나 \mycmd*{AssignReading}도
+매크로이기 때문에 \mycmd*{rpRead} 명령이 진행 중에 오면 안 된다. 
+범위를 잘 설정하여 사용하여야 할 것이다. 
+\item \mycmd*{rpRead} 다음에 빈 줄이 오면 효력이 없다. 문단 첫머리에 바로 써야 한다.
+\item \mycmd*{rpRead}는 한 문단 이상을 식자하는 데 쓸 수 없다. \texttt{period}, \texttt{comma}, \texttt{at} 모두 현재 문단 안에서 해당 종지부호가 위치해야 한다. \texttt{para}는 그 문단 마지막에 \verb|\par|나 두 줄의 공행이 반드시 존재해야 한다.\footnote{%
+	\texttt{\textbackslash everypar}를 이용하여 이어지는 여러 문단을 처리하는 것이
+	가능하기는 하나 이는 사용자에게 맡겨져 있다.}
+\item 하나의 단어에서 한자 아닌 것이 나올 때까지를 \mycmd*{rwhanja}로 처리한다.
+첫 글자가 한자가 아닌 단어이거나 한글 이후에 다시 한자가 나오는 입력, 예컨대 (띄어쓰기 없는) \texttt{漢字의入力}과 같은 경우에 한글 뒤에 나오는 한자는 변환되지 아니한다. 가운뎃점이나 다른 문장부호가 스페이스없이 단어를 구분하는 경우도 이와 마찬가지이다.
+\end{itemize}
+
+\subsection{글자마다 독음 붙이기}\label{sec:everyhanja}
+
+\mycmd*{rwhanjachar}라는 명령은 \mycmd*{rwhanja}와 같지만 독음이 글자
+단위로 처리되도록 한 명령이다. 이를 이용하여 \wi{글자마다 독음}을 붙일 수 있다.
+ruby 방식으로 한자음을 붙이려면\footnote{\XeTeX 이라면 \pkg{ruby} 패키지를 미리 명시적으로 로드해두어야 한다.}
+\pkg{grruby}가 제공하는 \texttt{grrubystyle}을 이용하여 다음과 같이
+한다. 첫소리법칙도 동작하고 이음선택번호도 사용가능하다.
+\begin{myexam}[]
+\let\rwhanja=\rwhanjachar\grrubystyle{ruby}
+\rwhanja{仁者樂[3]山}, \rwhanja{智者樂[3]水}.
+\rpRead{at}學而時習之, 不亦說[열]乎? 有朋自遠方來, 不亦樂乎?@
+\end{myexam}
+
+만약 오른쪽 위에 독음을 붙이는 쪽이 좋다면,
+\begin{myexam}[]
+\let\rwhanja=\rwhanjachar\grrubystyle{rup}\grrubycolor{red!80}
+\rwhanja{仁者樂[3]山}, \rwhanja{智者樂[3]水}.
+\rpRead{at}學而時習之, 不亦說[열]乎? 有朋自遠方來, 不亦樂乎?@
+\end{myexam}
+
+참고로, \XeTeX-\ko에 \cmdprint{\everyhanja}라는 명령이 있다.
+이를 이용하여 입력되는 한자 각 글자마다 \wi{루비} 형식의 독음이 자동으로 붙게 할 수 있다.
+\begin{myexam}[]
+\everyhanja{\ruby{#1}{\readhanja{#1}}} 漢字로 入力된 文字에 音이 붙는다.
+\end{myexam}
+everyhanja는 말 그대로 한자 ``글자''마다 동작하기 때문에 단어 단위로 처리하지 않는다.
+\mycmd*{readhanjaword}를 쓸 수 없으며 이음선택번호로 한자음을 선택할
+수 없고 \wi{첫소리법칙}이 적용되지 않으며 `不' 음의 자동선택도 동작하지 않는다.
+한자음을 변경해야 한다면 해당 문자가 등장하기 전에 \mycmd*{rpSetReading}을 사용하여
+노력을 많이 줄일 수 있을 것이지만 이 패키지가 제공하는 기능으로 대신할 수 있는 것이므로
+이 방법은 권하지 않는다.
+\begin{myexam}[]
+\everyhanja{\ruby{#1}{\readhanja{#1}}} 
+仁者는 樂山하고 \rpSetReading{樂=요}知者는 樂水하느니라.
+\end{myexam}
+
+\LuaTeX-\ko 에는 \cmdprint{\everyhanja}가 없기 때문에 \mycmd*{rwhanjachar} 방법을 사용하여야 한다.
+다음 입력예와 그 결과는 \texttt{lualatex}을 실행하여 얻은 것이다.
+\begin{tcbverbatimwrite}{\jobname-luatexsample.tex}
+\documentclass[12pt]{oblivoir}
+\usepackage{grruby}
+\usepackage[dry]{hnja2hngl}
+\begin{document}
+\pagestyle{empty}
+\rpSetReading{仁=인,者=자,山=산,水=수,智=지,學=학,而=이,時=시,習=습,之=지,
+不=불,亦=역,說=열,乎=호,有=유,朋=붕,自=자,遠=원,方=방,來=래,樂={락,낙,악,요}}
+\input \jobname-content.tex
+\end{document}
+\end{tcbverbatimwrite}
+\begin{tcbverbatimwrite}{\jobname-luatexsample-content.tex}
+\let\rwhanja=\grrwhanja\grrubystyle{ruby}
+\rwhanja{仁者樂[3]山}, \rwhanja{智者樂[3]水}.
+\rpRead{at}學而時習之, 不亦說[열]乎? 有朋自遠方來, 不亦樂乎?@
+\end{tcbverbatimwrite}
+
+\tcbinputlisting{listing style=tcblatex,listing only,listing file=\jobname-luatexsample-content.tex}
+
+\IfFileExists{\jobname-luatexsample.pdf}{\noindent\includegraphics[scale=1]{\jobname-luatexsample.pdf}}{}
+
+
+\section{패키지 옵션}\label{sec:options}
+
+\subsection{dry: 데이터베이스 로딩 억제}
+
+이 패키지는 10,000자에 가까운 \wi{한자음 데이터베이스}를 불러온다.
+이를 불러들이는 데 약간의 시간 소모가 있으므로 아주 효율적으로 동작한다고 말하기는 어렵다.
+그렇지만 상당히 재미있는 기능을 제공하고 있으므로 그 정도는 참을 만한 거 아니겠는가.
+
+생각해보면 이 패키지가 한자음을 할당하는 기능을 제공하고 있으므로, 만약 문서 안에서
+쓰인 한자가 그다지 않지 않은 한두 글자 정도이고 이 정도는 ``임의 할당''으로 해결할
+수 있다면 굳이 한자음 데이터베이스를 불러오지 않아도 되지 않을까?
+
+\medskip
+
+\begin{tcblisting}{listing style=tcblatex,listing only}
+\usepackage[dry]{hnja2hngl}
+\end{tcblisting}
+\opt{dry} 옵션을 주면 그런 식으로 동작한다. 이후 원하는 글자를 \mycmd*{AssignReading}하여
+문서를 작성하면 되겠다.
+한편, \opt{dry} 옵션이 있더라도, \mycmd*{LoadHanReadingDB}라는 명령을 주면 그 위치에서
+한자음 데이터베이스를 불러온다. 이 명령은 문서 작성 중에 변경한 한자음들을 모두 처음으로 되돌리는
+효과를 갖기도 하지만 그런 정도 목적으로 쓰기에는 좀 부담이 되는 듯도 하다.
+
+\subsection{draft: 설정된 한자음의 확인}
+
+\begin{tcblisting}{listing style=tcblatex,listing only}
+\usepackage[draft]{hnja2hngl}
+\end{tcblisting}
+\opt{draft} 옵션은 김도현 교수의 readhanja\footnote{이 패키지와 사실상 같은
+기능을 하는 것이고 \LuaTeX 을 이용하는 것이다. \url{http://www.ktug.org/xe/index.php?mid=KTUG_open_board&document_srl=204761} 참조.}에서 영감을 얻어 작성하였다.
+현재 선택된 글자를 박스쳐서 보여주며 순서대로 0, 1, 2, \ldots 순이다. 글자마다 음을 붙인다.
+\wi{선택 가능한 음을 확인}하는 정도의 용도로 쓸 수 있을 것이다.
+
+\begin{myexam}[]
+\hnjahngldrafton
+\rwhanja{樂園}, \rwhanja{音樂[2]} \rwhanja{辨}, \readhanja{辨}[2]
+\end{myexam}
+
+\opt{draft} 옵션 부여 여부와 관계없이 언제라도 
+\mycmd*{hnjahngldrafton}과 \mycmd*{hnjahngldraftoff}로 이 기능을 끄거나 켤 수 있다.
+
+\subsection{grruby}
+
+\opt{grruby}를 지정하면 \pkg{grruby}를 로드하고 \mycmd*{rwhanja}의 동작을
+\mycmd*{grrwhanja}와 같도록 해준다.
+
+\section{기타}
+
+\subsection{코드포인트}
+
+특정 문자의 \wi{유니코드 코드포인트}를 보여주는 명령 \mycmd*{viewCodePoint}가 정의되어 있다.
+원래 \mycmd*{kHangulReading} 명령을 위해서 특정 문자의 코드포인트를 알아야 할 때 쓰려고
+만든 것이다. 한자만이 아니라 원칙적으로 모든 문자에 대하여 동작한다.
+\begin{myexam}[]
+\viewCodePoint{法} \viewCodePoint{가} \viewCodePoint{は}
+\end{myexam}
+
+\subsection{문장부호의 문제}
+
+이 패키지는 \viewCodePoint{|}, \viewCodePoint{@}, \viewCodePoint{[}, \viewCodePoint{]},
+이상 네 개의 \wi{문자를 특별한 목적으로 사용}한다. 그러므로 이 문자들이 입력되는 텍스트에 포함되면 에러를 토할 수 있다.
+문제가 될 법한 것은 \texttt{[}와 \texttt{]}인데 이 글자를 원래의 용도(괄호)로 사용하려 한다면
+\viewCodePoint{［}와 \viewCodePoint{］}로 대용하든가(`ㄴ'+한자키 방식으로 입력할 수 있다)
+``한자 입력 문자열'' 범위 밖에 두든가 해야 할 것이다.
+\begin{myexam}[]
+\rpRead{comma}題目을 깨뜨리고 나서［破題］ 다시 묶어주는 것은,
+\end{myexam}
+
+\section{감사의 말}
+
+이 패키지의 제작과 관련한 토론에서 Unihan 데이터베이스의 이용을 권해주시고
+한자음 데이터베이스를 보충해주신 김도현 교수께 감사드린다.
+
+\section{변경이력}
+
+\textbullet\ 2015/05/15, v0.9: draft의 표시방법 변경 \par\noindent
+\textbullet\ 2015/05/14, v0.8: 不의 독음 자동 선택 \par\noindent
+\textbullet\ 2015/05/13, v0.7: 한자음 선택방법 변경, draft 옵션 \par\noindent
+\textbullet\ 2015/05/13, v0.6: \LuaTeX-\ko\ 지원 \par\noindent
+\textbullet\ 2015/05/11, v0.5: 패키지 옵션 \texttt{[dry]} 추가. \par\noindent
+\textbullet\ 2015/05/10, v0.4: 첫소리법칙 적용 \par \noindent
+\textbullet\ 2015/05/10, v0.3: 한자음 데이터베이스 부분 수정.\par\noindent
+\textbullet\ 2015/05/09, v0.2: 쉼표가 사라지는 버그 수정.
+
+%\newpage
+
+\section{예문}
+
+연암의 \grrwhanja{騷壇赤幟引}을 예문으로 하여 식자례를 보이겠다.
+
+\bigskip
+
+\ifXeTeX
+\noindent (1) everyhanja로 루비: 두음법칙 적용을 받지 않으며 
+한자음을 바꾸어야 할 때는 그 직전에 독음 변경 명령을 쓸 수 있다.
+
+\begin{myexam}[]
+\everyhanja{\ruby{#1}{\readhanja{#1}}}
+\rpSetReading{則=즉}%
+善爲文者, 其知兵乎? 字譬則士也; 意譬則將也; 題目者, 敵國也; 
+掌故者, 戰場墟壘也; 束字爲句, 團句成章, 猶隊伍行陣也;
+韻以聲之, 詞以耀之, 猶金鼓旌旗也; 照應者, 烽埈也; 
+譬喩者, 遊騎也; 抑揚反復者,
+\end{myexam}
+
+\noindent (2) rwhanjachar로 루비: 두음법칙, 이음선택 등이 가능하다.
+
+\begin{myexam}[]
+\let\rwhanja=\rwhanjachar\grrubystyle{ruby}
+\rpRead{at}
+鏖戰撕[시]殺也; 破題而結束者, 先登而擒敵也; 
+貴含蓄者, 不禽二毛也; 有餘音者, 振旅而凱旋也.@
+\end{myexam}
+
+\noindent (3) \mycmd*{rpRead}를 이용하여 문단 전체를 식자
+
+\begin{myexam}[]
+\grrubystyle{default}\grrubycolor{gray!80}
+\let\rwhanja=\grrwhanja
+\rpRead{para}[則=즉,㥘=겁,鋋=연]
+夫長平之卒, 其勇㥘非異[1]於昔時也, 弓矛戈鋋, 其利鈍非變於前日也, 
+然而廉[1]頗將之, 則足以制勝, 趙括代之, 則足以自坑. 
+故善爲兵者, 無可棄之卒, 善爲文者, 無可擇之字. 苟得其將, 則鉏耰棘矜, 盡化勁悍,
+而裂[1]幅揭竿, 頓新精彩矣. 苟得其理, 則家人常談, 猶列[1]學官, 而童謳里諺, 亦屬爾雅矣.
+故文之不工, 非字之罪也.\par
+\end{myexam}
+
+\noindent (4) 단어마다 \mycmd*{rwhanja} 마크업: 이 예문과 같은 한문 장문은
+이런 식 입력이 피곤해보이는데, 미리 에디터나 도큐멘트 프로세싱을 통해 
+소스 수준에서 처리하여 들여오는 것이 좋을 것이다. 
+한자가 단어 정도 수준에서 조금 사용되는 일반적인 한글 문서라면
+응당 이 방법을 쓰는 것이 좋다.
+
+\begin{myexam}[]
+\rwhanja{彼評字句之雅俗}, \rwhanja{論篇章之高下者}, % 論은 두음법칙으로 `논'
+\rwhanja{皆不識合變之機}, \rwhanja{而制勝之權者也}. \rwhanja{譬如不勇之將},
+\rwhanja{心無定策}, \rwhanja{猝然臨[1]題}, % 臨을 `임'으로 읽음
+\rwhanja{屹如堅城}, \rwhanja{眼前之筆墨}, \rwhanja{先挫於山上之草木},
+\rwhanja{而胸裏之記誦}, \rwhanja{已化爲沙中之猿鶴矣}. \rwhanja{故爲文者},
+\rwhanja{其患常在乎自迷蹊逕}, \rwhanja{未得要領}.
+\end{myexam}
+
+\noindent (5) 범위
+
+\begin{myexam}[]
+{\rpRead{period}[則=즉]
+夫蹊逕之不明, 則一字難下, 而常病其遲澁; 要領之未得, 則周匝雖密, 而猶患其疎漏,
+譬如陰陵失道, 而名騅不逝, 剛車重圍, 而六[1]騾已遁矣.}
+% 중괄호로 둘러싼 문단에 rpRead하였으므로 다음 문단에서는 `則'이
+% `즉'으로 읽어지지 않는다. 한자음 할당의 효력이 미치는 범위를 테스트.
+\rpRead{period}苟能單辭而挈領, 如雪夜之入蔡, 片言而抽綮, 如三鼓而奪關.
+\underline{\rwhanja{則爲文之道},} \rwhanja{如此而至矣}.
+\end{myexam}
+
+\noindent (6) 한글 토가 붙은 경우
+
+\begin{myexam}[]
+\let\rwhanja=\grrwhanja \grrubystyle{default}\grrubycolor{gray!90}
+\rpRead{para}[則=즉]
+友人 李仲存이 集東人古今科軆하여 彙爲十卷하고 名之曰騷壇赤幟라 하다.
+嗚呼라! 此皆得勝之兵이요 而百戰之餘也라. 
+雖其軆格不同하고 精粗雜進이언정 而各有勝籌니 攻無堅城이라.
+其銛鋒利刃이 森如武庫하여 趨時制敵함이 動合兵機로다.
+繼此로 而爲文者가 率此道也한댄 定遠之飛食이요 燕然之勒[1]銘이니 其在是歟여 其在是歟여!
+雖然이나 房琯之車[2]戰이 效跡於前人이로되 而敗하고 虞詡之增竈가 反機於古法이로되 而勝하니
+則所以合變之權은 其又在時요 而不在法也니라.\par
+\end{myexam}
+
+\printindex
+
+\end{document}

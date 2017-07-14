@@ -1,0 +1,8 @@
+name kotex-sections.doc
+category Package
+revision 200
+shortdesc doc files of kotex-sections
+relocated 1
+docfiles size=33
+ RELOC/doc/latex/kotex-sections/kotex-sections-doc.pdf
+ RELOC/doc/latex/kotex-sections/kotex-sections-doc.tex

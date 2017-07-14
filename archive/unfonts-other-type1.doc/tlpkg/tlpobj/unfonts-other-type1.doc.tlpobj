@@ -1,0 +1,9 @@
+name unfonts-other-type1.doc
+category Package
+revision 204
+shortdesc doc files of unfonts-other-type1
+relocated 1
+docfiles size=27
+ RELOC/doc/fonts/unfonts-other-type1/COPYING
+ RELOC/doc/fonts/unfonts-other-type1/LICENSE
+ RELOC/doc/fonts/unfonts-other-type1/MANIFEST

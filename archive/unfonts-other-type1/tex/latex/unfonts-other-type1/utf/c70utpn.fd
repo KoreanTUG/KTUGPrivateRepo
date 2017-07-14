@@ -1,0 +1,3 @@
+\DeclareFontFamily{C70}{utpn}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{C70}{utpn}{m}{n}{<-> CJK * outpnm}{}

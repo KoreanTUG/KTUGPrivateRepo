@@ -1,0 +1,19 @@
+name ktugbin.win32
+category TLCore
+revision 200
+shortdesc win32 files of ktugbin
+binfiles arch=win32 size=453
+ bin/win32/fontcache.bat
+ bin/win32/kccheckfont.bat
+ bin/win32/kccmdline.bat
+ bin/win32/kconthefly.bat
+ bin/win32/kcrundpx.bat
+ bin/win32/kcrunpspdf.bat
+ bin/win32/libiconv2.dll
+ bin/win32/libintl3.dll
+ bin/win32/regex2.dll
+ bin/win32/sed.exe
+ bin/win32/tlupdateall.bat
+ bin/win32/todos.exe
+ bin/win32/unzip.exe
+ bin/win32/wget.exe

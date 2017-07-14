@@ -1,0 +1,162 @@
+%%% josaref: a simple autojosa with \ref
+%%% written by nanim
+%%% 2015-07-28
+%%%
+%%% version: 0.2, 2015-08-08, fix space bug
+%%% version: 0.1, 2015-07-30, refcmd, delim.
+%%%
+\ProvidesPackage{ksjosaref}
+
+\newif\if@jf@cmd@\@jf@cmd@false
+\DeclareOption{refcmd}{\@jf@cmd@true}
+\ProcessOptions
+
+\RequirePackage{amsmath}  %% eqref
+
+\let\jf@ref=\ref
+\let\jf@pageref=\pageref
+\let\jf@eqref=\eqref
+
+\RequirePackage{xparse,expl3}
+\RequirePackage{refcount}
+
+\let\geteqrefnumber=\getrefnumber
+
+\ExplSyntaxOn 
+
+\keys_define:nn { jfdelim }
+{
+	left	.tl_set:N = \jf_left_delim,
+	right	.tl_set:N = \jf_right_delim,
+}
+
+\keys_set:nn { jfdelim }
+{
+	left = ,
+	right =
+}
+
+\cs_new:Npn \take_dan_digt:n #1
+{
+  \tl_set:Nn \l_tmpa_tl { #1 }
+  \tl_reverse:N \l_tmpa_tl
+  \tl_gset:Nx \g_out_tl { \exp_args:Nf \tl_head:n { \l_tmpa_tl } }
+}
+
+\cs_new:Npn \jf_gobble_one:n #1
+{ }
+
+\bool_new:N \jf_jong 
+\bool_new:N \jf_rieul
+
+\NewDocumentCommand \josaref { o o m }
+{
+  \IfValueTF { #1 } { \tl_set:Nn \l_ref_name { #1 } } { \tl_set:Nn \l_ref_name { } }
+  \exp_args:Nx \take_dan_digt:n { \cs:w get \l_ref_name refnumber \cs_end: { #3 } }
+  
+  \IfValueTF { #2 } 
+  { 
+  	\str_case:nnF { #2 }
+	{
+		{ paren } { \keys_set:nn { jfdelim } { left=(, right=) } }
+		{ bracket } { \keys_set:nn { jfdelim } { left=[, right=] } }
+	}
+	{  \keys_set:nn { jfdelim } { #2 } }
+  } 
+  { \keys_set:nn { jfdelim } { left=, right } }
+  
+  \str_case_x:nn { \g_out_tl }
+  {
+    { 0 } { \bool_set_true:N \jf_jong  \bool_set_false:N \jf_rieul }
+    { 1 } { \bool_set_true:N \jf_jong  \bool_set_true:N \jf_rieul  }
+    { 2 } { \bool_set_false:N \jf_jong \bool_set_false:N \jf_rieul }
+    { 3 } { \bool_set_true:N \jf_jong  \bool_set_false:N \jf_rieul }
+    { 4 } { \bool_set_false:N \jf_jong \bool_set_false:N \jf_rieul }
+    { 5 } { \bool_set_false:N \jf_jong \bool_set_false:N \jf_rieul }
+    { 6 } { \bool_set_true:N \jf_jong  \bool_set_false:N \jf_rieul }
+    { 7 } { \bool_set_true:N \jf_jong  \bool_set_true:N \jf_rieul  }
+    { 8 } { \bool_set_true:N \jf_jong  \bool_set_true:N \jf_rieul  }
+    { 9 } { \bool_set_false:N \jf_jong \bool_set_false:N \jf_rieul }
+  }
+  
+  \jf_left_delim
+  \use:c { jf@ \l_ref_name ref } { #3 }
+  \jf_right_delim
+
+  \peek_catcode:NTF \c_space_token 
+  { }
+  { \ksjosaref_josa:n }
+}
+
+\cs_new:Npn \ksjosaref_josa:n #1
+{
+  \str_case:nnF { #1 }
+  {
+    { 가 } { \bool_if:NTF \jf_jong { 이 } { 가 } }
+    { 이 } { \peek_catcode:NTF .
+	     { \bool_if:NTF \jf_jong { 이 } { 가 } }
+	     {
+	       \peek_catcode:NTF \c_space_token 
+	       { \bool_if:NTF \jf_jong { 이 } { 가 } }
+	       {
+	     	\peek_charcode:NTF 라 { \bool_if:NTF \jf_jong { 이 } { } } 
+			{ \peek_charcode:NTF 나 { \bool_if:NTF \jf_jong { 이 } { } } 
+%			{ \peek_charcode:NTF 니 { \bool_if:NTF \jf_jong { 이 } { } } 
+%			{ \peek_charcode:NTF 고 { \bool_if:NTF \jf_jong { 이 } { } } 
+			{ \peek_charcode:NTF 다 { \bool_if:NTF \jf_jong { 이 } { } } { 이 } }
+			} % } }
+		   }
+	     }
+	   }
+    { 을 } { \bool_if:NTF \jf_jong { 을 } { 를 } }
+    { 를 } { \bool_if:NTF \jf_jong { 을 } { 를 } }
+    { 은 } { \bool_if:NTF \jf_jong { 은 } { 는 } }
+    { 는 } { \bool_if:NTF \jf_jong { 은 } { 는 } }
+    { 와 } { \bool_if:NTF \jf_jong { 과 } { 와 } }
+    { 과 } { \bool_if:NTF \jf_jong { 과 } { 와 } }
+    { 라 } { \bool_if:NTF \jf_jong { 이라 } { 라 } }
+    { 나 } { \bool_if:NTF \jf_jong { 이나 } { 나 } }
+    { 로 } { \bool_if:NTF \jf_jong
+              { \bool_if:NTF \jf_rieul { 로 } { 으로 } }
+              { 로 } }
+    { 으 } { \peek_charcode:NTF 로
+              { \bool_if:NTF \jf_jong
+                  { \bool_if:NTF \jf_rieul { 로 } { 으로 } }
+                  { 로 }
+                \jf_gobble_one:n
+              }
+              { 으 }
+           }
+  }
+  { #1 }
+}
+
+\NewDocumentCommand \josapageref { o o m }
+{
+	\josaref[page][#2]{#3}
+}
+
+\NewDocumentCommand \josaeqref { o o m }
+{
+	\josaref[eq][#2]{#3}
+}
+
+\NewDocumentCommand \josarefcmds { }
+{
+	\let\ref=\josaref
+	\let\pageref=\josapageref
+	\let\eqref=\josaeqref
+}
+
+\NewDocumentCommand \nojosarefcmds { }
+{
+	\let\ref=\jf@ref
+	\let\pageref=\jf@pageref
+	\let\eqref=\jf@eqref
+}
+
+\ExplSyntaxOff 
+
+\if@jf@cmd@ \josarefcmds \fi
+
+\endinput

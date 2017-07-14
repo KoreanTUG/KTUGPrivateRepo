@@ -1,0 +1,119 @@
+%%%%% hcrnumbers.sty
+% written by Dohyun Kim <nomos at ktug dot kr>
+% public domain
+% 2011/06/29
+%
+% \circlenumber 24
+% \boxnumber 125
+% \Bcirclenumber 12
+% \Bboxnumber 5
+
+\def\batangordotum{%
+  \edef\@tempa{\f@family}\edef\@tempb{\rmdefault}%
+  \ifx\@tempa\@tempb
+    \def\thishcrfont{HCR Batang LVT}%
+  \else
+    \def\thishcrfont{HCR Dotum LVT}%
+  \fi}
+
+\def\circlenumber{\afterassignment\circlenumber@\count@}
+\def\circlenumber@{\batangordotum
+  \ifnum\count@<10
+    \expandafter\circlenumberX\the\count@
+  \else\ifnum\count@<100
+    \expandafter\circlenumberXX\the\count@
+  \else\ifnum\count@<1000
+    \expandafter\circlenumberXXX\the\count@
+  \else
+    \errmessage{Number too big. Only up to three-digit numbers are allowed}
+  \fi\fi\fi
+}
+\def\circlenumberX#1{{%
+  \fontspec[Annotation=0]{\thishcrfont}#1%
+}}
+\def\circlenumberXX#1#2{{%
+  \fontspec[Annotation=10]{\thishcrfont}#1%
+  \fontspec[Annotation=11]{\thishcrfont}\llap{#2}%
+}}
+\def\circlenumberXXX#1#2#3{{%
+  \fontspec[Annotation=20]{\thishcrfont}#1%
+  \fontspec[Annotation=21]{\thishcrfont}\llap{#2}%
+  \fontspec[Annotation=22]{\thishcrfont}\llap{#3}%
+}}
+
+\def\boxnumber{\afterassignment\boxnumber@\count@}
+\def\boxnumber@{\batangordotum
+  \ifnum\count@<10
+    \expandafter\boxnumberX\the\count@
+  \else\ifnum\count@<100
+    \expandafter\boxnumberXX\the\count@
+  \else\ifnum\count@<1000
+    \expandafter\boxnumberXXX\the\count@
+  \else
+    \errmessage{Too big number. Only up to three-digit numbers are allowed}
+  \fi\fi\fi
+}
+\def\boxnumberX#1{{%
+  \fontspec[Annotation=14]{\thishcrfont}#1%
+}}
+\def\boxnumberXX#1#2{{%
+  \fontspec[Annotation=15]{\thishcrfont}#1%
+  \fontspec[Annotation=16]{\thishcrfont}\llap{#2}%
+}}
+\def\boxnumberXXX#1#2#3{{%
+  \fontspec[Annotation=26]{\thishcrfont}#1%
+  \fontspec[Annotation=21]{\thishcrfont}\llap{#2}%
+  \fontspec[Annotation=22]{\thishcrfont}\llap{#3}%
+}}
+
+\def\Bcirclenumber{\afterassignment\Bcirclenumber@\count@}
+\def\Bcirclenumber@{\batangordotum
+  \ifnum\count@<10
+    \expandafter\BcirclenumberX\the\count@
+  \else\ifnum\count@<100
+    \expandafter\BcirclenumberXX\the\count@
+  \else\ifnum\count@<1000
+    \expandafter\BcirclenumberXXX\the\count@
+  \else
+    \errmessage{Number too big. Only up to three-digit numbers are allowed}
+  \fi\fi\fi
+}
+\def\BcirclenumberX#1{{%
+  \fontspec[Annotation=4]{\thishcrfont}#1%
+}}
+\def\BcirclenumberXX#1#2{{%
+  \fontspec[Annotation=12]{\thishcrfont}#1%
+  \fontspec[Annotation=13]{\thishcrfont}\llap{#2}%
+}}
+\def\BcirclenumberXXX#1#2#3{{%
+  \fontspec[Annotation=23]{\thishcrfont}#1%
+  \fontspec[Annotation=24]{\thishcrfont}\llap{#2}%
+  \fontspec[Annotation=25]{\thishcrfont}\llap{#3}%
+}}
+
+\def\Bboxnumber{\afterassignment\Bboxnumber@\count@}
+\def\Bboxnumber@{\batangordotum
+  \ifnum\count@<10
+    \expandafter\BboxnumberX\the\count@
+  \else\ifnum\count@<100
+    \expandafter\BboxnumberXX\the\count@
+  \else\ifnum\count@<1000
+    \expandafter\BboxnumberXXX\the\count@
+  \else
+    \errmessage{Number too big. Only up to three-digit numbers are allowed}
+  \fi\fi\fi
+}
+\def\BboxnumberX#1{{%
+  \fontspec[Annotation=17]{\thishcrfont}#1%
+}}
+\def\BboxnumberXX#1#2{{%
+  \fontspec[Annotation=18]{\thishcrfont}#1%
+  \fontspec[Annotation=19]{\thishcrfont}\llap{#2}%
+}}
+\def\BboxnumberXXX#1#2#3{{%
+  \fontspec[Annotation=27]{\thishcrfont}#1%
+  \fontspec[Annotation=28]{\thishcrfont}\llap{#2}%
+  \fontspec[Annotation=29]{\thishcrfont}\llap{#3}%
+}}
+
+\endinput

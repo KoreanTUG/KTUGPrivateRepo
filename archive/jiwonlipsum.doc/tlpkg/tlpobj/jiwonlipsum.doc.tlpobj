@@ -1,0 +1,8 @@
+name jiwonlipsum.doc
+category Package
+revision 200
+shortdesc doc files of jiwonlipsum
+relocated 1
+docfiles size=54
+ RELOC/doc/latex/jiwonlipsum/jiwonlipsumdoc.pdf
+ RELOC/doc/latex/jiwonlipsum/jiwonlipsumdoc.tex

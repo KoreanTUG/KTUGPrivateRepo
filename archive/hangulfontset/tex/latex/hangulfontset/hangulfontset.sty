@@ -1,0 +1,460 @@
+%%% file `hangulfontset.sty`
+%%%
+%%% Written by Nova De Hi, 2014/06/09.
+%%% public domain.
+%%%
+%%% Hangul Font Setting
+%%%
+%%% Usage: \usepackage[options]{hangulfontset}
+%%% options:
+%%%		hcr      : HCRLVT font set
+%%%		default  : NanumMyeongjo/NanumGothic font set. mjbold=Bold. mjhanja=blank (xe).
+%%%		defaultx : NanumMyeongjo/NanumGothic font set. mjbold=ExtraBold. mjhanja=blank (xe).
+%%%     nanum    : NanumMyeongjo/NanumGothic font set. mjbold=ExtraBold. mjhanja=NanumGothic.
+%%%     nanumxgt : gt_bf_bold = NanumExtraGothic
+%%%		barun    : NanumMyeongjo/NanumBarunGothic font set. mjhanja=blank (xe).
+%%%     barunx   : NanumMyeongjo/NanumBarunGothic font set. mjbold=ExtraBold. mjhanja=blank (xe).
+%%%		user     : mjregular (mjbold)/gtregular (gtbold) have to be provided.
+%%%		auto     : try to automatically detect boldface font. just give mj=, gt=.
+%%% 	mjregular: rmdefault font name. Postscript names are preferred.
+%%%     mj       : = mjregular
+%%%		mjbold   : if empty, fakebold of mjregular is to be used.
+%%%		gtregular: sfdefault font name. Postscript names are preferred.
+%%%     gt       : = gtregular
+%%%		gtbold   : if empty, fakebold of gtregular is to be used.
+%%%		feature={<feature>} : additional font features can be delivered.
+%%%     mjfeature, gtfeature : additional font features to each family.
+%%%     hanja    : try to set hanja fonts.
+%%%     hanjabyhangul : try to set hanja fonts = hangul fonts.
+%%%     hjmjregular : hanjamjregular
+%%%     hjmj     : = hjmjregular
+%%%     hjmjbold :
+%%%     hjgtregular : hanjagtregular
+%%%     hjgt     : = hjgtregular
+%%%     hjgtbold :
+%%% example:
+%%%		\usepackage[barun]{hangulfontset}
+%%%		\usepackage[mj={KoPubBatangLight}]{hangulfontset}
+%%%		\usepackage[user,mjdefault={TSThgrgl},%
+%%%                 feature={Color=blue}]{hangulfontset}
+%%%		\usepackage[auto,mj={HCRBatangLVT}]{hangulfontset}
+%%%		\usepackage[mjfeature={interhchar=-.05em}]{hangulfontset} %% xetex-ko.
+%%%		\usepackage[hcr,hanja,hjmj={HanaMinA}]{hangulfontset}
+%%% note:
+%%%     if mjregular is provided but gtregular empty, then
+%%%			gtfamily will be set with mjregular;
+%%%		but, gtregular is provided but mjregular empty, then
+%%%			mjfamily will not be set.
+%%%
+%%% changes:
+%%%     v0.32: immediate expansion, fix [nanum] action.
+%%%     v0.3: [Script=Hangul], hcr.
+%%%     v0.2: hjmjfeature, hjgtfeature, bolditalic features.
+%%%
+\RequirePackage{expl3}
+\ProvidesExplPackage
+	{hangulfontset}{2014/06/11}{0.32}{setup hangul mj/gt font families}
+
+\RequirePackage{l3keys2e}
+\RequirePackage{kotex}
+
+\bool_new:N \is_hanja_bool
+\bool_set_false:N \is_hanja_bool
+\bool_new:N \is_hanjabyhangul_bool
+\bool_set_false:N \is_hanjabyhangul_bool
+
+\keys_define:nn { hangulfontsetting }
+{
+	hfntset   .tl_set:N = \test_option_str,
+	mjfeature .tl_set:N = \test_option_mj_feature,
+	gtfeature .tl_set:N = \test_option_gt_feature,
+	hjmjfeature .tl_set:N = \test_option_hj_mj_feature,
+	hjgtfeature .tl_set:N = \test_option_hj_gt_feature,
+	feature   .code:n	= { \tl_set:Nn \test_option_mj_feature { #1 }
+	                        \tl_set:Nn \test_option_gt_feature { #1 } 
+	                        \tl_set:Nn \test_option_hj_mj_feature { #1 }
+	                        \tl_set:Nn \test_option_hj_gt_feature { #1 } },
+	default   .meta:n   = { hfntset = default },
+	defaultx  .meta:n   = { hfntset = defaultx },
+	barun     .meta:n   = { hfntset = barun   },
+	barunx	  .meta:n   = { hfntset = barunx  },
+	hcr       .meta:n   = { hfntset = hcr     },
+	user      .meta:n   = { hfntset = user    },
+	nanum	  .meta:n	= { hfntset = nanum   },
+	nanumxgt  .meta:n	= { hfntset = nanumxgt },
+	mjregular .tl_set:N = \mj_user_regu_fontname,
+	mjbold    .tl_set:N = \mj_user_bold_fontname,
+	gtregular .tl_set:N = \gt_user_regu_fontname,
+	gtbold    .tl_set:N = \gt_user_bold_fontname,
+	auto	  .meta:n	= { hfntset = auto  },
+	mj		  .meta:n   = { mjregular = #1 },
+	gt		  .meta:n   = { gtregular = #1 },
+	hanja	  .code:n   = { \bool_set_true:N \is_hanja_bool },
+	hanjabyhangul .code:n = {
+				\bool_set_true:N \is_hanja_bool
+				\bool_set_true:N \is_hanjabyhangul_bool
+				\tl_set_eq:NN \hj_mj_user_regu_fontname \mj_user_regu_fontname
+				\tl_set_eq:NN \hj_mj_user_bold_fontname \mj_user_bold_fontname
+				\tl_set_eq:NN \hj_gt_user_regu_fontname \gt_user_regu_fontname
+				\tl_set_eq:NN \hj_gt_user_bold_fontname \gt_user_bold_fontname
+			},
+	hjmjregular .tl_set:N = \hj_mj_user_regu_fontname,
+	hjmjbold    .tl_set:N = \hj_mj_user_bold_fontname,
+	hjgtregular .tl_set:N = \hj_gt_user_regu_fontname,
+	hjgtbold    .tl_set:N = \hj_gt_user_bold_fontname,
+	hjmj       .meta:n    = { hjmjregular = #1 },
+	hjgt       .meta:n    = { hjgtregular = #1 },
+}
+
+\keys_set:nn { hangulfontsetting }
+{
+	hfntset   = default,
+	mjregular = ,
+	mjbold    = ,
+	gtregular = ,
+	gtbold    = ,
+}
+
+\ProcessKeysOptions { hangulfontsetting }
+\scan_stop:
+
+\RequirePackage{xparse}
+
+\tl_new:N \mj_autobold
+\tl_new:N \gt_autobold
+
+\tl_set:Nn \mj_nanum_regu_fontname { NanumMyeongjo }
+\tl_set:Nn \mj_nanum_bold_fontname { NanumMyeongjoBold }
+\tl_set:Nn \mj_nanum_extrabold_fontname { NanumMyeongjoExtraBold }
+\tl_set:Nn \gt_gurun_regu_fontname { NanumGothic }
+\tl_set:Nn \gt_gurun_bold_fontname { NanumGothicBold }
+\tl_set:Nn \gt_gurun_extrabold_fontname { NanumGothicExtraBold }
+\tl_set:Nn \gt_gurun_light_fontname { NanumGothicLight }
+\tl_set:Nn \gt_barun_regu_fontname { NanumBarunGothic }
+\tl_set:Nn \gt_barun_bold_fontname { NanumBarunGothicBold }
+
+\tl_set:Nn \mj_hcr_regu_fontname   { HCRBatangLVT }
+\tl_set:Nn \mj_hcr_bold_fontname   { HCRBatangLVT-Bold }
+\tl_set:Nn \gt_hcr_regu_fontname   { HCRDotumLVT }
+\tl_set:Nn \gt_hcr_bold_fontname   { HCRDotumLVT-Bold }
+
+\msg_new:nnnn
+	{ hangulfontset }
+	{ pdftex~is~not~supported }
+	{ compile~the~document~with~xelatex~or~lualatex }
+	{ this~package~does~not~support~pdftex. }
+
+\pdftex_if_engine:T
+{
+	\msg_error:nn { hangulfontspec } { pdftex~is~not~supported }
+}
+
+\cs_new:Npn \_font_options:nnn #1 #2 #3
+{
+	\tl_clear:N \mj_font_option \tl_clear:N \mj_font_name
+	\tl_clear:N \gt_font_option \tl_clear:N \gt_font_name
+	\str_case:nn { #1 }
+	{
+		{ mj } {
+					\tl_set:Nx \mj_font_option
+					{
+						Ligatures = TeX,
+						BoldFont = #2,
+						BoldItalicFont = #2,
+						BoldItalicFeatures = { FakeSlant = { 0.167 } },
+						ItalicFont = #3,
+						AutoFakeSlant,
+						\test_option_mj_feature,
+						\mj_autobold
+					}
+					\tl_set:Nn \mj_font_name { #3 }
+			   }
+		{ gt } {
+					\tl_set:Nx \gt_font_option
+					{
+						Ligatures = TeX,
+						BoldFont = #2,
+						BoldItalicFont = #2,
+						BoldItalicFeatures = { FakeSlant = { 0.167 } },
+						ItalicFont = #3,
+						AutoFakeSlant,
+						\test_option_gt_feature,
+						\gt_autobold
+					}
+					\tl_set:Nn \gt_font_name { #3 }
+			   }
+	}
+}
+
+\cs_new:Npn \_auto_font_options:nn #1 #2
+{
+	\tl_clear:N \mj_font_option \tl_clear:N \mj_font_name
+	\tl_clear:N \gt_font_option \tl_clear:N \gt_font_name
+	\str_case:nn { #1 }
+	{
+		{ mj } {
+					\tl_set:Nx \mj_font_option
+					{
+						Ligatures = TeX,
+						\test_option_mj_feature,
+						AutoFakeSlant,
+						BoldItalicFeatures = { FakeSlant = { 0.167 } },
+					}
+					\tl_set:Nn \mj_font_name { #2 }
+				}
+		{ gt } {
+					\tl_set:Nx \gt_font_option
+					{
+						Ligatures = TeX,
+						\test_option_gt_feature,
+						AutoFakeSlant,
+						BoldItalicFeatures = { FakeSlant = { 0.167 } },
+					}
+					\tl_set:Nn \gt_font_name { #2 }
+				}
+	}
+}
+
+\cs_new:Npn \set_nanum_mj_fonts:
+{
+	\_font_options:nnn 
+		{ mj } 
+		{ \mj_nanum_bold_fontname }
+		{ \mj_nanum_regu_fontname }
+	\setmainhangulfont [ \mj_font_option ] { \mj_font_name }
+}
+
+\cs_new:Npn \set_gurun_fonts:
+{
+	\_font_options:nnn
+		{ gt }
+		{ \gt_gurun_bold_fontname }
+		{ \gt_gurun_regu_fontname }
+	\setsanshangulfont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_barun_fonts:
+{
+	\_font_options:nnn
+		{ gt }
+		{ \gt_barun_bold_fontname }
+		{ \gt_barun_regu_fontname }
+	\setsanshangulfont [ \gt_font_option ] { \gt_barun_regu_fontname }
+}
+
+\cs_new:Npn \set_hcr_fonts:
+{
+	\_font_options:nnn
+		{ mj }
+		{ \mj_hcr_bold_fontname }
+		{ \mj_hcr_regu_fontname }
+	\setmainhangulfont [ \mj_font_option ] { \mj_font_name }
+	\_font_options:nnn
+		{ gt }
+		{ \gt_hcr_bold_fontname }
+		{ \gt_hcr_regu_fontname }
+	\setsanshangulfont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_user_fonts_mj:
+{
+	\tl_if_empty:NT \mj_user_bold_fontname
+	{
+		\tl_set_eq:NN \mj_user_bold_fontname \mj_user_regu_fontname
+		\tl_set:Nn \mj_autobold { AutoFakeBold }
+	}
+	\_font_options:nnn
+		{ mj }
+		{ \mj_user_bold_fontname }
+		{ \mj_user_regu_fontname }
+	\setmainhangulfont [ \mj_font_option ] { \mj_font_name }
+}
+
+\cs_new:Npn \set_user_fonts_gt:
+{
+	\tl_if_empty:NT \gt_user_bold_fontname
+	{
+		\tl_set_eq:NN \gt_user_bold_fontname \gt_user_regu_fontname
+		\tl_set:Nn \gt_autobold { AutoFakeBold }
+	}
+	\_font_options:nnn
+		{ gt }
+		{ \gt_user_bold_fontname }
+		{ \gt_user_regu_fontname }
+	\setsanshangulfont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_auto_fonts_mj:
+{
+	\_auto_font_options:nn
+		{ mj }
+		{ \mj_user_regu_fontname }
+	\setmainhangulfont [ \mj_font_option ] { \mj_font_name }
+}
+
+\cs_new:Npn \set_auto_fonts_gt:
+{
+	\_auto_font_options:nn
+		{ gt }
+		{ \gt_user_regu_fontname }
+	\setsanshangulfont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_user_fonts:
+{
+	\tl_if_empty:NF \mj_user_regu_fontname
+	{
+		\set_user_fonts_mj:
+	}
+	\tl_if_empty:NF \gt_user_regu_fontname
+	{
+		\set_user_fonts_gt:
+	}
+}
+
+\cs_new:Npn \set_auto_fonts:
+{
+	\tl_if_empty:NF \mj_user_regu_fontname
+	{
+		\set_auto_fonts_mj:
+	}
+	\tl_if_empty:NF \gt_user_regu_fontname
+	{
+		\set_auto_fonts_gt:
+	}
+}
+
+\cs_new:Npn \set_user_hanja_fonts_mj:
+{
+	\tl_if_empty:NT \hj_mj_user_bold_fontname
+	{
+		\tl_set_eq:NN \hj_mj_user_bold_fontname \hj_mj_user_regu_fontname
+		\tl_set:Nn \mj_autobold { AutoFakeBold }
+	}
+	\_font_options:nnn
+		{ mj }
+		{ \hj_mj_user_bold_fontname }
+		{ \hj_mj_user_regu_fontname }
+	\setmainhanjafont [ \mj_font_option ] { \mj_font_name }
+}
+
+\cs_new:Npn \set_user_hanja_fonts_gt:
+{
+	\tl_if_empty:NT \hj_gt_user_bold_fontname
+	{
+		\tl_set_eq:NN \hj_gt_user_bold_fontname \hj_gt_user_regu_fontname
+		\tl_set:Nn \gt_autobold { AutoFakeBold }
+	}
+	\_font_options:nnn
+		{ gt }
+		{ \hj_gt_user_bold_fontname }
+		{ \hj_gt_user_regu_fontname }
+	\setsanshanjafont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_user_hanja_fonts:
+{
+	\tl_if_empty:NF \hj_mj_user_regu_fontname 
+	{
+		\set_user_hanja_fonts_mj:
+	}
+	\tl_if_empty:NF \hj_gt_user_regu_fontname
+	{
+		\set_user_hanja_fonts_gt:
+	}
+}
+
+\cs_new:Npn \set_auto_hanja_fonts_mj:
+{
+	\_auto_font_options:nn
+		{ mj }
+		{ \hj_mj_user_regu_fontname }
+	\setmainhanjafont [ \mj_font_option ] { \mj_font_name }
+}
+
+\cs_new:Npn \set_auto_hanja_fonts_gt:
+{
+	\_auto_font_options:nn
+		{ gt }
+		{ \hj_gt_user_regu_fontname }
+	\setsanshanjafont [ \gt_font_option ] { \gt_font_name }
+}
+
+\cs_new:Npn \set_auto_hanja_fonts:
+{
+	\tl_if_empty:NF \hj_mj_user_regu_fontname
+	{
+		\set_auto_hanja_fonts_mj:
+	}
+	\tl_if_empty:NF \hj_gt_user_regu_fontname
+	{
+		\set_auto_hanja_fonts_gt:
+	}
+}
+
+\cs_new:Npn \set_hanja_fonts:
+{
+	\str_case_x:nnF { \test_option_str }
+	{
+		{ user }  { \set_user_hanja_fonts: }
+		{ auto }  { \set_auto_hanja_fonts: }
+	}
+	{
+		\set_auto_hanja_fonts:
+	}
+}
+
+\str_case_x:nnF \test_option_str
+{
+	{ nanum    } { \tl_set_eq:NN \mj_nanum_bold_fontname \mj_nanum_extrabold_fontname
+				   \set_nanum_mj_fonts:
+				   \set_gurun_fonts:
+	  			   \tl_set_eq:NN \hj_mj_user_regu_fontname \gt_gurun_regu_fontname
+				   \set_auto_hanja_fonts: }
+	{ nanumxgt } { \tl_set_eq:NN \gt_nanum_bold_fontname \gt_gurun_extrabold_fontname
+				   \tl_set_eq:NN \mj_nanum_bold_fontname \mj_nanum_extrabold_fontname
+				   \set_nanum_mj_fonts:
+				   \set_gurun_fonts:
+	  			   \tl_set_eq:NN \hj_mj_user_regu_fontname \gt_gurun_regu_fontname
+				   \set_auto_hanja_fonts: }
+	{ barun    } { \set_barun_fonts: \set_nanum_mj_fonts: }
+	{ barunx   } { \tl_set_eq:NN \mj_nanum_bold_fontname \mj_nanum_extrabold_fontname
+	               \set_barun_fonts: \set_nanum_mj_fonts: }
+	{ hcr      } { \tl_put_right:Nn \test_option_mj_feature { ,Script = Hangul }
+				   \tl_put_right:Nn \test_option_gt_feature { ,Script = Hangul }
+				   \set_hcr_fonts:   }
+	{ default  } { \set_nanum_mj_fonts: \set_gurun_fonts: }
+	{ defaultx } { \tl_set_eq:NN \mj_nanum_bold_fontname \mj_nanum_extrabold_fontname
+				   \set_nanum_mj_fonts:
+				   \set_gurun_fonts: }
+	{ user     } { \set_user_fonts:  }
+	{ auto	   } { \set_auto_fonts:  }
+}
+{
+	\set_nanum_mj_fonts:
+	\set_gurun_fonts:
+}
+
+\bool_if:NT \is_hanja_bool
+{
+	\tl_clear:N \mj_autobold \tl_clear:N \gt_autobold
+	\bool_if:NF \is_hanjabyhangul_bool
+	{
+		\tl_set_eq:NN \test_option_mj_feature \test_option_hj_mj_feature
+		\tl_set_eq:NN \test_option_gt_feature \test_option_hj_gt_feature
+	}
+	\set_hanja_fonts:
+}
+
+%\luatex_if_engine:T
+%{
+%	\tl_if_exist:NT \hanjabyhanjafont
+%	{
+%		\AtBeginDocument{ \hanjabyhanjafont 1 }
+%	}
+%}
+
+\endinput
+%%%
+%%% end of package.
+%%%

@@ -1,0 +1,118 @@
+% file: preparefont.sty
+% Written by Nova De Hi
+% \preparefontfile{<font name>}{<url}
+%
+% --shell-escape
+%
+\RequirePackage{expl3}
+\ProvidesExplPackage{preparefont}{2014/11/23}{v0.4}{download font from web}
+
+\RequirePackage{xparse}
+\RequirePackage{ifplatform}
+
+\msg_new:nnnn 
+	{ preparefont }
+	{ pdftex~unsupported }
+	{ xetex~or~luatex~is~required~to~compile~this~document. }
+	{ run~xelatex~or~lualatex }
+
+\pdftex_if_engine:T
+{
+	\msg_error:nn { preparefont } { pdftex~unsupported }
+}
+
+\ifwindows
+	\tl_set:Nn \PFWgetCommand {wget~~--no-check-certificate~-nc~ }
+	\tl_set:Nn \PFWgetWithName {wget~--no-check-certificate~-nc~-O~}
+\else
+	\tl_set:Nn \PFWgetCommand {curl~--basic~-O~}
+	\tl_set:Nn \PFWgetWithName {curl~--basic~-o~}
+\fi
+
+\RequirePackage{l3regex}
+
+\ior_new:N  \_tmp_file
+\bool_new:N \_fontfile_exist
+\bool_new:N \_fontfile_zip
+
+\immediate\write18{luaotfload-tool~-u}
+
+\NewDocumentCommand \preparefontfile { m v o }
+{
+	\seq_set_split:Nnn \_zip_file { . } { #2 }
+	\seq_pop_right:NN  \_zip_file \_zip_trail
+	\seq_pop_right:NN  \_zip_file \_dn_filename
+	
+	\ifwindows
+		\seq_set_split:Nnn \_file_url { / } { #2 }
+		\seq_pop_left:NN   \_file_url \_https_check
+	
+		\regex_replace_once:nnN { http(.)(.*) } { \1 } \_https_check
+		\str_if_eq_x:nnT { \_https_check } { s }
+		{
+			\tl_set:Nn \PFWgetCommand {wget~-nc~--no-check-certificate~}
+			\tl_set:Nn \PFWgetWithName {wget~-nc~--no-check-certificate~-O}
+		}
+	\fi
+	
+%	\tl_put_right:Nn \_dn_filename { }
+	\regex_replace_all:nnN { / } { ! } \_dn_filename
+
+	\exp_args:NNNo \seq_set_split:Nnn \_dn_flname { ! } { \_dn_filename }
+	\seq_pop_right:NN \_dn_flname \_dn_fname 
+	
+	\str_case_x:nnF \_zip_trail
+	{
+		{ zip } { \bool_set_true:N \_fontfile_zip }
+		{ ZIP } { \bool_set_true:N \_fontfile_zip }
+	}
+	{
+		\bool_set_false:N \_fontfile_zip 
+	}
+	
+	\immediate\write18{luaotfload-tool~-i~-n~--find~"#1"~>\jobname _fontinfo.txt}
+	\ior_open:Nn \_tmp_file { \jobname _fontinfo.txt}
+	\ior_get_str:NN \_tmp_file \_tmp_firstline
+	\ior_close:N \_tmp_file
+	
+	\exp_args:NNo \tl_set:Nn \test_string { \_tmp_firstline }
+	
+	\regex_replace_once:nnN { (.*)\"(.*)\"(.*)$ } { \3 } \test_string 
+	
+	\tl_set:Nn \test_test { * }
+	\tl_put_right:Nn \test_test { \test_string }
+	\tl_put_right:Nn \test_test { * }
+
+	\str_case_x:nn { \test_test }
+	{
+		{*~in~index.*} { \bool_set_false:N \_fontfile_exist }
+		{*~found!*   } { \bool_set_true:N  \_fontfile_exist }
+	}
+	
+	\tl_set:Nn \l_tmp_url { #2 }
+	
+	\ifwindows\else
+		\regex_replace_once:nnN { \( } { \\\( } \l_tmp_url
+		\regex_replace_once:nnN { \) } { \\\) } \l_tmp_url
+	\fi
+
+	\bool_if:nF \_fontfile_exist
+	{
+		\IfValueTF { #3 }
+		{ \bool_set_true:N \_fontfile_zip
+		  \immediate\write18{\PFWgetWithName~#3~\l_tmp_url} }
+		{ \immediate\write18{\PFWgetCommand~\l_tmp_url } }
+		\bool_if:nT \_fontfile_zip
+		{
+			\IfValueTF { #3 }
+			{ \immediate\write18{unzip~-o~#3 } }
+		    { \immediate\write18{unzip~-o~*\_dn_fname.\_zip_trail} }
+		}
+	}
+}
+
+\endinput
+
+%% v0.6: luaotfloat-tool, refresh font db first.
+%% v0.5: luaotfload-tool, added -n option.
+%% v0.4: windows, wget --no-check-certificate to https, reported by Progress

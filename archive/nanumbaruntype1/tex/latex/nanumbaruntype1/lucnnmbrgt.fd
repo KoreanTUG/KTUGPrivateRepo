@@ -1,0 +1,9 @@
+\ProvidesFile{lucnnmbrgt.fd}[2013/02/12 v0.1 Nanum Barun Gothic font definitions]
+\DeclareFontFamily{LUC}{nnmbrgt}{\hyphenchar \font\m@ne}
+\DeclareFontShape {LUC}{nnmbrgt}{m}{n}{<-> LUC * nnmbrgtm}{}
+\DeclareFontShape {LUC}{nnmbrgt}{m}{sl}{<-> LUC * nnmbrgtmo}{}
+\DeclareFontShape {LUC}{nnmbrgt}{m}{it}{<-> LUCssub * nnmbrgt/m/sl}{}
+\DeclareFontShape {LUC}{nnmbrgt}{bx}{n}{<-> LUC * nnmbrgtb}{}
+\DeclareFontShape {LUC}{nnmbrgt}{bx}{sl}{<-> LUC * nnmbrgtbo}{}
+\DeclareFontShape {LUC}{nnmbrgt}{bx}{it}{<-> LUCssub * nnmbrgt/bx/sl}{}
+\endinput

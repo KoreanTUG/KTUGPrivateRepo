@@ -1,0 +1,12 @@
+name hcr-lvt
+category Package
+revision 200
+shortdesc Hamchorom LVT Truetype fonts
+relocated 1
+longdesc The Hamchorom LVT Truetype font package contains Hamchorom LVT
+longdesc Batang and Hamchorom LVT Dotum fonts.
+runfiles size=26765
+ RELOC/fonts/truetype/hancom/hcr-lvt/HANBatang-LVT.ttf
+ RELOC/fonts/truetype/hancom/hcr-lvt/HANBatangB-LVT.ttf
+ RELOC/fonts/truetype/hancom/hcr-lvt/HANDotum-LVT.ttf
+ RELOC/fonts/truetype/hancom/hcr-lvt/HANDotumB-LVT.ttf

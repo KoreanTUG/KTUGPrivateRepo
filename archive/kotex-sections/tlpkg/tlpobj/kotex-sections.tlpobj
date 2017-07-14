@@ -1,0 +1,7 @@
+name kotex-sections
+category Package
+revision 200
+shortdesc legacy section style from HLaTeX, written by Karnes
+relocated 1
+runfiles size=4
+ RELOC/tex/latex/kotex-sections/kotex-sections.sty

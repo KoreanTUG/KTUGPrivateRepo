@@ -1,0 +1,60 @@
+%% ksforloop.sty
+%% written by Nova De Hi
+%% 
+%% \ksforloop{<loopcnt>=<start>+<step>}{<dest>}{ <codes> }
+%% tl \ksfor<loopcnt>
+%%
+\RequirePackage{expl3}
+\ProvidesExplPackage{ksforloop}{2015/05/18}{v0.3}{Karnes' for loop}
+
+\RequirePackage{xparse}
+
+\cs_new:Npn \parse_argument:n #1 { \arg_parse:w #1 \q_stop }
+
+\cs_new:Npn \arg_parse:w #1 = #2 + #3 \q_stop
+{
+	\tl_set:Nn \kfl_var { #1 }
+	\int_if_exist:cF { kfl_\kfl_var }
+	{
+		\int_new:c { kfl_\kfl_var }
+		\int_new:c { kfl_step_\kfl_var }
+		\int_new:c { kfl_dest_\kfl_var }
+	}
+	\int_set:cn { kfl_\kfl_var } { #2 }
+	\int_set:cn { kfl_step_\kfl_var } { #3 }
+}
+
+\cs_new_protected:Npn \ks_for_loop:nnn #1 #2 #3
+{
+	\tl_if_blank:nTF { #1 }
+		{ \parse_argument:n {i=1+1} }
+		{ \parse_argument:n { #1 } }
+	\tl_set:cx { ksfor\kfl_var } { \int_use:c { kfl_\kfl_var } }
+	\int_set:cn { kfl_dest_\kfl_var } { #2 }
+	\int_while_do:nn { \use:c { kfl_\kfl_var } <= \use:c { kfl_dest_\kfl_var } }
+	{
+		#3
+		\int_add:cn { kfl_\kfl_var} { \use:c { kfl_step_\kfl_var } }
+		\tl_set:cx { ksfor\kfl_var } { \int_use:c { kfl_\kfl_var } }
+	}
+}
+
+\NewDocumentCommand \ksforloop { s m m +m }
+{
+	\IfBooleanTF { #1 }
+	{
+		\ks_for_loop:nnn { #2 } { #3 } { #4 }
+	}
+	{
+		\group_begin:
+			\ks_for_loop:nnn { #2 } { #3 } { #4 }
+		\group_end:
+	}
+}
+
+\NewDocumentCommand \ksforquit { }
+{
+	\int_set:cn { kfl_\kfl_var } { \int_use:c { kfl_dest_\kfl_var } + 1 }
+}
+
+\endinput

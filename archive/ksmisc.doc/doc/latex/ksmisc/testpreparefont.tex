@@ -1,0 +1,38 @@
+%!TEX program = arara
+% arara: xelatex: { shell: yes, synctex: yes }
+\documentclass[b5paper]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\usepackage{preparefont}
+
+\usepackage{jiwonlipsum,blindtext}
+
+%%%%%%%% examples
+%% Cyberbit
+%\preparefontfile{Cyberbit.ttf}%
+%	{http://www.minix3.org/distfiles-backup/cyberbit-ttf/Cyberbit.ZIP}
+%% Unifont
+%\preparefontfile{unifont.ttf}{http://www.lgm.cl/contenido/unifont.zip}
+%% Nanum TTFs
+%\preparefontfile{NanumMyeongjo}{http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip}
+%% HCR TTFs
+%\preparefontfile{HANBatang.ttf}{http://ftp.ktug.org/KTUG/hcr-lvt/HANBatang-LVT.ttf}
+%\preparefontfile{HANBatangB.ttf}{http://ftp.ktug.org/KTUG/hcr-lvt/HANBatangB-LVT.ttf}
+%\preparefontfile{HANDotum.ttf}{http://ftp.ktug.org/KTUG/hcr-lvt/HANDotum-LVT.ttf}
+%\preparefontfile{HANDotumB.ttf}{http://ftp.ktug.org/KTUG/hcr-lvt/HANDotumB-LVT.ttf}
+%% KoPub
+%\preparefontfile{KoPubBatangLight.ttf}{http://www.kopus.org/Download/KOPUB_TTF_FONTS.zip}
+%% Seoul Fonts
+%\preparefontfile{SeoulHangangM.ttf}{http://www.seoul.go.kr/v2012/seoul/symbol/download.php?div=Zm9udDAy}[SeoulFonts.zip]
+
+%\setobmainfont(unifont.ttf)
+
+\begin{document}
+
+\blindtext
+
+\jiwon[1-28]
+
+\end{document}

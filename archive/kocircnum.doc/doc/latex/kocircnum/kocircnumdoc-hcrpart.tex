@@ -1,0 +1,157 @@
+%%% hcrcircnum part of kocircnumdoc
+%!TEX root = kocircnumdoc.tex
+
+\subsection{\textbackslash hcrcircnum}
+함초롬체/GSUB\index{함초롬체 LVT}의 nalt 속성을 이용하여 원숫자를 식자한다.
+%원래의 \pkg{hcrnumbers}가 제공하는 \cs{circlenumber}, \cs{boxnumber} 등을 사용할 수도 있으나 이 패키지의 사용자 인터페이스를 위해 다음 명령을 준비하였다.
+구체적인 방법은 
+\begin{verbatim}
+\fontspec[Annotation=4]{HCR Batang LVT} 1
+\end{verbatim}
+와 같이 \cs{fontspec} 명령에 \ca{Annotation}을 주어 숫자를 찍는 것이다. 두 자리 또는 세 자리 숫자가 왔을 때 이를 적절하게 처리하기 위한 코드를 포함하는 Dohyun Kim이 작성한 \pkg{hcrnumbers}를 Nova De Hi가 재구현하였다.
+원본에서는 \cs{circlenumber}\texttt{ 22 }와 같이 숫자를 주고 마지막에 스페이스로 숫자의 끝을 표시하여 원숫자를 식자하게 되어 있는데 그 결과 숫자 뒤에 오는 스페이스가
+사라지는 현상이 있었다. 새로 구현하면서 좀더 \LaTeX 스럽게 \cs{hcrcircnum}\texttt{\{22\}}와 같은 방식으로 숫자를
+인자로 주도록 하였다. 그러나 근본적으로 다른 것은 아니며 \pkg{hcrnumbers}와 거의 동일하게 동작한다.
+
+한편, 이 명령은 \pdftex 에서는 의미가 없다. 트루타입/오픈타입 속성을 이 엔진에서 이용할 수 없기
+때문이다.
+\pdftex 으로 \cs{hcrcircnum} 명령이 포함된 문서를
+처리하면 오류가 발생하지는 않으나 실제 함초롬체를 사용하는 효과도 일어나지 않고 단지 이후 설명할 \cs{hzcircnum}이 대신 동작한다.
+
+사용자 인터페이스 명령은 다음과 같다.
+
+\begin{boxedverbatim}
+\hcrcircnum[shape = <circle/box>, white/black,color=<color>,%
+            font=<font>,reset]{number}
+\hcrcircnum*[ ... ]{number}
+\end{boxedverbatim}
+
+\cs{hcrcircnum}의 옵션은 다음과 같다.
+\begin{description}\firmlist
+\item [\ct{shape}] 동그라미 모양과 네모난 모양 가운데 고를 수 있다. \ct{shape}\texttt{=circle}은 간단히 \ct{circle}이라고만 해도 된다. \ct{box} 대신 \ct{rectangle}을 쓸 수 있다.
+\item [\ct{white}, \ct{black}] 흰 바탕에 검은 숫자, 검은 바탕에 흰 숫자.
+\item [\ct{color}] color 관련 패키지를 로드해야 한다. white 상태이면 전경색이, black 상태이면 배경색이 지정한 색으로 칠해진다.
+\item [\ct{font}] 예를 들어 \cs{rmfamily}\cs{bfseries} 등을 지정할 수 있다. \cs{rmfamily}이면 함초롬 바탕체가, \cs{sffamily}이면 함초롬 돋움체가 사용된다. 사이즈 명령 등을 줄 수도 있다.\index{함초롬체 LVT}
+\item [\ct{reset}] 설정을 초기화한다. 옵션 중에서 제일 먼저 쓰는 것이 좋다.
+\end{description}
+
+숫자는 세 자리까지 가능하고 이를 초과하면 %에러를 보인다.
+식자되지 않는다.
+
+\paragraph{기본 사용법}
+
+아무런 옵션 없이 쓰면 다음과 같다.
+\begin{verbatim}
+\hcrcircnum{0}, \hcrcircnum{1}, \hcrcircnum{25}, \hcrcircnum{116}
+\end{verbatim}
+\hcrcircnum{0}, \hcrcircnum{1}, \hcrcircnum{25}, \hcrcircnum{116}
+
+\medskip
+
+옵션으로 shape나 black/white를 일단 지정하고 나면 그 후로도 같은 모양이 지속된다. 다음 예를 보자. shape를 rectangle로 지정하면 다음과 같다. 간단히 \ct{box}라고 지정할 수 있다.
+\begin{verbatim}
+\hcrcircnum[shape=rectangle]{1},
+\hcrcircnum[box]{25},
+\hcrcircnum{116}
+\end{verbatim}
+\hcrcircnum[shape=rectangle]{1},
+\hcrcircnum[box]{25},
+\hcrcircnum{116}
+
+\medskip
+
+다음 보기는 네 가지 모양을 식자해본 것이다.
+\begin{verbatim}
+\hcrcircnum[shape=circle,white]{20},  %%% default
+\hcrcircnum[shape=circle,black]{20},
+\hcrcircnum[shape=rectangle,white]{20},
+\hcrcircnum[shape=rectangle,black]{20}
+\end{verbatim}
+\hcrcircnum[shape=circle,white]{20},  %%% default
+\hcrcircnum[shape=circle,black]{20},
+\hcrcircnum[shape=rectangle,white]{20},
+\hcrcircnum[shape=rectangle,black]{20}
+
+\medskip
+
+font 설정을 바꾸면 다음과 같이 된다.
+\begin{verbatim}
+\hcrcircnum[reset,font={\Large}]{20}
+\hcrcircnum[reset,black,font={\sffamily\bfseries\LARGE}]{30}
+\end{verbatim}
+\hcrcircnum[reset,font={\Large}]{20}
+\hcrcircnum[reset,black,font={\sffamily\bfseries\LARGE}]{30}
+
+\medskip
+
+color 설정을 시험해보자. black을 함께 지정하면 배경색이 지정된 색상으로 칠해진다.
+\begin{verbatim}
+\hcrcircnum[reset,color=blue]{15}
+\hcrcircnum[color=red]{15}
+\hcrcircnum[color=black]{15}
+\hcrcircnum[black,color=blue]{15}
+\hcrcircnum[color=red]{15}
+\end{verbatim}
+\hcrcircnum[reset,color=blue]{15}
+\hcrcircnum[color=red]{15}
+\hcrcircnum[color=black]{15}
+\hcrcircnum[black,color=blue]{15}
+\hcrcircnum[color=red]{15}
+
+\paragraph{별표붙은 명령, reset}
+별표붙은 명령 \cs{hcrcircnum}\texttt{*}을 써서 모든 옵션을 처음 상태로 되돌린다.
+별표붙은 명령에 옵션 인자를 함께 사용하면 초기화한 후에 주어진 옵션만 효과를 발휘한다.
+별표붙은 명령을 쓰는 것과 \ct{reset} 옵션을 주는 것은 동일하다.
+단, \ct{reset} 옵션은 반드시 모든 옵션 중에 제일 처음에 있어야 한다.
+\begin{verbatim}
+\hcrcircnum*{1},
+\hcrcircnum[shape=rectangle]{2},
+\hcrcircnum*[black]{3},
+\hcrcircnum{4},
+\hcrcircnum[reset,box]{5},
+\hcrcircnum[black]{6}
+\end{verbatim}
+\hcrcircnum*{1},
+\hcrcircnum[shape=rectangle]{2},
+\hcrcircnum*[black]{3},
+\hcrcircnum{4},
+\hcrcircnum[reset,box]{5},
+\hcrcircnum[black]{6}
+
+\medskip
+
+네 종류의 모양을 식자하는 앞서 보인 코드는 이전 속성을 그 후로 이어받는다는 점과 약어 옵션을 이용하여, 다음과 같이 간단히 코딩할 수 있다.
+\begin{verbatim}
+\hcrcircnum*{20},
+\hcrcircnum[black]{20},
+\hcrcircnum*[rectangle]{20},
+\hcrcircnum[black]{20}
+\end{verbatim}
+\hcrcircnum*{20},
+\hcrcircnum[black]{20},
+\hcrcircnum*[rectangle]{20},
+\hcrcircnum[black]{20}
+
+
+\paragraph{선언형 옵션 명령과 리셋 명령}
+color와 shape의 기본값을 다음 명령으로 바꿀 수 있다. 바꾼 이후에는 지속적으로 영향을 미친다.
+\begin{boxedverbatim}
+\hcrcircnumsetup{shape=<shape>,color=<color>}
+\restorehcrcircnumsetup
+\end{boxedverbatim}
+\cs{restorehcrcircnumsetup}는 원래의 기본값으로 되돌리는 명령이다.
+별표붙은 명령이나 \ct{reset} 옵션을 통해서 간단히 할 수 있는 일이지만 옵션 인자를 쓸 수 없는 경우 등을 위하여 별도로 마련해두었다.
+ 
+\cs{hcrcircnumsetup}의 사용례를 보이면 다음과 같다. \cs{hcrcircnum}의 옵션과 마찬가지로 약어도 동작한다.
+\begin{verbatim}
+\hcrcircnumsetup{shape=rectangle,black}\hcrcircnum{20},
+\hcrcircnumsetup{shape=rectangle,white}\hcrcircnum{50},
+\hcrcircnumsetup{circle,black}\hcrcircnum{60},
+\hcrcircnumsetup{circle,white}\hcrcircnum{70}
+\end{verbatim}
+\hcrcircnumsetup{shape=rectangle,black}\hcrcircnum{20},
+\hcrcircnumsetup{shape=rectangle,white}\hcrcircnum{50},
+\hcrcircnumsetup{circle,black}\hcrcircnum{60},
+\hcrcircnumsetup{circle,white}\hcrcircnum{70}
+
+\endinput

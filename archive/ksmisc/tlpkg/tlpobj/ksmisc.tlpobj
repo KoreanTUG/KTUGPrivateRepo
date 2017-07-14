@@ -1,0 +1,11 @@
+name ksmisc
+category Package
+revision 200
+shortdesc miscellaneous packages written by Karnes
+relocated 1
+runfiles size=8
+ RELOC/tex/latex/ksmisc/ksjosaref.sty
+ RELOC/tex/latex/ksmisc/kslinematters.sty
+ RELOC/tex/latex/ksmisc/ksmisc.sty
+ RELOC/tex/latex/ksmisc/kstextks.sty
+ RELOC/tex/latex/ksmisc/preparefont.sty

@@ -1,0 +1,7 @@
+name ifpxltex
+category Package
+revision 200
+shortdesc conditional expansion of various engines, written by Karnes
+relocated 1
+runfiles size=1
+ RELOC/tex/latex/ifpxltex/ifpxltex.sty

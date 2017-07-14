@@ -1,0 +1,3 @@
+\DeclareFontFamily{LUC}{utjsr}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{utjsr}{m}{n}{<-> LUC * outjsrm}{}

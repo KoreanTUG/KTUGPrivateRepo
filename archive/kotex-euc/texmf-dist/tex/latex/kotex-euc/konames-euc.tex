@@ -1,0 +1,75 @@
+%%% file `konames-euc` ( a part of ko.TeX )
+%%
+%% (C) Copyright 2007 Koaunghi Un <koaunghi@kornet.net>
+%%                    Dohyun Kim  <nomos@ktug.or.kr>
+%%                    Kangsoo Kim <karnes@ktug.or.kr>
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2006/05/20 or later.
+%%
+%% Read LICENSE included in the package.
+%%
+%% -*- EUC-KR -*-
+%% 우리말 문서의 곳곳에서 사용될 이름들은 \ksnamedef 모듬으로 정의된다.
+%%
+%% 다른 꾸러미가 이 이름들을 다시 정하게 될 경우도 있으므로 아래의
+%% 정의는 모든 꾸러미를 다 처리하고 난 후 \begin{document}가 나올 때
+%% 효력을 갖도록 한다.  이런 이름들은 \begin{document} 앞에서
+%% \renewcommand를 통해 변경할 수 있다.
+
+\def\ksnamedef#1#2{%
+\AtBeginDocument{\@namedef{ks#1}{#2}
+                 \@namedef{#1}{\expandafter\protect\csname ks#1\endcsname}}}
+
+\if@hanja
+  \ksnamedef{today}{\number\year 年~\number\month 月~\number\day 日}
+  \ksnamedef{enclname}{同封物}
+  \ksnamedef{ccname}{寫本}% 사전에서
+  \ksnamedef{headtoname}{受信人}%
+  \ksnamedef{seename}{\을~參考}%
+  \ksnamedef{contentsname}{目~次}% 錄}
+  \ksnamedef{listfigurename}{그림~目次}% 錄}
+  \ksnamedef{listtablename}{表~目次}% 錄}
+  \ksnamedef{refname}{參考~文獻}% {參照~書籍}
+  \ksnamedef{indexname}{索~引}
+  \ksnamedef{tablename}{表}
+  \ksnamedef{abstractname}{要~約}
+  \ksnamedef{bibname}{著書~目錄}% 사전에서
+  \ksnamedef{appendixname}{附錄}% 사전에서
+  \ksnamedef{ksTHE}{第}
+  \ksnamedef{partname}{篇}
+  \ksnamedef{chaptername}{章}
+  \ksnamedef{sectionname}{節}
+  \ksnamedef{colorlayer}{幻燈版~色相}% 사전에서
+  \ksnamedef{glossaryname}{語~彙}% 사전에서
+\else
+  \ksnamedef{today}{\number\year 년~\number\month 월~\number\day 일}
+  \ksnamedef{enclname}{동봉물}
+  \ksnamedef{ccname}{사본}%
+  \ksnamedef{headtoname}{받는이}%
+  \ksnamedef{seename}{\을~참고}% 조}%
+  \ksnamedef{contentsname}{차~례}% 록}
+  \ksnamedef{listfigurename}{그림~차례}% 록}
+  \ksnamedef{listtablename}{표~차례}% 록}
+  \ksnamedef{refname}{참고~문헌}% {참조~서적}
+  \ksnamedef{indexname}{찾아보기}% 한자는 색~인
+  \ksnamedef{tablename}{표}
+  \ksnamedef{abstractname}{요~약}
+  \ksnamedef{bibname}{참고~문헌}% 사전에서
+  \ksnamedef{appendixname}{부록}% 사전에서
+  \ksnamedef{ksTHE}{제}%
+  \ksnamedef{partname}{편}% 부
+  \ksnamedef{chaptername}{장}%
+  \ksnamedef{sectionname}{절}% 단락 - subsection 소단락
+  \ksnamedef{colorlayer}{환등판~색깔}% 사전에서
+  \ksnamedef{glossaryname}{용어집}% 사전에서
+\fi
+\ksnamedef{pagename}{페이지}% 쪽
+\ksnamedef{figurename}{그림}
+
+\endinput

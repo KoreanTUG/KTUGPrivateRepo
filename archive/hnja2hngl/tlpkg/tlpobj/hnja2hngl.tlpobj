@@ -1,0 +1,9 @@
+name hnja2hngl
+category Package
+revision 200
+shortdesc Typesetting Hangul-to-Hanja sound values
+relocated 1
+runfiles size=78
+ RELOC/tex/latex/hnja2hngl/HanjakHangul.dat
+ RELOC/tex/latex/hnja2hngl/grruby.sty
+ RELOC/tex/latex/hnja2hngl/hnja2hngl.sty

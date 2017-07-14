@@ -1,0 +1,21 @@
+\DeclareFontFamily{C70}{utpg}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{C70}{utpg}{b}{n}{<-> CJK * outpgb}{}
+\DeclareFontShape{C70}{utpg}{b}{sl}{<-> CJK * outpgbo}{}
+\DeclareFontShape{C70}{utpg}{b}{it}{<-> CJK * outpgbo}{}
+
+\DeclareFontShape{C70}{utpg}{bx}{n}{<-> CJKssub * utpg/b/n}{}
+\DeclareFontShape{C70}{utpg}{bx}{sl}{<-> CJKssub * utpg/b/sl}{}
+\DeclareFontShape{C70}{utpg}{bx}{it}{<-> CJKssub * utpg/b/it}{}
+
+\DeclareFontShape{C70}{utpg}{bc}{n}{<-> CJK * outpgbc}{}
+\DeclareFontShape{C70}{utpg}{bc}{sl}{<-> CJK * outpgbco}{}
+\DeclareFontShape{C70}{utpg}{bc}{it}{<-> CJK * outpgbco}{}
+
+\DeclareFontShape{C70}{utpg}{m}{n}{<-> CJK * outpgm}{}
+\DeclareFontShape{C70}{utpg}{m}{sl}{<-> CJK * outpgmo}{}
+\DeclareFontShape{C70}{utpg}{m}{it}{<-> CJK * outpgmo}{}
+
+\DeclareFontShape{C70}{utpg}{c}{n}{<-> CJK * outpgc}{}
+\DeclareFontShape{C70}{utpg}{c}{sl}{<-> CJK * outpgco}{}
+\DeclareFontShape{C70}{utpg}{c}{it}{<-> CJK * outpgco}{}

@@ -1,0 +1,113 @@
+%%%
+%%% \ks_pop_left:NN = \tl_pop_left:NN
+%%% \ks_pop_right:NN = \tl_pop_right:NN
+%%%
+\ProvidesPackage{ksmisc}[2015/04/18 v0.2]
+
+\RequirePackage{expl3}
+\RequirePackage{xparse}
+\RequirePackage{ksforloop}
+
+\ExplSyntaxOn
+
+\cs_new:Npn \ks_pop_left:NN #1 #2
+{
+	\tl_set_eq:NN \l_tmpa_tl #1
+	\tl_set:Nx \l_tmpb_tl { \tl_head:N \l_tmpa_tl }
+	\tl_set:Nx #1 { \tl_tail:N \l_tmpa_tl }
+	\tl_set:Nx #2 { \l_tmpb_tl }
+}
+
+\cs_new:Npn \ks_pop_right:NN #1 #2
+{
+	\tl_set_eq:NN \l_tmpa_tl #1
+	\tl_reverse:N \l_tmpa_tl
+	\tl_set:Nx \l_tmpb_tl { \tl_head:N \l_tmpa_tl }
+	\tl_set:Nx #1 { \tl_tail:N \l_tmpa_tl }
+	\tl_set:Nx #2 { \l_tmpb_tl }
+	\tl_reverse:N #1
+}
+
+\cs_new:Npn \ks_clist_set_from_tl:NN #1 #2
+{
+	\clist_if_exist:NF #1
+	{
+		\clist_new:N #1
+	}
+	\clist_clear:N #1
+	\ksforloop {} { \tl_count:N #2 }
+	{
+		\ks_pop_left:NN #2 \l_tmp_item
+		\clist_gput_right:Nx #1 { \l_tmp_item }
+	}
+}
+
+\cs_new:Npn \ks_seq_set_from_tl:NN #1 #2
+{
+	\seq_if_exist:NF #1
+	{
+		\seq_new:N #1
+	}
+	\seq_clear:N #1
+	\ksforloop {} { \tl_count:N #2 }
+	{
+		\ks_pop_left:NN #2 \l_tmp_item
+		\seq_gput_right:Nx #1 { \l_tmp_item }
+	}
+}
+
+%%% \set_to_width, \set_to_totalheight, \set_to_height, \set_to_depth
+\cs_new:Npn \dim_set_to_width:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_set:Nn #1 { \box_wd:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_set_to_height:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_set:Nn #1 { \box_ht:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_set_to_depth:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_set:Nn #1 { \box_dp:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_set_to_totalheight:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_set:Nn #1 { \box_ht:N \l_tmpa_box + \box_dp:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_gset_to_width:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_gset:Nn #1 { \box_wd:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_gset_to_height:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_gset:Nn #1 { \box_ht:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_gset_to_depth:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_gset:Nn #1 { \box_dp:N \l_tmpa_box }
+}
+
+\cs_new:Npn \dim_gset_to_totalheight:Nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\dim_gset:Nn #1 { \box_ht:N \l_tmpa_box + \box_dp:N \l_tmpa_box }
+}
+
+\ExplSyntaxOff
+
+\endinput
+
+
+%%% ver 0.2: \dim_set_to_totalheight:Nn 

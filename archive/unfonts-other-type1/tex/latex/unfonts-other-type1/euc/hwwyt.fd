@@ -1,0 +1,12 @@
+%% hwwyt.fd: UhcYetgul for LaTeX
+
+\DeclareFontFamily{H}{wwyt}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{H}{wwyt}{c}{n}{<->wytc}{}
+\DeclareFontShape{H}{wwyt}{c}{sl}{<->wytco}{}
+\DeclareHFontShape{H}{wwyt}{c}{it}{<->hssub*wwyt/c/sl}{}
+\DeclareFontShape{H}{wwyt}{m}{n}{<->wyt}{}
+\DeclareFontShape{H}{wwyt}{m}{sl}{<->wyto}{}
+\DeclareHFontShape{H}{wwyt}{m}{it}{<->hssub*wwyt/m/sl}{}
+
+%% End of hwwyt.fd

@@ -1,0 +1,71 @@
+\documentclass[a4paper,hcr]{oblivoir}
+
+\usepackage[mono=false]{libertine}
+
+\usepackage{jiwonlipsum}
+
+\pagestyle{hangul}
+
+\begin{document}
+
+\title{\texttt{jiwonlipsum} 패키지}
+\author{Nova De Hi and Progress}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+\texttt{lipsum}이라는 패키지가 있습니다. 외국에서 출판이나 그래픽 디자인, 편집 디자인, 폰트 디자인 따위의 작업을 하면서 텍스트 시안(sample)을 작성할 때, 의미 없는 문장을 채워넣기 위해 사용하는 것으로 대략 이해하시면 됩니다.  \texttt{jiwonlipsum}은 \texttt{lipsum}의 한글판이라 생각하시면 됩니다. 연암 박지원 선생의 \ccnm{열하일기} 가운데 `하룻밤에 아홉 번 강을 건너다(一夜九渡河記)' 문장을 빌어왔습니다. 패키지는 Nova De Hi님이 작성하였고 이 매뉴얼은 Progress가 썼습니다.
+\end{abstract}
+
+\tableofcontents*
+
+\section{사용하기}
+
+\begin{boxedverbatim}
+\jiwon
+\end{boxedverbatim}
+
+\jiwon
+
+\section{부분적으로 사용하기}
+
+\begin{boxedverbatim}
+\jiwon[1-12]
+\end{boxedverbatim}
+
+\jiwon[1-12]
+
+\begin{boxedverbatim}
+\jiwon[13-20]
+\end{boxedverbatim}
+
+\jiwon[13-20]
+
+\begin{boxedverbatim}
+\jiwon[21-28]
+\end{boxedverbatim}
+
+\jiwon[21-28]
+
+\begin{boxedverbatim}
+\jiwon[15]
+\end{boxedverbatim}
+
+\jiwon[15]
+
+\begin{boxedverbatim}
+\jiwon[23]
+\end{boxedverbatim}
+
+\jiwon[23]
+
+\section{nopar와 numbers}
+
+\begin{itemize}
+\item 패키지 옵션으로 \texttt{[nopar]}를 주면 문단 끝의 \verb|\par|가 붙지 않습니다.
+
+\item \texttt{[numbers]} 옵션을 주면 문단에 번호가 붙습니다.
+\end{itemize}
+
+\end{document}

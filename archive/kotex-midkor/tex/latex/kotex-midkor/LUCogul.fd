@@ -1,0 +1,4 @@
+\DeclareFontFamily{LUC}{ogul}{\hyphenchar\font\m@ne}
+
+\DeclareFontShape{LUC}{ogul}{m}{n}{<-> LUC * ogulim}{}
+

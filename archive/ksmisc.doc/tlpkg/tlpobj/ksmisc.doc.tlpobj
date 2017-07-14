@@ -1,0 +1,13 @@
+name ksmisc.doc
+category Package
+revision 200
+shortdesc doc files of ksmisc
+relocated 1
+docfiles size=97
+ RELOC/doc/latex/ksmisc/ksjosaref-doc.pdf
+ RELOC/doc/latex/ksmisc/ksjosaref-doc.tex
+ RELOC/doc/latex/ksmisc/ksmiscdoc.pdf
+ RELOC/doc/latex/ksmisc/ksmiscdoc.tex
+ RELOC/doc/latex/ksmisc/kstextks-doc.pdf
+ RELOC/doc/latex/ksmisc/kstextks-doc.tex
+ RELOC/doc/latex/ksmisc/testpreparefont.tex

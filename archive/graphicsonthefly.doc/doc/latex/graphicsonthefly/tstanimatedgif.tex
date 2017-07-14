@@ -1,0 +1,14 @@
+% arara: xelatex: { shell: yes }
+\documentclass[a4paper]{oblivoir}
+
+\usepackage[all]{graphicsonthefly}
+
+\parindent=0pt
+
+\begin{document}
+
+\includegraphicsonthefly*[width=\textwidth]{mytesta}{http://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Lake_mapourika_NZ.jpeg/800px-Lake_mapourika_NZ.jpeg}
+
+\animatedgifonthefly[width=4cm,autoplay,loop]{10}{butterfly}{0}{*}{http://www.animatedgif.net/animals/bugs/butrfly_e0.gif}
+
+\end{document}
