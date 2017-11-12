@@ -1,5 +1,7 @@
 # KTUG Private Repository
 
+**To browse the repository faster, use [KTUG PR browser](https://koreantug.github.io/ktugpr-browser).**
+
 한국어 가이드는 : http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository
 
 ## Aim
