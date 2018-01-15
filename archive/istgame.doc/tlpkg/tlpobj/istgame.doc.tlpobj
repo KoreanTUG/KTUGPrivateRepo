@@ -1,9 +1,0 @@
-name istgame.doc
-category Package
-revision 202
-shortdesc doc files of istgame
-relocated 1
-docfiles size=51
- RELOC/doc/latex/istgame/istgame-doc-v09.tex
- RELOC/doc/latex/istgame/istgame-doc.pdf
- RELOC/doc/latex/istgame/istgame-doc.tex

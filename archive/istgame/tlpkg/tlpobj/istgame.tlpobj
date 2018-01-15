@@ -1,9 +1,0 @@
-name istgame
-category Package
-revision 202
-shortdesc drawing extensive game trees with TikZ (ischo)
-relocated 1
-runfiles size=14
- RELOC/tex/latex/istgame/istgame-v07.sty
- RELOC/tex/latex/istgame/istgame-v08.sty
- RELOC/tex/latex/istgame/istgame.sty
