@@ -1,6 +1,6 @@
 # KTUG Private Repository
 
-**To browse the repository faster, use [KTUG PR browser](https://koreantug.github.io/ktugpr-browser).**
+**To browse the repository more conviniently, use [KTUG PR browser](https://koreantug.github.io/ktugpr-browser).**
 
 한국어 가이드는 : http://wiki.ktug.org/wiki/wiki.php/KtugPrivateRepository
 
@@ -69,7 +69,7 @@
 
 ## List of Packages
 
-(In alphabetical order, as of 2015.09)
+(In alphabetical order, as of 2018.01)
 
 - **arara-rules-ko** 한글 사용자를 위한 arara rules 추가 
 - **graphicsonthefly** web상의 그림을 includegraphics 
@@ -78,7 +78,6 @@
 - **hcr-lvt** 함초롬LVT 트루타입 폰트
 - **hnja2hngl** 한자로 입력된 텍스트에 한글 음을 (반)자동으로 붙여줌 (readhanja참조) 
 - **ifpxltex** 엔진 확장
-- **istgame** Drawing game trees with TikZ (ischo)
 - **jiwonlipsum** lipsum for Korean 
 - **ko-blacklist** luatex culprit font blacklist
 - **kocircnum** 원숫자
