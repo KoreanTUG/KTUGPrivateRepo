@@ -53,7 +53,7 @@
 %%%
 \RequirePackage{expl3}
 \ProvidesExplPackage
-	{hangulfontset}{2014/06/11}{0.32}{setup hangul mj/gt font families}
+	{hangulfontset}{2017/11/21}{0.32.1}{setup hangul mj/gt font families}
 
 \RequirePackage{l3keys2e}
 \RequirePackage{kotex}
@@ -144,7 +144,7 @@
 	{ compile~the~document~with~xelatex~or~lualatex }
 	{ this~package~does~not~support~pdftex. }
 
-\pdftex_if_engine:T
+\sys_if_engine_pdftex:T
 {
 	\msg_error:nn { hangulfontspec } { pdftex~is~not~supported }
 }

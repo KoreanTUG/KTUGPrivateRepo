@@ -1,6 +1,6 @@
 name hangulfontset
 category Package
-revision 200
+revision 201
 shortdesc hangul font presets, [nanum] and [hcr], written by Karnes
 relocated 1
 runfiles size=4

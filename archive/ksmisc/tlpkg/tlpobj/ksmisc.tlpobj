@@ -1,6 +1,6 @@
 name ksmisc
 category Package
-revision 200
+revision 201
 shortdesc miscellaneous packages written by Karnes
 relocated 1
 runfiles size=8

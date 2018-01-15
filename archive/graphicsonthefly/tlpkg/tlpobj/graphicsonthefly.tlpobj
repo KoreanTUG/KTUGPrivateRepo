@@ -1,6 +1,6 @@
 name graphicsonthefly
 category Package
-revision 200
+revision 202
 shortdesc include graphics on the web (needs --shell-escape), written by Karnes
 relocated 1
 runfiles size=3

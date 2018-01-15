@@ -1,6 +1,6 @@
 name kocircnum
 category Package
-revision 200
+revision 201
 shortdesc circle numbers with hcr/hz/tikz, written by Karnes
 relocated 1
 runfiles size=9

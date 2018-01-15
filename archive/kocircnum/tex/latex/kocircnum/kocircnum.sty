@@ -11,7 +11,7 @@
 % \hcrcircnum, \hzcircnum, \tikzcircnum
 % \circnum
 %
-\ProvidesPackage{kocircnum}[2014/06/17 v1.2.1 circled number with hcr/hz/tikz]
+\ProvidesPackage{kocircnum}[2017/06/17 v1.2.1.1 circled number with hcr/hz/tikz]
 
 \newif\if@hcrcirc\newif\if@hzcirc\newif\if@tikzcirc\newif\if@tikzsmall
 \@hcrcirctrue\@hzcircfalse\@tikzcircfalse\@tikzsmallfalse
@@ -37,7 +37,7 @@
 
 \ExplSyntaxOn
 
-\pdftex_if_engine:TF
+\sys_if_engine_pdftex:TF
 {
 	\AtEndOfPackage {
 		\let \hcrcircnum \hzcircnum
@@ -796,6 +796,7 @@
 \fi
 \endinput
 
+%% v1.2.1.1: \sys_if_engine_pdftex
 %% v1.2.1: bugfix with \declaretikzcircnum...setup.
 %% v1.2: reimplement \hcrnumbers
 %% v1.1: \tikz... has [linewidth=] option key. colorinv (white/black) = color (white/black)

@@ -17,7 +17,7 @@
 %%%
 \RequirePackage{expl3}
 \ProvidesExplPackage{hanjacnt}
-{2014/06/28}{2.7}{hanja/hangul counter}
+{2017/11/22}{2.7.1}{hanja/hangul counter}
 
 \bool_new:N		\hanja_mode		\bool_set_false:N \hanja_mode
 \bool_new:N 	\twenty_hanja	\bool_set_false:N \twenty_hanja
@@ -87,7 +87,7 @@
 
 \NewDocumentCommand \HanjaZeroFont { m }
 {
-	\pdftex_if_engine:TF
+	\sys_if_engine_pdftex:TF
 	{
 		\tl_clear:N \zero_hanja_font
 	}
@@ -100,7 +100,7 @@
 
 \NewDocumentCommand \NumHanjaFont { m }
 {
-	\pdftex_if_engine:TF
+	\sys_if_engine_pdftex:TF
 	{
 		\tl_clear:N \num_hanja_font
 	}
@@ -114,7 +114,7 @@
 
 \NewDocumentCommand \HanjaZero { m }
 {
-	\pdftex_if_engine:TF
+	\sys_if_engine_pdftex:TF
 	{
 		\tl_set:Nn \zero_hanja_char { ○ } %% ^^^^25E6
 	}
@@ -125,7 +125,7 @@
 
 \NewDocumentCommand \TwentyHanjaChar { o }
 {
-	\pdftex_if_engine:TF
+	\sys_if_engine_pdftex:TF
 	{
 		\tl_set:Nn \twenty_hanja_char { 二 }
 		\tl_set:Nn \thirty_hanja_char { 三 }
@@ -1433,6 +1433,7 @@
 
 \endinput
 
+%%% v2.7.1: \pdf_if_engine => \sys_if_engine_pdftex
 %%% v2.7: introduce \MarkHanja, user-defined Hanja Character
 %%% v2.5: \KRVverse, \KRVcom
 %%% v2.4: comma-seperated numbers with BIG.

@@ -5,7 +5,7 @@
 % --shell-escape
 %
 \RequirePackage{expl3}
-\ProvidesExplPackage{preparefont}{2014/11/23}{v0.4}{download font from web}
+\ProvidesExplPackage{preparefont}{2017/11/23}{v0.4.1}{download font from web}
 
 \RequirePackage{xparse}
 \RequirePackage{ifplatform}
@@ -16,7 +16,7 @@
 	{ xetex~or~luatex~is~required~to~compile~this~document. }
 	{ run~xelatex~or~lualatex }
 
-\pdftex_if_engine:T
+\sys_if_engine_pdftex:T
 {
 	\msg_error:nn { preparefont } { pdftex~unsupported }
 }
@@ -29,7 +29,7 @@
 	\tl_set:Nn \PFWgetWithName {curl~--basic~-o~}
 \fi
 
-\RequirePackage{l3regex}
+%\RequirePackage{l3regex}
 
 \ior_new:N  \_tmp_file
 \bool_new:N \_fontfile_exist

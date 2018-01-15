@@ -3,6 +3,7 @@
 %%% public domain.
 %%%
 %%% Changes:
+%%%   2017-11-21: v0.0013: \sys_...
 %%%   2014-05-25: v0.0012: \pxlRequireTeX introduced.
 %%%   2014-05-24: v0.0010: \IfpxlTeXpxl* defined.
 %%%   2014-05-23: v0.0009: deprecate etextools dependency.
@@ -33,7 +34,7 @@
 %%%
 \RequirePackage{expl3}
 \ProvidesExplPackage{ifpxltex}
-{2014/05/25}{0.0012}{provides IfpxlTeX command}
+{2017/11/22}{0.0013}{provides IfpxlTeX command}
 
 \RequirePackage{xparse}
 \RequirePackage{hologo}
@@ -49,17 +50,17 @@
 	\clist_set:Nn \l_tmpa_clist { #1 }
 	\clist_if_in:NnT \l_tmpa_clist {p}
 	{
-		\pdftex_if_engine:T
+		\sys_if_engine_pdftex:T
 		{ \bool_gset_true:N \pxl_bool_engine }
 	}
 	\clist_if_in:NnT \l_tmpa_clist {x}
 	{
-		\xetex_if_engine:T
+		\sys_if_engine_xetex:T
 		{ \bool_gset_true:N \pxl_bool_engine }
 	}
 	\clist_if_in:NnT \l_tmpa_clist {l}
 	{
-		\luatex_if_engine:T
+		\sys_if_engine_luatex:T
 		{ \bool_gset_true:N \pxl_bool_engine }
 	}
 }

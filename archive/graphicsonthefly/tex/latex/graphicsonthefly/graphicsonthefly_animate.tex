@@ -1,4 +1,5 @@
 %%% sub inclusion file of graphicsonthefly.sty
+%%% v0.9.5 (2011/11/25)
 %%%
 \ExplSyntaxOn
 
@@ -64,12 +65,12 @@
 			\immediate\write18 { \RemoveCommand~#4.gif }
 			\immediate\write18 { \RemoveCommand~#4-*.png }
 			\get_image_file:nn { #4 } { \l_tmp_url }
-			\immediate\write18{ convert~-coalesce~#4.gif~#4.png }
+			\immediate\write18{ \ConvertCommand~#4.gif~\CoalesceOption~#4.png }
 		}
 	}
 	{
 		\get_image_file:nn { #4 } { \l_tmp_url }
-		\immediate\write18{ convert~-coalesce~#4.gif~#4.png }
+		\immediate\write18{ \ConvertCommand~#4.gif~\CoalesceOption~#4.png }
 	}
 	
 	\animatedgif [ #2 ] { #3 } { #4 } { #5 } { #6 }

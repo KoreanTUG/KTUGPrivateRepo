@@ -1,6 +1,6 @@
 name hanjacnt
 category Package
-revision 200
+revision 201
 shortdesc translate number/counter to hanja/hangul, written by Karnes
 relocated 1
 runfiles size=9
