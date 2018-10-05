@@ -17,7 +17,7 @@
 
 1. Add KTUG private repo. 
 
-   `$ sudo tlmgr repository add http://ftp.ktug.org/KTUG/texlive/tlnet/ktug`
+   `$ sudo tlmgr repository add http://ftp.ktug.org/KTUG/texlive/tlnet ktug`
 
 2. Add pinning. 
 
