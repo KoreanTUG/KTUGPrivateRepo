@@ -1,0 +1,176 @@
+% !TEX TS-program = arara
+% arara: xelatex: { shell: yes }
+
+\documentclass[a4paper]{oblivoir}
+
+\usepackage{fapapersize}
+\usefapapersize{*,*,1in,*,1in,*}
+
+\setkomainfont[Noto Serif CJK KR]()( Bold)
+\setmainfont{Noto Serif}
+%\setmonofont{Monaco}[Scale=.9]
+
+\usepackage{xcolor}
+\usepackage{ksruby}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable}
+
+\ExplSyntaxOn
+
+\int_new:N \l_parnum_int
+
+\NewDocumentCommand \numpar { }
+{
+	\int_incr:N \l_parnum_int
+	
+	\bigskip
+		
+	\noindent
+	\makebox[2em][l]{\bfseries \int_use:N \l_parnum_int .}
+}
+
+\ExplSyntaxOff
+
+\def\pkg#1{\textsf{#1}}
+
+\begin{document}
+
+\title{\texttt{ksruby} 패키지}
+\author{Noname}
+\date{2019/05/22, v0.0$\beta$}
+
+\maketitle
+\firmlists
+
+\numpar 
+\XeLaTeX 에서, 한글 문서에 루비 문자(또는 그 아류)를 쓰려 할 적에 현재까지 CJK의 \pkg{ruby} 패키지에 의존해왔다. 몇 가지 마음에 들지 않는 것이 있어서 새로 만들기로 하고 이를 테스트한다. \pkg{luatexko}에는 이미 \verb|\ruby| 명령이 따로 존재하므로 주로 \pkg{xetexko}와 함께 쓰기 위함이다.
+
+\numpar
+패키지는 다음과 같이 로드한다.
+\begin{tcblisting}{listing only}
+\usepackage[<options>]{ksruby}
+\end{tcblisting}
+옵션은 다음과 같다.
+\begin{itemize}
+\item \texttt{rubysep=<dim>}. 기저 글자와 루비 글자 사이의 간격을 설정한다. 기본값은 \texttt{0pt}.
+\item \texttt{rubysize=<size>}. 루비 글자의 상대적 크기를 지정한다. 배수이므로 단위 없이 적어야 한다. 기본값은  \texttt{0.6}.
+\item \texttt{rubyeachchar=<true|false>}. 글자마다 루비를 다는 방식으로 식자한다. 5번 문단에서 설명한다.
+\end{itemize}
+
+\numpar
+기본 명령은 \verb|\ksruby|이다. 다른 루비 패키지를 로드하지 않았다면 \verb|\ruby| 명령을 변형으로서 쓸 수 있다.
+두 개의 인자를 취하며 \verb|#1|이 기저 문자이고 \verb|#2|가 루비 문자이다.
+\begin{tcblisting}{listing side text}
+\ksruby{루비}{ruby}
+\ruby{선언}{宣言}
+\end{tcblisting}
+만약 CJK의 \pkg{ruby} 패키지를 미리 로드하였거나 \pkg{luatexko}가 작동하고 있다면 그 경우에 \verb|\ruby| 명령은 미리 로드한 정의를 따라간다. 이 때에 \verb|\ksruby|만이 이 패키지의 것이 된다.
+
+\numpar
+\verb|\ksruby*|와 같이 별표를 붙이면 글자마다 루비를 붙이는 방식으로 식자한다. 다만 이 때는 첫 번째 인자와 두 번째 인자의 글자수가 같아야 하며 만약 글자수가 다르면 별표를 붙이지 않은 것과 똑같이 식자한다.
+\begin{tcblisting}{listing side text}
+\ksruby*{선언}{宣言}
+\ksruby*{루비}{ruby}
+\end{tcblisting}
+
+\numpar 
+패키지 옵션으로 \verb|[rubyeachchar]|가 선언되면 \verb|\ksruby| 명령은 별표를 붙이지 않아도 글자마다 식자하는 방식으로 변화한다.
+문장 중에 \verb|\ksrubyeachchardefault| 명령을 주면 같은 일이 일어난다.
+\begin{tcblisting}{listing side text}
+\ksrubyeachchardefault
+\ksruby{선언}{宣言}
+\ksruby{루비}{ruby}
+\end{tcblisting}
+이 선언은 지역적(\emph{local})이므로 그룹 밖에까지 영향을 미치지 않는다. 만약 원래의 값으로 이를 되돌리려 한다면 \verb|\ksrubyeachchardefault[false]|라고 선언할 수 있다.
+\begin{tcblisting}{listing side text}
+\ksrubyeachchardefault[false]
+\ksruby{선언}{宣言}
+\ksruby{루비}{ruby}
+\end{tcblisting}
+
+\numpar
+\verb|rubysep|과 \verb|rubysize|를 문서 중에서 바꿀 수 있다. 이 때에는 \verb|\ksrubysep|이나 \verb|\ksrubysize| 명령을 쓴다. \verb|\ksrubysize| 선언은 전역적(\emph{global})이고
+\verb|\ksrubysep|은 지역적(\emph{local})이다.
+\begin{tcblisting}{listing side text}
+{\ksrubysep{5pt}   \ruby{선언}{宣言}}
+\ksrubysize{1}
+\ruby{선언}{宣言}
+\end{tcblisting}
+
+\numpar 
+\ksrubysize{.6}
+\verb|\ksrubyextra|라는 특별한 명령이 있다. 이것은 루비 문자를 식자하기 시작하는 위치에 원하는 명령을 추가할 수 있게 하는 것이다. 주로 루비 텍스트의 색상을 지정하기 위해 쓸 수 있다. 
+\begin{tcblisting}{listing side text}
+\ksrubyextra{\color{red}}
+\ruby{선언}{宣言}
+\end{tcblisting}
+이 선언은 전역적이므로 원래 상태로 돌리기 위해서는 \verb|\ksrubyextra{}|를 선언해주어야 한다.
+
+\numpar 
+세로쓰기에서도 원하는 대로 잘 나타남을 볼 수 있다. 다만 세로쓰기 시에는 \verb|rubysep|을 조금 조정해야
+할 필요가 있을 수 있다.
+\begin{tcblisting}{listing side text}
+\begin{vertical}{10em}
+\adhochangulfont{Noto Serif CJK KR}%
+   [Vertical=RotatedGlyphs,%
+    RawFeature=vertical]
+\adhochanjafont{Noto Serif CJK KR}%
+   [Vertical=RotatedGlyphs,%
+    RawFeature=vertical]
+\ksrubysep{-2pt}
+\ruby{차}{此}를 \ruby*{선언}{宣言}함이며
+\end{vertical}
+\end{tcblisting}
+
+\numpar 
+CJK의 \pkg{ruby}보다 좋은 점이 있다면 이른바 ``행 간격 이슈''가 발생하지 않는다는 것이다. 
+\begin{tcblisting}{listing side text,breakable}
+\ksruby*{吾等}{오등}은 \ksruby*{玆}{자}에 \ksruby*{我}{아} \ksruby*{朝鮮}{조선}의 \ksruby*{獨立國}{독립국}임과 \ksruby*{朝鮮人}{조선인}의 \ksruby*{自主民}{자주민}임을 \ksruby*{宣言}{선언}하노라 
+\end{tcblisting}
+\begin{tcblisting}{listing side text,breakable}
+\linespread{2.5}
+\ksruby*{吾等}{오등}은 \ksruby*{玆}{자}에 \ksruby*{我}{아} \ksruby*{朝鮮}{조선}의 \ksruby*{獨立國}{독립국}임과 \ksruby*{朝鮮人}{조선인}의 \ksruby*{自主民}{자주민}임을 \ksruby*{宣言}{선언}하노라 
+\end{tcblisting}
+
+
+\numpar
+일본어의 루비를 이 패키지로 완전히 구현하지 않았다. 이 패키지는 주로 한글 문서를 위한 것이다. 
+일본어 문서의 루비에 대한 표준은 \href{https://www.w3.org/TR/jlreq/#ruby_and_emphasis_dots}{Requirements for Japanese Text Layout}에 있는데 이를 구현하는 것은 일본어 텍의 일이 아니겠는가.
+
+\numpar 
+행나눔에 관한 메모. \verb|\ksruby| 명령은 기저문자를 박스로 식자하고 그 위에 루비문자를 역시 박스로 올려붙이는 것이므로 이 명령이 적용되는 단어에서는 행나눔이 일어나지 아니한다.
+그러나 \verb|\ksruby*| 즉 \verb|rubyeachchar|가 활성화되어 있는 상태에서는 글자마다 박스로 식자하므로 글자 끝에서 행나눔이 일어날 수 있다.
+
+\numpar
+변경사항: 
+\begin{enumerate}
+\item v0.0.1에서 현재 식자되고 있는 폰트 크기를 자동으로 알아내어서 거기에 맞추어 루비 문자를 찍도록 하는 기능을 추가하였다.
+\end{enumerate}
+\begin{tcblisting}{listing side text}
+\small \ruby{發達}{발달}
+\normalsize \ruby{發達}{발달}
+\large \ruby{發達}{발달}
+\Large \ruby{發達}{발달}
+\LARGE \ruby{發達}{발달}
+\end{tcblisting}
+
+\newpage
+
+\begin{tcblisting}{listing above text}
+\ksrubyeachchardefault
+\ksrubyextra{\color{blue!50!gray}}
+\ruby{噫}{희}라! \ruby{舊來}{구래}의 \ruby{抑鬱}{억울}을 \ruby{宣暢}{선창}하려 하면,
+\ruby{時下}{시하}의 \ruby{苦痛}{고통}을 \ruby{擺脫}{파탈}하려 하면,
+\ruby{將來}{장래}의 \ruby{脅威}{협위}를 \ruby{芟除}{삼제}하려 하면,
+\ruby{民族的良心}{민족적량심}과 \ruby{國家的廉義}{국가적염의}의 \ruby{壓縮銷殘}{압축소잔}을 \ruby{興奮伸張}{흥분신장}하려 하면,
+\ruby{各個人格}{각개인격}의 \ruby{正當}{정당}한 \ruby{發達}{발달}을 \ruby{遂}{수}하려 하면,
+\ruby{可憐}{가련}한 \ruby{子弟}{자제}에게 \ruby{苦恥的財產}{고치적재산}을 \ruby{遺與}{유여}치 안이하려 하면,
+\ruby{子子孫孫}{자자손손}의 \ruby{永久完全}{영구완전}한 \ruby{慶福}{경복}을 \ruby{導迎}{도영}하려 하면,
+\ruby{最大急務}{최대급무}가 \ruby{民族的獨立}{민족적독립}을 \ruby{確實}{확실}케 함이니,
+\ruby{二千萬各個}{이천만각개}가 \ruby{人}{인}마다 \ruby{方寸}{방촌}의 \ruby{刃}{인}을 \ruby{懷}{회}하고
+\ruby{人類通性}{인류통승}과 \ruby{時代良心}{시대량심}이 \ruby{正義}{정의}의 \ruby{軍}{군}과 \ruby{人道}{인도}의 \ruby{干戈}{간과}로써 \ruby{護援}{호원}하는 \ruby{今日}{금일},
+\ruby{吾人}{오인}은 \ruby{進}{진}하야 \ruby{取}{취}하매 \ruby{何强}{하강}을 \ruby{挫}{좌}치 못하랴, \ruby{退}{퇴}하야 \ruby{作}{작}하매 \ruby{何志}{하지}를 \ruby{展}{전}치 못하랴.
+\end{tcblisting}
+
+\end{document}

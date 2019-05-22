@@ -1,0 +1,7 @@
+name ksruby
+category Package
+revision 200
+shortdesc typeset ruby characters with xetexko
+relocated 1
+runfiles size=4
+ RELOC/tex/latex/kotex-sections/kotex-sections.sty

@@ -1,0 +1,133 @@
+% ksruby.sty
+%
+% written by Nova de Hi.
+% LPPL
+%
+\ProvidesPackage{ksruby}[2019/05/22 v0.0.1 beta]
+
+\RequirePackage{stackengine}
+\RequirePackage{xparse,expl3}
+\RequirePackage{l3keys2e}
+
+\ExplSyntaxOn 
+
+\keys_define:nn { ksRuby }
+{
+	rubysep	.dim_set:N = \ksruby_sep_dim,
+	rubysize .tl_set:N = \ksruby_size_tl,
+	rubyxtra .tl_set:N = \ksruby_xtra_tl,
+	rubyeachchar .bool_set:N = \ksruby_eachchar_bool
+}
+
+\keys_set:nn { ksRuby }
+{
+	rubysep = 0em,
+	rubysize = 0.6,
+	rubyxtra = {}
+}
+
+\ProcessKeysOptions { ksRuby }
+\scan_stop:
+
+\renewcommand\stacktype{L}
+
+%%% default rubysep
+%\exp_args:NNo \dim_const:Nn \c_stackgap_dim { \fp_eval:n { \f@size + .5 } pt }
+%\dim_add:Nn \ksruby_sep_dim { \c_stackgap_dim }
+%\setstackgap{L}{\ksruby_sep_dim}
+
+\dim_new:N \l_ksrubystackgap_dim
+
+\cs_new:Npn \ksruby_base:nn #1 #2
+{
+	\hbox_set:Nn \l_tmpa_box { #2 }
+	\box_scale:Nnn \l_tmpa_box { \ksruby_size_tl } { \ksruby_size_tl }
+	\stackon { #1 } { \ksruby_xtra_tl \box_use:N \l_tmpa_box }
+}
+
+\NewDocumentCommand \ksrubysep { m }
+{
+%	\dim_set:Nn \l_tmpa_dim { #1 + \c_stackgap_dim }
+%	\setstackgap{L}{\l_tmpa_dim}
+	\dim_set:Nn \ksruby_sep_dim { #1 }
+}
+
+\NewDocumentCommand \ksrubysize { m }
+{
+	\tl_gset:Nn \ksruby_size_tl { #1 }
+}
+
+\NewDocumentCommand \ksrubyextra { m }
+{
+	\tl_gset:Nn \ksruby_xtra_tl { #1 }
+}
+
+\cs_new:Npn \ksruby_each_char:nn #1 #2
+{
+    \seq_set_split:Nnn \l_tmpa_seq {} { #1 }
+    \seq_set_split:Nnn \l_tmpb_seq {} { #2 }
+    \int_compare:nTF { \seq_count:N \l_tmpa_seq == \seq_count:N \l_tmpb_seq }
+    {
+        \seq_indexed_map_inline:Nn \l_tmpa_seq
+        {
+             \seq_pop_left:NN \l_tmpb_seq \l_tmpb_tl
+             \exp_args:Nno \ksruby_base:nn { ##2 } { \l_tmpb_tl } 
+             \int_compare:nF { ##1 == \seq_count:N \l_tmpa_seq }
+             { \allowbreak }
+        }
+    }
+    {
+    	\ksruby_base:nn { #1 } { #2 }
+	}
+}
+
+\cs_new:Nn \ksruby_fontsize_check:
+{
+	\exp_args:NNo \dim_set:Nn \l_tmpa_dim { \fp_eval:n { 1.05*\f@size } pt }
+	\dim_add:Nn \l_tmpa_dim { \ksruby_sep_dim }
+	\setstackgap{L}{\l_tmpa_dim}
+}
+
+\NewDocumentCommand \ksruby { s m m }
+{
+	\ksruby_fontsize_check:
+	\IfBooleanTF { #1 }
+	{
+		\ksruby_each_char:nn { #2 } { #3 }
+	}
+	{
+		\bool_if:NTF \ksruby_eachchar_bool
+		{
+			\ksruby_each_char:nn { #2 } { #3 }
+		}
+		{	
+			\ksruby_base:nn { #2 } { #3 }
+		}
+	}
+}
+
+\NewDocumentCommand \ksrubyeachchardefault { o }
+{
+	\IfValueTF { #1 }
+	{
+		\str_case:nn { #1 }
+		{
+			{ true } { \bool_set_true:N \ksruby_eachchar_bool }
+			{ false } { \bool_set_false:N \ksruby_eachchar_bool }
+		}
+	}
+	{
+		\bool_set_true:N \ksruby_eachchar_bool
+	}
+}
+
+\cs_if_exist:NF \ruby
+{
+	\cs_set_eq:NN \ruby \ksruby
+}
+
+\ExplSyntaxOff
+\endinput
+
+
+%% v0.0.1: font size check mechanism introduced.

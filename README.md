@@ -48,7 +48,7 @@
    ```
    $ sudo tlmgr repository remove ktug
    $ sudo rm -f /usr/local/texlive/texmf-local/tlpkg/pinning.txt
-   ``` 
+   ```
 
 ### Managing pinning
 
@@ -61,7 +61,7 @@
    ```
    $ sudo tlmgr pinning remove ktug --all
    $ sudo tlmgr pinning remove kotex --all (If `kotex:*` remains)
-   ``` 
+   ```
 
 3. To add pinning,
 
@@ -87,6 +87,7 @@
 - **ksbaduk** Drawing Baduk (go) Diagrams with TikZ
 - **ksforloop** for-loop
 - **ksmisc** misc packages by Karnes
+- **ksruby** use ruby characters with xetexko
 - **kswrapfig** 그림 주변으로 텍스트 흘리기
 - **ktugbin** (Windows) 윈도우즈 사용자를 위한 ko.TeX Live 추가 실행 파일 
 - **nanumbaruntype1** 나눔바른고딕 type1

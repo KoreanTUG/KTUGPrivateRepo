@@ -1,0 +1,8 @@
+name ksruby.doc
+category Package
+revision 200
+shortdesc doc files of ksruby
+relocated 1
+docfiles size=33
+ RELOC/doc/latex/ksruby/ksruby-doc.pdf
+ RELOC/doc/latex/ksruby/ksruby-doc.tex
